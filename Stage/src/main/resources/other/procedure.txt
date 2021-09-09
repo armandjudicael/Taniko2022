@@ -1,0 +1,31 @@
+Constatation de l'etat des lieux (CEL),A
+mis à jour des plans (Operateur topographe),A
+Service Regionnale de l'Amménagement du Territoire (SRAT),A
+Sécond répérage et calcul superficie attribuable,A
+Preparation du dossier pour décision (SRD/DGSF),A
+Pour verification (PREVISA) à l'adjointe,A
+Pour VISA de la décision et signature au CCDF,A
+Pour décision decision de principe (SRD/DGSF),A
+Transmis au CCDF pour VISA ,A
+Creation titre et creation de chemise pour bornage ,A
+VISA de la creation du titre,A
+Pour bornage,A
+Pour VISA CCDF,A
+Pour Fixation des Limites et Contenance (FLC),A
+Pour VISA et signature FLC,A
+Décompte du Provision domaniale,A
+Avis de paiement,A
+Pour pre-VISA approbation ACCDF,A
+Pour VISA approbation CCDF,A
+Pour approbation (Prefet ou Min ATTP),A
+VISA CCDF,A
+Dépense contribution,A
+Rédaction de mutation après approbation,A
+VISA et signature CCDF,A
+Pour enregistrement de l'acte de vente  au centre fiscal,A
+Délivrance du duplicata du titre foncier,A
+Paiement conservation et consignation,P
+Pour affichage (MAIRIE),P
+Pour convocation de constatation de mis en valeur(CMV),P
+Constatation de mis en valeur (CMV),P
+Affichage ( PV / CMV  Mairie ),P

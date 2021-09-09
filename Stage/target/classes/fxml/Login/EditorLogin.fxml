@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="368.0" prefWidth="388.0" stylesheets="@../../css/login.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Circle fx:id="profilRedacteur" fill="WHITE" layoutX="194.0" layoutY="80.0" radius="66.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" />
+        <Label fx:id="nomRedacteur" alignment="CENTER" contentDisplay="CENTER" layoutX="28.0" layoutY="156.0" prefHeight="21.0" prefWidth="332.0" textFill="#4d4a4a" wrapText="true">
+            <font>
+                <Font size="15.0" />
+            </font>
+        </Label>
+        <JFXButton fx:id="submitBtn" alignment="CENTER_RIGHT" buttonType="RAISED" contentDisplay="RIGHT" defaultButton="true" graphicTextGap="110.0" layoutX="28.0" layoutY="317.0" prefHeight="36.0" prefWidth="332.0" style="-fx-background-color: #3CB371;" text="Valider" textFill="#f8f6f6">
+            <font>
+                <Font size="14.0" />
+            </font>
+         <graphic>
+            <ImageView fitHeight="21.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../img/next_page_32px.png" />
+               </image>
+            </ImageView>
+         </graphic>
+        </JFXButton>
+        <HBox fx:id="wrapper" alignment="CENTER" layoutX="28.0" layoutY="221.0" prefHeight="36.0" prefWidth="332.0" styleClass="box">
+            <children>
+                <ImageView fitHeight="31.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../img/secure_50px.png" />
+                    </image>
+                </ImageView>
+                <PasswordField fx:id="password" alignment="CENTER" prefHeight="36.0" prefWidth="260.0" promptText="mot de passe" style="-fx-background-color: transparent;">
+                    <font>
+                        <Font name="Arial Unicode MS" size="17.0" />
+                    </font>
+                </PasswordField>
+                <ImageView fx:id="eye" fitHeight="24.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../img/invisible_50px.png" />
+                    </image>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                </ImageView>
+            </children>
+            <padding>
+                <Insets right="4.0" />
+            </padding>
+        </HBox>
+        <JFXButton id="close" fx:id="closebtn" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" layoutX="309.0" layoutY="6.0" prefHeight="0.0" prefWidth="0.0" text="Button" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <graphic>
+                <ImageView fitHeight="29.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../img/delete_80px.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+            <padding>
+                <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+            </padding>
+        </JFXButton>
+        <CheckBox fx:id="checkBox" contentDisplay="CENTER" disable="true" layoutX="28.0" layoutY="277.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="332.0" text="Ne plus demander" textFill="#464141">
+            <font>
+                <Font size="15.0" />
+            </font>
+        </CheckBox>
+        <Label fx:id="incorect" alignment="CENTER" contentDisplay="CENTER" layoutX="28.0" layoutY="259.0" prefHeight="17.0" prefWidth="332.0" textAlignment="CENTER" textFill="#da2323" AnchorPane.bottomAnchor="90.0" />
+      <Label fx:id="passwordLabel" contentDisplay="CENTER" layoutX="28.0" layoutY="192.0" prefHeight="21.0" prefWidth="150.0" text="Mot de passe" textFill="#575252" wrapText="true">
+         <font>
+            <Font name="Arial Unicode MS" size="16.0" />
+         </font>
+      </Label>
+    </children>
+</AnchorPane>

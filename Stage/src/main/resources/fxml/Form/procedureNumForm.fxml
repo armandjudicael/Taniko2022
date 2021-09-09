@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="187.0" prefWidth="441.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox alignment="CENTER" layoutX="5.0" layoutY="42.0" prefHeight="94.0" prefWidth="428.0" spacing="10.0" style="-fx-background-color: whitesmoke;" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0">
+         <children>
+            <JFXTextField fx:id="numProcedure" focusColor="#617965" labelFloat="true" prefHeight="31.0" prefWidth="150.0" promptText="numero" unFocusColor="#505b50">
+               <font>
+                  <Font name="Arial Unicode MS" size="13.0" />
+               </font>
+            </JFXTextField>
+            <Separator orientation="VERTICAL" prefHeight="3.0" prefWidth="0.0" />
+            <JFXDatePicker fx:id="dateProcedure" editable="false" promptText="date" />
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
+         </padding>
+      </HBox>
+      <JFXButton id="close" fx:id="closeBtn1" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" layoutX="399.0" layoutY="6.0" prefHeight="0.0" prefWidth="0.0" text="Button" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <graphic>
+            <ImageView fitHeight="29.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../img/delete_80px.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <padding>
+            <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+         </padding>
+      </JFXButton>
+      <JFXButton fx:id="closeBtn" buttonType="RAISED" contentDisplay="RIGHT" layoutX="194.0" layoutY="145.0" prefHeight="22.0" prefWidth="108.0" style="-fx-background-color: #f14858;" text="annuler" textFill="WHITE" AnchorPane.bottomAnchor="10.0">
+         <font>
+            <Font name="Century Gothic" size="14.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="saveBtn" buttonType="RAISED" contentDisplay="RIGHT" layoutX="319.0" layoutY="145.0" prefHeight="10.0" prefWidth="108.0" style="-fx-background-color: #1aa848;" text="enregistrer" textFill="WHITE" AnchorPane.bottomAnchor="10.0">
+         <font>
+            <Font name="Century Gothic" size="14.0" />
+         </font>
+      </JFXButton>
+      <Text fill="#403f3f" layoutX="47.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nouveau procedure" wrappingWidth="128.13671875">
+         <font>
+            <Font name="Arial Unicode MS" size="14.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="26.0" fitWidth="32.0" layoutX="14.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../img/workflow_50px.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

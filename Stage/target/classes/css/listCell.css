@@ -1,0 +1,8 @@
+.list-cell:hover {
+     -fx-background-color: #93f9b9;
+     -fx-text-fill: #292929;
+ }
+
+.list-cell:selected {
+    -fx-background-color: #93f9b9;
+}

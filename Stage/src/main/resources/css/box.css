@@ -1,0 +1,18 @@
+.box{
+    -fx-border-color: #B4B4B4;
+    -fx-border-width: 1.2px;
+    -fx-border-radius: 4px;
+}
+
+.box:focused {
+    -fx-border-color: #1AA848;
+}
+
+.box:hover {
+    -fx-border-color: #41a849;
+    -fx-border-width: 1.8px;
+}
+
+.boxError {
+    -fx-border-color: #FF3A3A;
+}

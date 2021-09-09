@@ -1,0 +1,82 @@
+.navLabel {
+    -fx-background-color: #FFF;
+    -fx-border-color: #FFF #FFF #FFF #1aa848;
+    -fx-border-width: 0px 0px 0px 6px;
+    -fx-border-style: solid;
+}
+.unfocusLabel {
+    -fx-font-family:"Arial Unicode MS";
+    -fx-font-size: 14px;
+}
+.bar {
+    -fx-border-color: #9d9a9a #FFF #9d9a9a #FFF;
+    -fx-border-width: 1px 0px 1px 0px;
+    -fx-border-style: solid;
+}
+.btn{
+
+}
+
+/*.item{*/
+/*-fx-background-color: #FFF;*/
+/*-fx-background-radius:10px;*/
+/*}*/
+/*.btn{*/
+/*-fx-background-color:#0062ff;*/
+/*}*/
+
+/*.textField{*/
+/*-fx-background-color: #FFF;*/
+/*-fx-background-radius : 8px;*/
+/*-fx-border-width : 0.5px;*/
+/*-fx-border-color : #0062ff;*/
+/*}*/
+/*#close:hover{*/
+/*-fx-background-color: red;*/
+/*}*/
+
+/*#close:hover{*/
+/*-fx-background-color: red;*/
+/*}*/
+
+/*.group{*/
+/*-fx-border-color : #00a8f3 transparent transparent transparent ;*/
+/*-fx-border-width : 3px 0px 0px 0px ;*/
+/*-fx-border-style : solid;*/
+/*}*/
+
+/*.classe{*/
+/*-fx-border-color : transparent white transparent transparent ;*/
+/*-fx-border-width : 0px 5px 0px 0px;*/
+/*-fx-border-style : solid;*/
+/*}*/
+
+/*.classeButton{*/
+/*-fx-border-color : transparent #00a8f3 transparent transparent ;*/
+/*-fx-border-width : 0px 5px 0px 0px;*/
+/*-fx-border-style : solid;*/
+/*}*/
+
+/*.table-View .column-header {*/
+/*-fx-background-color : #2787c8;*/
+/*}*/
+
+/*.table-View .column-header .label{*/
+/*-fx-text-fill : white;*/
+/*-fx-font-weight : bold;*/
+/*-fx-font-size : 1.4em;*/
+/*}*/
+
+/*.table-row-cell:selected{*/
+/*-fx-background-color : #00a8f3;*/
+/*-fx-size : 50px;*/
+/*}*/
+
+/*.table-View .cell {*/
+/*-fx-fixed-cell : 40px;*/
+/*-fx-alignement : center*/
+/*}*/
+
+/*.table-row-cell{*/
+/*-fx-size : 50px;*/
+/*}*/

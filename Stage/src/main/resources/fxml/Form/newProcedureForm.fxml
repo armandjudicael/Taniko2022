@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="265.0" prefWidth="520.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <JFXButton id="close" fx:id="closeBtn" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" layoutX="490.0" layoutY="8.0" prefHeight="0.0" prefWidth="0.0" text="Button" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <graphic>
+            <ImageView fitHeight="29.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../img/delete_80px.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <padding>
+            <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+         </padding>
+      </JFXButton>
+      <Label layoutX="6.0" prefHeight="36.0" prefWidth="194.0" text="Nouveau  procedure" textFill="#3c3939">
+         <graphic>
+            <ImageView fitHeight="40.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../img/workflow_510px.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <font>
+            <Font name="Arial Unicode MS" size="15.0" />
+         </font>
+      </Label>
+      <JFXButton fx:id="closeBtn1" buttonType="RAISED" contentDisplay="RIGHT" layoutX="277.0" layoutY="219.0" prefHeight="32.0" prefWidth="108.0" style="-fx-background-color: #f14858;" text="annuler" textFill="WHITE">
+         <font>
+            <Font name="Century Gothic" size="14.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="addBtn" buttonType="RAISED" contentDisplay="RIGHT" layoutX="398.0" layoutY="219.0" prefHeight="32.0" prefWidth="108.0" style="-fx-background-color: #389955;" text="enregister" textFill="WHITE">
+         <font>
+            <Font name="Century Gothic" size="14.0" />
+         </font>
+      </JFXButton>
+      <TextArea fx:id="procedureName" layoutX="13.0" layoutY="50.0" prefHeight="151.0" prefWidth="492.0" promptText="nom du procedure" />
+   </children>
+</AnchorPane>

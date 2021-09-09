@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="575.0" prefWidth="904.0" style="-fx-background-color: white; -fx-background-radius: 5px;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TableView fx:id="tableview" layoutX="15.0" layoutY="18.0" prefHeight="429.0" prefWidth="874.0" stylesheets="@../../../css/tableView.css" AnchorPane.bottomAnchor="39.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
+        <columns>
+          <TableColumn fx:id="numero" prefWidth="176.0" text="Numero" />
+          <TableColumn fx:id="applicantName" prefWidth="403.0" text="Nom du demandeur" />
+            <TableColumn fx:id="statusColumn" prefWidth="74.0" text="status" />
+            <TableColumn fx:id="dateDispatch" maxWidth="222.0" prefWidth="220.0" text="date dispatch" />
+        </columns>
+      </TableView>
+      <JFXButton id="close" fx:id="closeStage" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" layoutX="709.0" layoutY="9.0" prefHeight="0.0" prefWidth="0.0" text="Button" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <graphic>
+            <ImageView fitHeight="29.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../img/delete_80px.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <padding>
+            <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+         </padding>
+      </JFXButton>
+      <JFXButton fx:id="refreshBtn" buttonType="RAISED" layoutX="768.0" layoutY="57.0" prefHeight="33.0" prefWidth="118.0" style="-fx-background-color: #389955;" text="Actualiser" textFill="WHITE">
+         <graphic>
+            <ImageView fitHeight="23.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../img/refresh_50px.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <font>
+            <Font size="13.0" />
+         </font>
+      </JFXButton>
+      <Separator layoutY="36.0" prefHeight="0.0" prefWidth="752.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+      <Label fx:id="redactorName" alignment="CENTER" layoutX="240.0" layoutY="3.0" prefHeight="30.0" prefWidth="425.0" AnchorPane.leftAnchor="240.0" AnchorPane.rightAnchor="239.0">
+         <font>
+            <Font name="Arial Unicode MS" size="15.0" />
+         </font>
+      </Label>
+      <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="56.0" prefHeight="34.0" prefWidth="118.0" style="-fx-background-color: white;" styleClass="searchBox" stylesheets="@../../../css/login.css">
+         <effect>
+            <ColorAdjust />
+         </effect>
+         <children>
+            <ComboBox fx:id="viewFilter" prefHeight="30.0" prefWidth="116.0" promptText="Actuellement" style="-fx-background-color: transparent;" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" layoutX="190.0" layoutY="56.0" prefHeight="34.0" prefWidth="525.0" style="-fx-background-color: #e3e3e3;">
+         <children>
+            <JFXButton fx:id="searchbutton" contentDisplay="GRAPHIC_ONLY" prefHeight="41.0" prefWidth="39.0" HBox.hgrow="NEVER">
+               <graphic>
+                  <ImageView fitHeight="26.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../img/search_50p1x.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <TextField fx:id="searchTextField" alignment="CENTER" prefHeight="34.0" prefWidth="357.0" promptText="numero ou nom" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS">
+               <font>
+                  <Font name="Arial Unicode MS" size="14.0" />
+               </font>
+            </TextField>
+            <JFXButton fx:id="deleteButton" contentDisplay="GRAPHIC_ONLY" layoutX="10.0" layoutY="10.0" prefHeight="23.0" prefWidth="36.0" HBox.hgrow="ALWAYS">
+               <graphic>
+                  <ImageView fitHeight="25.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../img/delete_50pxred.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+         </children>
+      </HBox>
+      <ImageView fitHeight="34.0" fitWidth="42.0" layoutX="6.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../img/clipboard_30px.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

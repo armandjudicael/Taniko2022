@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TableView fx:id="tableview" layoutX="25.0" layoutY="28.0" prefHeight="376.0" prefWidth="1120.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0">
+         <columns>
+            <TableColumn fx:id="numero" prefWidth="176.0" text="Numero" />
+            <TableColumn fx:id="applicantName" prefWidth="650.0" text="Nom du demandeur" />
+            <TableColumn fx:id="statusColumn" prefWidth="74.0" text="status" />
+            <TableColumn fx:id="dateDispatch" maxWidth="250.0" prefWidth="250.0" text="date dispatch" />
+         </columns>
+      </TableView>
+      <AnchorPane layoutX="40.0" layoutY="238.0" prefHeight="60.0" prefWidth="200.0" AnchorPane.bottomAnchor="402.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="238.0">
+         <children>
+            <HBox alignment="CENTER" layoutX="219.0" layoutY="14.0" prefHeight="34.0" prefWidth="621.0" style="-fx-background-color: #e3e3e3;" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="250.0">
+               <children>
+                  <JFXButton fx:id="searchbutton" contentDisplay="GRAPHIC_ONLY" prefHeight="41.0" prefWidth="39.0" HBox.hgrow="NEVER">
+                     <graphic>
+                        <ImageView fitHeight="26.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../img/search_50p1x.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <TextField fx:id="searchTextField" alignment="CENTER" prefHeight="34.0" prefWidth="357.0" promptText="numero ou nom" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font name="Arial Unicode MS" size="14.0" />
+                     </font>
+                  </TextField>
+                  <JFXButton fx:id="deleteButton" contentDisplay="GRAPHIC_ONLY" layoutX="10.0" layoutY="10.0" prefHeight="23.0" prefWidth="36.0" HBox.hgrow="ALWAYS">
+                     <graphic>
+                        <ImageView fitHeight="25.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../img/delete_50pxred.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+               </children>
+            </HBox>
+            <JFXButton fx:id="refreshBtn" buttonType="RAISED" layoutY="14.0" prefHeight="33.0" prefWidth="118.0" style="-fx-background-color: #3CB371;" text="Actualiser" textFill="WHITE" AnchorPane.leftAnchor="0.0">
+               <graphic>
+                  <ImageView fitHeight="23.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../img/refresh_50px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </JFXButton>
+            <HBox alignment="CENTER_LEFT" layoutX="87.0" layoutY="13.0" prefHeight="34.0" prefWidth="118.0" style="-fx-background-color: white;" styleClass="searchBox" stylesheets="@../../../css/login.css" AnchorPane.rightAnchor="0.0">
+               <effect>
+                  <ColorAdjust />
+               </effect>
+               <children>
+                  <ComboBox fx:id="viewFilter" prefHeight="30.0" prefWidth="116.0" promptText="Actuellement" style="-fx-background-color: transparent;" />
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="14.0" layoutY="44.0" prefHeight="182.0" prefWidth="1200.0" stylesheets="@../../../css/carousel.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="44.0">
+         <children>
+            <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" layoutY="40.0" prefHeight="108.0" prefWidth="50.0" text="Button" AnchorPane.bottomAnchor="34.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="40.0" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

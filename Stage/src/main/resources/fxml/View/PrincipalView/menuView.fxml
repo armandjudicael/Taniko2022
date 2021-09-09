@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="menuNav" prefHeight="700.0" prefWidth="1200.0" style="-fx-background-color: #F0FFF0;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox alignment="CENTER" layoutX="180.0" layoutY="28.0" prefHeight="34.0" prefWidth="425.0" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="180.0">
+         <children>
+            <HBox alignment="CENTER" prefHeight="34.0" prefWidth="525.0" style="-fx-background-color: #e3e3e3;" HBox.hgrow="NEVER">
+               <children>
+                  <JFXButton fx:id="searchbutton" contentDisplay="GRAPHIC_ONLY" prefHeight="41.0" prefWidth="39.0" HBox.hgrow="NEVER">
+                     <graphic>
+                        <ImageView fitHeight="26.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../img/search_50p1x.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <TextField fx:id="searchTextField" alignment="CENTER" prefHeight="34.0" prefWidth="357.0" promptText="Type something" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font name="Arial Unicode MS" size="14.0" />
+                     </font>
+                  </TextField>
+                  <JFXButton fx:id="delTextField" contentDisplay="GRAPHIC_ONLY" layoutX="10.0" layoutY="10.0" prefHeight="23.0" prefWidth="36.0" HBox.hgrow="ALWAYS">
+                     <graphic>
+                        <ImageView fitHeight="25.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../img/delete_50pxred.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+      <ScrollPane fitToWidth="true" layoutX="110.0" layoutY="91.0" prefHeight="599.0" prefWidth="1000.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="91.0">
+         <content>
+            <TilePane fx:id="navTitlePane" alignment="CENTER" hgap="30.0" prefHeight="488.0" prefWidth="1005.0" vgap="30.0">
+               <children>
+                  <JFXButton fx:id="acceuilBtn" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" prefHeight="150.0" prefWidth="150.0" style="-fx-background-color: white; -fx-background-radius: 5px;" stylesheets="@../../../css/navigationButton.css" text="Acceuil">
+                     <graphic>
+                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../img/dashboard_layout_100px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Arial Unicode MS" size="15.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+                  <JFXButton fx:id="affairBtn" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" layoutX="185.0" layoutY="226.0" prefHeight="150.0" prefWidth="150.0" style="-fx-background-color: white; -fx-background-radius: 5px;" stylesheets="@../../../css/navigationButton.css" text="Affaire">
+                     <graphic>
+                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../img/binder_120px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Arial Unicode MS" size="15.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+                  <JFXButton fx:id="titleBtn" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" layoutX="265.0" layoutY="226.0" prefHeight="150.0" prefWidth="150.0" style="-fx-background-color: white; -fx-background-radius: 5px;" stylesheets="@../../../css/navigationButton.css" text="Titre">
+                     <graphic>
+                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../img/title(1).png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Arial Unicode MS" size="15.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+                  <JFXButton fx:id="themeBtn" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" layoutX="345.0" layoutY="226.0" prefHeight="150.0" prefWidth="150.0" style="-fx-background-color: white; -fx-background-radius: 5px;" stylesheets="@../../../css/navigationButton.css" text="Thème">
+                     <graphic>
+                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../img/t-shirt_100px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Arial Unicode MS" size="15.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+                  <JFXButton fx:id="agentBtn" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" layoutX="185.0" layoutY="306.0" prefHeight="150.0" prefWidth="150.0" style="-fx-background-color: white; -fx-background-radius: 5px;" stylesheets="@../../../css/navigationButton.css" text="Agent">
+                     <graphic>
+                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../img/user_shield_100px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Arial Unicode MS" size="15.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+                  <JFXButton fx:id="settingBtn" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" layoutX="345.0" layoutY="306.0" prefHeight="150.0" prefWidth="150.0" style="-fx-background-color: white; -fx-background-radius: 5px;" stylesheets="@../../../css/navigationButton.css" text="reglages">
+                     <graphic>
+                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../img/settings_100px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Arial Unicode MS" size="15.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+                  <JFXButton fx:id="notificationBtn" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" layoutX="185.0" layoutY="330.0" prefHeight="150.0" prefWidth="150.0" style="-fx-background-color: white; -fx-background-radius: 5px;" stylesheets="@../../../css/navigationButton.css" text="notification">
+                     <graphic>
+                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../img/notification_100px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Arial Unicode MS" size="15.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+                  <JFXButton fx:id="exitBtn" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" layoutX="265.0" layoutY="330.0" prefHeight="150.0" prefWidth="150.0" style="-fx-background-color: white; -fx-background-radius: 5px;" stylesheets="@../../../css/navigationButton.css" text="Quitter">
+                     <graphic>
+                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../img/shutdown_120px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Arial Unicode MS" size="15.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+                  <JFXButton fx:id="aboutBtn" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" layoutX="265.0" layoutY="306.0" prefHeight="150.0" prefWidth="150.0" style="-fx-background-color: white; -fx-background-radius: 5px;" stylesheets="@../../../css/navigationButton.css" text="A propos">
+                     <graphic>
+                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../img/about_100px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Arial Unicode MS" size="15.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+                  <JFXButton fx:id="aboutBtn1" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" layoutX="345.0" layoutY="340.0" prefHeight="150.0" prefWidth="150.0" style="-fx-background-color: white; -fx-background-radius: 5px;" stylesheets="@../../../css/navigationButton.css" text="Statistique">
+                     <graphic>
+                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../img/statistics_100px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Arial Unicode MS" size="15.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+                  <JFXButton fx:id="aboutBtn11" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" layoutX="445.0" layoutY="380.0" prefHeight="150.0" prefWidth="150.0" style="-fx-background-color: white; -fx-background-radius: 5px;" stylesheets="@../../../css/navigationButton.css" text="Conservation">
+                     <graphic>
+                        <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../img/card_file_box_96px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Arial Unicode MS" size="15.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+               </children>
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+            </TilePane>
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>
