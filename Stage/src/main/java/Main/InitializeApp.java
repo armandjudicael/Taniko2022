@@ -13,8 +13,8 @@ public class InitializeApp {
     private static ObservableList<Titre> titres = FXCollections.observableArrayList();
 
     public InitializeApp(){
-
     }
+
     public static ObservableList<UserForView> getUsers() {
         return users;
     }

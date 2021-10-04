@@ -1,12 +1,12 @@
 package View.Dialog.FormDialog;
 
-import Controller.DetailsController.ProcedureViewController;
+import Controller.detailsController.ProcedureViewController;
 import Controller.ViewController.AffairViewController;
 import Controller.ViewController.MainController;
 import DAO.DaoFactory;
 import Model.Enum.NotifType;
 import Model.Enum.TypeDemande;
-import Model.serviceManager.MainService;
+import Model.Other.MainService;
 import View.Dialog.Other.Notification;
 import View.Model.ProcedureForView;
 import com.jfoenix.controls.JFXButton;
@@ -39,7 +39,7 @@ public class NewProcedureDialog extends JFXDialog implements Initializable {
 
     private NewProcedureDialog() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Form/newProcedureForm.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Form/Other/newProcedureForm.fxml"));
             loader.setController(this);
             this.setContent((AnchorPane) loader.load());
             this.setDialogContainer(MainController.getInstance().getMainStackPane());

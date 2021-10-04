@@ -1,15 +1,13 @@
 package View.Dialog.FormDialog;
 
-import Controller.DetailsController.UserDetailsController;
-import Controller.FormController.LoginController;
+import Controller.detailsController.UserDetailsController;
+import Controller.ViewController.LoginController;
 import Controller.ViewController.MainController;
-import Main.InitializeApp;
 import Model.Pojo.User;
 import View.Model.PasswordView;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXProgressBar;
-import com.jfoenix.controls.JFXTabPane;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.value.ObservableValue;
@@ -77,7 +75,7 @@ public class PasswordFrom extends JFXDialog implements Initializable {
 
     private PasswordFrom() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Form/PasswordForm.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Form/Other/PasswordForm.fxml"));
             loader.setController(this);
             this.setContent((AnchorPane) loader.load());
             this.setDialogContainer(MainController.getInstance().getMainStackPane());

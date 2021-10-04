@@ -1,7 +1,7 @@
 package Model.Pojo;
 
 import DAO.DaoFactory;
-import Model.other.RedactorAffair;
+import Model.Other.RedactorAffair;
 import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
 

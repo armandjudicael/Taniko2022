@@ -27,7 +27,6 @@ public class About extends JFXDialog implements Initializable{
     @FXML private Hyperlink github;
     @FXML private Circle profil;
 
-
     private About() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/View/Other/About.fxml"));
@@ -48,10 +47,10 @@ public class About extends JFXDialog implements Initializable{
         return about;
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    @Override public void initialize(URL url, ResourceBundle resourceBundle) {
         closeBtn.setOnAction(event -> this.close());
         profil.setSmooth(true);
         profil.setFill(new ImagePattern(new Image(getClass().getResourceAsStream("/img/photo.jpg"))));
     }
+
 }

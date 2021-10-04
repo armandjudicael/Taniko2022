@@ -7,7 +7,7 @@ import Model.Enum.Origin;
 import Model.Enum.TitleOperation;
 import Model.Pojo.Affaire;
 import Model.Pojo.Titre;
-import Model.serviceManager.MainService;
+import Model.Other.MainService;
 import View.Cell.TableCell.DateCreationTitreCell;
 import View.Cell.TableCell.NomProprieteTitreCell;
 import View.Cell.TableCell.NumMorcelementCell;

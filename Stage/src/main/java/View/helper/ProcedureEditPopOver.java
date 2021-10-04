@@ -388,6 +388,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public class ProcedureEditPopOver extends PopOver {
+
     private static ProcedureEditPopOver procedureEditPopOver;
     private TableCell<ProcedureForView, String> cell;
     private static ColumType type;
@@ -396,7 +397,8 @@ public class ProcedureEditPopOver extends PopOver {
     @FXML private TextField numPrcd;
     @FXML private JFXDatePicker datePicker;
     @FXML private TextArea textArea;
-   private final EventHandler<KeyEvent> eventHandler = new EventHandler<>() {
+
+   private final EventHandler<KeyEvent> eventHandler = new EventHandler<>(){
         @Override public void handle(KeyEvent keyEvent){
             if (keyEvent.getCode() == KeyCode.ENTER) {
                 switch (type){
@@ -524,11 +526,9 @@ public class ProcedureEditPopOver extends PopOver {
         this.hide();
         cell.commitEdit(textArea.getText());
     }
-
     public TableCell<ProcedureForView, String> getCell() {
         return cell;
     }
-
     public void setCell(TableCell<ProcedureForView, String> cell) {
         this.cell = cell;
     }

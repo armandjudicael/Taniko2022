@@ -1,7 +1,7 @@
 package View.helper;
 
 import DAO.DaoFactory;
-import Model.Enum.AutoCompleteComboboxType;
+import Model.Enum.Type;
 import com.jfoenix.controls.JFXComboBox;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -20,10 +20,10 @@ public class AutoCompleteCombobox<T> implements EventHandler<KeyEvent>{
     private JFXComboBox<T> comboBox;
     private ObservableList<T> comboboxItemsCopy = FXCollections.observableArrayList();
     private Predicate<T> comboboxPredicate;
-    private AutoCompleteComboboxType autoCompleteComboboxType;
+    private Type TYPE;
 
-    public AutoCompleteCombobox(JFXComboBox<T> tComboBox,Predicate<T> predicate,AutoCompleteComboboxType type){
-        this.autoCompleteComboboxType = type;
+    public AutoCompleteCombobox(JFXComboBox<T> tComboBox, Predicate<T> predicate, Type type){
+        this.TYPE = type;
         this.comboBox = tComboBox;
         this.comboboxPredicate = predicate;
         this.comboBox.visibleRowCountProperty().bind(Bindings.size(this.comboBox.getItems()).multiply(20));
@@ -52,6 +52,7 @@ public class AutoCompleteCombobox<T> implements EventHandler<KeyEvent>{
                  this.comboBox.show();
             }
         });
+
         this.comboBox.showingProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue){
                 String text = comboBox.getEditor().getText();
@@ -61,6 +62,7 @@ public class AutoCompleteCombobox<T> implements EventHandler<KeyEvent>{
                 }
             }
         });
+
         this.comboBox.getEditor().setOnMouseClicked(event ->{
             if(event.getButton().equals(MouseButton.PRIMARY)){
                 if(event.getClickCount() == 2){
@@ -84,17 +86,24 @@ public class AutoCompleteCombobox<T> implements EventHandler<KeyEvent>{
                 || event.getCode() == KeyCode.END || event.getCode() == KeyCode.TAB){
             return;
         }
+
         if(event.getCode() == KeyCode.BACK_SPACE){
+
             String str = this.comboBox.getEditor().getText();
+
             if (str != null && str.length() > 0) {
                 str = str.substring(0, str.length() - 1);
             }
+
             if(str != null){
                 this.comboBox.getEditor().setText(str);
                 moveCaret(str.length());
             }
+
             this.comboBox.getSelectionModel().clearSelection();
+
         }
+
         if(event.getCode() == KeyCode.ENTER ){
             this.comboBox.hide();
             return;
@@ -105,6 +114,7 @@ public class AutoCompleteCombobox<T> implements EventHandler<KeyEvent>{
                 launchDataSearch(items,comboboxItemsCopy,text);
             }
         }
+
     }
 
      void launchDataSearch(ObservableList<T> items, ObservableList<T> copyItems, String numOrName){
@@ -123,7 +133,7 @@ public class AutoCompleteCombobox<T> implements EventHandler<KeyEvent>{
 
     private void getDataFromDB(ObservableList items, ObservableList copyItems, String numOrName){
         ObservableList observableList = FXCollections.observableArrayList();
-        switch (autoCompleteComboboxType){
+        switch (TYPE){
             case USER:{
                 observableList.setAll(DaoFactory.getUserDao().filterUser(numOrName,items));
             }break;

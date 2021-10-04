@@ -1,39 +1,26 @@
 package View.Dialog.Other;
 
-import Controller.DetailsController.AffairDetailsController;
+import Controller.detailsController.AffairDetailsController;
 import Controller.ViewController.MainController;
-import DAO.DaoFactory;
 import DAO.DbOperation;
-import Model.Enum.AutoCompleteComboboxType;
+import Model.Enum.Type;
 import Model.Enum.NotifType;
 import Model.Pojo.Affaire;
 import Model.Pojo.Terrain;
 import Model.Pojo.Titre;
-import Model.serviceManager.MainService;
+import Model.Other.MainService;
 import View.Cell.ListCell.TitleCell;
-import View.Dialog.FormDialog.AffaireForm;
 import View.helper.AutoCompleteCombobox;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDialog;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import javafx.concurrent.Task;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.skin.ComboBoxListViewSkin;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.util.StringConverter;
 
 import java.io.IOException;
 import java.net.URL;
@@ -50,7 +37,7 @@ public class TitreMereEditDialog extends JFXDialog  implements Initializable {
 
     public TitreMereEditDialog() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Form/titreMereEdit.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Form/Other/titreMereEdit.fxml"));
             loader.setController(this);
             this.setContent((AnchorPane) loader.load());
             this.setDialogContainer(MainController.getInstance().getMainStackPane());
@@ -88,7 +75,7 @@ public class TitreMereEditDialog extends JFXDialog  implements Initializable {
                     return true;
                 else return false;
             }
-        },AutoCompleteComboboxType.TITRE);
+        }, Type.TITRE);
 
         addBtn.setOnAction(event -> {
             this.close();

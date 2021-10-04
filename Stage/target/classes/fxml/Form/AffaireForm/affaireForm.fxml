@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXRadioButton?>
+<?import com.jfoenix.controls.JFXSpinner?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="affairePanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="503.0" prefWidth="695.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="552.0" prefWidth="714.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <content>
+            <AnchorPane prefHeight="1316.0" prefWidth="661.0" style="-fx-background-color: white;">
+               <children>
+                  <Text fill="#403f3f" layoutX="24.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Numero Affaire :" wrappingWidth="138.13671875">
+                     <font>
+                        <Font name="Arial Unicode MS" size="15.0" />
+                     </font>
+                  </Text>
+                  <Text fill="#403f3f" layoutX="20.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date de formulation :" wrappingWidth="146.13671875">
+                     <font>
+                        <Font name="Arial Unicode MS" size="15.0" />
+                     </font>
+                  </Text>
+                  <Text fill="#403f3f" layoutX="19.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type  demande  :" wrappingWidth="122.0">
+                     <font>
+                        <Font name="Arial Unicode MS" size="15.0" />
+                     </font>
+                  </Text>
+                  <Text fill="#403f3f" layoutX="25.0" layoutY="265.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Situation :" wrappingWidth="74.13671875">
+                     <font>
+                        <Font name="Arial Unicode MS" size="15.0" />
+                     </font>
+                  </Text>
+                  <HBox fx:id="usernameBox" alignment="CENTER_LEFT" layoutX="208.0" layoutY="162.0" prefHeight="39.0" prefWidth="219.0" styleClass="box" stylesheets="@../../../css/box.css">
+                     <children>
+                        <TextField fx:id="numero" prefHeight="37.0" prefWidth="91.0" promptText="numero" style="-fx-background-color: transparent;">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </TextField>
+                        <Label fx:id="numLabel" prefHeight="33.0" prefWidth="122.0" text="- TAM-I / 2021">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets left="2.0" />
+                     </padding>
+                  </HBox>
+                  <HBox fx:id="connexeBox" alignment="CENTER_RIGHT" layoutX="93.0" layoutY="1224.0" prefHeight="37.0" prefWidth="475.0" styleClass="box" stylesheets="@../../../css/box.css" AnchorPane.leftAnchor="90.0">
+                     <padding>
+                        <Insets left="2.0" />
+                     </padding>
+                     <children>
+                        <JFXButton contentDisplay="GRAPHIC_ONLY" prefHeight="35.0" prefWidth="35.0">
+                           <graphic>
+                              <ImageView fitHeight="26.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../img/filter_50px.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <JFXComboBox fx:id="connexeCombobox" focusColor="WHITE" prefHeight="26.0" prefWidth="450.0" unFocusColor="WHITE" />
+                     </children>
+                  </HBox>
+                  <Separator layoutY="1118.0" prefHeight="0.0" prefWidth="647.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                  <Text fill="#403f3f" fontSmoothingType="LCD" layoutX="16.0" layoutY="1104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="OBSERVATION" wrappingWidth="107.99999999999994">
+                     <font>
+                        <Font name="Arial Unicode MS" size="14.0" />
+                     </font>
+                  </Text>
+                  <HBox fx:id="redacteurBox" alignment="CENTER_RIGHT" layoutX="93.0" layoutY="1016.0" prefHeight="37.0" prefWidth="475.0" styleClass="box" stylesheets="@../../../css/box.css" AnchorPane.leftAnchor="93.0">
+                     <padding>
+                        <Insets left="2.0" />
+                     </padding>
+                     <children>
+                        <JFXButton fx:id="rechercherRedacteurBtn" contentDisplay="GRAPHIC_ONLY" prefHeight="35.0" prefWidth="50.0">
+                           <graphic>
+                              <ImageView fitHeight="24.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../img/filter_50px.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <JFXComboBox fx:id="redactorCombobox" focusColor="WHITE" prefHeight="26.0" prefWidth="450.0" unFocusColor="WHITE" />
+                     </children>
+                  </HBox>
+                  <JFXRadioButton fx:id="sansEmpietementRadio" layoutX="96.0" layoutY="1142.0" selected="true" text="Sans empietement" AnchorPane.leftAnchor="90.0">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="observationGroup" />
+                     </toggleGroup>
+                     <font>
+                        <Font name="Arial Unicode MS" size="15.0" />
+                     </font>
+                  </JFXRadioButton>
+                  <JFXRadioButton fx:id="connexeRadio" layoutX="93.0" layoutY="1185.0" text="Connexe" toggleGroup="$observationGroup" AnchorPane.leftAnchor="90.0">
+                     <font>
+                        <Font name="Arial Unicode MS" size="15.0" />
+                     </font>
+                  </JFXRadioButton>
+                  <JFXSpinner fx:id="connexeSpinner" layoutX="607.0" layoutY="501.0" prefHeight="41.0" prefWidth="43.0" progress="0.17" visible="false" />
+                  <Separator layoutY="867.0" prefHeight="0.0" prefWidth="647.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                  <Text fill="#403f3f" fontSmoothingType="LCD" layoutX="16.0" layoutY="851.0" strokeType="OUTSIDE" strokeWidth="0.0" text="REDACTEUR" wrappingWidth="107.99999999999994">
+                     <font>
+                        <Font name="Arial Unicode MS" size="14.0" />
+                     </font>
+                  </Text>
+                  <JFXRadioButton fx:id="pasDeRedacteurRadio" layoutX="90.0" layoutY="897.0" selected="true" text="Pas de redacteur" AnchorPane.leftAnchor="90.0">
+                     <font>
+                        <Font name="Arial Unicode MS" size="15.0" />
+                     </font>
+                     <toggleGroup>
+                        <ToggleGroup fx:id="redactorGroup" />
+                     </toggleGroup>
+                  </JFXRadioButton>
+                  <JFXRadioButton fx:id="rechercherRedacteurRadio" layoutX="92.0" layoutY="980.0" text="Rechercher" toggleGroup="$redactorGroup" AnchorPane.leftAnchor="90.0">
+                     <font>
+                        <Font name="Arial Unicode MS" size="15.0" />
+                     </font>
+                  </JFXRadioButton>
+                  <Label fx:id="existNumLabel" layoutX="176.0" layoutY="217.0" prefHeight="17.0" prefWidth="365.0" text="Le numero que vous avez entrer  existe déja ou ne correspond pas" textFill="RED" />
+                  <JFXRadioButton fx:id="moiMemeRadio" layoutX="91.0" layoutY="939.0" text="Moi meme" toggleGroup="$redactorGroup" AnchorPane.leftAnchor="90.0">
+                     <font>
+                        <Font name="Arial Unicode MS" size="15.0" />
+                     </font>
+                  </JFXRadioButton>
+                  <JFXDatePicker fx:id="dateFormulation" layoutX="206.0" layoutY="91.0" prefHeight="33.0" prefWidth="250.0" />
+                  <Text fill="#403f3f" layoutX="355.0" layoutY="408.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Numero :" wrappingWidth="68.0">
+                     <font>
+                        <Font name="Arial Unicode MS" size="15.0" />
+                     </font>
+                  </Text>
+                  <Label fx:id="reperageLabel" layoutX="173.0" layoutY="450.0" prefHeight="17.0" prefWidth="365.0" text="Le numero que vous avez entrer  existe déja ou ne correspond pas" textFill="RED" />
+                  <Separator layoutY="340.0" prefHeight="0.0" prefWidth="647.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                  <Text fill="#403f3f" fontSmoothingType="LCD" layoutX="14.0" layoutY="328.0" strokeType="OUTSIDE" strokeWidth="0.0" text="REPERAGE(TOPO)" wrappingWidth="130.99999999999994">
+                     <font>
+                        <Font name="Arial Unicode MS" size="14.0" />
+                     </font>
+                  </Text>
+                  <HBox fx:id="usernameBox11" alignment="CENTER_LEFT" layoutX="457.0" layoutY="383.0" prefHeight="39.0" prefWidth="162.0" styleClass="box" stylesheets="@../../../css/box.css" AnchorPane.leftAnchor="450.0">
+                     <children>
+                        <TextField fx:id="numeroReperage" prefHeight="37.0" prefWidth="157.0" promptText="numero" style="-fx-background-color: transparent;">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </TextField>
+                        <Label fx:id="numReperageLabel" prefHeight="33.0" prefWidth="118.0" text="/ 2021">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets left="2.0" />
+                     </padding>
+                  </HBox>
+                  <Text fill="#403f3f" layoutX="20.0" layoutY="408.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date :" wrappingWidth="50.0">
+                     <font>
+                        <Font name="Arial Unicode MS" size="15.0" />
+                     </font>
+                  </Text>
+                  <JFXComboBox fx:id="statusCombobox" focusColor="#009688" layoutX="207.0" layoutY="241.0" prefHeight="37.0" prefWidth="250.0" unFocusColor="#009688" AnchorPane.leftAnchor="207.0" />
+                  <JFXComboBox fx:id="typeDemande" focusColor="#009688" layoutX="201.0" layoutY="26.0" prefHeight="37.0" prefWidth="250.0" unFocusColor="#009688" AnchorPane.leftAnchor="207.0" />
+                  <Separator layoutY="528.0" prefHeight="0.0" prefWidth="647.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                  <Text fill="#403f3f" fontSmoothingType="LCD" layoutX="14.0" layoutY="516.0" strokeType="OUTSIDE" strokeWidth="0.0" text="JTR ( Journal de Tresorerie de Recette )" wrappingWidth="281.99999999999994">
+                     <font>
+                        <Font name="Arial Unicode MS" size="14.0" />
+                     </font>
+                  </Text>
+                  <Label fx:id="reperageLabel1" layoutX="173.0" layoutY="626.0" prefHeight="17.0" prefWidth="365.0" text="Le numero que vous avez entrer  existe déja ou ne correspond pas" textFill="RED" />
+                  <HBox fx:id="usernameBox111" alignment="CENTER_LEFT" layoutX="451.0" layoutY="554.0" prefHeight="39.0" prefWidth="162.0" styleClass="box" stylesheets="@../../../css/box.css" AnchorPane.leftAnchor="450.0">
+                     <children>
+                        <TextField fx:id="numeroReperage1" prefHeight="37.0" prefWidth="157.0" promptText="numero" style="-fx-background-color: transparent;">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </TextField>
+                        <Label fx:id="numReperageLabel1" prefHeight="33.0" prefWidth="118.0" text="/ 2021">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets left="2.0" />
+                     </padding>
+                  </HBox>
+                  <Text fill="#403f3f" layoutX="355.0" layoutY="579.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Numero :" wrappingWidth="68.0">
+                     <font>
+                        <Font name="Arial Unicode MS" size="15.0" />
+                     </font>
+                  </Text>
+                  <Text fill="#403f3f" layoutX="23.0" layoutY="579.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date :" wrappingWidth="43.0">
+                     <font>
+                        <Font name="Arial Unicode MS" size="15.0" />
+                     </font>
+                  </Text>
+                  <JFXDatePicker fx:id="dateReperage1" layoutX="78.0" layoutY="555.0" prefHeight="37.0" prefWidth="200.0" />
+                  <Text fill="#403f3f" fontSmoothingType="LCD" layoutX="12.0" layoutY="693.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ORDONANCE DU TRIBUNAL ( Prescription acquisitive )" wrappingWidth="392.99999999999994">
+                     <font>
+                        <Font name="Arial Unicode MS" size="14.0" />
+                     </font>
+                  </Text>
+                  <HBox fx:id="usernameBox1111" alignment="CENTER_LEFT" layoutX="457.0" layoutY="738.0" prefHeight="39.0" prefWidth="162.0" styleClass="box" stylesheets="@../../../css/box.css" AnchorPane.leftAnchor="450.0">
+                     <children>
+                        <TextField fx:id="numeroReperage11" prefHeight="37.0" prefWidth="157.0" promptText="numero" style="-fx-background-color: transparent;">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </TextField>
+                        <Label fx:id="numReperageLabel11" prefHeight="33.0" prefWidth="118.0" text="/ 2021">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets left="2.0" />
+                     </padding>
+                  </HBox>
+                  <Text fill="#403f3f" layoutX="19.0" layoutY="764.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date :" wrappingWidth="43.0">
+                     <font>
+                        <Font name="Arial Unicode MS" size="15.0" />
+                     </font>
+                  </Text>
+                  <Text fill="#403f3f" layoutX="358.0" layoutY="763.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Numero :" wrappingWidth="74.13671875">
+                     <font>
+                        <Font name="Arial Unicode MS" size="15.0" />
+                     </font>
+                  </Text>
+                  <JFXDatePicker fx:id="dateReperage12" layoutX="75.0" layoutY="384.0" prefHeight="37.0" prefWidth="200.0" />
+                  <Separator layoutX="7.0" layoutY="705.0" prefHeight="0.0" prefWidth="647.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                  <JFXDatePicker fx:id="dateReperage11" layoutX="75.0" layoutY="739.0" prefHeight="37.0" prefWidth="200.0" />
+                  <Label fx:id="reperageLabel11" layoutX="173.0" layoutY="800.0" prefHeight="17.0" prefWidth="365.0" text="Le numero que vous avez entrer  existe déja ou ne correspond pas" textFill="RED" />
+               </children>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
+      <HBox alignment="CENTER_RIGHT" layoutX="440.0" layoutY="451.0" prefHeight="50.0" prefWidth="695.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <JFXButton fx:id="closeBtn" buttonType="RAISED" contentDisplay="RIGHT" prefHeight="30.0" prefWidth="108.0" style="-fx-background-color: #f14858;" text="annuler" textFill="WHITE">
+               <font>
+                  <Font name="Century Gothic" size="14.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="affaireNextBtn" buttonType="RAISED" contentDisplay="RIGHT" prefHeight="10.0" prefWidth="108.0" style="-fx-background-color: #389955;" text="suivant" textFill="WHITE">
+               <font>
+                  <Font name="Century Gothic" size="14.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="23.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../img/more_than_32px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+         </children>
+         <padding>
+            <Insets right="15.0" />
+         </padding>
+      </HBox>
+   </children>
+</AnchorPane>

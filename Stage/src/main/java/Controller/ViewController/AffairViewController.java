@@ -1,10 +1,9 @@
 package Controller.ViewController;
 
-import Controller.DetailsController.AffairDetailsController;
-import Controller.DetailsController.ConnexViewController;
-import Controller.DetailsController.EditorViewController;
-import Controller.DetailsController.ProcedureViewController;
-import Controller.FormController.LoginController;
+import Controller.detailsController.AffairDetailsController;
+import Controller.detailsController.ConnexViewController;
+import Controller.detailsController.EditorViewController;
+import Controller.detailsController.ProcedureViewController;
 import DAO.DaoFactory;
 import Main.InitializeApp;
 import Model.Enum.AffaireStatus;
@@ -12,10 +11,10 @@ import Model.Enum.NotifType;
 import Model.Enum.Origin;
 import Model.Enum.TypeDemande;
 import Model.Pojo.*;
-import Model.other.ProcedureForTableview;
-import Model.serviceManager.MainService;
+import Model.Other.ProcedureForTableview;
+import Model.Other.MainService;
 import View.Cell.TableCell.IconCell;
-import View.Dialog.FormDialog.AffaireForm;
+import View.Dialog.FormDialog.MainAffaireForm;
 import View.Dialog.Other.Notification;
 import View.Dialog.SecurityDialog.AdminSecurity;
 import View.Model.AffaireForView;
@@ -37,8 +36,10 @@ import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -46,10 +47,7 @@ import javafx.scene.layout.HBox;
 import javafx.util.Callback;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import static Model.Pojo.Affaire.typeDemande2String;
 
@@ -71,7 +69,7 @@ public class AffairViewController implements Initializable {
     private static Image backImg;
     private static Image noneImg;
 
-    private final int ACQUISITION_INDEX = 0;
+    private final int ACQUISITION_AND_AFFECTATION_INDEX = 0;
     private final int PRESCRIPTION_INDEX = 1;
 
     @FXML private JFXButton launchSearchBtn;
@@ -123,14 +121,14 @@ public class AffairViewController implements Initializable {
     }
 
     private void initImage() {
-        runningImg = new Image(AffairViewController.class.getResourceAsStream("/img/play1_20px.png"));
-        suspendImg = new Image(AffairViewController.class.getResourceAsStream("/img/pause_20px.png"));
-        finishedImg = new Image(AffairViewController.class.getResourceAsStream("/img/ok_20px.png"));
-        rejectImg = new Image(AffairViewController.class.getResourceAsStream("/img/cancel_20px.png"));
+        runningImg = new Image(Objects.requireNonNull(AffairViewController.class.getResourceAsStream("/img/play1_20px.png")));
+        suspendImg = new Image(Objects.requireNonNull(AffairViewController.class.getResourceAsStream("/img/pause_20px.png")));
+        finishedImg = new Image(Objects.requireNonNull(AffairViewController.class.getResourceAsStream("/img/ok_20px.png")));
+        rejectImg = new Image(Objects.requireNonNull(AffairViewController.class.getResourceAsStream("/img/cancel_20px.png")));
 
-        goImg = new Image(AffairViewController.class.getResourceAsStream("/img/go1.png"));
-        backImg = new Image(AffairViewController.class.getResourceAsStream("/img/back.png"));
-        noneImg = new Image(AffairViewController.class.getResourceAsStream("/img/none.png"));
+        goImg = new Image(Objects.requireNonNull(AffairViewController.class.getResourceAsStream("/img/go1.png")));
+        backImg = new Image(Objects.requireNonNull(AffairViewController.class.getResourceAsStream("/img/back.png")));
+        noneImg = new Image(Objects.requireNonNull(AffairViewController.class.getResourceAsStream("/img/none.png")));
     }
 
     @Override public void initialize(URL location, ResourceBundle resources) {
@@ -222,7 +220,7 @@ public class AffairViewController implements Initializable {
             });
         });
         // CREATE NEW AFFAIR
-        createAffBtn.setOnAction(event -> AffaireForm.getInstance().show());
+        createAffBtn.setOnAction(event -> MainAffaireForm.getInstance().show());
         deleteBtn.setOnAction(this::getAllAction);
         // BOUTTON ALL_AFF_DETAILS_VIEW_BTN
         detailsBtn.disableProperty().bind(tableView.getSelectionModel().selectedItemProperty().isNull());
@@ -835,9 +833,9 @@ public class AffairViewController implements Initializable {
         if (procedureTab == null)
             procedureTab = new ObservableList[2];
         if (typeDemande.equals(TypeDemande.ACQUISITION)) {
-            if (procedureTab[ACQUISITION_INDEX] == null)
-                procedureTab[ACQUISITION_INDEX] = DaoFactory.getProcedureDao().getAllProcedureFromBD("A");
-            items.setAll(procedureTab[ACQUISITION_INDEX]);
+            if (procedureTab[ACQUISITION_AND_AFFECTATION_INDEX] == null)
+                procedureTab[ACQUISITION_AND_AFFECTATION_INDEX] = DaoFactory.getProcedureDao().getAllProcedureFromBD("A");
+            items.setAll(procedureTab[ACQUISITION_AND_AFFECTATION_INDEX]);
         } else {
             if (procedureTab[PRESCRIPTION_INDEX] == null)
                 procedureTab[PRESCRIPTION_INDEX] = DaoFactory.getProcedureDao().getAllProcedureFromBD("P");
@@ -881,9 +879,7 @@ public class AffairViewController implements Initializable {
     private void initializeDetailsView(Affaire affaire) {
 
         Demandeur demandeur = DaoFactory.getDemandeurDao().findDemandeurBy(affaire.getId());
-
         affaire.setDemandeur(demandeur);
-
         Terrain terrain = DaoFactory.getTerrainDao().find(affaire.getTerrain().getIdTerrain());
 
         Platform.runLater(() -> {
@@ -905,6 +901,7 @@ public class AffairViewController implements Initializable {
             controller.getRegion().setText(terrain.getRegion());
             controller.getSuperficie().setText(terrain.getSuperficie());
             Titre titreDependant = terrain.getTitreDependant();
+
             if (titreDependant!=null){
                 controller.getNomPropriete().setText(titreDependant.toString());
             }
@@ -936,7 +933,6 @@ public class AffairViewController implements Initializable {
     }
 
     private void initializeConnexeTableView(Affaire affaire){
-
         ObservableList<ConnexAffairForView> connexAffairForViews = affaire.getAllAffaireConnexe();
         // Binder le nombre d'affaire connexe sur l'entete avec le nombre de ligne de la listView
         SimpleStringProperty tab = new SimpleStringProperty("connexe (" + String.valueOf(connexAffairForViews.size()) + ")");
@@ -957,6 +953,7 @@ public class AffairViewController implements Initializable {
     public static AffairViewController getInstance() {
         return affairViewController;
     }
+
     public static Image getRunningImg() {
         return runningImg;
     }

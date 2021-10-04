@@ -3,6 +3,8 @@ package DAO;
 import View.Model.AffaireForView;
 import View.Model.ConnexAffairForView;
 import javafx.collections.ObservableList;
+import org.assertj.core.api.AssertionErrorCollector;
+import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 import java.time.LocalDate;
@@ -13,12 +15,14 @@ import static org.junit.Assert.*;
 public class AffairDaoTest {
 
     @Test public void groupeAffaireByDate(){
+
 //        ObservableList<String> list = DaoFactory.getAffaireDao().groupeAffaireByDate();
 //        assertNotNull(list);
+
     }
 
     @Test public void getAllAffair() {
-
+        Assertions.assertThat(true).isTrue();
     }
 
     @Test
@@ -26,8 +30,7 @@ public class AffairDaoTest {
 
     }
 
-    @Test
-    public void deleteById() {
+    @Test public void deleteById() {
 
     }
 

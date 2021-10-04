@@ -1,7 +1,7 @@
 package Controller.ViewController;
 
 import DAO.DaoFactory;
-import Model.serviceManager.MainService;
+import Model.Other.MainService;
 import animatefx.animation.SlideInLeft;
 import animatefx.animation.SlideInRight;
 import com.jfoenix.controls.JFXButton;

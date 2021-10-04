@@ -111,9 +111,6 @@ public class Affaire {
     public Timestamp getDateDeFormulation() {
         return dateDeFormulation;
     }
-    public void setDateDeFormulation(Timestamp dateDeFormulation) {
-        this.dateDeFormulation = dateDeFormulation;
-    }
     public static TypeDemande string2TypeDemande(String type) { return (type.equals("ACQUISITION")) ? TypeDemande.ACQUISITION : TypeDemande.PRESCRIPTION; }
     public Demandeur getDemandeur() {
         return demandeur;
@@ -131,6 +128,7 @@ public class Affaire {
     public void setId(int id) {
         this.id = id;
     }
+
     public static Observation string2Observation(String obs){
         switch (obs){
             case "connexe":
@@ -146,6 +144,7 @@ public class Affaire {
         }
         return Observation.SANS_EMPIETEMENT;
     }
+
     public void setDemandeur(Demandeur demandeur) {
         this.demandeur = demandeur;
     }
@@ -165,12 +164,10 @@ public class Affaire {
     public User getActualEditor(){
        return DaoFactory.getAffaireDao().getActualEditor(this);
     }
-    public ObservableList<ConnexAffairForView> getAllAffaireConnexe(){
-        return  DaoFactory.getAffaireDao().getAllAffaireConnexeWith(this);
-    }
+    public ObservableList<ConnexAffairForView> getAllAffaireConnexe(){ return  DaoFactory.getAffaireDao().getAllAffaireConnexeWith(this); }
     public ArrayList<EditorForView> getAllEditor() {
         return DaoFactory.getUserDao().getAllEditorAndDateByThis(this);
     }
     public ObservableList<ArrayList<String>> getAllProcedureChecked() { return DaoFactory.getAffaireDao().getAllProcedureAndDateConcernedByThis(this.getId()); }
-
+    public ObservableList<PieceJointe> getAllPieceJointe(){return DaoFactory.getPieceJointeDao().getAllPieceJointe(this) ;}
 }

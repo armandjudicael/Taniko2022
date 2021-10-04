@@ -6,20 +6,17 @@ import Main.InitializeApp;
 import Model.Enum.NotifType;
 import Model.Enum.Origin;
 import Model.Pojo.User;
-import Model.serviceManager.MainService;
+import Model.Other.MainService;
 import View.Dialog.Other.EditorTrack;
 import View.Dialog.Other.Notification;
 import View.Dialog.SecurityDialog.AdminSecurity;
 import com.jfoenix.controls.JFXButton;
 import javafx.application.Platform;
-import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -29,7 +26,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import org.controlsfx.control.PopOver;
@@ -43,7 +39,7 @@ public class UserForView extends AnchorPane {
     private Label fonction;
     private Label nbAffaire;
 
-    public UserForView(User user) {
+    public UserForView(User user){
 
         userForView = this;
         this.editor = user;
@@ -182,7 +178,6 @@ public class UserForView extends AnchorPane {
     }
 
     public void deleteUser() {
-
         MainService.getInstance().launch(new Task<Void>() {
             @Override
             protected Void call() throws Exception {
@@ -197,17 +192,13 @@ public class UserForView extends AnchorPane {
                 return null;
             }
         });
-
     }
-
     public User getEditor() {
         return editor;
     }
-
     public Label getNomEtPrenom() {
         return nomEtPrenom;
     }
-
     public Label getFonction() {
         return fonction;
     }

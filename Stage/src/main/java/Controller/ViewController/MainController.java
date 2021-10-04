@@ -1,7 +1,6 @@
 package Controller.ViewController;
 
-import Controller.DetailsController.UserDetailsController;
-import Controller.FormController.LoginController;
+import Controller.detailsController.UserDetailsController;
 import DAO.DaoFactory;
 import DAO.DbOperation;
 import Main.InitializeApp;
@@ -9,7 +8,7 @@ import Main.Main;
 import Model.Enum.Origin;
 import Model.Pojo.Titre;
 import Model.Pojo.User;
-import Model.serviceManager.MainService;
+import Model.Other.MainService;
 import View.Dialog.Other.About;
 import View.Dialog.SecurityDialog.AdminSecurity;
 import View.Model.AffaireForView;

@@ -14,7 +14,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="537.0" prefWidth="877.0" style="-fx-background-color: whitesmoke;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.DetailsController.UserDetailsController">
+<AnchorPane prefHeight="537.0" prefWidth="877.0" style="-fx-background-color: whitesmoke;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.detailsController.UserDetailsController">
     <children>
         <JFXButton fx:id="backBtn" layoutY="-2.0" prefHeight="20.0" prefWidth="86.0" style="-fx-background-color: #1ca242; -fx-border-width: 1px 1px 1px  1px;" text="retour" textFill="WHITE" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0">
             <font>

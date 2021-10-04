@@ -1,10 +1,9 @@
 package View.Model;
 
 import Model.Enum.AffaireStatus;
-import Model.Enum.Observation;
 import Model.Enum.TypeDemande;
 import Model.Pojo.*;
-import Model.other.ProcedureForTableview;
+import Model.Other.ProcedureForTableview;
 
 import java.sql.Timestamp;
 

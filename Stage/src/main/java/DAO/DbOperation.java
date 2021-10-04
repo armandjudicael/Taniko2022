@@ -5,16 +5,14 @@ import Model.Enum.AffaireStatus;
 import Model.Enum.NotifType;
 import Model.Enum.TableName;
 import Model.Pojo.Affaire;
-import Model.Pojo.Procedure;
 import Model.Pojo.Terrain;
 import Model.Pojo.User;
-import Model.serviceManager.MainService;
+import Model.Other.MainService;
 import View.Dialog.Other.Notification;
 import View.Model.ConnexAffairForView;
 import View.Model.ProcedureForView;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
-import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
 import java.io.File;
@@ -26,11 +24,11 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public class DbOperation {
+
     private static Connection connection = new ConnectionFactory().getConnection();
     public static Connection getConnection() {
         return connection;
     }
-
     private static final String TERRAIN_DEPEND_TITRE = "terrain_depend_titre";
     private static final String TERRAIN_ABOUTIR_TITRE = "terrain_aboutir_titre";
 
@@ -43,30 +41,22 @@ public class DbOperation {
         MainService.getInstance().launch(new Task<Void>() {
             @Override protected Void call() throws Exception {
                 try (Statement statement = connection.createStatement()){
-
                    int status = statement.executeUpdate(query);
                    connection.commit();
-
                    if (status!=0){
-
                        Platform.runLater(() -> {
                            String message = " Mis à jour efféctué avec succès ";
                            Notification.getInstance(message, NotifType.SUCCESS).show();
                        });
-
                    }else {
-
                        Platform.runLater(() -> {
                            String message = " échec de la  mis à jour  ";
                            Notification.getInstance(message, NotifType.WARNING).show();
                        });
-
                    }
-
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
-
                 return null;
             }
 
@@ -183,25 +173,6 @@ public class DbOperation {
         return status;
     }
 
-    public static int UpdateProcedureAnnuaire(Procedure procedure, Affaire affaire, Timestamp newTime) {
-
-        int status = 0;
-        String query = " UPDATE affaire_procedure SET date_prcd = ? WHERE id_prcd = ? and id_aff = ? ";
-        try (PreparedStatement ps = connection.prepareStatement(query)) {
-
-            ps.setTimestamp(1,newTime);
-            ps.setInt(2,procedure.getId());
-            ps.setInt(3, affaire.getId());
-            status = ps.executeUpdate();
-            connection.commit();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return  status;
-    }
-
     public static int insertOnDispatchTable(User user,Affaire affaire){
         int status = 0;
         String query = " INSERT INTO dispatch (utilisateurId,affaireId,dateDispatch) VALUES ( ? , ? , ? ); ";
@@ -230,21 +201,5 @@ public class DbOperation {
             e.printStackTrace();
         }
         return status;
-    }
-
-    public static Timestamp getProcedureDate(Affaire affaire, Procedure procedure) {
-        Timestamp timestamp = null;
-        String query = " SELECT date_prcd FROM affaire_procedure WHERE id_prcd = ? AND id_aff = ? ; ";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(query)){
-            preparedStatement.setInt(1, affaire.getId());
-            preparedStatement.setInt(2,procedure.getId());
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next())
-                timestamp = resultSet.getTimestamp("date_prcd");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return timestamp;
     }
 }

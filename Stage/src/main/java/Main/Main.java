@@ -1,10 +1,7 @@
 package Main;
 
 import DAO.ConnectionFactory;
-import Model.serviceManager.MainService;
-import com.textmagic.sdk.RestClient;
-import com.textmagic.sdk.RestException;
-import com.textmagic.sdk.resource.instance.TMNewMessage;
+import Model.Other.MainService;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.concurrent.ScheduledService;
@@ -23,7 +20,6 @@ import javafx.util.Duration;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.sql.Connection;
-import java.util.Arrays;
 import java.util.Optional;
 
 public class Main extends Application {
@@ -92,7 +88,6 @@ public class Main extends Application {
     }
 
     public static void runServerPing( String host ) {
-
         // RUN A DEAMON THREAD WHO PING THE LOCAL SERVER
         ScheduledService<Boolean> scheduledService = new ScheduledService<Boolean>() {
             @Override
@@ -109,13 +104,12 @@ public class Main extends Application {
 
         scheduledService.stateProperty().addListener((observableValue, state, t1) -> {
             switch (t1) {
-
                 case SCHEDULED:{
-
                     if (!isReacheable){
-
                         if (scheduledService.cancel()){
+
                             Platform.runLater(() -> {
+
                                 Alert alert = new Alert(Alert.AlertType.ERROR);
                                 alert.setTitle(" Problème de connexion ");
                                 alert.initModality(Modality.WINDOW_MODAL);
@@ -123,18 +117,17 @@ public class Main extends Application {
                                 alert.setContentText(" 1 - veuillez verifier votre cable reseau ou wifi !\n" +
                                         " 2 - Si le probleme persiste , veuillez contacter le responsable informatique !");
                                 Optional<ButtonType> buttonType = alert.showAndWait();
+
                                 if (buttonType.get().equals(ButtonType.OK)) {
                                     Platform.exit();
                                 } else Platform.exit();
                             });
                         }
-
                     }
-
                 }break;
             }
-        });
 
+        });
         scheduledService.setPeriod(new Duration(500));
         scheduledService.setRestartOnFailure(true);
         scheduledService.start();

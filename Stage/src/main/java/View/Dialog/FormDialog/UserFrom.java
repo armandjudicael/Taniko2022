@@ -6,7 +6,7 @@ import DAO.DaoFactory;
 import Main.InitializeApp;
 import Model.Enum.NotifType;
 import Model.Pojo.User;
-import Model.serviceManager.MainService;
+import Model.Other.MainService;
 import View.Dialog.Other.Notification;
 import View.Model.PasswordView;
 import View.Model.UserForView;
@@ -87,7 +87,7 @@ public class UserFrom extends JFXDialog implements Initializable {
 
     public UserFrom() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Form/UserForm.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Form/Other/UserForm.fxml"));
             loader.setController(this);
             this.setContent((AnchorPane) loader.load());
             this.setDialogContainer(MainController.getInstance().getMainStackPane());

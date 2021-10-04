@@ -8,7 +8,6 @@ import javafx.scene.image.ImageView;
 public class TitleCell extends ListCell<Titre> {
     private final static   String style = DispatchListcell.class.getResource("/css/listCell.css").toExternalForm();
     @Override protected void updateItem(Titre titre, boolean b) {
-
         if (titre == null || b) {
             setText(null);
             setGraphic(null);
@@ -22,6 +21,9 @@ public class TitleCell extends ListCell<Titre> {
             this.setGraphicTextGap(20);
             setGraphic(imageView);
             this.getStylesheets().add(style);
+
         }
+
     }
+
 }

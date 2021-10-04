@@ -76,6 +76,16 @@ public class Terrain {
         this.titreDependant = titreDependant;
     }
 
+    public Terrain( String superficie,String parcelle,String quartier,String district,String commune,String region,Titre titre){
+         setSuperficie(superficie);
+         setParcelle(parcelle);
+         setDistrict(district);
+         setCommune(commune);
+         setQuartier(quartier);
+         setRegion(region);
+         setTitreDependant(titre);
+    }
+
     public String getSuperficie() {
         return superficie;
     }

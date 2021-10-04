@@ -2,7 +2,7 @@ package Controller.ViewController;
 
 import DAO.DaoFactory;
 import Main.InitializeApp;
-import Model.serviceManager.MainService;
+import Model.Other.MainService;
 import View.Dialog.FormDialog.UserFrom;
 import View.Model.UserForView;
 import com.jfoenix.controls.JFXButton;
@@ -16,9 +16,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.layout.TilePane;
-import javafx.scene.paint.ImagePattern;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -62,7 +60,7 @@ public class UserViewController implements Initializable {
         searchTextField.setText("");
     }
 
-    public void refresh() {
+    public void refresh(){
         Task<Void> task = new Task<Void>() {
             @Override
             protected Void call() throws Exception {

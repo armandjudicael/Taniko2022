@@ -1,10 +1,10 @@
 package View.Dialog.FormDialog;
 
-import Controller.DetailsController.ProcedureViewController;
+import Controller.detailsController.ProcedureViewController;
 import Controller.ViewController.AffairViewController;
 import Controller.ViewController.MainController;
 import Model.Enum.NotifType;
-import Model.serviceManager.MainService;
+import Model.Other.MainService;
 import View.Dialog.Other.Notification;
 import View.Model.AffaireForView;
 import View.Model.ProcedureForView;
@@ -48,7 +48,7 @@ public class ProcedureDialog extends JFXDialog implements Initializable {
     private ProcedureDialog() {
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Form/procedureNumForm.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Form/Other/procedureNumForm.fxml"));
             loader.setController(this);
             this.setContent((AnchorPane) loader.load());
             this.setDialogContainer(MainController.getInstance().getMainStackPane());

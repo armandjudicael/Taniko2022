@@ -20,8 +20,8 @@
         <module name="Stage" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="16">
-      <module name="Stage" target="16" />
+    <bytecodeTargetLevel target="11">
+      <module name="Stage" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>

@@ -3,8 +3,7 @@ package DAO;
 import Model.Enum.AffaireStatus;
 import Model.Enum.ProcedureStatus;
 import Model.Pojo.*;
-import Model.other.ProcedureForTableview;
-import Model.other.RedactorAffair;
+import Model.Other.ProcedureForTableview;
 import View.Model.AffaireForView;
 import View.Model.ConnexAffairForView;
 import javafx.beans.property.SimpleStringProperty;
@@ -45,8 +44,7 @@ public class AffairDao extends DAO<Affaire> {
                     "AFF.dateFormulation," +
                     "AFF.situation ";
 
-
-    private final String TITRE_DEPENDANT = " ( SELECT CONCAT(ti.idTitre,'@',ti.numTitre,'@',ti.nomPropriete)" +
+    private final String TITRE_DEPENDANT = " (SELECT CONCAT(ti.idTitre,'@',ti.numTitre,'@',ti.nomPropriete)" +
                     " FROM  titre AS ti,terrain as te,terrain_depend_titre as tdt" +
                     " WHERE tdt.titreId = ti.idTitre " +
                     " AND tdt.terrainId = te.idTerrain " +
@@ -57,18 +55,20 @@ public class AffairDao extends DAO<Affaire> {
                                       " WHERE  te.idTerrain = AFF.terrainId ) AS SUPERFICIE_TERRAIN ";
 
     private final String FULL_INFORMATION =
-                            ALL_AFFAIRE_COLUMN+ "," +
-                            APPLICANT_FULLNAME + "," +
-                            LAST_REDACTOR + "," +
-                            LAST_PROCEDURE + ","+
-                            TITRE_DEPENDANT+ ","+
+                            ALL_AFFAIRE_COLUMN+"," +
+                            APPLICANT_FULLNAME+"," +
+                            LAST_REDACTOR +"," +
+                            LAST_PROCEDURE +","+
+                            TITRE_DEPENDANT+","+
                             SUPERFICIE;
 
     public ObservableList<AffaireForView> getAllAffair(){
+
         ObservableList<AffaireForView> list = FXCollections.observableArrayList();
         String query="SELECT " +
                 FULL_INFORMATION +
                 "FROM affaire AS AFF ";
+
         try (PreparedStatement ps = this.connection.prepareStatement(query)) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -96,8 +96,8 @@ public class AffairDao extends DAO<Affaire> {
                 createRedactor(redactor),
                 string2AffaireStatus(rs.getString("situation")),
                 createDemandeur(applicantName),
-                createTerrain(titreDependant,superficieTerrain),
-                createSituation(lastProcedure)
+                initTerrain(titreDependant,superficieTerrain),
+                initSituation(lastProcedure)
         );
     }
 
@@ -117,7 +117,7 @@ public class AffairDao extends DAO<Affaire> {
 
     private Demandeur createDemandeur(String applicantName) {
         Demandeur demandeur = new Demandeur();
-        if (applicantName != null && !applicantName.isEmpty()) {
+        if (applicantName != null && !applicantName.isEmpty()){
             String[] tab = applicantName.split("@", 2);
             demandeur.setNom(tab[0]);
             demandeur.setPrenom(tab[1]);
@@ -125,14 +125,14 @@ public class AffairDao extends DAO<Affaire> {
         return demandeur;
     }
 
-    private Terrain createTerrain(String titreDependant,String superficieTerrain){
-        Terrain terrain = new Terrain();
-        if (titreDependant!= null){
+    private Titre initTitre(String nomTitreDependant){
+
+        if (nomTitreDependant!=null && !nomTitreDependant.isBlank()){
             String nomPropriete = "";
             String numeroPropriete = "";
             int idTitre = 0;
-            String[] split = titreDependant.split("@",3);
-            if (split.length == 3){
+            String[] split = nomTitreDependant.split("@",3);
+            if (split.length==3){
                 // TITRE DEPENDANT
                 idTitre = Integer.valueOf(split[0]);
                 numeroPropriete = split[1];
@@ -142,38 +142,40 @@ public class AffairDao extends DAO<Affaire> {
                 titre.setNomPropriete(nomPropriete);
                 titre.setNumero(numeroPropriete);
                 titre.setId(idTitre);
-                terrain.setTitreDependant(titre);
+                return titre;
             }
+
         }
+        return null;
+    }
 
+    private Terrain initTerrain(String nomTitreDependant, String superficieTerrain){
+        Terrain terrain = new Terrain();
+        terrain.setTitreDependant(initTitre(nomTitreDependant));
         if (superficieTerrain!=null){
-
              String[] split = superficieTerrain.split("@", 2);
              int idTerrain = Integer.valueOf(split[0]);
              String superficie = split[1];
              terrain.setIdTerrain(idTerrain);
              terrain.setSuperficie(superficie);
-
         }
-
         return terrain;
     }
 
-    private ProcedureForTableview createSituation(String lastProcedure){
+    @Deprecated private ProcedureForTableview initSituation(String lastProcedure){
 
         String situation = "Auccune procedure";
         ProcedureForTableview procedureForTableview = new ProcedureForTableview(ProcedureStatus.NONE, new SimpleStringProperty());
-        if (lastProcedure != null) {
+        if (lastProcedure != null){
             String situationTab[] = lastProcedure.split("@", 5);
             if (situationTab.length == 5) {
-
                 String nomProcedure = situationTab[0];
                 String numeroDepart = situationTab[1];
                 String dateDepart = situationTab[2];
                 String numeroArrive = situationTab[3];
                 String dateArrive = situationTab[4];
 
-                if (!dateArrive.equals("30-07-1999 00:00:00")) {
+                if (!dateArrive.equals("30-07-1999 00:00:00")){
                     procedureForTableview.setStatus(ProcedureStatus.BACK);
                     if (!numeroArrive.isEmpty())
                         situation = nomProcedure + " N° " + numeroArrive + " du " + dateArrive;
@@ -192,11 +194,14 @@ public class AffairDao extends DAO<Affaire> {
                 procedureForTableview.setDescription(situation);
             }
         } else {
-            procedureForTableview.setDescription(situation);
-            procedureForTableview.setStatus(ProcedureStatus.NONE);
-        }
-        return procedureForTableview;
 
+            procedureForTableview.setDescription(situation);
+
+            procedureForTableview.setStatus(ProcedureStatus.NONE);
+
+        }
+
+        return procedureForTableview;
     }
 
     public AffairDao(Connection connection) {
@@ -218,7 +223,7 @@ public class AffairDao extends DAO<Affaire> {
 
     public int deleteById(Affaire affaire) {
         int status = 0;
-        String query = " DELETE FROM affaire WHERE idAffaire = ? ;";
+        String query = "DELETE FROM affaire WHERE idAffaire = ? ;";
         try (PreparedStatement ps = this.connection.prepareStatement(query)) {
             ps.setInt(1, affaire.getId());
             status = ps.executeUpdate();
@@ -381,13 +386,17 @@ public class AffairDao extends DAO<Affaire> {
     }
 
     public ObservableList<ConnexAffairForView> checkConnexAffaireBy(String num){
+
         num = num.toLowerCase();
+
         ObservableList<ConnexAffairForView> list = FXCollections.observableArrayList();
+
         /**
          *   SELECTIONNER LES AFFAIRES QUI NE SONT PAS  DE TYPE ' PRESCRIPTION OU  AFFECTATION ' ET QUI NE SONT PAS ENCORE TITRE
          */
+
         String query = " SELECT "+
-                " a.terrainId" +
+                " a.terrainId"+
                 " ,a.numAffaire"+
                 " ,CONCAT(d.nomDmd,' ',d.prenomDmd) AS NOM_DEMANDEUR  "+
                 " FROM affaire a " +
@@ -397,6 +406,7 @@ public class AffairDao extends DAO<Affaire> {
                 " AND a.terrainId NOT IN (SELECT tat.terrainId FROM terrain_aboutir_titre tat);";
 
         try {
+
             PreparedStatement ps = this.connection.prepareStatement(query);
             ps.setString(1, num);
             ps.setString(2,num);
@@ -460,28 +470,17 @@ public class AffairDao extends DAO<Affaire> {
     public Boolean checkNumAffair(String num) {
 
         String query = " SELECT COUNT(AFF.idAffaire) AS nb FROM affaire AS AFF where AFF.numAffaire = ?";
-
         int value = 0;
-
         try (PreparedStatement ps = this.connection.prepareStatement(query)) {
-
             ps.setString(1, num);
-
             ResultSet rs = ps.executeQuery();
-
             while (rs.next()) {
                 value = rs.getInt("nb");
             }
-
-        } catch (SQLException e) {
-
-
+        } catch (SQLException e){
             e.printStackTrace();
-
         }
-
-        return value == 0 ? true : false;
-
+        return value == 0;
     }
 
     public AffaireForView getAffairByDemandeurNameOrNum(String type) {
@@ -495,22 +494,17 @@ public class AffairDao extends DAO<Affaire> {
                 " FROM demandeur as d , affaire as AFF " +
                 " WHERE AFF.demandeurId = d.idDmd " +
                 " AND ( AFF.numAffaire = ? or lower(d.prenomDmd) LIKE CONCAT(?,'%') or lower(d.nomDmd) LIKE CONCAT(?,'%') )";
-
         try (PreparedStatement ps = this.connection.prepareStatement(query)){
-
             ps.setString(1,type);
             ps.setString(2,type);
             ps.setString(3,type);
             ResultSet rs = ps.executeQuery();
-
             while (rs.next()) {
                 affairForView = createAffaireView(rs);
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return affairForView;
     }
 
@@ -581,9 +575,7 @@ public class AffairDao extends DAO<Affaire> {
     }
 
     public ObservableList<ArrayList<String>> getAllProcedureAndDateConcernedByThis(int idAffaire) {
-
         ObservableList<ArrayList<String>> a = FXCollections.observableArrayList();
-
         String query = "SELECT a.procedureId," +
                 " a.dateDepart," +
                 " DATE_FORMAT(a.dateDepart," + "'%d-%m-%Y %H:%i:%s') dateDepart," +
@@ -626,7 +618,7 @@ public class AffairDao extends DAO<Affaire> {
                 "FROM affaire a inner join demandeur as d on a.demandeurId = d.idDmd " +
                 " where a.terrainId = ?  and a.idAffaire <> ? ; ";
 
-        try (PreparedStatement ps = this.connection.prepareStatement(query)) {
+        try (PreparedStatement ps = this.connection.prepareStatement(query)){
             ps.setInt(1,affaire.getTerrain().getIdTerrain());
             ps.setInt(2,affaire.getId());
             ResultSet rs = ps.executeQuery();
@@ -649,18 +641,23 @@ public class AffairDao extends DAO<Affaire> {
         String query ="SELECT distinct year(dateFormulation) AS date_creation," +
                 " ( SELECT count(typeAffaire) from affaire where  typeAffaire = 'ACQUISITION' AND YEAR(dateFormulation) = date_creation ) AS acquisition ," +
                 " ( SELECT COUNT(typeAffaire) from affaire where typeAffaire = 'PRESCRIPTION_ACQUISITIVE' AND YEAR(dateFormulation) = date_creation ) AS prescription FROM affaire GROUP BY date_creation ORDER BY date_creation desc ;";
+
         try (PreparedStatement ps = this.connection.prepareStatement(query)) {
+
             ResultSet rs = ps.executeQuery();
+
             XYChart.Series<String, Number> acquisition = new XYChart.Series<String, Number>();
             acquisition.setName(" Demande d'acquisition");
             XYChart.Series<String, Number> prescrition = new XYChart.Series<String, Number>();
             prescrition.setName("Prescription Acquisitive");
+
             while (rs.next()) {
                 XYChart.Data<String, Number> acquisitionData = new XYChart.Data<String, Number>(rs.getString("date_creation"), rs.getInt("acquisition"));
                 XYChart.Data<String, Number> prescriptionData = new XYChart.Data<>(rs.getString("date_creation"), rs.getInt("prescription"));
                 acquisition.getData().add(acquisitionData);
                 prescrition.getData().add(prescriptionData);
             }
+
             list.addAll(acquisition, prescrition);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -706,61 +703,13 @@ public class AffairDao extends DAO<Affaire> {
                 acquisition.getData().add(acquisitionData);
                 prescrition.getData().add(prescriptionData);
             }
+
             list.addAll(acquisition, prescrition);
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return list;
-    }
-
-    private ObservableList<XYChart.Series<String, Number>> getNumberOfCaseByDayOnThis(String month, String year) {
-
-        ObservableList<XYChart.Series<String, Number>> list = FXCollections.observableArrayList();
-
-        String query = " SELECT mois.MONTH , " +
-                " ( SELECT count(typeAffaire) from affaire where ( typeAffaire = 'ACQUISITION' AND YEAR(date_formulation) = ? and monthname(date_formulation) = mois.MONTH )) AS acquisition , " +
-                "( SELECT count(typeAffaire) from affaire where ( typeAffaire = 'PRESCRIPTION ACQUISITIVE' AND YEAR(date_formulation) = ? and monthname(date_formulation) = mois.MONTH )) AS prescription " +
-                "from " +
-                "(SELECT 'Monday' AS MONTH UNION " +
-                "SELECT 'Tuesday' AS MONTH UNION" +
-                " SELECT '' AS MONTH UNION" +
-                " SELECT '' AS MONTH UNION " +
-                "SELECT 'May' AS MONTH UNION" +
-                " SELECT 'June' AS MONTH UNION " +
-                "SELECT 'December' AS MONTH) as mois group by mois.MONTH;";
-
-        try (PreparedStatement ps = this.connection.prepareStatement(query)) {
-            ps.setString(1, year);
-            ResultSet rs = ps.executeQuery();
-            XYChart.Series<String, Number> acquisition = new XYChart.Series<String, Number>();
-            acquisition.setName(" Demande d'acquisition");
-            XYChart.Series<String, Number> prescrition = new XYChart.Series<String, Number>();
-            prescrition.setName("Prescription Acquisitive");
-            while (rs.next()) {
-                XYChart.Data<String, Number> acquisitionData = new XYChart.Data<String, Number>(rs.getString("mois.MONTH"), rs.getInt("acquisition"));
-                XYChart.Data<String, Number> prescriptionData = new XYChart.Data<>(rs.getString("mos.MONTH"), rs.getInt("prescription"));
-                acquisition.getData().add(acquisitionData);
-                prescrition.getData().add(prescriptionData);
-            }
-            list.addAll(acquisition, prescrition);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return list;
-    }
-
-    public int nombretitre() {
-        int nb = 0;
-        String query = " SELECT COUNT(idTitre) from titre ;";
-        try (PreparedStatement ps = this.connection.prepareStatement(query)) {
-            ResultSet resultSet = ps.executeQuery();
-            while (resultSet.next())
-                nb = resultSet.getInt("COUNT(idTitre)");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return nb;
     }
 
     public int nombreDemandeAcquisition() {

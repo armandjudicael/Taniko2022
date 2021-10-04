@@ -9,15 +9,13 @@ import Model.Enum.TableName;
 import Model.Enum.TitleOperation;
 import Model.Pojo.Affaire;
 import Model.Pojo.Titre;
-import Model.serviceManager.MainService;
+import Model.Other.MainService;
 import View.Dialog.Other.Notification;
-import View.Model.ProcedureForView;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
-import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -59,7 +57,7 @@ public class TitleFrom extends JFXDialog implements Initializable {
     private TitleFrom() {
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Form/TitleForm.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Form/Other/TitleForm.fxml"));
             loader.setController(this);
             this.setContent((AnchorPane) loader.load());
             this.setDialogContainer(MainController.getInstance().getMainStackPane());

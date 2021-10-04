@@ -2,8 +2,8 @@ package DAO;
 
 import Model.Pojo.Affaire;
 import Model.Pojo.User;
-import Model.other.RedactorAffair;
-import Model.other.UserForLogin;
+import Model.Other.RedactorAffair;
+import Model.Other.UserForLogin;
 import View.Model.EditorForView;
 import View.Model.UserForView;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -18,7 +18,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.Collectors;
 
 public class UserDao extends  DAO<User> {
@@ -65,23 +64,7 @@ public class UserDao extends  DAO<User> {
     }
 
     @Override public int update(User user) {
-        String query = " UPDATE utilisateur SET nom_utilisateur = ? , mot_de_passe = ? , nom = ? , prenom = ? , photo = ? , type = ? , fonction = ? WHERE id = ? ; ";
-        int status = 0 ;
-        try (PreparedStatement preparedStatement = this.connection.prepareStatement(query)) {
-                preparedStatement.setString(1, user.getUserName());
-                preparedStatement.setString(2, user.getPassword());
-                preparedStatement.setString(3, user.getNom());
-                preparedStatement.setString(4, user.getPrenom());
-                preparedStatement.setBlob(5, user.getInsertPhoto());
-                preparedStatement.setString(6, user.getType());
-                preparedStatement.setString(7, user.getFonction());
-                preparedStatement.setInt(8, user.getId());
-                status = preparedStatement.executeUpdate();
-                this.connection.commit();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return status;
+      return 0;
     }
 
     @Override
@@ -270,28 +253,6 @@ public class UserDao extends  DAO<User> {
         return userObservableList;
     }
 
-    public User getEditorBy(int idAffair) {
-
-        String query = "SELECT utilisateur.mot_de_passe,utilisateur.nom_utilisateur,utilisateur.photo,utilisateur.mot_de_passe FROM utilisateur LEFT JOIN affaire_utilisateur ON utilisateur.id = affaire_utilisateur.id_user WHERE affaire_utilisateur.id_aff = ? ORDER BY affaire_utilisateur.date_parrainage desc limit 1 ;";
-
-        User user = new User();
-
-        try (PreparedStatement ps = this.connection.prepareStatement(query)) {
-            ps.setInt(1, idAffair);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                user = new User(
-                        getImageFromBuffer(rs),
-                        rs.getString("nom_utilisateur"),
-                        rs.getString("mot_de_passe")
-                );
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return user;
-    }
-
     public ObservableList<UserForView> getAllUsers(){
         ObservableList<UserForView> users = FXCollections.observableArrayList();
         String query = " SELECT * FROM utilisateur where strcmp(utilisateur.nom,'kael')<>0;";
@@ -335,9 +296,7 @@ public class UserDao extends  DAO<User> {
     }
 
     public ObservableList<RedactorAffair> getAllActualAffairTraitedBy(User user, Boolean actual) {
-
         ObservableList<RedactorAffair> list = FXCollections.observableArrayList();
-
         String query = "";
 
         if (actual) {

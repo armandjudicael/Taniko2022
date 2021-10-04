@@ -209,28 +209,20 @@ private static final String ALL_TITLE_COLUMN = "T.idTitre AS IDENTIFIANT ," +
     @Override public Titre findById(int id) {
         return null;
     }
-
     @Override public Titre finByNum(int num) {
         return null;
     }
-
     public ObservableList<Titre> findByNumOrName(String numeroOrName) {
-
         numeroOrName = numeroOrName.toLowerCase().trim();
-
         ObservableList<Titre> observableList = FXCollections.observableArrayList();
-
         String query = " SELECT DISTINCT T.idTitre,T.numTitre,T.nomPropriete " +
                        " FROM titre as T " +
                        " WHERE ( strcmp(LOWER(TRIM(T.numTitre)),?)=0 or TRIM(LOWER(T.nomPropriete)) LIKE CONCAT(?,'%'));";
-
         try (PreparedStatement ps = this.connection.prepareStatement(query)){
-
             ps.setString(1, numeroOrName);
             ps.setString(2, numeroOrName);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-
                 Titre titre = new Titre();
                 int id = rs.getInt("T.idTitre");
                 String numero = rs.getString("T.numTitre");
@@ -240,9 +232,7 @@ private static final String ALL_TITLE_COLUMN = "T.idTitre AS IDENTIFIANT ," +
                 titre.setNumero(numero);
                 titre.setNomPropriete(nomProperiete);
                 observableList.add(titre);
-
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -285,7 +275,6 @@ private static final String ALL_TITLE_COLUMN = "T.idTitre AS IDENTIFIANT ," +
     }
 
     public Boolean checkNumTitle(String num) {
-
         String query = " SELECT COUNT(T.idTitre) AS nb FROM titre AS T where TRIM(T.numTitre) = ?";
         int value = 0;
         try (PreparedStatement ps = this.connection.prepareStatement(query)) {
@@ -295,11 +284,10 @@ private static final String ALL_TITLE_COLUMN = "T.idTitre AS IDENTIFIANT ," +
                 value = rs.getInt("nb");
             }
         } catch (SQLException e) { e.printStackTrace(); }
-        return value == 0 ? true : false;
+        return value == 0;
     }
 
     public Boolean checkNumMorcelement(String num){
-
         String query = " SELECT COUNT(T.idTitre) AS nb FROM titre AS T where TRIM(T.numMorcelement) = ?";
         int value = 0;
         try (PreparedStatement ps = this.connection.prepareStatement(query)) {
@@ -309,9 +297,7 @@ private static final String ALL_TITLE_COLUMN = "T.idTitre AS IDENTIFIANT ," +
                 value = rs.getInt("nb");
             }
         } catch (SQLException e) { e.printStackTrace(); }
-        return value == 0 ? true : false;
+        return value == 0;
     }
-
-
 
 }

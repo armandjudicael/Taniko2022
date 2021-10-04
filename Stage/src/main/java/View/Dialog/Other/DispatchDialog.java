@@ -1,29 +1,21 @@
 package View.Dialog.Other;
 
-import Controller.DetailsController.AffairDetailsController;
-import Controller.DetailsController.EditorViewController;
-import Controller.ViewController.AffairViewController;
+import Controller.detailsController.AffairDetailsController;
+import Controller.detailsController.EditorViewController;
 import Controller.ViewController.MainController;
-import DAO.DaoFactory;
 import DAO.DbOperation;
-import Main.InitializeApp;
-import Model.Enum.AutoCompleteComboboxType;
+import Model.Enum.Type;
 import Model.Enum.NotifType;
 import Model.Pojo.Affaire;
 import Model.Pojo.User;
-import Model.serviceManager.MainService;
+import Model.Other.MainService;
 import View.Cell.ListCell.DispatchListcell;
-import View.Model.AffaireForView;
 import View.Model.EditorForView;
-import View.Model.UserForView;
 import View.helper.AutoCompleteCombobox;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDialog;
-import com.jfoenix.controls.JFXSpinner;
 import javafx.application.Platform;
-import javafx.collections.ObservableList;
-import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -34,11 +26,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class DispatchDialog extends JFXDialog implements Initializable {
 
@@ -50,7 +39,7 @@ public class DispatchDialog extends JFXDialog implements Initializable {
 
     private DispatchDialog() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Form/newDispatchDialog.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Form/Other/newDispatchDialog.fxml"));
             loader.setController(this);
             this.setContent((AnchorPane) loader.load());
             this.setDialogContainer(MainController.getInstance().getMainStackPane());
@@ -90,7 +79,7 @@ public class DispatchDialog extends JFXDialog implements Initializable {
                     return true;
                 else return false;
             }
-        }, AutoCompleteComboboxType.USER);
+        }, Type.USER);
 
     }
 

@@ -1,30 +1,25 @@
 package View.Dialog.SecurityDialog;
 
-import Controller.DetailsController.*;
-import Controller.FormController.LoginController;
+import Controller.detailsController.*;
+import Controller.ViewController.LoginController;
 import Controller.ViewController.AffairViewController;
 import Controller.ViewController.MainController;
-import DAO.DaoFactory;
 import Main.InitializeApp;
 import Model.Enum.Origin;
 import Model.Pojo.Affaire;
 import Model.Pojo.User;
-import Model.serviceManager.MainService;
-import View.Dialog.FormDialog.TitleFrom;
+import Model.Other.MainService;
 import View.Model.AffaireForView;
 import View.Model.PasswordView;
 import View.Model.UserForView;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
-import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.print.PageLayout;
-import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -137,17 +132,12 @@ public class EditorSecurity extends JFXDialog implements Initializable {
 
                         }
                         return null;
-
                     }
-
                 });
-
                 editorSecurity.show();
 
             }else {
-
                 AdminSecurity.show(Origin.PROCEDURE_VIEW_BTN,actionEvent);
-
             }
         }else{
             user = LoginController.getConnectedUser();

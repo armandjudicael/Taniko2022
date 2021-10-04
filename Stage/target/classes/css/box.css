@@ -5,14 +5,13 @@
 }
 
 .box:focused {
-    -fx-border-color: #1AA848;
+    -fx-border-color:  #389955;
 }
 
 .box:hover {
-    -fx-border-color: #41a849;
+    -fx-border-color:  #389955;
     -fx-border-width: 1.8px;
 }
-
 .boxError {
     -fx-border-color: #FF3A3A;
 }

@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="connexePanel" minWidth="-Infinity" style="-fx-background-color: whitesmoke;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.DetailsController.ConnexViewController">
+<AnchorPane fx:id="connexePanel" minWidth="-Infinity" style="-fx-background-color: whitesmoke;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.detailsController.ConnexViewController">
    <children>
       <TableView fx:id="connexeTableView" layoutX="109.0" layoutY="16.0" prefHeight="323.0" prefWidth="524.0" stylesheets="@../../../css/tableView.css" AnchorPane.bottomAnchor="55.0" AnchorPane.leftAnchor="109.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="16.0">
          <columns>

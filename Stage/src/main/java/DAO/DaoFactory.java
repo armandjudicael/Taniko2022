@@ -22,4 +22,5 @@ public class DaoFactory{
         return new UserDao(connection);
     }
     public static TerrainDao getTerrainDao(){return new TerrainDao(connection);}
+    public static PieceJointeDao getPieceJointeDao(){return new PieceJointeDao(connection);}
 }

@@ -14,10 +14,12 @@ public class ConnectionFactory{
     final String localPort = "4040";
     final String localPassword = "Aj30071999";
 
+
     final String user = "root";
     final String finalhost = "192.168.1.50";
     final String finalPort = "3306";
     final String finalDb = "cirdoma";
+
     final String finalPassword = "Aj!30071999";
     final String localUrl = "jdbc:mysql://" + localhost + ":" + localPort + "/" + finalDb + "?useLegacyDatetimeCode=false&serverTimezone=UTC";
     final String finalUrl = "jdbc:mysql://" + finalhost + ":" + finalPort + "/" + finalDb + "?useLegacyDatetimeCode=false&serverTimezone=UTC";
@@ -40,13 +42,12 @@ public class ConnectionFactory{
                 e.printStackTrace();
             }
         }
-
         return connection;
     }
 
     public static Connection getConnection(String user, String password, String host, String port, String databaseName) {
         String url = "jdbc:mysql://" + host + ":" + port + "/" + databaseName + "?useLegacyDatetimeCode=false&serverTimezone=UTC";
-        if (connection == null) {
+        if (connection == null){
             try {
                 connection = DriverManager.getConnection(url,user,password);
                 connection.setAutoCommit(false);

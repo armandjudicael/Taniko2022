@@ -1,16 +1,15 @@
 package View.Dialog.SecurityDialog;
 
-import Controller.DetailsController.AffairDetailsController;
-import Controller.DetailsController.ConnexViewController;
-import Controller.DetailsController.EditorViewController;
-import Controller.DetailsController.ProcedureViewController;
+import Controller.detailsController.AffairDetailsController;
+import Controller.detailsController.ConnexViewController;
+import Controller.detailsController.EditorViewController;
+import Controller.detailsController.ProcedureViewController;
 import Controller.ViewController.AffairViewController;
 import Controller.ViewController.MainController;
 import Controller.ViewController.TitleViewController;
 import DAO.DaoFactory;
 import Model.Enum.Origin;
-import Model.Pojo.User;
-import Model.serviceManager.MainService;
+import Model.Other.MainService;
 import View.Dialog.Other.DispatchDialog;
 import View.Model.AffaireForView;
 import View.Model.PasswordView;
@@ -49,6 +48,7 @@ public class AdminSecurity extends JFXDialog implements Initializable {
     @FXML private ImageView eye;
     @FXML private HBox wrapper;
     @FXML private Label passwordLabel;
+
     private static  ActionEvent actionEvent;
     private static MouseEvent mouseEvent;
 
@@ -114,7 +114,6 @@ public class AdminSecurity extends JFXDialog implements Initializable {
                 return null;
             }
         });
-
     }
 
     public static AdminSecurity getInstance() {
@@ -122,7 +121,6 @@ public class AdminSecurity extends JFXDialog implements Initializable {
     }
 
     @Override public void initialize(URL location, ResourceBundle resources) {
-
         bindButton();
         passwordLabel.visibleProperty().bind(password.focusedProperty());
         new PasswordView(eye, password);
@@ -131,7 +129,6 @@ public class AdminSecurity extends JFXDialog implements Initializable {
             password.setText("");
             this.close();
         });
-
     }
 
     public void fermerApp(ActionEvent actionEvent) {
@@ -176,7 +173,6 @@ public class AdminSecurity extends JFXDialog implements Initializable {
             }
 
             @Override protected void succeeded(){
-
                 if (isValid){
                     password.clear();
                     AdminSecurity.getInstance().close();
@@ -234,20 +230,13 @@ public class AdminSecurity extends JFXDialog implements Initializable {
                             AffairViewController.getInstance().showDetails();
                         }
                     }
-
                 } else {
-
                     Platform.runLater(() -> {
                         wrapper.getStyleClass().add("boxError");
                         label.setText(errorText);
                     });
-
                 }
-
             }
-
         };
-
     }
-
 }

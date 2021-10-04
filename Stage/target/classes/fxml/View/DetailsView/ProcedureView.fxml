@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="parent" alignment="BOTTOM_CENTER" prefHeight="548.0" prefWidth="1019.0" spacing="10.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.DetailsController.ProcedureViewController">
+<VBox fx:id="parent" alignment="BOTTOM_CENTER" prefHeight="548.0" prefWidth="1019.0" spacing="10.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.detailsController.ProcedureViewController">
     <children>
         <HBox alignment="CENTER" prefHeight="14.0" prefWidth="999.0" VBox.vgrow="NEVER">
             <children>
@@ -112,7 +112,7 @@
                     <graphic>
                         <ImageView fitHeight="18.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../../../img/remove_50px.png" />
+                                <Image url="@../../../img/broom_20px.png" />
                             </image>
                         </ImageView>
                     </graphic>
