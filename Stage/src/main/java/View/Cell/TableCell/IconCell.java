@@ -6,7 +6,6 @@ import javafx.scene.control.TableCell;
 import javafx.scene.image.ImageView;
 
 public class IconCell extends TableCell {
-
     @Override protected void updateItem(Object item, boolean empty){
         if (item != null && !empty) {
             this.setAlignment(Pos.CENTER);

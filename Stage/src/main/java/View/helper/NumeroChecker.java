@@ -39,6 +39,7 @@ public class NumeroChecker {
             case MORCELEMENT:{ existContent = DaoFactory.getTitreDao().checkNumMorcelement(newValue+cigleTitre); }break;
             case TITRE:{ existContent = DaoFactory.getTitreDao().checkNumTitle(newValue+cigleTitre);}break;
             case AFFAIRE:{ existContent = DaoFactory.getAffaireDao().checkNumAffair(newValue); }break;
+            case ORDONNANCE:{ existContent = DaoFactory.getAffaireDao().checkNumOrdonance(newValue); }break;
             default: existContent = true;
         }
         return existContent;

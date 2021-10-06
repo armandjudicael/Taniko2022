@@ -18,8 +18,8 @@
         <StackPane fx:id="formStackpane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" BorderPane.alignment="CENTER">
          <children>
              <fx:include fx:id="demandeurFormPanel" source="demandeurFrom.fxml" />
-             <fx:include fx:id="peicejointeFormPanel" source="pieceJointeForm.fxml" />
-             <fx:include fx:id="terrainFormPanel" source="terrainFrom.fxml" />
+<!--             <fx:include fx:id="peicejointeFormPanel" source="pieceJointeForm.fxml" />-->
+<!--             <fx:include fx:id="terrainFormPanel" source="terrainFrom.fxml" />-->
              <fx:include fx:id="affaireFormPanel" source="affaireForm.fxml" />
          </children>
         </StackPane>

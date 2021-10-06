@@ -4,7 +4,6 @@
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXRadioButton?>
-<?import com.jfoenix.controls.JFXSpinner?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -18,40 +17,40 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="affairePanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="503.0" prefWidth="695.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="580.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.FormController.AffaireFormController">
    <children>
       <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="552.0" prefWidth="714.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <content>
-            <AnchorPane prefHeight="1316.0" prefWidth="661.0" style="-fx-background-color: white;">
+            <AnchorPane prefHeight="1333.0" style="-fx-background-color: white;">
                <children>
-                  <Text fill="#403f3f" layoutX="24.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Numero Affaire :" wrappingWidth="138.13671875">
+                  <Text fill="#403f3f" layoutX="66.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Numero Affaire :" wrappingWidth="115.13671875">
                      <font>
                         <Font name="Arial Unicode MS" size="15.0" />
                      </font>
                   </Text>
-                  <Text fill="#403f3f" layoutX="20.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date de formulation :" wrappingWidth="146.13671875">
+                  <Text fill="#403f3f" layoutX="41.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date de formulation :" wrappingWidth="146.13671875">
                      <font>
                         <Font name="Arial Unicode MS" size="15.0" />
                      </font>
                   </Text>
-                  <Text fill="#403f3f" layoutX="19.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type  demande  :" wrappingWidth="122.0">
+                  <Text fill="#403f3f" layoutX="63.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type  demande  :" wrappingWidth="122.0">
                      <font>
                         <Font name="Arial Unicode MS" size="15.0" />
                      </font>
                   </Text>
-                  <Text fill="#403f3f" layoutX="25.0" layoutY="265.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Situation :" wrappingWidth="74.13671875">
+                  <Text fill="#403f3f" layoutX="108.0" layoutY="265.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Situation :" wrappingWidth="74.13671875">
                      <font>
                         <Font name="Arial Unicode MS" size="15.0" />
                      </font>
                   </Text>
-                  <HBox fx:id="usernameBox" alignment="CENTER_LEFT" layoutX="208.0" layoutY="162.0" prefHeight="39.0" prefWidth="219.0" styleClass="box" stylesheets="@../../../css/box.css">
+                  <HBox fx:id="usernameBox" alignment="CENTER_LEFT" layoutX="208.0" layoutY="162.0" prefHeight="39.0" prefWidth="275.0" styleClass="box" stylesheets="@../../../css/box.css">
                      <children>
-                        <TextField fx:id="numero" prefHeight="37.0" prefWidth="91.0" promptText="numero" style="-fx-background-color: transparent;">
+                        <TextField fx:id="numeroAffaire" prefHeight="37.0" prefWidth="143.0" promptText="numero" style="-fx-background-color: transparent;">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </TextField>
-                        <Label fx:id="numLabel" prefHeight="33.0" prefWidth="122.0" text="- TAM-I / 2021">
+                        <Label fx:id="numAndDateAffLabel" prefHeight="33.0" prefWidth="122.0" text="- TAM-I / 2021">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -114,7 +113,6 @@
                         <Font name="Arial Unicode MS" size="15.0" />
                      </font>
                   </JFXRadioButton>
-                  <JFXSpinner fx:id="connexeSpinner" layoutX="607.0" layoutY="501.0" prefHeight="41.0" prefWidth="43.0" progress="0.17" visible="false" />
                   <Separator layoutY="867.0" prefHeight="0.0" prefWidth="647.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                   <Text fill="#403f3f" fontSmoothingType="LCD" layoutX="16.0" layoutY="851.0" strokeType="OUTSIDE" strokeWidth="0.0" text="REDACTEUR" wrappingWidth="107.99999999999994">
                      <font>
@@ -134,7 +132,7 @@
                         <Font name="Arial Unicode MS" size="15.0" />
                      </font>
                   </JFXRadioButton>
-                  <Label fx:id="existNumLabel" layoutX="176.0" layoutY="217.0" prefHeight="17.0" prefWidth="365.0" text="Le numero que vous avez entrer  existe déja ou ne correspond pas" textFill="RED" />
+                  <Label fx:id="errorNumAffaireLabel" layoutX="176.0" layoutY="217.0" prefHeight="17.0" prefWidth="365.0" text="Le numero que vous avez entrer  existe déja ou ne correspond pas" textFill="RED" visible="false" />
                   <JFXRadioButton fx:id="moiMemeRadio" layoutX="91.0" layoutY="939.0" text="Moi meme" toggleGroup="$redactorGroup" AnchorPane.leftAnchor="90.0">
                      <font>
                         <Font name="Arial Unicode MS" size="15.0" />
@@ -146,21 +144,21 @@
                         <Font name="Arial Unicode MS" size="15.0" />
                      </font>
                   </Text>
-                  <Label fx:id="reperageLabel" layoutX="173.0" layoutY="450.0" prefHeight="17.0" prefWidth="365.0" text="Le numero que vous avez entrer  existe déja ou ne correspond pas" textFill="RED" />
+                  <Label fx:id="errorNumReperageLabel" layoutX="173.0" layoutY="450.0" prefHeight="17.0" prefWidth="365.0" text="Le numero que vous avez entrer  existe déja ou ne correspond pas" textFill="RED" visible="false" />
                   <Separator layoutY="340.0" prefHeight="0.0" prefWidth="647.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                   <Text fill="#403f3f" fontSmoothingType="LCD" layoutX="14.0" layoutY="328.0" strokeType="OUTSIDE" strokeWidth="0.0" text="REPERAGE(TOPO)" wrappingWidth="130.99999999999994">
                      <font>
                         <Font name="Arial Unicode MS" size="14.0" />
                      </font>
                   </Text>
-                  <HBox fx:id="usernameBox11" alignment="CENTER_LEFT" layoutX="457.0" layoutY="383.0" prefHeight="39.0" prefWidth="162.0" styleClass="box" stylesheets="@../../../css/box.css" AnchorPane.leftAnchor="450.0">
+                  <HBox fx:id="reperageBox" alignment="CENTER_LEFT" layoutX="457.0" layoutY="383.0" prefHeight="39.0" prefWidth="162.0" styleClass="box" stylesheets="@../../../css/box.css" AnchorPane.leftAnchor="450.0">
                      <children>
                         <TextField fx:id="numeroReperage" prefHeight="37.0" prefWidth="157.0" promptText="numero" style="-fx-background-color: transparent;">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </TextField>
-                        <Label fx:id="numReperageLabel" prefHeight="33.0" prefWidth="118.0" text="/ 2021">
+                        <Label fx:id="dateLabelReperage" prefHeight="33.0" prefWidth="118.0" text="/ 2021">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -175,23 +173,23 @@
                         <Font name="Arial Unicode MS" size="15.0" />
                      </font>
                   </Text>
-                  <JFXComboBox fx:id="statusCombobox" focusColor="#009688" layoutX="207.0" layoutY="241.0" prefHeight="37.0" prefWidth="250.0" unFocusColor="#009688" AnchorPane.leftAnchor="207.0" />
-                  <JFXComboBox fx:id="typeDemande" focusColor="#009688" layoutX="201.0" layoutY="26.0" prefHeight="37.0" prefWidth="250.0" unFocusColor="#009688" AnchorPane.leftAnchor="207.0" />
+                  <JFXComboBox fx:id="statusCombobox" focusColor="#009688" layoutX="207.0" layoutY="241.0" prefHeight="37.0" prefWidth="278.0" unFocusColor="#009688" AnchorPane.leftAnchor="207.0" />
+                  <JFXComboBox fx:id="typeDemande" focusColor="#009688" layoutX="201.0" layoutY="26.0" prefHeight="37.0" prefWidth="277.0" unFocusColor="#009688" AnchorPane.leftAnchor="207.0" />
                   <Separator layoutY="528.0" prefHeight="0.0" prefWidth="647.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                   <Text fill="#403f3f" fontSmoothingType="LCD" layoutX="14.0" layoutY="516.0" strokeType="OUTSIDE" strokeWidth="0.0" text="JTR ( Journal de Tresorerie de Recette )" wrappingWidth="281.99999999999994">
                      <font>
                         <Font name="Arial Unicode MS" size="14.0" />
                      </font>
                   </Text>
-                  <Label fx:id="reperageLabel1" layoutX="173.0" layoutY="626.0" prefHeight="17.0" prefWidth="365.0" text="Le numero que vous avez entrer  existe déja ou ne correspond pas" textFill="RED" />
-                  <HBox fx:id="usernameBox111" alignment="CENTER_LEFT" layoutX="451.0" layoutY="554.0" prefHeight="39.0" prefWidth="162.0" styleClass="box" stylesheets="@../../../css/box.css" AnchorPane.leftAnchor="450.0">
+                  <Label fx:id="errorNumJtrLabel" layoutX="173.0" layoutY="626.0" prefHeight="17.0" prefWidth="365.0" text="Le numero que vous avez entrer  existe déja ou ne correspond pas" textFill="RED" visible="false" />
+                  <HBox fx:id="jtrBox" alignment="CENTER_LEFT" layoutX="451.0" layoutY="554.0" prefHeight="39.0" prefWidth="162.0" styleClass="box" stylesheets="@../../../css/box.css" AnchorPane.leftAnchor="450.0">
                      <children>
-                        <TextField fx:id="numeroReperage1" prefHeight="37.0" prefWidth="157.0" promptText="numero" style="-fx-background-color: transparent;">
+                        <TextField fx:id="numeroJtr" prefHeight="37.0" prefWidth="157.0" promptText="numero" style="-fx-background-color: transparent;">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </TextField>
-                        <Label fx:id="numReperageLabel1" prefHeight="33.0" prefWidth="118.0" text="/ 2021">
+                        <Label fx:id="dateLabelJtr" prefHeight="33.0" prefWidth="118.0" text="/ 2021">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -211,20 +209,20 @@
                         <Font name="Arial Unicode MS" size="15.0" />
                      </font>
                   </Text>
-                  <JFXDatePicker fx:id="dateReperage1" layoutX="78.0" layoutY="555.0" prefHeight="37.0" prefWidth="200.0" />
+                  <JFXDatePicker fx:id="dateJtr" layoutX="78.0" layoutY="555.0" prefHeight="37.0" prefWidth="200.0" />
                   <Text fill="#403f3f" fontSmoothingType="LCD" layoutX="12.0" layoutY="693.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ORDONANCE DU TRIBUNAL ( Prescription acquisitive )" wrappingWidth="392.99999999999994">
                      <font>
                         <Font name="Arial Unicode MS" size="14.0" />
                      </font>
                   </Text>
-                  <HBox fx:id="usernameBox1111" alignment="CENTER_LEFT" layoutX="457.0" layoutY="738.0" prefHeight="39.0" prefWidth="162.0" styleClass="box" stylesheets="@../../../css/box.css" AnchorPane.leftAnchor="450.0">
+                  <HBox fx:id="ordonanceBox" alignment="CENTER_LEFT" layoutX="457.0" layoutY="738.0" prefHeight="39.0" prefWidth="162.0" styleClass="box" stylesheets="@../../../css/box.css" AnchorPane.leftAnchor="450.0">
                      <children>
-                        <TextField fx:id="numeroReperage11" prefHeight="37.0" prefWidth="157.0" promptText="numero" style="-fx-background-color: transparent;">
+                        <TextField fx:id="numOrdonance" prefHeight="37.0" prefWidth="157.0" promptText="numero" style="-fx-background-color: transparent;">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </TextField>
-                        <Label fx:id="numReperageLabel11" prefHeight="33.0" prefWidth="118.0" text="/ 2021">
+                        <Label fx:id="dateLabelOrdonance" prefHeight="33.0" prefWidth="118.0" text="/ 2021">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -244,37 +242,30 @@
                         <Font name="Arial Unicode MS" size="15.0" />
                      </font>
                   </Text>
-                  <JFXDatePicker fx:id="dateReperage12" layoutX="75.0" layoutY="384.0" prefHeight="37.0" prefWidth="200.0" />
+                  <JFXDatePicker fx:id="dateReperage" layoutX="75.0" layoutY="384.0" prefHeight="37.0" prefWidth="200.0" />
                   <Separator layoutX="7.0" layoutY="705.0" prefHeight="0.0" prefWidth="647.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-                  <JFXDatePicker fx:id="dateReperage11" layoutX="75.0" layoutY="739.0" prefHeight="37.0" prefWidth="200.0" />
-                  <Label fx:id="reperageLabel11" layoutX="173.0" layoutY="800.0" prefHeight="17.0" prefWidth="365.0" text="Le numero que vous avez entrer  existe déja ou ne correspond pas" textFill="RED" />
+                  <JFXDatePicker fx:id="dateOrdonance" layoutX="75.0" layoutY="739.0" prefHeight="37.0" prefWidth="200.0" />
+                  <Label fx:id="errorNumOrdonanceLabel" layoutX="173.0" layoutY="800.0" prefHeight="17.0" prefWidth="365.0" text="Le numero que vous avez entrer  existe déja ou ne correspond pas" textFill="RED" visible="false" />
                </children>
             </AnchorPane>
          </content>
       </ScrollPane>
-      <HBox alignment="CENTER_RIGHT" layoutX="440.0" layoutY="451.0" prefHeight="50.0" prefWidth="695.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-         <children>
-            <JFXButton fx:id="closeBtn" buttonType="RAISED" contentDisplay="RIGHT" prefHeight="30.0" prefWidth="108.0" style="-fx-background-color: #f14858;" text="annuler" textFill="WHITE">
-               <font>
-                  <Font name="Century Gothic" size="14.0" />
-               </font>
-            </JFXButton>
-            <JFXButton fx:id="affaireNextBtn" buttonType="RAISED" contentDisplay="RIGHT" prefHeight="10.0" prefWidth="108.0" style="-fx-background-color: #389955;" text="suivant" textFill="WHITE">
-               <font>
-                  <Font name="Century Gothic" size="14.0" />
-               </font>
-               <graphic>
-                  <ImageView fitHeight="23.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../img/more_than_32px.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </JFXButton>
-         </children>
-         <padding>
-            <Insets right="15.0" />
-         </padding>
-      </HBox>
+      <JFXButton fx:id="closeBtn" buttonType="RAISED" contentDisplay="RIGHT" layoutX="473.0" layoutY="540.0" prefHeight="35.0" prefWidth="108.0" style="-fx-background-color: #f14858;" text="annuler" textFill="WHITE" AnchorPane.bottomAnchor="6.0" AnchorPane.rightAnchor="130.0">
+         <font>
+            <Font name="Century Gothic" size="14.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="affaireNextBtn" buttonType="RAISED" contentDisplay="RIGHT" layoutX="591.0" layoutY="540.0" prefHeight="35.0" prefWidth="108.0" style="-fx-background-color: #389955;" text="suivant" textFill="WHITE" AnchorPane.bottomAnchor="6.0" AnchorPane.rightAnchor="10.0">
+         <font>
+            <Font name="Century Gothic" size="14.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="23.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../img/more_than_32px.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
    </children>
 </AnchorPane>

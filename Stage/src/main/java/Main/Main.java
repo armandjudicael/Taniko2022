@@ -73,7 +73,6 @@ public class Main extends Application {
                 return null;
             }
         });
-
     }
 
     private void checkReachability(String host){
@@ -107,9 +106,7 @@ public class Main extends Application {
                 case SCHEDULED:{
                     if (!isReacheable){
                         if (scheduledService.cancel()){
-
                             Platform.runLater(() -> {
-
                                 Alert alert = new Alert(Alert.AlertType.ERROR);
                                 alert.setTitle(" Problème de connexion ");
                                 alert.initModality(Modality.WINDOW_MODAL);
@@ -117,7 +114,6 @@ public class Main extends Application {
                                 alert.setContentText(" 1 - veuillez verifier votre cable reseau ou wifi !\n" +
                                         " 2 - Si le probleme persiste , veuillez contacter le responsable informatique !");
                                 Optional<ButtonType> buttonType = alert.showAndWait();
-
                                 if (buttonType.get().equals(ButtonType.OK)) {
                                     Platform.exit();
                                 } else Platform.exit();

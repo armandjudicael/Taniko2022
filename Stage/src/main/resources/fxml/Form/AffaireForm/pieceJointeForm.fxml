@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pieceJointePane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="pieceJointePane" fx:controller="Controller.FormController.PieceJointeFormController" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <TilePane fx:id="PieceJointeTilePane" alignment="CENTER" layoutX="10.0" layoutY="14.0" prefHeight="533.0" prefWidth="737.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <JFXButton fx:id="saveBtn" buttonType="RAISED" layoutX="608.0" layoutY="508.0" prefHeight="35.0" prefWidth="119.0" style="-fx-background-color: #389955;" text="enregistrer" textFill="WHITE" AnchorPane.bottomAnchor="6.0" AnchorPane.rightAnchor="10.0">

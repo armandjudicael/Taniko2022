@@ -33,6 +33,10 @@ public class PieceJointe {
         this.valeur = valeur;
     }
 
+    public String getSize() {
+        return size;
+    }
+
     public PieceJointe(String description,
                        String extensionPiece,
                        String fileSize,

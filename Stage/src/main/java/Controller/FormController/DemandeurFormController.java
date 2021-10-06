@@ -37,7 +37,7 @@ public class DemandeurFormController implements Initializable {
         dmdPrevBtn.setOnAction(event -> MainAffaireFormController.updateLabelAndShowPane(dmdPrevBtn));
     }
 
-    private DemandeurFormController demandeurFormController;
+    private static DemandeurFormController demandeurFormController;
     @FXML private ComboBox<String> typeDemandeur;
     // ANCHORPANE
     @FXML private AnchorPane moralPane;
@@ -62,9 +62,10 @@ public class DemandeurFormController implements Initializable {
     @FXML private TextField mail;
     @FXML private TextField proffession;
 
-    public DemandeurFormController getInstance() {
+    public static DemandeurFormController getInstance() {
         return demandeurFormController;
     }
+
     public ComboBox<String> getTypeDemandeur() {
         return typeDemandeur;
     }
@@ -124,5 +125,11 @@ public class DemandeurFormController implements Initializable {
     public TextField getProffession() {
         return proffession;
     }
+    public AnchorPane getMoralPane() {
+        return moralPane;
+    }
 
+    public AnchorPane getPhysiquePane() {
+        return physiquePane;
+    }
 }

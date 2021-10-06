@@ -468,7 +468,21 @@ public class AffairDao extends DAO<Affaire> {
     }
 
     public Boolean checkNumAffair(String num) {
+        String query = " SELECT COUNT(AFF.idAffaire) AS nb FROM affaire AS AFF where AFF.numAffaire = ?";
+        int value = 0;
+        try (PreparedStatement ps = this.connection.prepareStatement(query)) {
+            ps.setString(1, num);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                value = rs.getInt("nb");
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return value == 0;
+    }
 
+    public Boolean checkNumOrdonance(String num) {
         String query = " SELECT COUNT(AFF.idAffaire) AS nb FROM affaire AS AFF where AFF.numAffaire = ?";
         int value = 0;
         try (PreparedStatement ps = this.connection.prepareStatement(query)) {

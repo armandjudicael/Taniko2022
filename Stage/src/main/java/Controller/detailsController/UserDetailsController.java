@@ -99,10 +99,7 @@ public class UserDetailsController implements Initializable {
             int status = DbOperation.updateUserProfil(file,LoginController.getConnectedUser().getId());// update photo
             if (status!=0){
                 String message  =" Profil enregistré avec succès !";
-                Notifications
-                        .create()
-                        .graphic(new ImageView(AffairViewController.getFinishedImg()))
-                        .text(message).show();
+                Notification.getInstance(message,NotifType.SUCCESS);
             }
         }
         savePhotoBtn.setDisable(true);

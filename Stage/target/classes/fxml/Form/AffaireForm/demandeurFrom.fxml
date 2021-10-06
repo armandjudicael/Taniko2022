@@ -13,11 +13,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="demandeurPanel" prefHeight="607.0" prefWidth="683.0" style="-fx-background-color: whiteSmoke;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:controller="Controller.FormController.DemandeurFormController" prefHeight="580.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <JFXButton fx:id="dmdPrevBtn" buttonType="RAISED" layoutX="452.0" layoutY="570.0" prefHeight="23.0" prefWidth="108.0" style="-fx-background-color: #389955;" text="revenir" textFill="WHITE">
+      <JFXButton fx:id="dmdPrevBtn" buttonType="RAISED" layoutX="452.0" layoutY="570.0" prefHeight="35.0" prefWidth="108.0" style="-fx-background-color: #389955;" text="revenir" textFill="WHITE" AnchorPane.bottomAnchor="6.0">
          <font>
-            <Font name="Arial Unicode MS" size="14.0" />
+            <Font name="Arial Unicode MS" size="15.0" />
          </font>
          <graphic>
             <ImageView fitHeight="20.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
@@ -27,9 +27,9 @@
             </ImageView>
          </graphic>
       </JFXButton>
-      <JFXButton fx:id="dmdNextBtn" buttonType="RAISED" contentDisplay="RIGHT" layoutX="570.0" layoutY="570.0" prefHeight="22.0" prefWidth="108.0" style="-fx-background-color: #389955;" text="suivant" textFill="WHITE">
+      <JFXButton fx:id="dmdNextBtn" buttonType="RAISED" contentDisplay="RIGHT" layoutX="570.0" layoutY="570.0" prefHeight="35.0" prefWidth="108.0" style="-fx-background-color: #389955;" text="suivant" textFill="WHITE" AnchorPane.bottomAnchor="6.0">
          <font>
-            <Font name="Arial Unicode MS" size="14.0" />
+            <Font name="Arial Unicode MS" size="15.0" />
          </font>
          <graphic>
             <ImageView fitHeight="23.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
@@ -39,8 +39,8 @@
             </ImageView>
          </graphic>
       </JFXButton>
-      <ComboBox fx:id="typeDemandeur" layoutX="194.0" layoutY="14.0" prefHeight="36.0" prefWidth="322.0" />
-      <StackPane layoutY="61.0" prefHeight="499.0" prefWidth="683.0">
+      <ComboBox fx:id="typeDemandeur" layoutX="195.0" layoutY="14.0" prefHeight="36.0" prefWidth="322.0" AnchorPane.topAnchor="8.0" />
+      <StackPane layoutY="61.0" prefHeight="483.0" prefWidth="683.0" AnchorPane.bottomAnchor="50.0">
          <children>
             <AnchorPane fx:id="moralPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: white;">
                <children>
@@ -86,12 +86,12 @@
                      </font>
                   </Text>
                   <TextField fx:id="telephone" layoutX="134.0" layoutY="390.0" prefHeight="34.0" prefWidth="468.0" />
-                  <Text fill="#403f3f" layoutX="61.0" layoutY="476.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email   :" wrappingWidth="66.13671875" AnchorPane.rightAnchor="555.86328125">
+                  <Text fill="#403f3f" layoutX="63.0" layoutY="466.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email   :" wrappingWidth="66.13671875" AnchorPane.rightAnchor="553.86328125">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="mail" layoutX="134.0" layoutY="453.0" prefHeight="34.0" prefWidth="468.0" />
+                  <TextField fx:id="mail" layoutX="134.0" layoutY="443.0" prefHeight="34.0" prefWidth="468.0" />
                   <TextField fx:id="proffession" layoutX="134.0" layoutY="196.0" prefHeight="36.0" prefWidth="468.0" />
                   <Text fill="#403f3f" layoutX="33.0" layoutY="220.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Proffession :" wrappingWidth="82.0">
                      <font>
@@ -100,7 +100,7 @@
                   </Text>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="physiquePane" style="-fx-background-color: white;">
+            <AnchorPane fx:id="physiquePane" prefHeight="454.0" prefWidth="683.0" style="-fx-background-color: white;">
                <children>
                   <Label layoutX="38.0" layoutY="71.0" prefHeight="17.0" prefWidth="82.0" text="Raison Social :">
                      <font>
@@ -114,7 +114,7 @@
                      </font>
                   </Label>
                   <TextField fx:id="siegeSocial" layoutX="142.0" layoutY="156.0" prefHeight="35.0" prefWidth="450.0" />
-                  <Label layoutX="32.0" layoutY="233.0" prefHeight="19.0" prefWidth="95.0" text="REPRESENTANT">
+                  <Label layoutX="32.0" layoutY="240.0" prefHeight="19.0" prefWidth="95.0" text="REPRESENTANT">
                      <font>
                         <Font size="13.0" />
                      </font>

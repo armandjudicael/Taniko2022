@@ -176,56 +176,6 @@ public class TerrainFromController implements Initializable{
         },Type.TITRE);
     }
 
-    private static TerrainFromController terrainFromController;
-    private static String superficieUnit;
-    private static String _region = "ATSINANANA";
-    private static String _district = "TOAMASINA-I";
-    private static String _commune = " Urbaine de Toamasina ";
-    // DATEPICKER
-    @FXML private JFXDatePicker dateCreation;
-    // ANCHORPANE
-    @FXML private AnchorPane proprietePane;
-    @FXML private AnchorPane terrainFormPane;
-    // RADIOBUTTON
-    @FXML private JFXRadioButton radioDependant;
-    @FXML private JFXRadioButton tnicRadio;
-    @FXML private JFXRadioButton insererPropriete;
-    @FXML private JFXRadioButton rechercherPropriete;
-    // TOGGLEGROUP
-    @FXML private ToggleGroup typeTerrain;
-    @FXML private ToggleGroup typePropriete;
-    // HBOX
-    @FXML private HBox usernameBox2;
-    @FXML private HBox usernameBox1;
-    @FXML private HBox titleBox;
-    // SPINNER
-    @FXML private Spinner<Float> superficieSpinner;
-    // COMBOBOX
-    @FXML private ComboBox<String> uniteSuperficieCombobox;
-    @FXML private JFXComboBox<Titre> titleCombobox;
-    // LABEL
-    @FXML private Label existNumTitreLabel;
-    @FXML private Label existNumMorcLabel;
-    @FXML private Label numLabel1;
-    @FXML private Label numLabel2;
-    @FXML private Label notifLabel;
-    @FXML private Label superficieErrorLabel;
-    @FXML  private Label superficieLabel;
-    // TEXTFIELD
-    @FXML private TextField numeroMorcellement;
-    @FXML private TextField numeroTitre;
-    @FXML private TextField nomPropriete;
-    @FXML private TextField sise;
-    @FXML private TextField parcelleTerrain;
-    @FXML private TextField parcelleTerrain1;
-    @FXML private TextField commune;
-    @FXML private TextField district;
-    @FXML private TextField region;
-    // BUTTON
-    @FXML private JFXButton addSuperficieBtn;
-    @FXML private JFXButton clearSuperficie;
-    @FXML  private JFXButton saveBtn;
-
     public static TerrainFromController getInstance(){
         return terrainFromController;
     }
@@ -313,4 +263,54 @@ public class TerrainFromController implements Initializable{
     public AnchorPane getTerrainFormPane() {
         return terrainFormPane;
     }
+
+    private static TerrainFromController terrainFromController;
+    private static String superficieUnit;
+    private static String _region = "ATSINANANA";
+    private static String _district = "TOAMASINA-I";
+    private static String _commune = " Urbaine de Toamasina ";
+    // DATEPICKER
+    @FXML private JFXDatePicker dateCreation;
+    // ANCHORPANE
+    @FXML private AnchorPane proprietePane;
+    @FXML private AnchorPane terrainFormPane;
+    // RADIOBUTTON
+    @FXML private JFXRadioButton radioDependant;
+    @FXML private JFXRadioButton tnicRadio;
+    @FXML private JFXRadioButton insererPropriete;
+    @FXML private JFXRadioButton rechercherPropriete;
+    // TOGGLEGROUP
+    @FXML private ToggleGroup typeTerrain;
+    @FXML private ToggleGroup typePropriete;
+    // HBOX
+    @FXML private HBox usernameBox2;
+    @FXML private HBox usernameBox1;
+    @FXML private HBox titleBox;
+    // SPINNER
+    @FXML private Spinner<Float> superficieSpinner;
+    // COMBOBOX
+    @FXML private ComboBox<String> uniteSuperficieCombobox;
+    @FXML private JFXComboBox<Titre> titleCombobox;
+    // LABEL
+    @FXML private Label existNumTitreLabel;
+    @FXML private Label existNumMorcLabel;
+    @FXML private Label numLabel1;
+    @FXML private Label numLabel2;
+    @FXML private Label notifLabel;
+    @FXML private Label superficieErrorLabel;
+    @FXML  private Label superficieLabel;
+    // TEXTFIELD
+    @FXML private TextField numeroMorcellement;
+    @FXML private TextField numeroTitre;
+    @FXML private TextField nomPropriete;
+    @FXML private TextField sise;
+    @FXML private TextField parcelleTerrain;
+    @FXML private TextField parcelleTerrain1;
+    @FXML private TextField commune;
+    @FXML private TextField district;
+    @FXML private TextField region;
+    // BUTTON
+    @FXML private JFXButton addSuperficieBtn;
+    @FXML private JFXButton clearSuperficie;
+    @FXML  private JFXButton saveBtn;
 }

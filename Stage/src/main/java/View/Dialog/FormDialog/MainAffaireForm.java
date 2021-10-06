@@ -25,8 +25,7 @@ public class MainAffaireForm extends JFXDialog implements Initializable {
 
     private MainAffaireForm() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Form/Other/AffairForm.fxml"));
-            loader.setController(this);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Form/AffaireForm/MainAffaireForm.fxml"));
             this.setContent((BorderPane) loader.load());
             this.setDialogContainer(MainController.getInstance().getMainStackPane());
             this.setTransitionType(DialogTransition.CENTER);

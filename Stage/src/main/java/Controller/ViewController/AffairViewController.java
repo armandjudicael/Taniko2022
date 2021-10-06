@@ -738,7 +738,6 @@ public class AffairViewController implements Initializable {
                 };
             }
         });
-
     }
 
     public ImageView getStatusIcon(AffaireStatus status) {
