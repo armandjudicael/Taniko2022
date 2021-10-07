@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
@@ -13,13 +12,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.FormController.MainAffaireFormController">
     <center>
         <StackPane fx:id="formStackpane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" BorderPane.alignment="CENTER">
          <children>
-<!--             <fx:include fx:id="demandeurFormPanel" source="demandeurFrom.fxml" />-->
-<!--             <fx:include fx:id="peicejointeFormPanel" source="pieceJointeForm.fxml" />-->
-<!--             <fx:include fx:id="terrainFormPanel" source="terrainFrom.fxml" />-->
+             <fx:include fx:id="piecejointeFormPanel" source="pieceJointeForm.fxml"/>
+             <fx:include fx:id="terrainFormPanel" source="terrainFrom.fxml" />
+             <fx:include fx:id="demandeurFormPanel" source="demandeurFrom.fxml" />
              <fx:include fx:id="affaireFormPanel" source="affaireForm.fxml" />
          </children>
         </StackPane>
@@ -27,9 +26,9 @@
     <left>
         <VBox alignment="CENTER" prefHeight="563.0" prefWidth="125.0" style="-fx-background-color: whitesmoke;" stylesheets="@../../../css/affaireForm.css" BorderPane.alignment="CENTER">
             <children>
-                <Label fx:id="affaireLabel" alignment="CENTER" contentDisplay="TOP" prefHeight="100.0" prefWidth="213.0" text="Affaire" textAlignment="CENTER" wrapText="true">
+                <Label fx:id="affaireLabel" alignment="CENTER" contentDisplay="TOP" prefHeight="100.0" prefWidth="213.0" styleClass="navLabel" text="Affaire" textAlignment="CENTER" wrapText="true">
                     <font>
-                        <Font name="Arial Unicode MS" size="20.0" />
+                        <Font name="Arial Unicode MS" size="15.0" />
                     </font>
                     <graphic>
                         <ImageView fitHeight="66.0" fitWidth="57.0" pickOnBounds="true" preserveRatio="true">
@@ -38,14 +37,10 @@
                             </image>
                         </ImageView>
                     </graphic>
-                    <styleClass>
-                        <String fx:value="navLabel" />
-                        <String fx:value="unfocusLabel" />
-                    </styleClass>
                 </Label>
                 <Label fx:id="demandeurLabel" alignment="CENTER" contentDisplay="TOP" layoutX="11.0" layoutY="288.0" prefHeight="100.0" prefWidth="181.0" styleClass="unfocusLabel" text="Demandeur" textAlignment="CENTER" wrapText="true">
                     <font>
-                        <Font name="Arial Unicode MS" size="21.0" />
+                        <Font name="Arial Unicode MS" size="15.0" />
                     </font>
                     <graphic>
                         <ImageView fitHeight="66.0" fitWidth="57.0" pickOnBounds="true" preserveRatio="true">
@@ -55,9 +50,9 @@
                         </ImageView>
                     </graphic>
                 </Label>
-                <Label fx:id="TerrainLabel" alignment="CENTER" contentDisplay="TOP" layoutX="10.0" layoutY="338.0" prefHeight="100.0" prefWidth="181.0" styleClass="unfocusLabel" text="Terrain" textAlignment="CENTER" wrapText="true">
+                <Label fx:id="terrainLabel" alignment="CENTER" contentDisplay="TOP" layoutX="10.0" layoutY="338.0" prefHeight="100.0" prefWidth="181.0" styleClass="unfocusLabel" text="Terrain" textAlignment="CENTER" wrapText="true">
                     <font>
-                        <Font name="Arial Unicode MS" size="20.0" />
+                        <Font name="Arial Unicode MS" size="15.0" />
                     </font>
                     <graphic>
                         <ImageView fitHeight="66.0" fitWidth="57.0" pickOnBounds="true" preserveRatio="true">

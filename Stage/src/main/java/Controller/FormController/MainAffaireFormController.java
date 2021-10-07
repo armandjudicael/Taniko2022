@@ -1,7 +1,5 @@
 package Controller.FormController;
 
-import View.Dialog.FormDialog.MainAffaireForm;
-import View.helper.DialogCloserButton;
 import animatefx.animation.FadeIn;
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
@@ -16,15 +14,15 @@ import java.util.ResourceBundle;
 public class MainAffaireFormController implements Initializable{
 
     @Override public void initialize(URL url, ResourceBundle resourceBundle){
-       new DialogCloserButton(closeBtn,MainAffaireForm.getInstance());
        mainAffaireFormController = this;
     }
 
     private void executeUpdate(Node node, Label newLabel, Label oldLabel){
         new FadeIn(node).play();
         node.toFront();
-        if (oldLabel!=null)
-           oldLabel.getStyleClass().removeAll("navLabel");
+        if (oldLabel!=null){
+            oldLabel.getStyleClass().removeAll("navLabel");
+        }
         newLabel.getStyleClass().add("navLabel");
     }
 
@@ -32,24 +30,28 @@ public class MainAffaireFormController implements Initializable{
         String buttonId = button.getId();
         switch (buttonId){
             case "affaireNextBtn" :{
-                mainAffaireFormController.executeUpdate(mainAffaireFormController.demandeurPane
-                    , mainAffaireFormController.demandeurLabel,null);}break;
+                mainAffaireFormController.executeUpdate(mainAffaireFormController.demandeurFormPanel
+                    , mainAffaireFormController.demandeurLabel, mainAffaireFormController.affaireLabel);}break;
             case "dmdNextBtn" :{
-                mainAffaireFormController.executeUpdate(mainAffaireFormController.terrainFormPane
+                mainAffaireFormController.executeUpdate(mainAffaireFormController.terrainFormPanel
                         , mainAffaireFormController.terrainLabel,mainAffaireFormController.demandeurLabel);}break;
             case "terrainNextBtn":{
-                mainAffaireFormController.executeUpdate(mainAffaireFormController.pieceJointePane
+                mainAffaireFormController.executeUpdate(mainAffaireFormController.piecejointeFormPanel
                         , mainAffaireFormController.pieceJointeLabel, mainAffaireFormController.terrainLabel);}break;
             case "pjPrevBtn" :{
-                mainAffaireFormController.executeUpdate(mainAffaireFormController.terrainFormPane
+                mainAffaireFormController.executeUpdate(mainAffaireFormController.terrainFormPanel
                         ,mainAffaireFormController.terrainLabel,mainAffaireFormController.pieceJointeLabel);}break;
             case "terrainPrevBtn" : {
-                mainAffaireFormController.executeUpdate(mainAffaireFormController.demandeurPane
+                mainAffaireFormController.executeUpdate(mainAffaireFormController.demandeurFormPanel
                         ,mainAffaireFormController.demandeurLabel,mainAffaireFormController.terrainLabel);}break;
             case "dmdPrevBtn":{
-                mainAffaireFormController.executeUpdate(mainAffaireFormController.affairePane
+                mainAffaireFormController.executeUpdate(mainAffaireFormController.affaireFormPanel
                         ,mainAffaireFormController.affaireLabel,mainAffaireFormController.demandeurLabel);}break;
         }
+    }
+
+    public static MainAffaireFormController getInstance() {
+        return mainAffaireFormController;
     }
 
     private static MainAffaireFormController mainAffaireFormController;
@@ -60,8 +62,8 @@ public class MainAffaireFormController implements Initializable{
     @FXML private Label pieceJointeLabel;
     @FXML private JFXButton closeBtn;
     // pane
-    @FXML private AnchorPane terrainFormPane;
-    @FXML private AnchorPane pieceJointePane;
-    @FXML private AnchorPane demandeurPane;
-    @FXML private AnchorPane affairePane;
+    @FXML private AnchorPane affaireFormPanel;
+    @FXML private AnchorPane demandeurFormPanel;
+    @FXML private AnchorPane terrainFormPanel;
+    @FXML private AnchorPane piecejointeFormPanel;
 }

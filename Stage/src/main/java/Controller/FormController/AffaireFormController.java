@@ -7,7 +7,6 @@ import View.Cell.ListCell.DispatchListcell;
 import View.Cell.ListCell.StatusCell;
 import View.Model.ConnexAffairForView;
 import View.helper.AutoCompleteCombobox;
-import View.helper.DialogCloserButton;
 import View.helper.NumeroChecker;
 import com.jfoenix.controls.*;
 import javafx.beans.binding.Bindings;
@@ -23,6 +22,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 
 import java.net.URL;
@@ -32,7 +32,10 @@ import java.util.function.Predicate;
 
 public class AffaireFormController  implements Initializable {
 
+
+
     @Override public void initialize(URL url, ResourceBundle resourceBundle){
+        affaireFormPanel.toFront();
         affaireFormController = this;
         initRedacteurRadio();
         initTypeDemande();
@@ -41,7 +44,8 @@ public class AffaireFormController  implements Initializable {
         initRadioButton();
         initRedactorCombobox();
         initConnexeCombobox();
-        initBinding();
+        initOtherBinding();
+        initButtonActionAndBinding();
         initNumChecker();
         initDatePickerValue();
         // numLabel
@@ -49,7 +53,14 @@ public class AffaireFormController  implements Initializable {
         numAndDateAffLabel.textProperty().bind(stringExpression);
     }
 
-    private void initBinding(){
+    private void initOtherBinding(){
+        ReadOnlyObjectProperty<String> typeDemandeSelectItemProperty = typeDemande.getSelectionModel().selectedItemProperty();
+        BooleanBinding prescriptionOrAffectation = typeDemandeSelectItemProperty.isEqualTo("PRESCRIPTION_AQUISITIVE").or(typeDemandeSelectItemProperty.isEqualTo("AFFECTATION"));
+        connexeBox.disableProperty().bind(sansEmpietementRadio.selectedProperty().or(prescriptionOrAffectation));
+        connexeRadio.disableProperty().bind(prescriptionOrAffectation);
+    }
+
+    private void initButtonActionAndBinding(){
 
         BooleanBinding rechercherRedacteur = Bindings.and(Bindings.not(redacteurBox.disableProperty()), redactorCombobox.valueProperty().isNull());
         BooleanBinding rechercherConnexe = Bindings.and(Bindings.not(connexeBox.disableProperty()), connexeCombobox.valueProperty().isNull());
@@ -62,14 +73,10 @@ public class AffaireFormController  implements Initializable {
                         .or(errorNumJtrLabel.visibleProperty())
                         .or(rechercherRedacteur)
                         .or(rechercherConnexe));
-
+        // BIND THE BUTTON
         affaireNextBtn.disableProperty().bind(affaireBtnBinding);
-
-        ReadOnlyObjectProperty<String> typeDemandeSelectItemProperty = typeDemande.getSelectionModel().selectedItemProperty();
-        BooleanBinding prescriptionOrAffectation = typeDemandeSelectItemProperty.isEqualTo("PRESCRIPTION_AQUISITIVE").or(typeDemandeSelectItemProperty.isEqualTo("AFFECTATION"));
-
-        connexeBox.disableProperty().bind(sansEmpietementRadio.selectedProperty().or(prescriptionOrAffectation));
-        connexeRadio.disableProperty().bind(prescriptionOrAffectation);
+        // BUTTON ACTION
+        affaireNextBtn.setOnAction(event -> MainAffaireFormController.getInstance().updateLabelAndShowPane(affaireNextBtn));
     }
 
     private void initDatePicker() {
@@ -149,7 +156,7 @@ public class AffaireFormController  implements Initializable {
                     DemandeurFormController.getInstance().getPhysiquePane().toFront();
                     DemandeurFormController.getInstance().getTypeDemandeur().setValue("Personne Physique");
                 }else {
-                    DemandeurFormController.getInstance().getMoralPane().toFront();
+                    DemandeurFormController.getInstance().getPhysiquePane().toFront();
                     DemandeurFormController.getInstance().getTypeDemandeur().setValue("Personne Morale");
                 }
                 DemandeurFormController.getInstance().getTypeDemandeur().setDisable(true);
@@ -183,6 +190,7 @@ public class AffaireFormController  implements Initializable {
     private static StringProperty yearAffairCigle = new SimpleStringProperty(String.valueOf(LocalDate.now().getYear()));
     private static AffaireFormController affaireFormController;
 
+    @FXML private AnchorPane affaireFormPanel;
     // JFXCOMBOBOX
     @FXML private JFXComboBox<String> typeDemande;
     @FXML private JFXComboBox<String> statusCombobox;

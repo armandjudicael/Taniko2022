@@ -21,7 +21,7 @@ public class PieceJointe {
                        InputStream valeur) {
         this.idPieceJointe = idPieceJointe;
         this.description = description;
-        this.extensionPiece = extensionPiece;
+        this.extensionPiece = extensionPiece.toLowerCase();
         this.inputStream = valeur;
     }
 
@@ -29,12 +29,8 @@ public class PieceJointe {
                        String extensionPiece,
                        FileInputStream valeur){
         this.description = description;
-        this.extensionPiece = extensionPiece;
+        this.extensionPiece = extensionPiece.toLowerCase();
         this.valeur = valeur;
-    }
-
-    public String getSize() {
-        return size;
     }
 
     public PieceJointe(String description,
@@ -42,7 +38,7 @@ public class PieceJointe {
                        String fileSize,
                        FileInputStream valeur){
         this.description = description;
-        this.extensionPiece = extensionPiece;
+        this.extensionPiece = extensionPiece.toLowerCase();
         this.valeur = valeur;
         this.size = fileSize;
     }
@@ -76,6 +72,9 @@ public class PieceJointe {
     }
     public FileInputStream getValeur() {
         return valeur;
+    }
+    public String getSize() {
+        return size;
     }
     public void setValeur(FileInputStream valeur) {
         this.valeur = valeur;

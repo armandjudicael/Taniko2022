@@ -4,13 +4,11 @@
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXRadioButton?>
-<?import com.jfoenix.controls.JFXSpinner?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.Image?>
@@ -20,7 +18,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:controller="Controller.FormController.TerrainFromController" prefHeight="580.0" style="-fx-background-color: whitesmoke;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="580.0" style="-fx-background-color: whitesmoke;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.FormController.TerrainFromController">
    <children>
       <JFXButton fx:id="terrainPrevBtn" buttonType="RAISED" layoutX="474.0" layoutY="552.0" prefHeight="35.0" prefWidth="108.0" style="-fx-background-color: #389955;" text="revenir" textFill="WHITE" AnchorPane.bottomAnchor="6.0" AnchorPane.rightAnchor="125.0">
          <font>
@@ -34,8 +32,7 @@
             </ImageView>
          </graphic>
       </JFXButton>
-
-                                    <JFXButton fx:id="terrainNextBtn" buttonType="RAISED" contentDisplay="RIGHT" layoutX="592.0" layoutY="552.0" prefHeight="35.0" prefWidth="108.0" style="-fx-background-color: #389955;" text="suivant" textFill="WHITE" AnchorPane.bottomAnchor="6.0" AnchorPane.rightAnchor="10.0">
+      <JFXButton fx:id="terrainNextBtn" buttonType="RAISED" contentDisplay="RIGHT" layoutX="592.0" layoutY="552.0" prefHeight="35.0" prefWidth="108.0" style="-fx-background-color: #389955;" text="suivant" textFill="WHITE" AnchorPane.bottomAnchor="6.0" AnchorPane.rightAnchor="10.0">
          <font>
             <Font name="Century Gothic" size="14.0" />
          </font>
@@ -47,7 +44,7 @@
             </ImageView>
          </graphic>
       </JFXButton>
-      <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="534.0" prefWidth="714.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="534.0" prefWidth="714.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <content>
             <AnchorPane fx:id="terrainFormPanel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="1135.0" style="-fx-background-color: white;">
                <children>
@@ -109,7 +106,6 @@
                   <Separator layoutY="567.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                   <AnchorPane fx:id="proprietePane" layoutY="574.0" prefHeight="455.0" prefWidth="642.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                      <children>
-                        <JFXSpinner fx:id="propertySpinner" layoutX="573.0" layoutY="51.0" prefHeight="41.0" prefWidth="43.0" progress="0.55" visible="false" />
                         <Text fill="#403f3f" layoutX="20.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom propriete :" wrappingWidth="100.13671875000003">
                            <font>
                               <Font name="Arial Unicode MS" size="14.0" />
@@ -120,7 +116,7 @@
                               <Font name="Arial Unicode MS" size="14.0" />
                            </font>
                         </Text>
-                        <JFXRadioButton fx:id="insererPropriete" layoutX="82.0" layoutY="100.0" prefHeight="17.0" prefWidth="172.0" text="Insérer propriété" AnchorPane.leftAnchor="82.0">
+                        <JFXRadioButton fx:id="insererPropriete" layoutX="82.0" layoutY="100.0" prefHeight="17.0" prefWidth="172.0" text="Ajouter propriété" AnchorPane.leftAnchor="82.0">
                            <toggleGroup>
                               <ToggleGroup fx:id="typePropriete" />
                            </toggleGroup>
@@ -214,7 +210,7 @@
                         <Font size="35.0" />
                      </font>
                   </Label>
-                  <ComboBox fx:id="uniteSuperficieCombobox" layoutX="107.0" layoutY="376.0" prefHeight="35.0" prefWidth="176.0" AnchorPane.leftAnchor="107.0" />
+                  <ComboBox fx:id="uniteSuperficieCombobox" layoutX="107.0" layoutY="376.0" prefHeight="35.0" prefWidth="176.0" stylesheets="@../../../css/box.css" AnchorPane.leftAnchor="107.0" />
                   <JFXButton fx:id="addSuperficieBtn" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" layoutX="492.0" layoutY="377.0" prefHeight="35.0" prefWidth="43.0" style="-fx-background-color: #389955;" text="ajouter" textFill="WHITE" AnchorPane.rightAnchor="100.0">
                      <font>
                         <Font name="Century Gothic" size="14.0" />
@@ -227,7 +223,10 @@
                         </ImageView>
                      </graphic>
                   </JFXButton>
-                  <Label fx:id="superficieLabel" layoutX="106.0" layoutY="427.0" prefHeight="61.0" prefWidth="482.0" style="-fx-background-color: whitesmoke; -fx-background-radius: 6;" AnchorPane.leftAnchor="110.0" AnchorPane.rightAnchor="50.0" />
+                  <Label fx:id="superficieLabel" alignment="CENTER" layoutX="106.0" layoutY="427.0" prefHeight="53.0" prefWidth="539.0" style="-fx-background-color: whitesmoke; -fx-background-radius: 6;" textFill="#464242" AnchorPane.leftAnchor="110.0" AnchorPane.rightAnchor="50.0">
+                     <font>
+                        <Font name="Arial Unicode MS" size="25.0" />
+                     </font></Label>
                   <JFXButton fx:id="clearSuperficie" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" layoutX="543.0" layoutY="377.0" prefHeight="35.0" prefWidth="43.0" style="-fx-background-color: #f14858;" text="annuler" textFill="WHITE" AnchorPane.rightAnchor="50.0">
                      <font>
                         <Font name="Century Gothic" size="14.0" />
@@ -240,8 +239,8 @@
                         </ImageView>
                      </graphic>
                   </JFXButton>
-                  <Spinner fx:id="superficieSpinner" editable="true" layoutX="298.0" layoutY="376.0" prefHeight="35.0" prefWidth="148.0" AnchorPane.leftAnchor="298.0" AnchorPane.rightAnchor="253.0" />
                   <Label fx:id="superficieErrorLabel" alignment="CENTER" layoutX="177.0" layoutY="499.0" prefHeight="17.0" prefWidth="358.0" text="Le numero que vous avez entrer  existe déja ou ne correspond pas" textFill="RED" AnchorPane.leftAnchor="110.0" AnchorPane.rightAnchor="50.0" />
+                  <TextField fx:id="superficieTextfield" layoutX="299.0" layoutY="376.0" prefHeight="35.0" prefWidth="163.0" />
                </children>
             </AnchorPane>
          </content>

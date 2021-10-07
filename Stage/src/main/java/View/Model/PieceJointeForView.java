@@ -12,11 +12,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class PieceJointeForView implements Initializable{
 
-    public PieceJointeForView(PieceJointe pieceJointe, Boolean enableBtn) throws IOException {
+    public PieceJointeForView(PieceJointe pieceJointe, Boolean enableBtn) throws IOException{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/View/Other/PieceJointe.fxml"));
         loader.setController(this);
         pane = (AnchorPane)loader.load();
@@ -35,6 +36,10 @@ public class PieceJointeForView implements Initializable{
         switch (extension){
             case "pdf" :{
                 pieceIcon.setImage(pdfImg);
+            }break;
+            case "docx":
+            case "doc":{
+                pieceIcon.setImage(docxImg);
             }break;
             default:{
                 pieceIcon.setImage(iconImg);
@@ -58,6 +63,8 @@ public class PieceJointeForView implements Initializable{
 
     private PieceJointe pieceJointe;
     private AnchorPane pane;
-    private Image pdfImg = new Image(this.getClass().getResourceAsStream("/img/adobe_acrobat_reader_100px.png"));
-    private Image iconImg = new Image(this.getClass().getResourceAsStream("/img/image_80px.png")) ;
+
+    private static final Image docxImg =  new Image(Objects.requireNonNull(PieceJointe.class.getResourceAsStream("/img/microsoft_word_2019_50px.png"))) ;
+    private static final Image pdfImg = new Image(Objects.requireNonNull(PieceJointe.class.getResourceAsStream("/img/adobe_acrobat_reader_40px.png")));
+    private static final Image iconImg = new Image(Objects.requireNonNull(PieceJointe.class.getResourceAsStream("/img/image_80px.png"))) ;
 }

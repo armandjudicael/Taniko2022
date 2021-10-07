@@ -16,7 +16,7 @@ public class MainAffaireForm extends JFXDialog implements Initializable {
     private static MainAffaireForm mainAffaireForm;
     private static AffaireStatus status = AffaireStatus.RUNNING ;
 
-    public static MainAffaireForm getInstance() {
+    public static MainAffaireForm getInstance(){
         if (mainAffaireForm == null){
             mainAffaireForm = new MainAffaireForm();
         }

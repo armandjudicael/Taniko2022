@@ -4,10 +4,6 @@
     -fx-border-width: 0px 0px 0px 6px;
     -fx-border-style: solid;
 }
-.unfocusLabel {
-    -fx-font-family:"Arial Unicode MS";
-    -fx-font-size: 14px;
-}
 .bar {
     -fx-border-color: #9d9a9a #FFF #9d9a9a #FFF;
     -fx-border-width: 1px 0px 1px 0px;

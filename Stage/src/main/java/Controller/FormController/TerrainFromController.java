@@ -1,25 +1,19 @@
 package Controller.FormController;
 
-import DAO.DaoFactory;
 import Model.Enum.Type;
-import Model.Other.MainService;
 import Model.Pojo.Titre;
 import View.Cell.ListCell.TitleCell;
 import View.helper.AutoCompleteCombobox;
 import View.helper.NumeroChecker;
 import com.jfoenix.controls.*;
-import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.util.StringConverter;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -33,7 +27,7 @@ public class TerrainFromController implements Initializable{
        initsuperficieUniteCombobox();
        initTitleCombobox();
        initAllButton();
-       initSuperficieSpinner();
+       initBinding();
        initTypePropriete();
        initNumeroChecker();
        initDistrictAndCommuneAndRegion();
@@ -41,11 +35,6 @@ public class TerrainFromController implements Initializable{
        notifLabel.visibleProperty().bind(insererPropriete.selectedProperty());
     }
 
-    private void initAllButton(){
-        initClearSupericieBtn();
-        initAddSuperficieBtn();
-        initBinding();
-    }
 
     private void initNumeroChecker(){
         new NumeroChecker(numeroTitre,existNumTitreLabel,Type.TITRE);
@@ -64,7 +53,7 @@ public class TerrainFromController implements Initializable{
                                         .or(existNumTitreLabel.visibleProperty()))
                                         .or(rechercherTitre))
                                         .or(insererBooleanBinding);
-        saveBtn.disableProperty().bind(terrainBinding);
+        terrainNextBtn.disableProperty().bind(terrainBinding);
     }
 
     private void initDistrictAndCommuneAndRegion() {
@@ -83,28 +72,6 @@ public class TerrainFromController implements Initializable{
         });
     }
 
-    private void initSuperficieSpinner(){
-        SpinnerValueFactory<Float> spinnerValueFactory = new SpinnerValueFactory<Float>() {
-            @Override public void decrement(int i) {
-                i--;
-            }
-            @Override public void increment(int i) {
-               i++;
-            }
-        };
-        spinnerValueFactory.setConverter(new StringConverter<Float>() {
-            @Override public String toString(Float aFloat) {
-                return String.valueOf(aFloat);
-            }
-            @Override public Float fromString(String s) {
-                return Float.valueOf(s);
-            }
-        });
-        spinnerValueFactory.setWrapAround(true);
-        spinnerValueFactory.setValue(0.0F);
-        superficieSpinner.setValueFactory(spinnerValueFactory);
-        superficieSpinner.setEditable(true);
-    }
 
     private void initTypePropriete(){
         nomPropriete.disableProperty().bind(rechercherPropriete.selectedProperty());
@@ -125,20 +92,23 @@ public class TerrainFromController implements Initializable{
            String[] superficieTab = {"Hectare (Ha)", "Are (A)", "CentiAre (Ca)", "mètre carré (m²)", "décimètre carré (dm²)"};
            uniteSuperficieCombobox.getItems().addAll(Arrays.asList(superficieTab));
            // initialize the listener
-           uniteSuperficieCombobox.getSelectionModel().selectedItemProperty().addListener((observableValue, s, newValue) -> {
-           boolean containsValue = superficieLabel.getText().contains(newValue);
-           uniteSuperficieCombobox.getStylesheets().remove("BoxError");
-           if (!containsValue)
-             superficieUnit = testSelectedvalue(newValue);
-           else{
-               // disable the textfield when the map contains the selectedItem
-               superficieSpinner.setDisable(true);
-               uniteSuperficieCombobox.getStylesheets().addAll("BoxError");
-           }
-       });
+//           uniteSuperficieCombobox.getSelectionModel().selectedItemProperty().addListener((observableValue, s, newValue) -> {
+//               String newUnit = testSelectedvalue(newValue);
+//               boolean containsValue = superficieLabel.getText().contains(newUnit);
+//           uniteSuperficieCombobox.getStyleClass().remove("boxError");
+//           if (!containsValue)
+//             superficieUnit = newUnit;
+//           else{
+////               // disable the textfield when the map contains the selectedItem
+////               superficieTextfield.setDisable(true);
+//               uniteSuperficieCombobox.getStyleClass().addAll("boxError");
+//           }
+//       });
    }
 
-   private String testSelectedvalue(String value){
+
+
+   private String convert(String value){
        return  (value == "Hectare (Ha)" ? "Ha":
                      (value == "Are (A)" ? "A" :
                           (value == "CentiAre (Ca)" ? "Ca":
@@ -147,23 +117,33 @@ public class TerrainFromController implements Initializable{
    }
 
    private void initAddSuperficieBtn(){
-       BooleanBinding superficieIsNull = superficieSpinner.valueProperty().isNull();
-       addSuperficieBtn.disableProperty().bind(superficieIsNull);
+       BooleanBinding superficieIsEmptyOrUnitIsEmpty = superficieTextfield.textProperty().isEmpty().or(uniteSuperficieCombobox.valueProperty().isNull());
+       addSuperficieBtn.disableProperty().bind(superficieIsEmptyOrUnitIsEmpty);
        addSuperficieBtn.setOnAction(this::updateSuperficieLabel);
    }
 
+    private void initAllButton(){
+        initClearSupericieBtn();
+        initAddSuperficieBtn();
+       initBinding();
+        terrainNextBtn.setOnAction(event ->MainAffaireFormController.updateLabelAndShowPane(terrainNextBtn));
+        terrainPrevBtn.setOnAction(event -> MainAffaireFormController.updateLabelAndShowPane(terrainPrevBtn));
+    }
+
    public void updateSuperficieLabel(ActionEvent event){
-       String superficieValue = String.valueOf(superficieSpinner.getValue());;
-       superficieSpinner.getEditor().clear();
-       String  text = "";
-       if (!superficieLabel.getText().isEmpty() && !superficieLabel.getText().isBlank())
-           text = superficieValue+" "+superficieUnit;
-       else{ text = superficieLabel.getText()+" - "+superficieValue+" "+superficieUnit; }
-       superficieLabel.setText(text);
+        String superficieUnit = convert(uniteSuperficieCombobox.getValue());
+        if(!superficieLabel.getText().contains(superficieUnit)){
+            String superficieValue = superficieTextfield.getText();
+            superficieTextfield.clear();
+            String  text = "";
+            if (superficieLabel.getText().isEmpty() || superficieLabel.getText().isBlank())
+                text = superficieValue+" "+superficieUnit;
+            else{ text = superficieLabel.getText()+" - "+superficieValue+" "+superficieUnit; }
+            superficieLabel.setText(text);
+        }
    }
 
    private void initTitleCombobox(){
-
         titleBox.disableProperty().bind(insererPropriete.selectedProperty());
         titleCombobox.setCellFactory(titreListView -> new TitleCell());
         new AutoCompleteCombobox<Titre>(titleCombobox, new Predicate<Titre>() {
@@ -261,11 +241,10 @@ public class TerrainFromController implements Initializable{
         return superficieLabel;
     }
     public AnchorPane getTerrainFormPane() {
-        return terrainFormPane;
+        return terrainFormPanel;
     }
 
     private static TerrainFromController terrainFromController;
-    private static String superficieUnit;
     private static String _region = "ATSINANANA";
     private static String _district = "TOAMASINA-I";
     private static String _commune = " Urbaine de Toamasina ";
@@ -273,7 +252,7 @@ public class TerrainFromController implements Initializable{
     @FXML private JFXDatePicker dateCreation;
     // ANCHORPANE
     @FXML private AnchorPane proprietePane;
-    @FXML private AnchorPane terrainFormPane;
+    @FXML private AnchorPane terrainFormPanel;
     // RADIOBUTTON
     @FXML private JFXRadioButton radioDependant;
     @FXML private JFXRadioButton tnicRadio;
@@ -286,8 +265,6 @@ public class TerrainFromController implements Initializable{
     @FXML private HBox usernameBox2;
     @FXML private HBox usernameBox1;
     @FXML private HBox titleBox;
-    // SPINNER
-    @FXML private Spinner<Float> superficieSpinner;
     // COMBOBOX
     @FXML private ComboBox<String> uniteSuperficieCombobox;
     @FXML private JFXComboBox<Titre> titleCombobox;
@@ -309,8 +286,11 @@ public class TerrainFromController implements Initializable{
     @FXML private TextField commune;
     @FXML private TextField district;
     @FXML private TextField region;
+    @FXML private TextField superficieTextfield;
     // BUTTON
     @FXML private JFXButton addSuperficieBtn;
     @FXML private JFXButton clearSuperficie;
-    @FXML  private JFXButton saveBtn;
+    @FXML private  JFXButton terrainPrevBtn;
+    @FXML private  JFXButton terrainNextBtn;
+
 }

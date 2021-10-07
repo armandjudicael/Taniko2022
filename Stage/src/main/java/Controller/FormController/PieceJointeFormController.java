@@ -25,6 +25,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.TilePane;
 import org.apache.commons.io.FileUtils;
 
@@ -45,7 +46,17 @@ import static Model.Pojo.Affaire.string2TypeDemande;
 public class PieceJointeFormController implements Initializable{
 
     private static List<File> pieceJointeFiles;
+
+
+
     @Override public void initialize(URL url, ResourceBundle resourceBundle) {
+        initBtnAction();
+    }
+
+    private void initBtnAction(){
+        newPieceBtn.setOnAction(this::showFileChooserAndCreateAttachement);
+        delPieceBtn.setOnAction(event -> {});
+        pjPrevBtn.setOnAction(event -> MainAffaireFormController.updateLabelAndShowPane(pjPrevBtn));
         saveBtn.setOnAction(event -> {
             MainAffaireForm.getInstance().close();
 //            MainService.getInstance().launch(new Task<Void>() {
@@ -60,12 +71,7 @@ public class PieceJointeFormController implements Initializable{
         });
     }
 
-    private void initBtnAction(){
-        newPieceBtn.setOnAction(this::showFileChooserAndCreateAttachement);
-        delPieceBtn.setOnAction(event -> {});
-    }
-
-    private PieceJointe createAttachementBy(File file) throws FileNotFoundException {
+    private PieceJointe createAttachementBy(File file) throws FileNotFoundException{
         String name = file.getName();
         String[] split = name.split("\\.");
         String description = split[0];
@@ -214,9 +220,10 @@ public class PieceJointeFormController implements Initializable{
         }
     }
 
+    @FXML private AnchorPane pieceJointePane;
     @FXML private TilePane PieceJointeTilePane;
     @FXML private JFXButton newPieceBtn;
     @FXML private JFXButton delPieceBtn;
     @FXML private JFXButton saveBtn;
-    @FXML private JFXButton back2TerrainBtn;
+    @FXML private JFXButton pjPrevBtn;
 }

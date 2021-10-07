@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import javafx.scene.control.ComboBox?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextArea?>
@@ -13,9 +13,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:controller="Controller.FormController.DemandeurFormController" prefHeight="580.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="580.0" style="-fx-background-color: whitesmoke;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.FormController.DemandeurFormController">
    <children>
-      <JFXButton fx:id="dmdPrevBtn" buttonType="RAISED" layoutX="452.0" layoutY="570.0" prefHeight="35.0" prefWidth="108.0" style="-fx-background-color: #389955;" text="revenir" textFill="WHITE" AnchorPane.bottomAnchor="6.0">
+      <JFXButton fx:id="dmdPrevBtn" buttonType="RAISED" layoutX="452.0" layoutY="570.0" prefHeight="35.0" prefWidth="108.0" style="-fx-background-color: #389955;" text="revenir" textFill="WHITE" AnchorPane.bottomAnchor="6.0" AnchorPane.rightAnchor="120.0">
          <font>
             <Font name="Arial Unicode MS" size="15.0" />
          </font>
@@ -27,7 +27,7 @@
             </ImageView>
          </graphic>
       </JFXButton>
-      <JFXButton fx:id="dmdNextBtn" buttonType="RAISED" contentDisplay="RIGHT" layoutX="570.0" layoutY="570.0" prefHeight="35.0" prefWidth="108.0" style="-fx-background-color: #389955;" text="suivant" textFill="WHITE" AnchorPane.bottomAnchor="6.0">
+      <JFXButton fx:id="dmdNextBtn" buttonType="RAISED" contentDisplay="RIGHT" layoutX="570.0" layoutY="570.0" prefHeight="35.0" prefWidth="108.0" style="-fx-background-color: #389955;" text="suivant" textFill="WHITE" AnchorPane.bottomAnchor="6.0" AnchorPane.rightAnchor="5.0">
          <font>
             <Font name="Arial Unicode MS" size="15.0" />
          </font>
@@ -39,38 +39,37 @@
             </ImageView>
          </graphic>
       </JFXButton>
-      <ComboBox fx:id="typeDemandeur" layoutX="195.0" layoutY="14.0" prefHeight="36.0" prefWidth="322.0" AnchorPane.topAnchor="8.0" />
-      <StackPane layoutY="61.0" prefHeight="483.0" prefWidth="683.0" AnchorPane.bottomAnchor="50.0">
+      <StackPane layoutY="61.0" prefHeight="483.0" prefWidth="683.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
          <children>
             <AnchorPane fx:id="moralPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: white;">
                <children>
-                  <TextField fx:id="adresse" layoutX="134.0" layoutY="137.0" prefHeight="36.0" prefWidth="468.0" />
-                  <Text fill="#403f3f" layoutX="74.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom :" wrappingWidth="46.13671875" AnchorPane.rightAnchor="562.86328125">
+                  <TextField fx:id="adresse" layoutX="134.0" layoutY="137.0" prefHeight="36.0" prefWidth="468.0" AnchorPane.leftAnchor="130.0" AnchorPane.rightAnchor="80.0" />
+                  <Text fill="#403f3f" layoutX="74.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom :" wrappingWidth="46.13671875" AnchorPane.leftAnchor="74.0">
                      <font>
                         <Font name="Arial Unicode MS" size="15.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="prenom" layoutX="134.0" layoutY="77.0" prefHeight="35.0" prefWidth="468.0" />
-                  <Text fill="#403f3f" layoutX="52.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Prenom :" wrappingWidth="66.13671875" AnchorPane.rightAnchor="564.86328125">
+                  <TextField fx:id="prenom" layoutX="134.0" layoutY="77.0" prefHeight="35.0" prefWidth="468.0" AnchorPane.leftAnchor="130.0" AnchorPane.rightAnchor="80.0" />
+                  <Text fill="#403f3f" layoutX="52.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Prenom :" wrappingWidth="66.13671875" AnchorPane.leftAnchor="50.0">
                      <font>
                         <Font name="Arial Unicode MS" size="15.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="nom" layoutX="134.0" layoutY="13.0" prefHeight="34.0" prefWidth="468.0" />
-                  <Text fill="#403f3f" layoutX="45.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adresse  :" wrappingWidth="73.13671875" AnchorPane.rightAnchor="564.86328125">
+                  <TextField fx:id="nom" layoutX="134.0" layoutY="13.0" prefHeight="34.0" prefWidth="468.0" AnchorPane.leftAnchor="130.0" AnchorPane.rightAnchor="80.0" />
+                  <Text fill="#403f3f" layoutX="42.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adresse  :" wrappingWidth="73.13671875" AnchorPane.leftAnchor="42.0">
                      <font>
                         <Font name="Arial Unicode MS" size="15.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="demandeurParcelle2" layoutX="239.0" layoutY="262.0" prefHeight="34.0" prefWidth="73.0" />
-                  <TextField fx:id="demandeurParcelle1" layoutX="134.0" layoutY="262.0" prefHeight="34.0" prefWidth="73.0" />
-                  <Text fill="#403f3f" layoutX="52.0" layoutY="285.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Parcelle :" wrappingWidth="66.13671875" AnchorPane.rightAnchor="564.86328125">
+                  <TextField fx:id="demandeurParcelle2" layoutX="239.0" layoutY="262.0" prefHeight="34.0" prefWidth="73.0" AnchorPane.leftAnchor="134.0" />
+                  <TextField fx:id="demandeurParcelle1" layoutX="239.0" layoutY="262.0" prefHeight="34.0" prefWidth="73.0" AnchorPane.leftAnchor="239.0" />
+                  <Text fill="#403f3f" layoutX="50.0" layoutY="285.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Parcelle :" wrappingWidth="66.13671875" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="566.86328125">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="lot" layoutX="134.0" layoutY="328.0" prefHeight="34.0" prefWidth="178.0" />
-                  <Text fill="#403f3f" layoutX="80.0" layoutY="351.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lot :" wrappingWidth="31.13671875" AnchorPane.rightAnchor="571.86328125">
+                  <TextField fx:id="lot" layoutX="134.0" layoutY="328.0" prefHeight="34.0" prefWidth="178.0" AnchorPane.leftAnchor="134.0" />
+                  <Text fill="#403f3f" layoutX="80.0" layoutY="351.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lot :" wrappingWidth="31.13671875" AnchorPane.leftAnchor="79.13671875">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -80,59 +79,59 @@
                         <Font size="35.0" />
                      </font>
                   </Label>
-                  <Text fill="#403f3f" layoutX="33.0" layoutY="413.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Telephone :" wrappingWidth="82.0" AnchorPane.rightAnchor="568.0">
+                  <Text fill="#403f3f" layoutX="33.0" layoutY="413.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Telephone :" wrappingWidth="82.0" AnchorPane.leftAnchor="33.0">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="telephone" layoutX="134.0" layoutY="390.0" prefHeight="34.0" prefWidth="468.0" />
-                  <Text fill="#403f3f" layoutX="63.0" layoutY="466.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email   :" wrappingWidth="66.13671875" AnchorPane.rightAnchor="553.86328125">
+                  <TextField fx:id="telephone" layoutX="134.0" layoutY="390.0" prefHeight="34.0" prefWidth="468.0" AnchorPane.leftAnchor="130.0" AnchorPane.rightAnchor="80.0" />
+                  <Text fill="#403f3f" layoutX="56.0" layoutY="466.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email   :" wrappingWidth="55.0" AnchorPane.leftAnchor="56.0">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="mail" layoutX="134.0" layoutY="443.0" prefHeight="34.0" prefWidth="468.0" />
-                  <TextField fx:id="proffession" layoutX="134.0" layoutY="196.0" prefHeight="36.0" prefWidth="468.0" />
-                  <Text fill="#403f3f" layoutX="33.0" layoutY="220.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Proffession :" wrappingWidth="82.0">
+                  <TextField fx:id="mail" layoutX="134.0" layoutY="443.0" prefHeight="34.0" prefWidth="468.0" AnchorPane.leftAnchor="130.0" AnchorPane.rightAnchor="80.0" />
+                  <TextField fx:id="proffession" layoutX="134.0" layoutY="196.0" prefHeight="36.0" prefWidth="468.0" AnchorPane.leftAnchor="130.0" AnchorPane.rightAnchor="80.0" />
+                  <Text fill="#403f3f" layoutX="33.0" layoutY="220.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Proffession :" wrappingWidth="82.0" AnchorPane.leftAnchor="33.0">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Text>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="physiquePane" prefHeight="454.0" prefWidth="683.0" style="-fx-background-color: white;">
+            <AnchorPane fx:id="physiquePane" style="-fx-background-color: white;">
                <children>
                   <Label layoutX="38.0" layoutY="71.0" prefHeight="17.0" prefWidth="82.0" text="Raison Social :">
                      <font>
                         <Font size="13.0" />
                      </font>
                   </Label>
-                  <TextArea fx:id="raisonSocial" layoutX="142.0" layoutY="29.0" prefHeight="100.0" prefWidth="450.0" />
+                  <TextArea fx:id="raisonSocial" layoutX="142.0" layoutY="29.0" prefHeight="100.0" prefWidth="450.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="80.0" />
                   <Label layoutX="38.0" layoutY="165.0" prefHeight="17.0" prefWidth="82.0" text="Siege Social :">
                      <font>
                         <Font size="13.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="siegeSocial" layoutX="142.0" layoutY="156.0" prefHeight="35.0" prefWidth="450.0" />
+                  <TextField fx:id="siegeSocial" layoutX="142.0" layoutY="156.0" prefHeight="35.0" prefWidth="450.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="80.0" />
                   <Label layoutX="32.0" layoutY="240.0" prefHeight="19.0" prefWidth="95.0" text="REPRESENTANT">
                      <font>
                         <Font size="13.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="nomRepresentant" layoutX="142.0" layoutY="286.0" prefHeight="35.0" prefWidth="450.0" />
+                  <TextField fx:id="nomRepresentant" layoutX="142.0" layoutY="286.0" prefHeight="35.0" prefWidth="450.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="80.0" />
                   <Separator layoutY="263.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                   <Label layoutX="70.0" layoutY="294.0" prefHeight="19.0" prefWidth="40.0" text="nom :">
                      <font>
                         <Font size="13.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="prenomRepresentant" layoutX="142.0" layoutY="346.0" prefHeight="35.0" prefWidth="450.0" />
+                  <TextField fx:id="prenomRepresentant" layoutX="142.0" layoutY="346.0" prefHeight="35.0" prefWidth="450.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="80.0" />
                   <Label layoutX="55.0" layoutY="354.0" prefHeight="19.0" prefWidth="55.0" text="prenom :">
                      <font>
                         <Font size="13.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="fonctionRepresentant" layoutX="142.0" layoutY="411.0" prefHeight="35.0" prefWidth="450.0" />
+                  <TextField fx:id="fonctionRepresentant" layoutX="142.0" layoutY="411.0" prefHeight="35.0" prefWidth="450.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="80.0" />
                   <Label layoutX="55.0" layoutY="419.0" prefHeight="19.0" prefWidth="55.0" text="fonction :">
                      <font>
                         <Font size="13.0" />
@@ -142,5 +141,6 @@
             </AnchorPane>
          </children>
       </StackPane>
+      <JFXComboBox fx:id="typeDemandeur" focusColor="#65a86d" labelFloat="true" layoutX="131.0" layoutY="9.0" prefHeight="36.0" prefWidth="473.0" promptText="Type demandeur" unFocusColor="#508a59" AnchorPane.topAnchor="4.0" />
    </children>
 </AnchorPane>
