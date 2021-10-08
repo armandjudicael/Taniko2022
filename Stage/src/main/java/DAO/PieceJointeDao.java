@@ -2,8 +2,10 @@ package DAO;
 
 import Model.Pojo.Affaire;
 import Model.Pojo.PieceJointe;
+import View.Model.PieceJointeForView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.Node;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -11,8 +13,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 public class PieceJointeDao extends DAO<PieceJointe> {
+
     public PieceJointeDao(Connection connection) {
         super(connection);
     }
@@ -30,11 +34,13 @@ public class PieceJointeDao extends DAO<PieceJointe> {
         return 0;
     }
 
-    public int[] createAll(ObservableList<PieceJointe> list,Affaire affaire){
-        if (!list.isEmpty()){
+    public int[] createAll(ObservableList<Node> list, Affaire affaire){
+        if(!list.isEmpty()){
                 String query ="INSERT INTO piecejointe(descriptionPiece,valeurPiece,extensionPiece,affaireId) VALUES(?,?,?,?);";
                 try(PreparedStatement ps = connection.prepareStatement(query)){
-                    list.forEach(pieceJointe -> {
+                    list.forEach(node -> {
+                        PieceJointeForView pieceJointeForView = (PieceJointeForView) node;
+                        PieceJointe pieceJointe = pieceJointeForView.getPieceJointe();
                         try {
                             ps.setString(1,pieceJointe.getDescription());
                             ps.setBlob(2,pieceJointe.getValeur());
@@ -45,11 +51,14 @@ public class PieceJointeDao extends DAO<PieceJointe> {
                             e.printStackTrace();
                         }
                     });
-                    return ps.executeBatch();
+                    int[] ints = ps.executeBatch();
+                    this.connection.commit();
+                    return ints;
                 }catch (SQLException e){
                     e.printStackTrace();
                 }
         }
+
         return null;
     }
 
@@ -83,6 +92,7 @@ public class PieceJointeDao extends DAO<PieceJointe> {
         }
       return null;
     }
+
     @Override public int delete(PieceJointe pieceJointe) {
         return 0;
     }

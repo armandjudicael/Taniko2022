@@ -15,8 +15,6 @@ import java.util.ResourceBundle;
 
 public class DemandeurFormController implements Initializable {
 
-
-
     @Override public void initialize(URL url, ResourceBundle resourceBundle) {
         demandeurFormController = this;
         initTypeDemandeur();
@@ -29,7 +27,7 @@ public class DemandeurFormController implements Initializable {
         typeDemandeur.setValue(type[1]);
         typeDemandeur.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
             if (t1.equals(type[1])) {
-                new SlideInRight(moralPane).play();
+               new SlideInRight(moralPane).play();
                 moralPane.toFront();
             } else{
                 new SlideInRight(physiquePane).play();
@@ -39,10 +37,16 @@ public class DemandeurFormController implements Initializable {
     }
 
     private void initButton(){
-        BooleanBinding demandeurBinding = nom.textProperty().isNull().or(nom.textProperty().isEqualTo(""));
-        dmdNextBtn.disableProperty().bind(demandeurBinding);
         dmdNextBtn.setOnAction(event -> MainAffaireFormController.getInstance().updateLabelAndShowPane(dmdNextBtn));
         dmdPrevBtn.setOnAction(event -> MainAffaireFormController.getInstance().updateLabelAndShowPane(dmdPrevBtn));
+        initButtonBinding();
+    }
+
+    private void initButtonBinding(){
+        BooleanBinding demandeurBinding = nom.textProperty().isNull().or(nom.textProperty().isEqualTo(""))
+                                         .or(adresse.textProperty().isEmpty())
+                                         .or(telephone.textProperty().isEmpty());
+        dmdNextBtn.disableProperty().bind(demandeurBinding);
     }
 
     public static DemandeurFormController getInstance() {

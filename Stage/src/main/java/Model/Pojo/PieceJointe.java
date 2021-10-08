@@ -79,4 +79,14 @@ public class PieceJointe {
     public void setValeur(FileInputStream valeur) {
         this.valeur = valeur;
     }
+
+    @Override
+    public String toString() {
+        return "PieceJointe{" +
+                "idPieceJointe=" + idPieceJointe +
+                ", description='" + description + '\'' +
+                ", extensionPiece='" + extensionPiece + '\'' +
+                ", size='" + size + '\''+
+                '}';
+    }
 }

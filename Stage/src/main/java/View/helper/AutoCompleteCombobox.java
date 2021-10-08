@@ -88,20 +88,15 @@ public class AutoCompleteCombobox<T> implements EventHandler<KeyEvent>{
         }
 
         if(event.getCode() == KeyCode.BACK_SPACE){
-
             String str = this.comboBox.getEditor().getText();
-
             if (str != null && str.length() > 0) {
                 str = str.substring(0, str.length() - 1);
             }
-
             if(str != null){
                 this.comboBox.getEditor().setText(str);
                 moveCaret(str.length());
             }
-
             this.comboBox.getSelectionModel().clearSelection();
-
         }
 
         if(event.getCode() == KeyCode.ENTER ){

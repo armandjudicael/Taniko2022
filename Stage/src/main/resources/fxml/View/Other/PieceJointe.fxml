@@ -10,14 +10,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="150.0" style="-fx-background-color: #F0FFF0; -fx-background-radius: 6px;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="piecePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="150.0" style="-fx-background-color: #F0FFF0; -fx-background-radius: 6px;" styleClass="jfx-button" stylesheets="@../../../css/navigationButton.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ImageView fx:id="pieceIcon" fitHeight="63.0" fitWidth="72.0" layoutX="44.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="44.0" AnchorPane.rightAnchor="43.0">
+      <ImageView fx:id="pieceIcon" fitHeight="63.0" fitWidth="72.0" layoutX="44.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="82.0" AnchorPane.leftAnchor="44.0" AnchorPane.rightAnchor="43.0" AnchorPane.topAnchor="5.0">
          <image>
             <Image url="@../../../img/adobe_acrobat_reader_100px.png" />
          </image>
       </ImageView>
-      <JFXCheckBox fx:id="pieceCheckbox" contentDisplay="GRAPHIC_ONLY" layoutX="6.0" layoutY="5.0" prefHeight="18.0" prefWidth="41.0" text="CheckBox">
+      <JFXCheckBox fx:id="pieceCheckbox" contentDisplay="GRAPHIC_ONLY" layoutX="6.0" layoutY="5.0" prefHeight="18.0" prefWidth="41.0" text="CheckBox" AnchorPane.leftAnchor="6.0" AnchorPane.topAnchor="4.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></JFXCheckBox>
@@ -33,7 +33,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXButton>
-      <Label fx:id="pieceNom" alignment="CENTER" contentDisplay="CENTER" layoutX="8.0" layoutY="129.0" prefHeight="63.0" prefWidth="140.0" text="Certificat de situation juridique" textAlignment="CENTER" textFill="#434141" wrapText="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
+      <Label fx:id="pieceNom" alignment="CENTER" contentDisplay="CENTER" layoutX="8.0" layoutY="129.0" prefHeight="54.0" prefWidth="140.0" text="Certificat de situation juridique" textAlignment="CENTER" textFill="#434141" wrapText="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
          <font>
             <Font name="Arial Unicode MS" size="15.0" />
          </font>
@@ -41,7 +41,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Label>
-      <Label fx:id="size" alignment="CENTER" layoutX="30.0" layoutY="65.0" prefHeight="21.0" prefWidth="90.0" text="5 Mb" textFill="#3c3939" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
+      <Label fx:id="size" alignment="CENTER" contentDisplay="CENTER" layoutX="30.0" layoutY="65.0" prefHeight="21.0" prefWidth="90.0" text="5 Mb" textFill="#3c3939" AnchorPane.bottomAnchor="64.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="65.0">
          <font>
             <Font size="15.0" />
          </font>
@@ -51,6 +51,6 @@
       <Cursor fx:constant="DEFAULT" />
    </cursor>
    <effect>
-      <DropShadow color="#3c3a3a" />
+      <DropShadow color="#323030" height="18.0" radius="8.5" width="18.0" />
    </effect>
 </AnchorPane>

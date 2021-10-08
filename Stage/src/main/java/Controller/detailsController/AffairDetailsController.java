@@ -91,17 +91,20 @@ public class AffairDetailsController implements Initializable {
 
     @Override public void initialize(URL location, ResourceBundle resources){
         detailsController = this;
-
         createTitleBtn.setOnAction(event ->{
 
             TableView<ConnexAffairForView> connexeTableView = ConnexViewController.getInstance().getConnexeTableView();
+
             ObservableList<ConnexAffairForView> items = connexeTableView.getItems();
+
             Terrain terrain = affaire.getTerrain();
 
             MainService.getInstance().launch(new Task<Void>() {
+
                 @Override protected void scheduled() {
                     createTitleBtn.disableProperty().bind(this.runningProperty());
                 }
+
                 @Override protected Void call() throws Exception {
                     /**
                      * Verifier l'existence des affaires connexes
@@ -110,6 +113,7 @@ public class AffairDetailsController implements Initializable {
                      *      - sinon on incite l'agent a rejeter les affaires connexes
                      *  > Sinon on affiche le formulaire de creation de titre
                      */
+
                     boolean terrainNonTitre = DaoFactory.getTerrainDao().checkTerrainAndTitre(terrain);
 
                       if (terrainNonTitre){

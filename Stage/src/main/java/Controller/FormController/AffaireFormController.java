@@ -61,10 +61,8 @@ public class AffaireFormController  implements Initializable {
     }
 
     private void initButtonActionAndBinding(){
-
         BooleanBinding rechercherRedacteur = Bindings.and(Bindings.not(redacteurBox.disableProperty()), redactorCombobox.valueProperty().isNull());
         BooleanBinding rechercherConnexe = Bindings.and(Bindings.not(connexeBox.disableProperty()), connexeCombobox.valueProperty().isNull());
-
         BooleanBinding affaireBtnBinding = numeroAffaire.textProperty().isEqualTo("")
                 .or(dateFormulation.valueProperty().isNull())
                 .or(typeDemande.getSelectionModel().selectedItemProperty().isNull()
@@ -149,18 +147,19 @@ public class AffaireFormController  implements Initializable {
         typeDemande.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
             if (t1.equals("ACQUISITION")){
                 typeAffair.set(cigle);
-                DemandeurFormController.getInstance().getTypeDemandeur().setDisable(false);
+                DemandeurFormController.getInstance().getPhysiquePane().toFront();
+                DemandeurFormController.getInstance().getTypeDemandeur().setValue("Personne Physique");
             }else {
                 if (t1.equals("PRESCRIPTION_AQUISITIVE")){
                     typeAffair.set(cigle + " / G");
-                    DemandeurFormController.getInstance().getPhysiquePane().toFront();
-                    DemandeurFormController.getInstance().getTypeDemandeur().setValue("Personne Physique");
+                    DemandeurFormController.getInstance().getMoralPane().toFront();
+                    DemandeurFormController.getInstance().getTypeDemandeur().setValue("Personne Morale");
                 }else {
                     DemandeurFormController.getInstance().getPhysiquePane().toFront();
-                    DemandeurFormController.getInstance().getTypeDemandeur().setValue("Personne Morale");
+                    DemandeurFormController.getInstance().getTypeDemandeur().setValue("Personne Physique");
                 }
-                DemandeurFormController.getInstance().getTypeDemandeur().setDisable(true);
             }
+            DemandeurFormController.getInstance().getTypeDemandeur().setDisable(false);
         });
     }
 

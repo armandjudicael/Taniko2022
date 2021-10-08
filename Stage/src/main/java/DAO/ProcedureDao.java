@@ -21,7 +21,7 @@ public class ProcedureDao extends DAO<Procedure> {
     }
     @Override
     public int create(Procedure procedure) {
-        String query = " INSERT INTO _procedure ( nomProcedure , typeProcedur ) VALUES (? , ? ) ;";
+        String query = " INSERT INTO _procedure ( nomProcedure , typeProcedure ) VALUES (? , ? ) ;";
         int status = 0;
         try (PreparedStatement preparedStatement = this.connection.prepareStatement(query)) {
                 preparedStatement.setString(1, procedure.getNom());

@@ -1,31 +1,20 @@
 package Controller.FormController;
 
-import Controller.ViewController.AffairViewController;
-import Controller.ViewController.LoginController;
 import DAO.DaoFactory;
-import DAO.DbOperation;
-import Model.Enum.NotifType;
-import Model.Enum.ProcedureStatus;
-import Model.Enum.TableName;
 import Model.Other.MainService;
-import Model.Other.ProcedureForTableview;
 import Model.Pojo.*;
-import View.Dialog.FormDialog.MainAffaireForm;
 import View.Dialog.Other.FileChooserDialog;
-import View.Dialog.Other.Notification;
-import View.Model.AffaireForView;
-import View.Model.ConnexAffairForView;
 import View.Model.PieceJointeForView;
 import com.jfoenix.controls.JFXButton;
 import javafx.application.Platform;
-import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.binding.Bindings;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.TilePane;
 import org.apache.commons.io.FileUtils;
 
@@ -34,41 +23,65 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.List;
 import java.util.ResourceBundle;
-
-import static Model.Pojo.Affaire.string2TypeDemande;
+import java.util.stream.Collectors;
 
 public class PieceJointeFormController implements Initializable{
-
     private static List<File> pieceJointeFiles;
-
-
-
     @Override public void initialize(URL url, ResourceBundle resourceBundle) {
         initBtnAction();
     }
 
     private void initBtnAction(){
         newPieceBtn.setOnAction(this::showFileChooserAndCreateAttachement);
-        delPieceBtn.setOnAction(event -> {});
+        delPieceBtn.setOnAction(this::deletePieceJointe);
+        ObservableList<Node> children = pjTilepane.getChildren();
+        delPieceBtn.disableProperty().bind(Bindings.isEmpty(children));
         pjPrevBtn.setOnAction(event -> MainAffaireFormController.updateLabelAndShowPane(pjPrevBtn));
         saveBtn.setOnAction(event -> {
-            MainAffaireForm.getInstance().close();
-//            MainService.getInstance().launch(new Task<Void>() {
-//                @Override protected Void call() throws Exception {
-//                    sauvegarderAffaire();
-//                    return null;
-//                }
-//                @Override protected void succeeded() {
-//                    resetAffairForm();
-//                }
-//            });
+
+            MainService.getInstance().launch(new Task<Void>() {
+
+                @Override protected Void call() throws Exception{
+                    Affaire affaire = new Affaire();
+                    affaire.setId(16);
+                    int[] all = DaoFactory.getPieceJointeDao().createAll(pjTilepane.getChildren(),affaire);
+                    if (children.size() == all.length){
+                        Platform.runLater(() -> {
+                            Alert alert = new Alert(Alert.AlertType.CONFIRMATION," Piece jointe enregistré avdec succès ");
+                            alert.showAndWait();
+                        });
+                    }else {
+                        Platform.runLater(() -> {
+                            Alert alert = new Alert(Alert.AlertType.ERROR," Echec de l'enregistrement des pieces jointes ");
+                            alert.showAndWait();
+                        });
+                    }
+                    return null;
+                }
+
+            });
+
         });
+
+    }
+
+    private void deletePieceJointe(ActionEvent event) {
+        ObservableList<Node> children = pjTilepane.getChildren();
+        List<Node> collect = children.stream().filter(node -> {
+            PieceJointeForView pieceJointeForView = (PieceJointeForView) node;
+            boolean selected = pieceJointeForView.getPieceCheckbox().isSelected();
+            if (selected) return true;
+            else return false;
+        }).collect(Collectors.toList());
+        if (!collect.isEmpty()) {
+            children.removeAll(collect);
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText(" Veuillez cochez le(s) pièce(s) jointe à supprimer ");
+            alert.showAndWait();
+        }
     }
 
     private PieceJointe createAttachementBy(File file) throws FileNotFoundException{
@@ -80,10 +93,16 @@ public class PieceJointeFormController implements Initializable{
         return new PieceJointe(description,extension,size,new FileInputStream(file));
     }
 
-    private String calculateFileSize(File file){
+    public String calculateFileSize(File file){
         long length = FileUtils.sizeOf(file);
-        double mega = length/FileUtils.ONE_MB;
-        return String.valueOf(mega)+" Mb";
+        long kilo = length / FileUtils.ONE_KB;
+        if (kilo<FileUtils.ONE_KB) return kilo+" Kb";
+        return  kilo/FileUtils.ONE_MB+" Mb";
+        //        Dialog dialog = new Dialog();
+//        DialogPane dialogPane = new DialogPane();
+//        dialogPane.setContent(new Node() {});
+//        dialog.setDialogPane(dialogPane);
+//        dialog.initStyle(StageStyle.UNDECORATED);
     }
 
 
@@ -210,9 +229,15 @@ public class PieceJointeFormController implements Initializable{
     private void showFileChooserAndCreateAttachement(ActionEvent event) {
         pieceJointeFiles = FileChooserDialog.getInstance();
         if (pieceJointeFiles != null && !pieceJointeFiles.isEmpty()) {
+            if (pieceJointeFiles.size()>10){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText(" le nombre de limite de fichier selectionné a importer simultanement est de 10");
+                alert.showAndWait();
+                return;
+            }
             pieceJointeFiles.forEach(file -> {
                 try {
-                    PieceJointeTilePane.getChildren().add(new PieceJointeForView(createAttachementBy(file), false).getPane());
+                    pjTilepane.getChildren().add(new PieceJointeForView(createAttachementBy(file), false));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -220,10 +245,10 @@ public class PieceJointeFormController implements Initializable{
         }
     }
 
-    @FXML private AnchorPane pieceJointePane;
-    @FXML private TilePane PieceJointeTilePane;
+    @FXML private TilePane pjTilepane;
     @FXML private JFXButton newPieceBtn;
     @FXML private JFXButton delPieceBtn;
     @FXML private JFXButton saveBtn;
     @FXML private JFXButton pjPrevBtn;
+
 }

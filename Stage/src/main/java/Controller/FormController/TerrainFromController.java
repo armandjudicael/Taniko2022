@@ -91,19 +91,6 @@ public class TerrainFromController implements Initializable{
            // les unité de la superficie doit etre inclus dans le parametre d'administration
            String[] superficieTab = {"Hectare (Ha)", "Are (A)", "CentiAre (Ca)", "mètre carré (m²)", "décimètre carré (dm²)"};
            uniteSuperficieCombobox.getItems().addAll(Arrays.asList(superficieTab));
-           // initialize the listener
-//           uniteSuperficieCombobox.getSelectionModel().selectedItemProperty().addListener((observableValue, s, newValue) -> {
-//               String newUnit = testSelectedvalue(newValue);
-//               boolean containsValue = superficieLabel.getText().contains(newUnit);
-//           uniteSuperficieCombobox.getStyleClass().remove("boxError");
-//           if (!containsValue)
-//             superficieUnit = newUnit;
-//           else{
-////               // disable the textfield when the map contains the selectedItem
-////               superficieTextfield.setDisable(true);
-//               uniteSuperficieCombobox.getStyleClass().addAll("boxError");
-//           }
-//       });
    }
 
 
