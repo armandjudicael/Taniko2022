@@ -49,7 +49,7 @@ public class PieceJointeDao extends DAO<PieceJointe> {
 
     public int[] createAll(ObservableList<PieceJointe> list, Affaire affaire){
         if(!list.isEmpty()){
-            String query ="INSERT INTO piecejointe(descriptionPiece,valeurPiece,extensionPiece,taillePiece,affaireId) VALUES(?,?,?,?);";
+            String query ="INSERT INTO piecejointe(descriptionPiece,valeurPiece,extensionPiece,taillePiece,affaireId) VALUES(?,?,?,?,?);";
             try(PreparedStatement ps = connection.prepareStatement(query)){
                 list.forEach(pieceJointe -> {
                     try {
@@ -91,13 +91,32 @@ public class PieceJointeDao extends DAO<PieceJointe> {
         return pieceJointeObservableList;
     }
 
+    public ObservableList<PieceJointe> getAllAttachement(Affaire affaire){
+        ObservableList<PieceJointe> pieceJointeObservableList = FXCollections.observableArrayList();
+        if (affaire!=null){
+            String query ="SELECT * FROM piecejointe  pj " +
+                    "INNER JOIN affaire a ON pj.affaireId = a.idAffaire " +
+                    "WHERE idAffaire = ? ";
+            try(PreparedStatement ps = connection.prepareStatement(query)){
+                ps.setInt(1,affaire.getId());
+                ResultSet rs = ps.executeQuery();
+                while (rs.next())
+                    pieceJointeObservableList.add(createPieceJointe(rs));
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return pieceJointeObservableList;
+    }
+
+
     private PieceJointe createPieceJointe(ResultSet rs){
         try {
             String description = rs.getString("descriptionPiece");
             String extension = rs.getString("extensionPiece");
             String size = rs.getString("taillePiece");
             InputStream valeurPiece = rs.getBinaryStream("valeurPiece");
-            int idPiece = rs.getInt("idPiece");
+            int idPiece = rs.getInt("idPieceJointe");
             return new PieceJointe(idPiece,description,extension,size,valeurPiece);
         } catch (SQLException e) {
             e.printStackTrace();

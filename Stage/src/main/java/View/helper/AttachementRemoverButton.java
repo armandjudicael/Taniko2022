@@ -1,10 +1,14 @@
 package View.helper;
 
 import DAO.DaoFactory;
+import Model.Enum.NotifType;
 import Model.Other.MainService;
 import Model.Pojo.PieceJointe;
+import View.Dialog.Other.Notification;
 import View.Model.PieceJointeForView;
 import com.jfoenix.controls.JFXButton;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -18,10 +22,6 @@ import java.util.stream.Collectors;
 
 public class AttachementRemoverButton implements EventHandler<ActionEvent>{
 
-    private Boolean isOnDetailsView;
-    private ObservableList<Node> attachementList;
-    private static ObservableList<PieceJointe> removalAttachements;
-
     public AttachementRemoverButton(JFXButton button,ObservableList<Node> attachementList,Boolean isOnDetailsView) {
         this.isOnDetailsView = isOnDetailsView;
         this.attachementList = attachementList;
@@ -34,11 +34,13 @@ public class AttachementRemoverButton implements EventHandler<ActionEvent>{
             PieceJointeForView pieceJointeForView = (PieceJointeForView) node;
             boolean selected = pieceJointeForView.getPieceCheckbox().isSelected();
             if (selected) {
-                removalAttachements.add(pieceJointeForView.getPieceJointe());
+                if (isOnDetailsView)
+                    removalAttachements.add(pieceJointeForView.getPieceJointe());
                 return true;
             }
             else return false;
         }).collect(Collectors.toList());
+
         if (!collect.isEmpty()){
           removeAttachement(collect);
         }else {
@@ -59,7 +61,9 @@ public class AttachementRemoverButton implements EventHandler<ActionEvent>{
                     attachementList.removeAll(collect);
                     MainService.getInstance().launch(new Task<Void>() {
                         @Override protected Void call() throws Exception {
-                            DaoFactory.getPieceJointeDao().removeAll(removalAttachements);
+                            int[] ints = DaoFactory.getPieceJointeDao().removeAll(removalAttachements);
+                            if (collect.size() == ints.length)
+                                Platform.runLater(() -> Notification.getInstance(collect.size()+" Pièce(s) jointe(s) supprimé(s) avec succés",NotifType.SUCCESS).show());
                             return null;
                         }
                         @Override protected void scheduled() {
@@ -73,5 +77,7 @@ public class AttachementRemoverButton implements EventHandler<ActionEvent>{
             });
         }
     }
-
+    private Boolean isOnDetailsView;
+    private ObservableList<Node> attachementList;
+    private static ObservableList<PieceJointe> removalAttachements = FXCollections.observableArrayList();
 }

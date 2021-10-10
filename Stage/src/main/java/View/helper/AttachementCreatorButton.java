@@ -55,7 +55,7 @@ public class AttachementCreatorButton implements EventHandler<ActionEvent> {
 
     private Task<Void> saveAttachementTask(){
         return new Task<Void>() {
-            @Override protected Void call() throws Exception {
+            @Override protected Void call() throws Exception{
                 pieceJointeObservableList = FXCollections.observableArrayList();
                 pieceJointeFiles.forEach(file -> {
                     try {
@@ -76,7 +76,7 @@ public class AttachementCreatorButton implements EventHandler<ActionEvent> {
     }
 
     @Override
-    public void handle(ActionEvent event) {
+    public void handle(ActionEvent event){
         pieceJointeFiles.setAll(FileChooserDialog.getInstance());
         if (pieceJointeFiles != null && !pieceJointeFiles.isEmpty()) {
             if (pieceJointeFiles.size()>10){
@@ -99,8 +99,8 @@ public class AttachementCreatorButton implements EventHandler<ActionEvent> {
         }
     }
 
-    private static   ObservableList<PieceJointe> pieceJointeObservableList;
-    private static ObservableList<File> pieceJointeFiles;
+    private static   ObservableList<PieceJointe> pieceJointeObservableList = FXCollections.observableArrayList();
+    private static ObservableList<File> pieceJointeFiles = FXCollections.observableArrayList();
     private  ObservableList<Node> attachementList;
     private Boolean isOnDetailsView;
 }

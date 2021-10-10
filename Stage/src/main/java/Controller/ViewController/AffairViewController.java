@@ -118,7 +118,8 @@ public class AffairViewController implements Initializable {
 
     private void initAttachement(Affaire affaire){
         ObservableList<PieceJointeForView> allPieceJointe = DaoFactory.getPieceJointeDao().getAllPieceJointe(affaire);
-        PieceJointeViewController.getInstance().getPjTilepane().getChildren().setAll(allPieceJointe);
+        if (!allPieceJointe.isEmpty())
+            Platform.runLater(() -> PieceJointeViewController.getInstance().getPjTilepane().getChildren().setAll(allPieceJointe) );
     }
 
     private void initImage() {
