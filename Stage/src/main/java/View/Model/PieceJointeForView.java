@@ -115,6 +115,7 @@ public class PieceJointeForView extends AnchorPane{
         AnchorPane.setRightAnchor(pieceNom,5.0);
         return pieceNom;
     }
+
     private Image initImage(String extension){
         switch (extension){
             case "pdf" :{

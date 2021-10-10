@@ -18,19 +18,13 @@ public class PieceJointe {
     public PieceJointe(int idPieceJointe,
                        String description,
                        String extensionPiece,
-                       InputStream valeur) {
+                       String size,
+                       InputStream inputStream) {
         this.idPieceJointe = idPieceJointe;
         this.description = description;
-        this.extensionPiece = extensionPiece.toLowerCase();
-        this.inputStream = valeur;
-    }
-
-    public PieceJointe(String description,
-                       String extensionPiece,
-                       FileInputStream valeur){
-        this.description = description;
-        this.extensionPiece = extensionPiece.toLowerCase();
-        this.valeur = valeur;
+        this.extensionPiece = extensionPiece;
+        this.size = size;
+        this.inputStream = inputStream;
     }
 
     public PieceJointe(String description,

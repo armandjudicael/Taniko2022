@@ -3,50 +3,44 @@ package Controller.FormController;
 import DAO.DaoFactory;
 import Model.Other.MainService;
 import Model.Pojo.*;
-import View.Dialog.Other.FileChooserDialog;
 import View.Model.PieceJointeForView;
+import View.helper.AttachementCreatorButton;
+import View.helper.AttachementRemoverButton;
 import com.jfoenix.controls.JFXButton;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.TilePane;
-import org.apache.commons.io.FileUtils;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
 public class PieceJointeFormController implements Initializable{
+
     private static List<File> pieceJointeFiles;
+
     @Override public void initialize(URL url, ResourceBundle resourceBundle) {
         initBtnAction();
     }
-
     private void initBtnAction(){
-        newPieceBtn.setOnAction(this::showFileChooserAndCreateAttachement);
-        delPieceBtn.setOnAction(this::deletePieceJointe);
         ObservableList<Node> children = pjTilepane.getChildren();
+        new AttachementCreatorButton(newPieceBtn,children,false);
+        new AttachementRemoverButton(delPieceBtn,children,false);
         delPieceBtn.disableProperty().bind(Bindings.isEmpty(children));
         pjPrevBtn.setOnAction(event -> MainAffaireFormController.updateLabelAndShowPane(pjPrevBtn));
         saveBtn.setOnAction(event -> {
-
             MainService.getInstance().launch(new Task<Void>() {
-
                 @Override protected Void call() throws Exception{
                     Affaire affaire = new Affaire();
                     affaire.setId(16);
-                    int[] all = DaoFactory.getPieceJointeDao().createAll(pjTilepane.getChildren(),affaire);
+                    int[] all = DaoFactory.getPieceJointeDao().createAll(AttachementCreatorButton.getAttachementList(),affaire);
                     if (children.size() == all.length){
                         Platform.runLater(() -> {
                             Alert alert = new Alert(Alert.AlertType.CONFIRMATION," Piece jointe enregistré avdec succès ");
@@ -60,49 +54,8 @@ public class PieceJointeFormController implements Initializable{
                     }
                     return null;
                 }
-
             });
-
         });
-
-    }
-
-    private void deletePieceJointe(ActionEvent event) {
-        ObservableList<Node> children = pjTilepane.getChildren();
-        List<Node> collect = children.stream().filter(node -> {
-            PieceJointeForView pieceJointeForView = (PieceJointeForView) node;
-            boolean selected = pieceJointeForView.getPieceCheckbox().isSelected();
-            if (selected) return true;
-            else return false;
-        }).collect(Collectors.toList());
-        if (!collect.isEmpty()) {
-            children.removeAll(collect);
-        } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText(" Veuillez cochez le(s) pièce(s) jointe à supprimer ");
-            alert.showAndWait();
-        }
-    }
-
-    private PieceJointe createAttachementBy(File file) throws FileNotFoundException{
-        String name = file.getName();
-        String[] split = name.split("\\.");
-        String description = split[0];
-        String extension = split[1];
-        String size = calculateFileSize(file);
-        return new PieceJointe(description,extension,size,new FileInputStream(file));
-    }
-
-    public String calculateFileSize(File file){
-        long length = FileUtils.sizeOf(file);
-        long kilo = length / FileUtils.ONE_KB;
-        if (kilo<FileUtils.ONE_KB) return kilo+" Kb";
-        return  kilo/FileUtils.ONE_MB+" Mb";
-        //        Dialog dialog = new Dialog();
-//        DialogPane dialogPane = new DialogPane();
-//        dialogPane.setContent(new Node() {});
-//        dialog.setDialogPane(dialogPane);
-//        dialog.initStyle(StageStyle.UNDECORATED);
     }
 
 
@@ -226,29 +179,9 @@ public class PieceJointeFormController implements Initializable{
 //        return null;
 //    }
 
-    private void showFileChooserAndCreateAttachement(ActionEvent event) {
-        pieceJointeFiles = FileChooserDialog.getInstance();
-        if (pieceJointeFiles != null && !pieceJointeFiles.isEmpty()) {
-            if (pieceJointeFiles.size()>10){
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setContentText(" le nombre de limite de fichier selectionné a importer simultanement est de 10");
-                alert.showAndWait();
-                return;
-            }
-            pieceJointeFiles.forEach(file -> {
-                try {
-                    pjTilepane.getChildren().add(new PieceJointeForView(createAttachementBy(file), false));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
-        }
-    }
-
     @FXML private TilePane pjTilepane;
     @FXML private JFXButton newPieceBtn;
     @FXML private JFXButton delPieceBtn;
     @FXML private JFXButton saveBtn;
     @FXML private JFXButton pjPrevBtn;
-
 }

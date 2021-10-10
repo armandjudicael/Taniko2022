@@ -49,6 +49,7 @@ public class AffairDetailsController implements Initializable {
     // DIALOG
     private static Dialog<String> superficieDialog;
     // Tab
+    @FXML private Tab pieceJoinTab;
     @FXML private Tab connexeTab;
     @FXML private Tab redacteurTab;
     @FXML private Tab procedureTab;
@@ -115,7 +116,6 @@ public class AffairDetailsController implements Initializable {
                      */
 
                     boolean terrainNonTitre = DaoFactory.getTerrainDao().checkTerrainAndTitre(terrain);
-
                       if (terrainNonTitre){
 
                           if (items!=null){
@@ -162,7 +162,6 @@ public class AffairDetailsController implements Initializable {
     }
 
     public void creerTitre(){
-
         TitleFrom.setExAffaire(affaire);
         Terrain terrain = affaire.getTerrain();
         if (terrain !=null){

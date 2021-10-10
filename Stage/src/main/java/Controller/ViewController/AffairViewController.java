@@ -1,9 +1,6 @@
 package Controller.ViewController;
 
-import Controller.detailsController.AffairDetailsController;
-import Controller.detailsController.ConnexViewController;
-import Controller.detailsController.EditorViewController;
-import Controller.detailsController.ProcedureViewController;
+import Controller.detailsController.*;
 import DAO.DaoFactory;
 import Main.InitializeApp;
 import Model.Enum.AffaireStatus;
@@ -17,10 +14,7 @@ import View.Cell.TableCell.IconCell;
 import View.Dialog.FormDialog.MainAffaireForm;
 import View.Dialog.Other.Notification;
 import View.Dialog.SecurityDialog.AdminSecurity;
-import View.Model.AffaireForView;
-import View.Model.ConnexAffairForView;
-import View.Model.EditorForView;
-import View.Model.ProcedureForView;
+import View.Model.*;
 import View.helper.CheckboxTooltip;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
@@ -118,6 +112,13 @@ public class AffairViewController implements Initializable {
         initializeDetailsView(affaire);
         // initialisation de la liste des procedures concerné par l'affaires
         initializeProcedureTableView(affaire);
+        // INITIALIZATION DE LA LISTE DES PIECES JOINTE CONCERNANT L'AFFAIRE
+        initAttachement(affaire);
+    }
+
+    private void initAttachement(Affaire affaire){
+        ObservableList<PieceJointeForView> allPieceJointe = DaoFactory.getPieceJointeDao().getAllPieceJointe(affaire);
+        PieceJointeViewController.getInstance().getPjTilepane().getChildren().setAll(allPieceJointe);
     }
 
     private void initImage() {
@@ -396,7 +397,6 @@ public class AffairViewController implements Initializable {
     }
 
     private void initializeYearFilter(){
-
         MainService.getInstance().launch(new Task<Void> () {
 
             @Override protected Void call() throws Exception {
@@ -408,12 +408,9 @@ public class AffairViewController implements Initializable {
             }
 
         });
-
         yearFilter.getSelectionModel().selectedItemProperty().addListener(this::yearFilterChanged);
     }
-
     private void initializeTableView() {
-
         tableView.getSelectionModel().selectedItemProperty().addListener((observableValue, affairForView, t1) -> {
             if (t1 != null) {
                 if (t1.getTypeDemande().equals(TypeDemande.PRESCRIPTION))
@@ -739,7 +736,6 @@ public class AffairViewController implements Initializable {
             }
         });
     }
-
     public ImageView getStatusIcon(AffaireStatus status) {
         switch (status) {
             case SUCCEED: {
@@ -758,10 +754,8 @@ public class AffairViewController implements Initializable {
                 return new ImageView(AffairViewController.getRunningImg());
         }
     }
-
     private void yearFilterChanged(ObservableValue<? extends String> observable, String oldValue, String newValue) {
         if (newValue != null) {
-
             MainService.getInstance().launch(new Task<Void>() {
                 @Override
                 protected Void call() throws Exception {
@@ -770,27 +764,20 @@ public class AffairViewController implements Initializable {
                     InitializeApp.getAffaires().setAll(affairForViews);
                     return null;
                 }
-
                 @Override protected void scheduled() {
                     yearFilter.setDisable(true);
                 }
-
                 @Override protected void succeeded() {
                     yearFilter.setDisable(false);
                 }
-
             });
-
         }
-
     }
-
     private void initializeFilter() {
         initializeViewType();
         initializeYearFilter();
         initializeSearchTextField();
     }
-
     // ALL_AFF_DETAILS_VIEW_BTN INITIALISATION
     private void initializeEditorTableView(Affaire affaire) {
         ArrayList<EditorForView> arrayList = affaire.getAllEditor();

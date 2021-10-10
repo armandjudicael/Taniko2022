@@ -6,6 +6,7 @@ import Model.Enum.Observation;
 import Model.Enum.TypeDemande;
 import View.Model.ConnexAffairForView;
 import View.Model.EditorForView;
+import View.Model.PieceJointeForView;
 import javafx.collections.ObservableList;
 
 import java.sql.Timestamp;
@@ -160,7 +161,6 @@ public class Affaire {
     public void setTerrain(Terrain terrain) {
         this.terrain = terrain;
     }
-
     public User getActualEditor(){
        return DaoFactory.getAffaireDao().getActualEditor(this);
     }
@@ -169,5 +169,5 @@ public class Affaire {
         return DaoFactory.getUserDao().getAllEditorAndDateByThis(this);
     }
     public ObservableList<ArrayList<String>> getAllProcedureChecked() { return DaoFactory.getAffaireDao().getAllProcedureAndDateConcernedByThis(this.getId()); }
-    public ObservableList<PieceJointe> getAllPieceJointe(){return DaoFactory.getPieceJointeDao().getAllPieceJointe(this) ;}
+    public ObservableList<PieceJointeForView> getAllPieceJointe(){return DaoFactory.getPieceJointeDao().getAllPieceJointe(this) ;}
 }

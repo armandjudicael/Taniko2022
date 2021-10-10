@@ -22,48 +22,59 @@ public class PieceJointeDao extends DAO<PieceJointe> {
     }
 
     @Override public int create(PieceJointe pieceJointe){
-        String query ="INSERT INTO piecejointe(descriptionPiece,valeurPiece,extensionPiece) VALUES(?,?,?);";
-        try(PreparedStatement ps = connection.prepareStatement(query)){
-           ps.setString(1,pieceJointe.getDescription());
-           ps.setBlob(2,pieceJointe.getValeur());
-           ps.setString(3,pieceJointe.getExtensionPiece());
-           return ps.executeUpdate();
-        }catch (SQLException e) {
-            e.printStackTrace();
-        }
         return 0;
     }
 
-    public int[] createAll(ObservableList<Node> list, Affaire affaire){
-        if(!list.isEmpty()){
-                String query ="INSERT INTO piecejointe(descriptionPiece,valeurPiece,extensionPiece,affaireId) VALUES(?,?,?,?);";
-                try(PreparedStatement ps = connection.prepareStatement(query)){
-                    list.forEach(node -> {
-                        PieceJointeForView pieceJointeForView = (PieceJointeForView) node;
-                        PieceJointe pieceJointe = pieceJointeForView.getPieceJointe();
-                        try {
-                            ps.setString(1,pieceJointe.getDescription());
-                            ps.setBlob(2,pieceJointe.getValeur());
-                            ps.setString(3,pieceJointe.getExtensionPiece());
-                            ps.setInt(4,affaire.getId());
-                            ps.addBatch();
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }
-                    });
-                    int[] ints = ps.executeBatch();
-                    this.connection.commit();
-                    return ints;
-                }catch (SQLException e){
-                    e.printStackTrace();
-                }
+    public  int[] removeAll(ObservableList<PieceJointe> list){
+        if (!list.isEmpty()){
+            String query = " DELETE FROM piecejointe WHERE idPieceJointe = ? ";
+            try(PreparedStatement ps = connection.prepareStatement(query)){
+                list.forEach(pieceJointe -> {
+                    try {
+                        ps.setInt(1,pieceJointe.getIdPieceJointe());
+                        ps.addBatch();
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                    }
+                });
+                int[] ints = ps.executeBatch();
+                this.connection.commit();
+                return ints;
+            }catch (SQLException e){
+                e.printStackTrace();
+            }
         }
-
         return null;
     }
 
-    public ObservableList<PieceJointe> getAllPieceJointe(Affaire affaire){
-        ObservableList<PieceJointe> pieceJointeObservableList = FXCollections.observableArrayList();
+    public int[] createAll(ObservableList<PieceJointe> list, Affaire affaire){
+        if(!list.isEmpty()){
+            String query ="INSERT INTO piecejointe(descriptionPiece,valeurPiece,extensionPiece,taillePiece,affaireId) VALUES(?,?,?,?);";
+            try(PreparedStatement ps = connection.prepareStatement(query)){
+                list.forEach(pieceJointe -> {
+                    try {
+                        ps.setString(1,pieceJointe.getDescription());
+                        ps.setBlob(2,pieceJointe.getValeur());
+                        ps.setString(3,pieceJointe.getExtensionPiece());
+                        ps.setString(4,pieceJointe.getSize());
+                        ps.setInt(5,affaire.getId());
+                        ps.addBatch();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                });
+                int[] ints = ps.executeBatch();
+                this.connection.commit();
+                return ints;
+            }catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+    public ObservableList<PieceJointeForView> getAllPieceJointe(Affaire affaire){
+        ObservableList<PieceJointeForView> pieceJointeObservableList = FXCollections.observableArrayList();
         if (affaire!=null){
             String query ="SELECT * FROM piecejointe  pj " +
                     "INNER JOIN affaire a ON pj.affaireId = a.idAffaire " +
@@ -72,21 +83,22 @@ public class PieceJointeDao extends DAO<PieceJointe> {
                 ps.setInt(1,affaire.getId());
                 ResultSet rs = ps.executeQuery();
                 while (rs.next())
-                   pieceJointeObservableList.add(createPieceJointe(rs));
+                    pieceJointeObservableList.add(new PieceJointeForView(createPieceJointe(rs),true));
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
-        return null;
+        return pieceJointeObservableList;
     }
 
     private PieceJointe createPieceJointe(ResultSet rs){
         try {
             String description = rs.getString("descriptionPiece");
             String extension = rs.getString("extensionPiece");
+            String size = rs.getString("taillePiece");
             InputStream valeurPiece = rs.getBinaryStream("valeurPiece");
             int idPiece = rs.getInt("idPiece");
-            return new PieceJointe(idPiece,description,extension,valeurPiece);
+            return new PieceJointe(idPiece,description,extension,size,valeurPiece);
         } catch (SQLException e) {
             e.printStackTrace();
         }

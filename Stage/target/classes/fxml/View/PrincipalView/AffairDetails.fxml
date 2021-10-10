@@ -468,6 +468,18 @@
                         </ImageView>
                     </graphic>
                 </Tab>
+                <Tab fx:id="pieceJoinTab" text="Pièce Jointe">
+               <content>
+                  <fx:include fx:id="pieceJointe" source="../DetailsView/pieceJointeView.fxml"/>
+               </content>
+               <graphic>
+                  <ImageView fitHeight="31.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../img/push_pin_100px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Tab>
             </tabs>
         </JFXTabPane>
         <Label fx:id="selectedAffaire" alignment="CENTER" graphicTextGap="15.0" layoutX="383.0" layoutY="7.0" prefHeight="62.0" prefWidth="253.0" style="-fx-background-color: whitesmoke; -fx-background-radius: 10px  10px 0px 0px;" text="0147/TAM-1/2021" textFill="#656262" AnchorPane.leftAnchor="383.0" AnchorPane.rightAnchor="383.0">
