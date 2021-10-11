@@ -31,12 +31,10 @@ import javafx.scene.text.TextAlignment;
 import org.controlsfx.control.PopOver;
 
 public class UserForView extends AnchorPane {
-
     private static PopOver popOver;
     private static UserForView userForView;
     private static Font font = new Font("Arial Unicode MS", 14);
     private User editor;
-
     public UserForView(User user){
         this.editor = user;
         initUserForView();
@@ -48,13 +46,13 @@ public class UserForView extends AnchorPane {
         Label affaireCount = initAffaireCount(user);
         this.getChildren().addAll(profil,button,status,affaireCount,nameAndFirstName,fonction);
     }
-
     private void initUserForView(){
         userForView = this;
         this.setPrefWidth(230.0);
         this.setPrefHeight(280.0);
         this.setStyle("-fx-background-color: white;-fx-background-radius: 6px;");
     }
+
     private Circle initStatus(User user){
         Circle status = new Circle();
         status.setStrokeWidth(1);
@@ -67,6 +65,7 @@ public class UserForView extends AnchorPane {
         AnchorPane.setLeftAnchor(status, 7.0);
         return status;
     }
+
     private Label initAffaireCount(User user){
        Label nbAffaire = new Label();
         nbAffaire.setText("Nombre d'affaire traité(s): " + String.valueOf(DaoFactory.getAffaireDao().getNbAffaireWhereActualEditorIs(user.getId())));
@@ -79,6 +78,7 @@ public class UserForView extends AnchorPane {
         AnchorPane.setBottomAnchor(nbAffaire, 20.0);
         return nbAffaire;
     }
+
     private Circle initProfil(User user){
         Circle profil = new Circle();
         profil.setRadius(60);
@@ -91,6 +91,7 @@ public class UserForView extends AnchorPane {
         AnchorPane.setRightAnchor(profil, 55.0);
         return profil;
     }
+
     private JFXButton initOptionButton(){
         JFXButton button = new JFXButton();
         button.setButtonType(JFXButton.ButtonType.RAISED);
@@ -108,6 +109,7 @@ public class UserForView extends AnchorPane {
         button.setOnAction(this::optionCliqued);
         return button;
     }
+
     private Label initNameAndFirstName(User user){
         Label  nameAndFirstName = new Label(user.getFullName());
         nameAndFirstName.setWrapText(true);
@@ -119,6 +121,7 @@ public class UserForView extends AnchorPane {
         AnchorPane.setTopAnchor(nameAndFirstName, 141.0);
         return nameAndFirstName;
     }
+
     private Label initUserFonction(User user){
         Label fonction = new Label();
         fonction.setText(user.getFonction());

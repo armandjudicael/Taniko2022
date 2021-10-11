@@ -3,6 +3,7 @@ package Main;
 import DAO.ConnectionFactory;
 import Model.Other.MainService;
 import javafx.application.Application;
+import javafx.application.HostServices;
 import javafx.application.Platform;
 import javafx.concurrent.ScheduledService;
 import javafx.concurrent.Task;
@@ -24,18 +25,6 @@ import java.util.Optional;
 
 public class Main extends Application {
 
-    public static Boolean isReacheable = false;
-    private static Stage loginStage;
-    final static String finalHost = "192.168.1.50";
-    final static String localHost = "127.0.0.1";
-
-    public static void main(String[] args) {
-        launch(args);
-    }
-
-    public static Stage getLoginStage() {
-        return loginStage;
-    }
 
     public static Boolean serverIsReacheable(String ip) {
         try {
@@ -128,4 +117,24 @@ public class Main extends Application {
         scheduledService.setRestartOnFailure(true);
         scheduledService.start();
     }
+
+    @Override
+    public void init() throws Exception {
+        mainApplication=this;
+    }
+    public static Stage getLoginStage() {
+        return loginStage;
+    }
+    public static Main getMainApplication() {
+        return mainApplication;
+    }
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    public static Boolean isReacheable = false;
+    private static Stage loginStage;
+    final static String finalHost = "192.168.1.50";
+    final static String localHost = "127.0.0.1";
+    private static Main mainApplication = null;
 }

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -11,15 +10,11 @@
 <?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pieceJointePanel" minWidth="-Infinity" prefHeight="484.0" prefWidth="744.0" style="-fx-background-color: whitesmoke;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.detailsController.PieceJointeViewController">
+<AnchorPane fx:id="pieceJointePanel" minWidth="-Infinity" prefHeight="484.0" prefWidth="744.0" style="-fx-background-color: #F0FFF0;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.detailsController.PieceJointeViewController">
    <children>
       <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" layoutY="63.0" pannable="true" prefHeight="371.0" prefWidth="724.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="60.0">
          <content>
-            <TilePane fx:id="pjTilepane" alignment="CENTER" hgap="20.0" prefWidth="737.0" style="-fx-background-color: white;" vgap="20.0">
-               <padding>
-                  <Insets bottom="10.0" top="10.0" />
-               </padding>
-            </TilePane>
+            <TilePane fx:id="pjTilepane" alignment="CENTER" hgap="20.0" prefWidth="737.0" style="-fx-background-color: whitesmoke;" vgap="20.0" />
          </content>
       </ScrollPane>
       <JFXButton fx:id="newPieceBtn" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" layoutX="14.0" layoutY="441.0" prefHeight="35.0" prefWidth="43.0" style="-fx-background-color: #389955;" text="ajouter" textFill="WHITE" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="20.0">

@@ -1,6 +1,7 @@
 package View.Model;
 
 import Model.Pojo.PieceJointe;
+import View.helper.AttachementPopup;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import javafx.fxml.FXML;
@@ -42,9 +43,9 @@ public class PieceJointeForView extends AnchorPane{
     private Effect initEffect(){
         DropShadow dropShadow = new DropShadow();
         dropShadow.setColor(Color.DARKGRAY);
-        dropShadow.setRadius(6);
-        dropShadow.setWidth(18);
-        dropShadow.setHeight(18);
+        dropShadow.setRadius(4);
+        dropShadow.setWidth(10);
+        dropShadow.setHeight(10);
         return dropShadow;
     }
 
@@ -70,6 +71,7 @@ public class PieceJointeForView extends AnchorPane{
     }
     private JFXButton initOptionButton(Boolean enableButton ){
         JFXButton button = new JFXButton();
+        button.setOnAction(event -> AttachementPopup.getInstance().showPopup(button));
         button.setVisible(enableButton);
         ImageView buttonImgView = new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/img/menu_vertical_50px.png"))));
         buttonImgView.setPreserveRatio(true);

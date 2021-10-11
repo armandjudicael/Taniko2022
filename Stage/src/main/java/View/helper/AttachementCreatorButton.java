@@ -43,11 +43,6 @@ public class AttachementCreatorButton implements EventHandler<ActionEvent> {
         long kilo = length / FileUtils.ONE_KB;
         if (kilo<FileUtils.ONE_KB) return kilo+" Kb";
         return  kilo/FileUtils.ONE_MB+" Mb";
-        //        Dialog dialog = new Dialog();
-//        DialogPane dialogPane = new DialogPane();
-//        dialogPane.setContent(new Node() {});
-//        dialog.setDialogPane(dialogPane);
-//        dialog.initStyle(StageStyle.UNDECORATED);
     }
     public static ObservableList<PieceJointe> getAttachementList() {
         return pieceJointeObservableList;
@@ -68,8 +63,7 @@ public class AttachementCreatorButton implements EventHandler<ActionEvent> {
                 return null;
             }
             @Override protected void scheduled() {}
-            @Override
-            protected void succeeded() {
+            @Override protected void succeeded() {
                 pieceJointeObservableList.clear();
             }
         };
@@ -78,10 +72,10 @@ public class AttachementCreatorButton implements EventHandler<ActionEvent> {
     @Override
     public void handle(ActionEvent event){
         pieceJointeFiles.setAll(FileChooserDialog.getInstance());
-        if (pieceJointeFiles != null && !pieceJointeFiles.isEmpty()) {
+        if (pieceJointeFiles != null && !pieceJointeFiles.isEmpty()){
             if (pieceJointeFiles.size()>10){
                 Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setContentText(" le nombre de limite de fichier selectionné a importer simultanement est de 10");
+                alert.setContentText(" le nombre de limite de fichier selectionné à importer simultanement est de 10");
                 alert.showAndWait();
                 return;
             }

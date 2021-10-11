@@ -95,17 +95,12 @@ public class AffairDetailsController implements Initializable {
         createTitleBtn.setOnAction(event ->{
 
             TableView<ConnexAffairForView> connexeTableView = ConnexViewController.getInstance().getConnexeTableView();
-
             ObservableList<ConnexAffairForView> items = connexeTableView.getItems();
-
             Terrain terrain = affaire.getTerrain();
-
             MainService.getInstance().launch(new Task<Void>() {
-
                 @Override protected void scheduled() {
                     createTitleBtn.disableProperty().bind(this.runningProperty());
                 }
-
                 @Override protected Void call() throws Exception {
                     /**
                      * Verifier l'existence des affaires connexes
@@ -114,46 +109,32 @@ public class AffairDetailsController implements Initializable {
                      *      - sinon on incite l'agent a rejeter les affaires connexes
                      *  > Sinon on affiche le formulaire de creation de titre
                      */
-
                     boolean terrainNonTitre = DaoFactory.getTerrainDao().checkTerrainAndTitre(terrain);
                       if (terrainNonTitre){
-
                           if (items!=null){
-
                               if (!items.isEmpty()){
-
                                   long count = items.stream().filter(connexAffairForView -> connexAffairForView.getStatus().equals(AffaireStatus.REJECTED)).count();
-
                                   if (count==items.size()){
-
                                       Platform.runLater(() -> {
                                           AdminSecurity.show(Origin.CREATE_TITLE);
                                       });
-
                                   }else {
-
                                       Platform.runLater(() -> {
                                           Alert alert = new Alert(Alert.AlertType.INFORMATION,"Impossible de créer un titre foncier sur cette affaire ! Veuillez réjeter les affaires connexes avec ce dernier !");
                                           alert.show();
                                       });
-
                                   }
-
                               }else {
-
                                   Platform.runLater(() -> {
                                       AdminSecurity.show(Origin.CREATE_TITLE);
                                   });
-
                               }
                           }
                       }else {
-
                           Platform.runLater(() -> {
                               Alert alert = new Alert(Alert.AlertType.ERROR," Le terrain est déja titré ");
                               alert.show();
                           });
-
                       }
                     return null;
                 }
