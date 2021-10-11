@@ -88,7 +88,7 @@ public class ProcedureViewController implements Initializable {
                     AffairViewController instance = AffairViewController.getInstance();
                     TableView<AffaireForView> tableView = instance.getTableView();
                     AffaireForView affair = tableView.getSelectionModel().getSelectedItem();
-                    instance.initAffaireProcedure(affair, procedureTableView.getItems());
+                    instance.initAffaireProcedure(affair,procedureTableView.getItems());
                     return null;
                 }
             });

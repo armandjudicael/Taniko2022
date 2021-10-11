@@ -28,7 +28,6 @@ public class AttachementCreatorButton implements EventHandler<ActionEvent> {
         this.isOnDetailsView = isOnDetailsView;
     }
 
-
     private PieceJointe createAttachementBy(File file) throws FileNotFoundException {
         String name = file.getName();
         String[] split = name.split("\\.");
@@ -37,7 +36,6 @@ public class AttachementCreatorButton implements EventHandler<ActionEvent> {
         String size = calculateFileSize(file);
         return new PieceJointe(description,extension,size,new FileInputStream(file));
     }
-
     public String calculateFileSize(File file){
         long length = FileUtils.sizeOf(file);
         long kilo = length / FileUtils.ONE_KB;
@@ -47,7 +45,6 @@ public class AttachementCreatorButton implements EventHandler<ActionEvent> {
     public static ObservableList<PieceJointe> getAttachementList() {
         return pieceJointeObservableList;
     }
-
     private Task<Void> saveAttachementTask(){
         return new Task<Void>() {
             @Override protected Void call() throws Exception{
@@ -68,14 +65,12 @@ public class AttachementCreatorButton implements EventHandler<ActionEvent> {
             }
         };
     }
-
-    @Override
-    public void handle(ActionEvent event){
+    @Override public void handle(ActionEvent event){
         pieceJointeFiles.setAll(FileChooserDialog.getInstance());
         if (pieceJointeFiles != null && !pieceJointeFiles.isEmpty()){
             if (pieceJointeFiles.size()>10){
                 Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setContentText(" le nombre de limite de fichier selectionné à importer simultanement est de 10");
+                alert.setContentText(" Le nombre de limite de fichier selectionné à importer simultanement est de 10");
                 alert.showAndWait();
                 return;
             }
@@ -83,7 +78,7 @@ public class AttachementCreatorButton implements EventHandler<ActionEvent> {
                 try {
                     PieceJointe attachement = createAttachementBy(file);
                     pieceJointeObservableList.add(attachement);
-                    attachementList.add(new PieceJointeForView(attachement, false));
+                    attachementList.add(new PieceJointeForView(attachement, isOnDetailsView));
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
@@ -92,7 +87,6 @@ public class AttachementCreatorButton implements EventHandler<ActionEvent> {
                 MainService.getInstance().launch(saveAttachementTask());
         }
     }
-
     private static   ObservableList<PieceJointe> pieceJointeObservableList = FXCollections.observableArrayList();
     private static ObservableList<File> pieceJointeFiles = FXCollections.observableArrayList();
     private  ObservableList<Node> attachementList;

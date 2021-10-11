@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.TilePane?>
-<?import javafx.scene.text.Font?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane fx:id="pieceJointePanel" minWidth="-Infinity" prefHeight="484.0" prefWidth="744.0" style="-fx-background-color: #F0FFF0;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.detailsController.PieceJointeViewController">
    <children>
@@ -72,5 +68,17 @@
             </HBox>
          </children>
       </HBox>
+      <JFXButton fx:id="downBtn" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" layoutX="121.0" layoutY="441.0" prefHeight="35.0" prefWidth="43.0" style="-fx-background-color: #389955;" text="ajouter" textFill="WHITE" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="120.0">
+         <font>
+            <Font name="Century Gothic" size="14.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="28.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../img/downloads_50px.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
    </children>
 </AnchorPane>

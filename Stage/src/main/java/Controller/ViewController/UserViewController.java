@@ -82,7 +82,7 @@ public class UserViewController implements Initializable {
         return userTilePane;
     }
 
-    private void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+    private void changed(ObservableValue<? extends String> observable, String oldValue, String newValue){
         if (!newValue.isEmpty()) {
             filtered = InitializeApp.getUsers().filtered(userForView -> {
                 String lowerCaseFilter = newValue.toLowerCase();

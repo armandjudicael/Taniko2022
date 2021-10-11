@@ -37,7 +37,7 @@ public class AttachementPopup extends PopOver implements Initializable {
     @Override public void initialize(URL location, ResourceBundle resources){
         attachementPopup = this;
         viewbtn.setOnAction(this::viewAttachement);
-        downBtn.setOnAction(this::downloadAttachement);
+        new DownloaderButton(downBtn,false);
     }
 
     public void showPopup(JFXButton button){
@@ -47,7 +47,7 @@ public class AttachementPopup extends PopOver implements Initializable {
         this.show(graphic);
     }
 
-    public static AttachementPopup getInstance() {
+    public static AttachementPopup getInstance(){
         if (attachementPopup == null)
             attachementPopup = new AttachementPopup();
         return attachementPopup;
@@ -55,7 +55,6 @@ public class AttachementPopup extends PopOver implements Initializable {
 
     private void downloadAttachement(ActionEvent event){
         this.hide();
-
     }
 
     private void viewAttachement(ActionEvent event){
@@ -64,8 +63,6 @@ public class AttachementPopup extends PopOver implements Initializable {
         if (selectedFile!=null && selectedFile.isFile()){
             HostServices hostServices = Main.getMainApplication().getHostServices();
             hostServices.showDocument(selectedFile.toURI().toString());
-        }else{
-
         }
     }
 
@@ -77,7 +74,8 @@ public class AttachementPopup extends PopOver implements Initializable {
                 String fileName = selectedAttachement.getDescription();
                 String path = fileName+"."+extension;
                 File file = new File(path);
-                FileUtils.copyInputStreamToFile(valeur,file);
+                if (!file.exists())
+                   FileUtils.copyInputStreamToFile(valeur,file);
                 return file;
             }
         } catch (IOException e) {
@@ -85,10 +83,11 @@ public class AttachementPopup extends PopOver implements Initializable {
         }
         return null;
     }
-
+    public static PieceJointe getSelectedAttachement() {
+        return selectedAttachement;
+    }
     private static PieceJointe selectedAttachement;
     private static AttachementPopup attachementPopup;
-    private final String path = "";
     @FXML private JFXButton viewbtn;
     @FXML private JFXButton downBtn;
 }
