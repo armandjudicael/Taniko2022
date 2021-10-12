@@ -1,10 +1,9 @@
 package View.Model;
 
 import Model.Pojo.PieceJointe;
-import View.helper.AttachementPopup;
+import View.Helper.Attachement.AttachementPopup;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
-import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.control.ContentDisplay;

@@ -125,6 +125,15 @@ public class PieceJointeDao extends DAO<PieceJointe> {
     }
 
     @Override public int delete(PieceJointe pieceJointe) {
+        String query = " DELETE FROM piecejointe WHERE idPieceJointe = ? ";
+        try(PreparedStatement ps = connection.prepareStatement(query)){
+            ps.setInt(1,pieceJointe.getIdPieceJointe());
+            int i = ps.executeUpdate();
+            this.connection.commit();
+            return i;
+        }catch (SQLException exception){
+            exception.printStackTrace();
+        }
         return 0;
     }
     @Override public int update(PieceJointe pieceJointe) {

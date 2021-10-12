@@ -1,12 +1,20 @@
 package Controller.detailsController;
 
+import Controller.ViewController.AffairViewController;
+import Model.Other.MainService;
 import Model.Pojo.PieceJointe;
 import View.Model.PieceJointeForView;
-import View.helper.AttachementCreatorButton;
-import View.helper.AttachementRemoverButton;
-import View.helper.DownloaderButton;
+import View.Helper.Attachement.AttachementCreatorButton;
+import View.Helper.Attachement.AttachementDownloaderButton;
+import View.Helper.Attachement.AttachementRemoverButton;
 import com.jfoenix.controls.JFXButton;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.concurrent.Task;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -14,14 +22,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.TilePane;
 import java.net.URL;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 public class PieceJointeViewController implements Initializable {
-
 
     @Override public void initialize(URL location,ResourceBundle resources){
       pieceJointeViewController = this;
@@ -33,13 +38,26 @@ public class PieceJointeViewController implements Initializable {
         ObservableList<Node> children = pjTilepane.getChildren();
         new AttachementCreatorButton(newPieceBtn,children,true);
         new AttachementRemoverButton(delPieceBtn,children,true);
-        new DownloaderButton(downBtn,true);
+        new AttachementDownloaderButton(downBtn,true);
+        refreshBtn.setOnAction(this::refreshAttachementList);
+        BooleanBinding emptyAttachement = Bindings.isEmpty(children);
+        delPieceBtn.disableProperty().bind(emptyAttachement);
+        downBtn.disableProperty().bind(emptyAttachement);
+        initDeleteSearchBtn();
+    }
+
+    private void initDeleteSearchBtn(){
+        deleteSearch.visibleProperty().bind(pjSearchTextField.textProperty().isNotEmpty());
+        deleteSearch.setOnAction(event ->pjSearchTextField.clear());
     }
 
     private void initPieceJointeSearchTexfield(){
+
         pjSearchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             ObservableList<Node> children = pjTilepane.getChildren();
-            if (!newValue.isEmpty()){
+            if (newValue.isEmpty()){
+                children.setAll(attachementList);
+            }else {
                 List<Node> collect = children.stream().filter(node -> {
                     PieceJointeForView pieceJointeForView = (PieceJointeForView) node;
                     PieceJointe pieceJointe = pieceJointeForView.getPieceJointe();
@@ -51,17 +69,26 @@ public class PieceJointeViewController implements Initializable {
                 }).collect(Collectors.toList());
                 if (!collect.isEmpty())
                     children.setAll(collect);
-                else children.setAll(attachementList);
-            }else children.setAll(attachementList);
+                else children.clear();
+            }
         });
     }
 
-    private static PieceJointeViewController pieceJointeViewController;
     public TilePane getPjTilepane() { return pjTilepane; }
     public static PieceJointeViewController getInstance() {
         return pieceJointeViewController;
     }
+    private void refreshAttachementList(ActionEvent actionEvent){
+        MainService.getInstance().launch(new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                AffairViewController.getInstance().initAttachement(AffairDetailsController.getAffaire());
+                return null;
+            }
+        });
+    }
 
+    private static PieceJointeViewController pieceJointeViewController;
     @FXML private AnchorPane pieceJointePanel;
     @FXML private TilePane pjTilepane;
     @FXML private JFXButton newPieceBtn;
@@ -70,5 +97,9 @@ public class PieceJointeViewController implements Initializable {
     @FXML private TextField pjSearchTextField;
     @FXML private JFXButton deleteSearch;
     @FXML private JFXButton downBtn;
-    private static ObservableList<Node> attachementList;
+    @FXML private JFXButton refreshBtn;
+    public static  ObservableList<Node> getAttachementList() {
+        return attachementList;
+    }
+    private static ObservableList<Node> attachementList = FXCollections.observableArrayList();
 }

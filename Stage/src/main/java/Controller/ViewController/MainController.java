@@ -12,7 +12,7 @@ import Model.Other.MainService;
 import View.Dialog.Other.About;
 import View.Dialog.SecurityDialog.AdminSecurity;
 import View.Model.AffaireForView;
-import View.helper.DragableStage;
+import View.Helper.Other.DragableStage;
 import View.Model.UserForView;
 import animatefx.animation.SlideInRight;
 import com.jfoenix.controls.JFXButton;

@@ -1,5 +1,6 @@
 package Controller.FormController;
 
+import animatefx.animation.FadeIn;
 import animatefx.animation.SlideInRight;
 import com.jfoenix.controls.JFXButton;
 import javafx.beans.binding.BooleanBinding;
@@ -19,6 +20,7 @@ public class DemandeurFormController implements Initializable {
         demandeurFormController = this;
         initTypeDemandeur();
         initButton();
+        physiquePane.toFront();
     }
 
     private void initTypeDemandeur(){
@@ -27,10 +29,10 @@ public class DemandeurFormController implements Initializable {
         typeDemandeur.setValue(type[1]);
         typeDemandeur.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
             if (t1.equals(type[1])) {
-               new SlideInRight(moralPane).play();
+               new FadeIn(moralPane).play();
                 moralPane.toFront();
             } else{
-                new SlideInRight(physiquePane).play();
+                new FadeIn(physiquePane).play();
                 physiquePane.toFront();
             }
         });

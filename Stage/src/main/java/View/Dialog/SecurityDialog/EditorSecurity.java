@@ -37,34 +37,6 @@ import java.util.stream.Stream;
 
 public class EditorSecurity extends JFXDialog implements Initializable {
 
-    private static ActionEvent actionEvent;
-    private static EditorSecurity editorSecurity;
-    private static Origin origin;
-    private static User user;
-    private static AffaireForView affair;
-    private static Boolean remember = false;
-
-    @FXML
-    private Circle profilRedacteur;
-    @FXML
-    private Label nomRedacteur;
-    @FXML
-    private JFXButton submitBtn;
-    @FXML
-    private HBox wrapper;
-    @FXML
-    private PasswordField password;
-    @FXML
-    private ImageView eye;
-    @FXML
-    private JFXButton closebtn;
-    @FXML
-    private CheckBox checkBox;
-    @FXML
-    private Label incorect;
-    @FXML
-    private Label passwordLabel;
-
     private EditorSecurity() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Login/EditorLogin.fxml"));
@@ -89,53 +61,31 @@ public class EditorSecurity extends JFXDialog implements Initializable {
             editorSecurity = new EditorSecurity();
         actionEvent = event;
         EditorSecurity.setOrigin(origin);
-
         if (!origin.equals(Origin.USER_DETAILS_LOCK_BTN)) {
-
             EditorSecurity.setActionEvent(event);
-
             Affaire affaire = AffairViewController.getInstance().getTableView().getSelectionModel().getSelectedItem();
-
             User redacteur = affaire.getRedacteur();
-
             if (redacteur !=null){
-
                 MainService.getInstance().launch(new Task<Void>() {
-
                     @Override protected void scheduled() {
                        getInstance().password.setDisable(true);
                     }
-
                     @Override protected void succeeded() {
                      getInstance().initPasswordAndProfil();
                     }
-
                     @Override protected Void call() throws Exception{
-
                         ObservableList<UserForView> users = InitializeApp.getUsers();
-
                         if (!users.isEmpty()){
-
                             Stream<User> userStream = users.stream().map(UserForView::getEditor);
-
                             Optional<User> optionalUser = userStream.filter(user1 -> user1.getId() == redacteur.getId()).findFirst();
-
                             if (optionalUser.isPresent())
-
                                 user = optionalUser.get();
-
                             else user = affaire.getActualEditor();
-
-                        } else {
-
-                            user = affaire.getActualEditor();
-
-                        }
+                        } else user = affaire.getActualEditor();
                         return null;
                     }
                 });
                 editorSecurity.show();
-
             }else {
                 AdminSecurity.show(Origin.PROCEDURE_VIEW_BTN,actionEvent);
             }
@@ -144,30 +94,6 @@ public class EditorSecurity extends JFXDialog implements Initializable {
             getInstance().initPasswordAndProfil();
             editorSecurity.show();
         }
-    }
-
-    public static void setOrigin(Origin origin) {
-        EditorSecurity.origin = origin;
-    }
-
-    public static void setUser(User user) {
-        EditorSecurity.user = user;
-    }
-
-    public static void setActionEvent(ActionEvent actionEvent) {
-        EditorSecurity.actionEvent = actionEvent;
-    }
-
-    public static Boolean getRemember() {
-        return remember;
-    }
-
-    public static void setRemember(Boolean remember) {
-        EditorSecurity.remember = remember;
-    }
-
-    public static EditorSecurity getInstance() {
-        return editorSecurity;
     }
 
     @Override
@@ -208,30 +134,45 @@ public class EditorSecurity extends JFXDialog implements Initializable {
         this.close();
         password.setText("");
         switch (origin) {
-
             case EDITOR_VIEW_BTN: {
                 EditorViewController.getInstance().launchAction(actionEvent);
             }break;
-
             case PROCEDURE_VIEW_BTN: {
                 ProcedureViewController.getInstance().launchAction(actionEvent);
             }break;
-
             case USER_DETAILS_LOCK_BTN: {
                 UserDetailsController.getInstance().unlock();
             }break;
-
             case ALL_AFF_DETAILS_VIEW_BTN: {
                 // lancement de la modification
                 AffairDetailsController.getInstance().launchAction(actionEvent);
             }break;
-
             default: {
                 // lancement de la modification
                 AffairDetailsController.getInstance().launchAction(actionEvent);
             }
         }
-
     }
-
+    public static void setOrigin(Origin origin) { EditorSecurity.origin = origin; }
+    public static void setUser(User user) { EditorSecurity.user = user; }
+    public static void setActionEvent(ActionEvent actionEvent) { EditorSecurity.actionEvent = actionEvent; }
+    public static Boolean getRemember() { return remember; }
+    public static void setRemember(Boolean remember) { EditorSecurity.remember = remember; }
+    public static EditorSecurity getInstance() { return editorSecurity; }
+    private static ActionEvent actionEvent;
+    private static EditorSecurity editorSecurity;
+    private static Origin origin;
+    private static User user;
+    private static AffaireForView affair;
+    private static Boolean remember = false;
+    @FXML private Circle profilRedacteur;
+    @FXML private Label nomRedacteur;
+    @FXML private JFXButton submitBtn;
+    @FXML private HBox wrapper;
+    @FXML private PasswordField password;
+    @FXML private ImageView eye;
+    @FXML private JFXButton closebtn;
+    @FXML private CheckBox checkBox;
+    @FXML private Label incorect;
+    @FXML private Label passwordLabel;
 }

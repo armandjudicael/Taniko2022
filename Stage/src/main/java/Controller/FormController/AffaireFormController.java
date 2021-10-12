@@ -1,13 +1,14 @@
 package Controller.FormController;
-
 import Model.Enum.Type;
 import Model.Pojo.User;
 import View.Cell.ListCell.ConnexeListCell;
 import View.Cell.ListCell.DispatchListcell;
 import View.Cell.ListCell.StatusCell;
+import View.Dialog.FormDialog.MainAffaireForm;
+import View.Dialog.Other.DialogCloserButton;
 import View.Model.ConnexAffairForView;
-import View.helper.AutoCompleteCombobox;
-import View.helper.NumeroChecker;
+import View.Helper.Other.AutoCompleteCombobox;
+import View.Helper.Other.NumeroChecker;
 import com.jfoenix.controls.*;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
@@ -31,9 +32,6 @@ import java.util.ResourceBundle;
 import java.util.function.Predicate;
 
 public class AffaireFormController  implements Initializable {
-
-
-
     @Override public void initialize(URL url, ResourceBundle resourceBundle){
         affaireFormPanel.toFront();
         affaireFormController = this;
@@ -75,6 +73,7 @@ public class AffaireFormController  implements Initializable {
         affaireNextBtn.disableProperty().bind(affaireBtnBinding);
         // BUTTON ACTION
         affaireNextBtn.setOnAction(event -> MainAffaireFormController.getInstance().updateLabelAndShowPane(affaireNextBtn));
+        closeBtn.setOnAction(event -> MainAffaireForm.getInstance().close());
     }
 
     private void initDatePicker() {
@@ -153,11 +152,13 @@ public class AffaireFormController  implements Initializable {
                 if (t1.equals("PRESCRIPTION_AQUISITIVE")){
                     typeAffair.set(cigle + " / G");
                     DemandeurFormController.getInstance().getMoralPane().toFront();
-                    DemandeurFormController.getInstance().getTypeDemandeur().setValue("Personne Morale");
+                    DemandeurFormController.getInstance().getTypeDemandeur().setValue("Personne Physique");
                 }else {
                     DemandeurFormController.getInstance().getPhysiquePane().toFront();
-                    DemandeurFormController.getInstance().getTypeDemandeur().setValue("Personne Physique");
+                    DemandeurFormController.getInstance().getTypeDemandeur().setValue("Personne Morale");
                 }
+                DemandeurFormController.getInstance().getTypeDemandeur().setDisable(true);
+                return;
             }
             DemandeurFormController.getInstance().getTypeDemandeur().setDisable(false);
         });
@@ -176,7 +177,6 @@ public class AffaireFormController  implements Initializable {
             }
         },Type.CONNEXE);
     }
-
     public void initStatusCombobox(){
         ObservableList<String> strings = FXCollections.observableArrayList("En cours","Suspendu","Terminer","réjété");
         statusCombobox.setCellFactory(stringListView -> new StatusCell());

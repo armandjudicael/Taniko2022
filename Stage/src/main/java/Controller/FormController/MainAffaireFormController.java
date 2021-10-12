@@ -1,5 +1,7 @@
 package Controller.FormController;
 
+import View.Dialog.FormDialog.MainAffaireForm;
+import View.Dialog.Other.DialogCloserButton;
 import animatefx.animation.FadeIn;
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
@@ -15,6 +17,7 @@ public class MainAffaireFormController implements Initializable{
 
     @Override public void initialize(URL url, ResourceBundle resourceBundle){
        mainAffaireFormController = this;
+       closeBtn.setOnAction(event -> MainAffaireForm.getInstance().close());
     }
 
     private void executeUpdate(Node node, Label newLabel, Label oldLabel){
@@ -25,7 +28,6 @@ public class MainAffaireFormController implements Initializable{
         }
         newLabel.getStyleClass().add("navLabel");
     }
-
     public static void updateLabelAndShowPane(JFXButton button){
         String buttonId = button.getId();
         switch (buttonId){

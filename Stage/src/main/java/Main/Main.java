@@ -3,7 +3,6 @@ package Main;
 import DAO.ConnectionFactory;
 import Model.Other.MainService;
 import javafx.application.Application;
-import javafx.application.HostServices;
 import javafx.application.Platform;
 import javafx.concurrent.ScheduledService;
 import javafx.concurrent.Task;
@@ -24,7 +23,6 @@ import java.sql.Connection;
 import java.util.Optional;
 
 public class Main extends Application {
-
 
     public static Boolean serverIsReacheable(String ip) {
         try {
@@ -65,14 +63,11 @@ public class Main extends Application {
     }
 
     private void checkReachability(String host){
-
         isReacheable = serverIsReacheable(host);
-
         if (isReacheable) {
             Connection connection = new ConnectionFactory().getConnection();
             runServerPing(host);
         }
-
     }
 
     public static void runServerPing( String host ) {
@@ -89,7 +84,6 @@ public class Main extends Application {
                 };
             }
         };
-
         scheduledService.stateProperty().addListener((observableValue, state, t1) -> {
             switch (t1) {
                 case SCHEDULED:{
@@ -111,7 +105,6 @@ public class Main extends Application {
                     }
                 }break;
             }
-
         });
         scheduledService.setPeriod(new Duration(500));
         scheduledService.setRestartOnFailure(true);
@@ -122,6 +115,7 @@ public class Main extends Application {
     public void init() throws Exception {
         mainApplication=this;
     }
+
     public static Stage getLoginStage() {
         return loginStage;
     }

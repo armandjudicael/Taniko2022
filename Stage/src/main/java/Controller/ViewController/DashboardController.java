@@ -30,29 +30,7 @@ import java.util.ResourceBundle;
 
 public class DashboardController implements Initializable {
 
-    @FXML private AnchorPane chart2;
-    @FXML private AnchorPane chart1;
-    @FXML private PieChart piechart;
-    @FXML private AnchorPane dashboard;
-    @FXML private StackPane carrouselView;
-    @FXML private JFXButton next;
-    @FXML private JFXButton prev;
-    @FXML private Text totalAffaire;
-    @FXML private Text totalDa;
-    @FXML private Text totalPa;
-    @FXML private Text totalTitre;
-    @FXML private BarChart<String, Number> barChart;
-    @FXML private AreaChart<String, Number> areaChart;
-    @FXML private JFXComboBox<String> yearFilter;
-    @FXML private JFXComboBox<String> monthFilter;
 
-    private static DashboardController dashboardController;
-    private static SimpleIntegerProperty acquisition = new SimpleIntegerProperty(0) ;
-    private static SimpleIntegerProperty fullTotal = new SimpleIntegerProperty(0);
-    private static SimpleIntegerProperty totalTitle = new SimpleIntegerProperty(0);
-    private static ObservableList<XYChart.Series<String, Number>> series = FXCollections.observableArrayList();
-
-    private static SimpleObjectProperty simpleXYChartProperty = new SimpleObjectProperty(series);
     public DashboardController() {
 
     }
@@ -70,12 +48,7 @@ public class DashboardController implements Initializable {
                 return null;
             }
         });
-
-        totalAffaire.textProperty().bind(fullTotal.asString() );
-        totalTitre.textProperty().bind(totalTitle.asString());
-        totalDa.textProperty().bind(acquisition.asString());
-        totalPa.textProperty().bind(fullTotal.subtract(acquisition).asString() );
-
+        initDashboardCard();
         initializeAreaChart();
         initializePieChart();
         initializeBarChart();
@@ -84,8 +57,14 @@ public class DashboardController implements Initializable {
         initCarousel();
     }
 
-    public void initDashBoard(){
+    private void initDashboardCard(){
+        totalAffaire.textProperty().bind(fullTotal.asString() );
+        totalTitre.textProperty().bind(totalTitle.asString());
+        totalDa.textProperty().bind(acquisition.asString());
+        totalPa.textProperty().bind(fullTotal.subtract(acquisition).asString() );
+    }
 
+    public void initDashBoard(){
         ArrayList<Integer> dataForDashboard = DaoFactory.getAffaireDao().getDataForDashboard(String.valueOf(LocalDate.now().getYear()));
         ObservableList<XYChart.Series<String, Number>> nbAffaireByDateForChart = DaoFactory.getAffaireDao().getNbAffaireByDateForChart();
         Platform.runLater(() -> series.setAll(nbAffaireByDateForChart));
@@ -119,9 +98,7 @@ public class DashboardController implements Initializable {
             pane.toFront();
         }
     }
-
     private void initializePieChart(){
-
         PieChart.Data aData = new PieChart.Data("Demande d'acquisition",1);
         aData.pieValueProperty().bind(acquisition);
         PieChart.Data paData = new PieChart.Data("Prescription acquisitive",1);
@@ -133,11 +110,9 @@ public class DashboardController implements Initializable {
         piechart.setLegendVisible(true);
         piechart.setData(list);
     }
-
     private void initializeStackPane() {
         chart1.toFront();
     }
-
     private void initializeBarChart() {
         barChart.setBarGap(5);
         barChart.setAnimated(true);
@@ -145,7 +120,6 @@ public class DashboardController implements Initializable {
         barChart.setLegendVisible(true);
         barChart.dataProperty().bind(simpleXYChartProperty);
     }
-
     private void initializeAreaChart() {
         areaChart.setFocusTraversable(true);
         areaChart.setCursor(Cursor.HAND);
@@ -154,42 +128,7 @@ public class DashboardController implements Initializable {
         areaChart.setCreateSymbols(true);
         areaChart.dataProperty().bind(simpleXYChartProperty);
     }
-
-    public AnchorPane getDashboard() {
-        return dashboard;
-    }
-
-    public void setDashboard(AnchorPane dashboard) {
-        this.dashboard = dashboard;
-    }
-
-    public StackPane getCarrouselView() {
-        return carrouselView;
-    }
-    public void setCarrouselView(StackPane carrouselView) {
-        this.carrouselView = carrouselView;
-    }
-    public JFXButton getNext() {
-        return next;
-    }
-    public void setNext(JFXButton next) {
-        this.next = next;
-    }
-    public JFXButton getPrev() {
-        return prev;
-    }
-
-    private enum Direction {
-        TO_RIGHT, TO_LEFT
-    }
-
-    public static ObservableList<XYChart.Series<String, Number>> getSeries() {
-        return series;
-    }
-    public static void setSeries(ObservableList<XYChart.Series<String, Number>> series) { DashboardController.series = series; }
-
     private void initializeFilter() {
-
         ObservableList<String> tmp = FXCollections.observableArrayList("January", "February", "March", "April", "Mai", "June", "July", "September", "November", "December");
         monthFilter.getItems().setAll(tmp);
         ObservableList<String> list = DaoFactory.getAffaireDao().groupeAffaireByDate();
@@ -207,4 +146,53 @@ public class DashboardController implements Initializable {
             }
         });
     }
+    private static DashboardController dashboardController;
+    private static SimpleIntegerProperty acquisition = new SimpleIntegerProperty(0) ;
+    private static SimpleIntegerProperty fullTotal = new SimpleIntegerProperty(0);
+    private static SimpleIntegerProperty totalTitle = new SimpleIntegerProperty(0);
+    private static ObservableList<XYChart.Series<String, Number>> series = FXCollections.observableArrayList();
+    private static SimpleObjectProperty simpleXYChartProperty = new SimpleObjectProperty(series);
+    public AnchorPane getDashboard() {
+        return dashboard;
+    }
+    public void setDashboard(AnchorPane dashboard) {
+        this.dashboard = dashboard;
+    }
+    public StackPane getCarrouselView() {
+        return carrouselView;
+    }
+    public void setCarrouselView(StackPane carrouselView) {
+        this.carrouselView = carrouselView;
+    }
+    public JFXButton getNext() {
+        return next;
+    }
+    public void setNext(JFXButton next) {
+        this.next = next;
+    }
+    public JFXButton getPrev() {
+        return prev;
+    }
+    private enum Direction {TO_RIGHT, TO_LEFT}
+    public static ObservableList<XYChart.Series<String, Number>> getSeries() {
+        return series;
+    }
+    public static void setSeries(ObservableList<XYChart.Series<String, Number>> series) { DashboardController.series = series; }
+
+
+    @FXML private AnchorPane chart2;
+    @FXML private AnchorPane chart1;
+    @FXML private PieChart piechart;
+    @FXML private AnchorPane dashboard;
+    @FXML private StackPane carrouselView;
+    @FXML private JFXButton next;
+    @FXML private JFXButton prev;
+    @FXML private Text totalAffaire;
+    @FXML private Text totalDa;
+    @FXML private Text totalPa;
+    @FXML private Text totalTitre;
+    @FXML private BarChart<String, Number> barChart;
+    @FXML private AreaChart<String, Number> areaChart;
+    @FXML private JFXComboBox<String> yearFilter;
+    @FXML private JFXComboBox<String> monthFilter;
 }

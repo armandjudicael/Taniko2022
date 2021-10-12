@@ -6,7 +6,7 @@ import DAO.DbOperation;
 import Main.Main;
 import Model.Pojo.User;
 import Model.Other.MainService;
-import View.helper.DragableStage;
+import View.Helper.Other.DragableStage;
 import View.Model.PasswordView;
 import com.jfoenix.controls.JFXButton;
 import javafx.application.Platform;

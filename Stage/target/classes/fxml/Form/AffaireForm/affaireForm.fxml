@@ -45,7 +45,7 @@
                   </Text>
                   <HBox fx:id="usernameBox" alignment="CENTER_LEFT" layoutX="208.0" layoutY="162.0" prefHeight="39.0" prefWidth="275.0" styleClass="box" stylesheets="@../../../css/box.css">
                      <children>
-                        <TextField fx:id="numeroAffaire" prefHeight="37.0" prefWidth="143.0" promptText="numero" style="-fx-background-color: transparent;">
+                        <TextField fx:id="numeroAffaire" prefHeight="37.0" prefWidth="112.0" promptText="numero" style="-fx-background-color: transparent;">
                            <font>
                               <Font size="16.0" />
                            </font>

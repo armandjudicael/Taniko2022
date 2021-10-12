@@ -12,17 +12,14 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MainAffaireForm extends JFXDialog implements Initializable {
-
     private static MainAffaireForm mainAffaireForm;
     private static AffaireStatus status = AffaireStatus.RUNNING ;
-
     public static MainAffaireForm getInstance(){
         if (mainAffaireForm == null){
             mainAffaireForm = new MainAffaireForm();
         }
         return mainAffaireForm;
     }
-
     private MainAffaireForm() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Form/AffaireForm/MainAffaireForm.fxml"));
@@ -34,7 +31,6 @@ public class MainAffaireForm extends JFXDialog implements Initializable {
             e.printStackTrace();
         }
     }
-
     @Override public void initialize(URL location, ResourceBundle resources){
         mainAffaireForm = this;
     }

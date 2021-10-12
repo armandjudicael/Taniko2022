@@ -664,14 +664,12 @@ public class AffairDao extends DAO<Affaire> {
             acquisition.setName(" Demande d'acquisition");
             XYChart.Series<String, Number> prescrition = new XYChart.Series<String, Number>();
             prescrition.setName("Prescription Acquisitive");
-
             while (rs.next()) {
                 XYChart.Data<String, Number> acquisitionData = new XYChart.Data<String, Number>(rs.getString("date_creation"), rs.getInt("acquisition"));
                 XYChart.Data<String, Number> prescriptionData = new XYChart.Data<>(rs.getString("date_creation"), rs.getInt("prescription"));
                 acquisition.getData().add(acquisitionData);
                 prescrition.getData().add(prescriptionData);
             }
-
             list.addAll(acquisition, prescrition);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -680,9 +678,7 @@ public class AffairDao extends DAO<Affaire> {
     }
 
     private ObservableList<XYChart.Series<String, Number>> getNumberOfAffairPerMonthInThis(String year) {
-
         ObservableList<XYChart.Series<String, Number>> list = FXCollections.observableArrayList();
-
         String query = " SELECT mois.MONTH , " +
                 " ( SELECT count(typeAffaire) from affaire where ( typeAffaire = 'ACQUISITION' AND YEAR(date_formulation) = ? and monthname(date_formulation) = mois.MONTH )) AS acquisition , " +
                 "( SELECT count(typeAffaire) from affaire where ( typeAffaire = 'PRESCRIPTION ACQUISITIVE' AND YEAR(date_formulation) = ? and monthname(date_formulation) = mois.MONTH )) AS prescription " +
@@ -699,27 +695,20 @@ public class AffairDao extends DAO<Affaire> {
                 "SELECT 'October' AS MONTH UNION " +
                 "SELECT 'November' AS MONTH UNION " +
                 "SELECT 'December' AS MONTH) as mois group by mois.MONTH;";
-
         try (PreparedStatement ps = this.connection.prepareStatement(query)) {
             ps.setString(1, year);
             ResultSet rs = ps.executeQuery();
-
             XYChart.Series<String, Number> acquisition = new XYChart.Series<String, Number>();
             acquisition.setName(" Demande d'acquisition");
-
             XYChart.Series<String, Number> prescrition = new XYChart.Series<String, Number>();
             prescrition.setName("Prescription Acquisitive");
-
             while (rs.next()) {
-
                 XYChart.Data<String, Number> acquisitionData = new XYChart.Data<String, Number>(rs.getString("mois.MONTH"), rs.getInt("acquisition"));
                 XYChart.Data<String, Number> prescriptionData = new XYChart.Data<>(rs.getString("mos.MONTH"), rs.getInt("prescription"));
                 acquisition.getData().add(acquisitionData);
                 prescrition.getData().add(prescriptionData);
             }
-
             list.addAll(acquisition, prescrition);
-
         } catch (SQLException e) {
             e.printStackTrace();
         }

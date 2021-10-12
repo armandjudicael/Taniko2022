@@ -44,56 +44,11 @@ import java.util.ResourceBundle;
 import static DAO.DbOperation.executeQuery;
 
 public class AffairDetailsController implements Initializable {
-    private static Affaire affaire = null;
-    private static AffairDetailsController detailsController;
-    // DIALOG
-    private static Dialog<String> superficieDialog;
-    // Tab
-    @FXML private Tab pieceJoinTab;
-    @FXML private Tab connexeTab;
-    @FXML private Tab redacteurTab;
-    @FXML private Tab procedureTab;
-    // EDITER
-    @FXML private JFXButton edtSiseBtn;
-    @FXML private JFXButton edtParcelleTerrainBtn;
-    @FXML private JFXButton edtCommuneBtn;
-    @FXML private JFXButton edtDistrictBtn;
-    @FXML private JFXButton editStatusBtn;
-    @FXML private JFXButton edtRegionBtn;
-    @FXML private JFXButton edtSuperficieBtn;
-    @FXML private JFXButton edtTitreMereBtn;
-    @FXML private JFXButton edtNameDmdBtn;
-    @FXML private JFXButton edtFirstNameBtn;
-    @FXML private JFXButton edtAdressBtn;
-    @FXML private JFXButton edtParcelleBtn;
-    @FXML private JFXButton edtLotBtn;
-    @FXML private JFXButton edtNumBtn;
-    @FXML private JFXButton edtDateFormBtn;
-    @FXML private JFXButton edtTypeDmdBtn;
-    @FXML private JFXButton createTitleBtn;
-    // LABEL
-    @FXML private Label selectedAffaire;
-    @FXML private Label numeroAffaire;
-    @FXML private Label dateFromulation;
-    @FXML private Label typeDemande;
-    @FXML private Label statusLabel;
-    @FXML private Label nom;
-    @FXML private Label prenom;
-    @FXML private Label adresse;
-    @FXML private Label parcelleDemandeur;
-    @FXML private Label lot;
-    @FXML private Label sise;
-    @FXML private Label parcelleTerrain;
-    @FXML private Label commune;
-    @FXML private Label district;
-    @FXML private Label region;
-    @FXML private Label superficie;
-    @FXML private Label nomPropriete;
+
 
     @Override public void initialize(URL location, ResourceBundle resources){
         detailsController = this;
         createTitleBtn.setOnAction(event ->{
-
             TableView<ConnexAffairForView> connexeTableView = ConnexViewController.getInstance().getConnexeTableView();
             ObservableList<ConnexAffairForView> items = connexeTableView.getItems();
             Terrain terrain = affaire.getTerrain();
@@ -141,7 +96,6 @@ public class AffairDetailsController implements Initializable {
             });
         });
     }
-
     public void creerTitre(){
         TitleFrom.setExAffaire(affaire);
         Terrain terrain = affaire.getTerrain();
@@ -159,7 +113,6 @@ public class AffairDetailsController implements Initializable {
         TitleFrom.getInstance().getPrenomTitulaire().setText(affaire.getDemandeur().getPrenom());
         TitleFrom.getInstance().show(TitleOperation.CREATE_OPERATION);
     }
-
     private void editNomDemandeur(TextInputDialog dialog, Affaire affaire){
         String name = this.getNom().getText();
         ImageView imageView = new ImageView(new Image("/img/male_user_80px.png"));
@@ -174,7 +127,6 @@ public class AffairDetailsController implements Initializable {
             executeQuery(query);
         }
     }
-
     private void editPrenomDemandeur(TextInputDialog dialog, Affaire affaire){
         String firstName = this.getPrenom().getText();
         ImageView imageView = new ImageView(new Image("/img/male_user_80px.png"));
@@ -188,7 +140,6 @@ public class AffairDetailsController implements Initializable {
             executeQuery(query);
         }
     }
-
     private void editAdresseDemandeur(TextInputDialog dialog, Affaire affaire) {
         String adress = this.getAdresse().getText();
         ImageView imageView = new ImageView(new Image("/img/male_user_80px.png"));
@@ -202,7 +153,6 @@ public class AffairDetailsController implements Initializable {
             executeQuery(query);
         }
     }
-
     private void editParcelleDemandeur(TextInputDialog dialog, Affaire affaire) {
         String parcelle = this.getParcelleDemandeur().getText();
         ImageView imageView = new ImageView(new Image("/img/male_user_80px.png"));
@@ -216,9 +166,7 @@ public class AffairDetailsController implements Initializable {
             executeQuery(query);
         }
     }
-
     private void editLotDemandeur(TextInputDialog dialog, Affaire affaire){
-
         String lot = this.getLot().getText();
         ImageView imageView = new ImageView(new Image("/img/male_user_80px.png"));
         dialog.setHeaderText("Entrer le lot du demandeur");
@@ -231,7 +179,6 @@ public class AffairDetailsController implements Initializable {
             executeQuery(query);
         }
     }
-
     @FXML public void actionOnAffaire(ActionEvent actionEvent) {
         if (!EditorSecurity.getRemember()){
             AffaireForView selectedItem = AffairViewController.getInstance().getTableView().getSelectionModel().getSelectedItem();
@@ -244,7 +191,7 @@ public class AffairDetailsController implements Initializable {
         }else launchAction(actionEvent);
     }
 
-    public void launchAction(ActionEvent actionEvent) {
+    public void launchAction(ActionEvent actionEvent){
         // Si l'operation de modification vient du liste des affaires
         //    alors on prend l'affaire selectionné
         // Mais si elle vient de la liste des titres alors ont on recupere l'affaire
@@ -256,7 +203,6 @@ public class AffairDetailsController implements Initializable {
                 editOperation(actionEvent, AffairDetailsController.affaire);
         }
     }
-
     private void editNumeroAffaire(TextInputDialog dialog, Affaire affaire) {
         String numAffaire = this.getNumeroAffaire().getText();
         ImageView imageView = new ImageView(new Image("/img/folder_50px.png"));
@@ -270,11 +216,9 @@ public class AffairDetailsController implements Initializable {
             String query = " UPDATE affaire SET numAffaire = '" + result.get() + "' WHERE idAffaire = " + affaire.getId() + " ; ";
             executeQuery(query);
         }
-
     }
 
-    private void editDateFormulation(Affaire affaire) {
-
+    private void editDateFormulation(Affaire affaire){
         Dialog<LocalDate> dialog = new Dialog();
         dialog.setTitle("Editer date de formulation");
         dialog.setResizable(false);
@@ -298,10 +242,8 @@ public class AffairDetailsController implements Initializable {
             executeQuery(query);
         }
     }
-
     private void editTypeDemande(Affaire affaire) {
-
-        String type[] = {"ACQUISITION", "PRESCRIPTION_ACQUISITIVE"};
+        String type[] = {"ACQUISITION", "PRESCRIPTION_ACQUISITIVE","AFFECTATION"};
         ChoiceDialog<String> dialog = new ChoiceDialog<>(type[0], type);
         Optional<String> choice = dialog.showAndWait();
         if (choice.isPresent()) {
@@ -310,9 +252,7 @@ public class AffairDetailsController implements Initializable {
             executeQuery(query);
         }
     }
-
     private void editStatus(Affaire affaire){
-
         String type[] = {"En cours", "Suspendu", "Terminé", "Réjété"};
         ChoiceDialog<String> dialog = new ChoiceDialog<>(type[0], type);
         Optional<String> choice = dialog.showAndWait();
@@ -340,7 +280,6 @@ public class AffairDetailsController implements Initializable {
             executeQuery(query);
         }
     }
-
     private void editSuperficie(Affaire affaire){
         if (superficieDialog == null){
 
@@ -412,7 +351,6 @@ public class AffairDetailsController implements Initializable {
         }
 
     }
-
     private void editSise(TextInputDialog dialog, Affaire affaire) {
         String numAffaire = this.getSise().getText();
         dialog.setHeaderText("Entrer l'adresse du terrain ");
@@ -424,7 +362,6 @@ public class AffairDetailsController implements Initializable {
             executeQuery(query);
         }
     }
-
     private void editParcelleTerrain(TextInputDialog dialog, Affaire affaire){
         String numAffaire = this.getParcelleTerrain().getText();
         dialog.setHeaderText("Entrer le parcelle du terrain");
@@ -437,7 +374,6 @@ public class AffairDetailsController implements Initializable {
         }
 
     }
-
     private void editDistrict(TextInputDialog dialog, Affaire affaire) {
         String district = this.getDistrict().getText();
         dialog.setHeaderText("Entrer le district du terrain");
@@ -449,7 +385,6 @@ public class AffairDetailsController implements Initializable {
             executeQuery(query);
         }
     }
-
     private void editOperation(ActionEvent actionEvent, Affaire affaire) {
         TextInputDialog dialog = new TextInputDialog();
         if (actionEvent.getSource() == edtNameDmdBtn) { editNomDemandeur(dialog, affaire); }
@@ -471,7 +406,6 @@ public class AffairDetailsController implements Initializable {
             TitreMereEditDialog.getInstance().show();
         }
     }
-
     private void editCommune(TextInputDialog dialog, Affaire affaire) {
         String commune = this.getCommune().getText();
         dialog.setHeaderText("Entrer le commune ");
@@ -483,7 +417,6 @@ public class AffairDetailsController implements Initializable {
             executeQuery(query);
         }
     }
-
     private void editRegion(TextInputDialog dialog, Affaire affaire) {
         String region = this.getRegion().getText();
         dialog.setHeaderText("Entrer la region ");
@@ -571,5 +504,49 @@ public class AffairDetailsController implements Initializable {
     public static AffairDetailsController getInstance() {
         return detailsController;
     }
-
+    private static Affaire affaire = null;
+    private static AffairDetailsController detailsController;
+    // DIALOG
+    private static Dialog<String> superficieDialog;
+    // Tab
+    @FXML private Tab pieceJoinTab;
+    @FXML private Tab connexeTab;
+    @FXML private Tab redacteurTab;
+    @FXML private Tab procedureTab;
+    // EDITER
+    @FXML private JFXButton edtSiseBtn;
+    @FXML private JFXButton edtParcelleTerrainBtn;
+    @FXML private JFXButton edtCommuneBtn;
+    @FXML private JFXButton edtDistrictBtn;
+    @FXML private JFXButton editStatusBtn;
+    @FXML private JFXButton edtRegionBtn;
+    @FXML private JFXButton edtSuperficieBtn;
+    @FXML private JFXButton edtTitreMereBtn;
+    @FXML private JFXButton edtNameDmdBtn;
+    @FXML private JFXButton edtFirstNameBtn;
+    @FXML private JFXButton edtAdressBtn;
+    @FXML private JFXButton edtParcelleBtn;
+    @FXML private JFXButton edtLotBtn;
+    @FXML private JFXButton edtNumBtn;
+    @FXML private JFXButton edtDateFormBtn;
+    @FXML private JFXButton edtTypeDmdBtn;
+    @FXML private JFXButton createTitleBtn;
+    // LABEL
+    @FXML private Label selectedAffaire;
+    @FXML private Label numeroAffaire;
+    @FXML private Label dateFromulation;
+    @FXML private Label typeDemande;
+    @FXML private Label statusLabel;
+    @FXML private Label nom;
+    @FXML private Label prenom;
+    @FXML private Label adresse;
+    @FXML private Label parcelleDemandeur;
+    @FXML private Label lot;
+    @FXML private Label sise;
+    @FXML private Label parcelleTerrain;
+    @FXML private Label commune;
+    @FXML private Label district;
+    @FXML private Label region;
+    @FXML private Label superficie;
+    @FXML private Label nomPropriete;
 }

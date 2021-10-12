@@ -16,7 +16,7 @@ import View.Dialog.FormDialog.TitleFrom;
 import View.Dialog.Other.Notification;
 import View.Dialog.SecurityDialog.AdminSecurity;
 import View.Model.AffaireForView;
-import View.helper.CheckboxTooltip;
+import View.Helper.Other.CheckboxTooltip;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import javafx.application.Platform;

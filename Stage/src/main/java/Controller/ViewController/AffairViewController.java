@@ -15,7 +15,7 @@ import View.Dialog.FormDialog.MainAffaireForm;
 import View.Dialog.Other.Notification;
 import View.Dialog.SecurityDialog.AdminSecurity;
 import View.Model.*;
-import View.helper.CheckboxTooltip;
+import View.Helper.Other.CheckboxTooltip;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import javafx.application.Platform;
@@ -30,6 +30,7 @@ import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
@@ -47,60 +48,6 @@ import static Model.Pojo.Affaire.typeDemande2String;
 
 public class AffairViewController implements Initializable {
 
-    private static ObservableList<ProcedureForView> procedureTab[];
-    private static AffairViewController affairViewController = null;
-
-    private static MenuItem detailsMenuItem;
-    private static MenuItem deleteMenuItem;
-    private static ContextMenu contextMenu;
-
-    private static Image runningImg;
-    private static Image suspendImg;
-    private static Image finishedImg;
-    private static Image rejectImg;
-
-    private static Image goImg;
-    private static Image backImg;
-    private static Image noneImg;
-
-    private final int ACQUISITION_AND_AFFECTATION_INDEX = 0;
-    private final int PRESCRIPTION_INDEX = 1;
-
-    @FXML private JFXButton launchSearchBtn;
-    @FXML private JFXButton createAffBtn;
-    @FXML private JFXButton delTextfield;
-    @FXML private TextField searchInput;
-    @FXML private JFXButton detailsBtn;
-    @FXML private JFXButton deleteBtn;
-    @FXML private JFXButton printBtn;
-    @FXML private JFXButton refreshBtn;
-    // FILTER
-    @FXML private JFXButton finishBtn;
-    @FXML private JFXButton suspendBtn;
-    @FXML private JFXButton runningBtn;
-    @FXML private JFXButton allBtn;
-    @FXML private JFXButton rejectBtn;
-    // TABLEVIEW ET TABLECOLUMN
-    @FXML private TableView<AffaireForView> tableView;
-    @FXML private TableColumn<AffaireForView, String> numero;
-    @FXML private TableColumn<AffaireForView, String> demandeur;
-    @FXML private TableColumn<AffaireForView, String> nomPropriete;
-    @FXML private TableColumn<AffaireForView, String> numeroTitre;
-    @FXML private TableColumn<AffaireForView, String> superficie;
-    @FXML private TableColumn<AffaireForView, String> redactor;
-    @FXML private TableColumn<AffaireForView, Label> situation;
-    @FXML private TableColumn<AffaireForView, String> type;
-    @FXML private TableColumn<AffaireForView, ImageView> status;
-    @FXML private AnchorPane searchPanel;
-    @FXML private HBox actionPanel;
-    @FXML private TitledPane titledPane;
-    @FXML private ComboBox<String> yearFilter;
-    @FXML private ComboBox<String> viewType;
-    @FXML private HBox buttonBox;
-    @FXML private JFXButton searchPanelBtn;
-    @FXML private JFXButton actionPanelBtn;
-    @FXML private JFXCheckBox match;
-
     public void initializeDetailsData(Affaire affaire) {
         AffairDetailsController.setAffaire(affaire);
         // initialisation de la liste des redacteurs
@@ -115,13 +62,17 @@ public class AffairViewController implements Initializable {
         // INITIALIZATION DE LA LISTE DES PIECES JOINTE CONCERNANT L'AFFAIRE
         initAttachement(affaire);
     }
-
-    private void initAttachement(Affaire affaire){
+    public void initAttachement(Affaire affaire){
         ObservableList<PieceJointeForView> allPieceJointe = DaoFactory.getPieceJointeDao().getAllPieceJointe(affaire);
-        if (!allPieceJointe.isEmpty())
-            Platform.runLater(() -> PieceJointeViewController.getInstance().getPjTilepane().getChildren().setAll(allPieceJointe) );
+        ObservableList<Node> children = PieceJointeViewController.getInstance().getPjTilepane().getChildren();
+        Platform.runLater(() -> {
+            children.clear();
+            if (!allPieceJointe.isEmpty()){
+                children.setAll(allPieceJointe);
+                PieceJointeViewController.getAttachementList().setAll(allPieceJointe);
+            }
+        } );
     }
-
     private void initImage() {
         runningImg = new Image(Objects.requireNonNull(AffairViewController.class.getResourceAsStream("/img/play1_20px.png")));
         suspendImg = new Image(Objects.requireNonNull(AffairViewController.class.getResourceAsStream("/img/pause_20px.png")));
@@ -132,7 +83,6 @@ public class AffairViewController implements Initializable {
         backImg = new Image(Objects.requireNonNull(AffairViewController.class.getResourceAsStream("/img/back.png")));
         noneImg = new Image(Objects.requireNonNull(AffairViewController.class.getResourceAsStream("/img/none.png")));
     }
-
     @Override public void initialize(URL location, ResourceBundle resources) {
         new CheckboxTooltip("rechercher dans la liste courante ou global",match);
         affairViewController = this;
@@ -145,14 +95,11 @@ public class AffairViewController implements Initializable {
         initializeContextMenu();
         titledPane.setExpanded(true);
     }
-
     private void initSearch() {
         delTextfield.visibleProperty().bind(searchInput.textProperty().isNotEqualTo("").or(searchInput.textProperty().isNotEmpty()));
         delTextfield.setOnAction(event -> searchInput.setText(""));
     }
-
     private void initButton(){
-
         launchSearchBtn.setOnAction(event -> {
             MainService.getInstance().launch(new Task<Void>() {
                 @Override
@@ -185,13 +132,9 @@ public class AffairViewController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.INFORMATION, " fonctionnalité non disponible ");
             alert.showAndWait();
         });
-
         launchSearchBtn.disableProperty().bind(searchInput.textProperty().isEmpty());
-
         refreshBtn.setOnAction(event -> {
-
             ObservableList<String> items = yearFilter.getItems();
-
             MainService.getInstance().launch(new Task<Void>() {
                 @Override protected Void call() throws Exception{
                     ObservableList<AffaireForView> observableList = DaoFactory.getAffaireDao().getAffaireBy(yearFilter.getValue());
@@ -205,11 +148,9 @@ public class AffairViewController implements Initializable {
                                 items.addAll(dateList);
                             });
                     }
-
                     Platform.runLater(() -> {
                         tableView.getItems().setAll(observableList);
                     });
-
                     InitializeApp.getAffaires().setAll(observableList);
                     return null;
                 }
@@ -228,9 +169,7 @@ public class AffairViewController implements Initializable {
         detailsBtn.disableProperty().bind(tableView.getSelectionModel().selectedItemProperty().isNull());
         detailsBtn.setOnAction(this::getAllAction);
     }
-
     @FXML void statusFilterAction(ActionEvent event) {
-
         Task<Void> task = new Task<Void>() {
             @Override
             protected Void call() throws Exception {
@@ -255,7 +194,6 @@ public class AffairViewController implements Initializable {
         };
         MainService.getInstance().launch(task);
     }
-
     // CONTEXTUAL MENU
     private void initializeContextMenu() {
         contextMenu = new ContextMenu();
@@ -278,7 +216,6 @@ public class AffairViewController implements Initializable {
         deleteMenuItem.setOnAction(this::getAllAction);
         contextMenu.getItems().addAll(detailsMenuItem, deleteMenuItem);
     }
-
     @Deprecated public void getAllAction(ActionEvent actionEvent) {
         Object source = actionEvent.getSource();
         if ((source == detailsBtn) || (source == detailsMenuItem)) {
@@ -286,9 +223,7 @@ public class AffairViewController implements Initializable {
         } else if ((source == deleteBtn) || (source == deleteMenuItem))
             AdminSecurity.show(Origin.DELETE_AFFAIR);
     }
-
     public void deleteAffair(){
-
         AffaireForView selectedItem = tableView.getSelectionModel().getSelectedItem();
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Etes-vous sur de vouloir supprimer l'affaire " + selectedItem.getNumero(), ButtonType.OK, ButtonType.NO);
         Optional<ButtonType> buttonType = alert.showAndWait();
@@ -312,7 +247,6 @@ public class AffairViewController implements Initializable {
             }
         }
     }
-
     private void initializeViewType(){
         viewType.setItems(FXCollections.observableArrayList("Toutes", "Mes affaires uniquement"));
         viewType.setValue("Toutes");
@@ -344,33 +278,25 @@ public class AffairViewController implements Initializable {
                 }
             });
         });
-
     }
-
     private void initializeNavigationBar() {
-
         actionPanelBtn.setOnAction(event -> {
             if (!titledPane.isExpanded())
                 titledPane.setExpanded(true);
             actionPanel.toFront();
         });
-
         searchPanelBtn.setOnAction(event -> {
             if (!titledPane.isExpanded())
                 titledPane.setExpanded(true);
             searchPanel.toFront();
         });
-
         titledPane.setOnMouseEntered(event -> {
             searchPanelBtn.arm();
             actionPanelBtn.arm();
         });
-
         buttonBox.setTranslateX(-25);
     }
-
     private void initializeSearchTextField(){
-
         searchInput.textProperty().addListener((observable, oldValue, newValue) -> {
             if(match.isSelected()){
                 ObservableList<AffaireForView> items = tableView.getItems();
@@ -396,7 +322,6 @@ public class AffairViewController implements Initializable {
             }
         });
     }
-
     private void initializeYearFilter(){
         MainService.getInstance().launch(new Task<Void> () {
 
@@ -420,8 +345,7 @@ public class AffairViewController implements Initializable {
             }
         });
         tableView.setRowFactory(new Callback<TableView<AffaireForView>, TableRow<AffaireForView>>() {
-            @Override
-            public TableRow<AffaireForView> call(TableView<AffaireForView> param) {
+            @Override public TableRow<AffaireForView> call(TableView<AffaireForView> param) {
                 final TableRow<AffaireForView> tableRow = new TableRow<>();
                 tableRow.contextMenuProperty().bind(
                         Bindings.when(
@@ -788,14 +712,12 @@ public class AffairViewController implements Initializable {
             AffairDetailsController.getInstance().getRedacteurTab().textProperty().bind(tab);
         });
     }
-
     public void showDetails() {
         // afficher le panneau
         Affaire affaire = AffairViewController.getInstance().getTableView().getSelectionModel().getSelectedItem();
         MainController.getInstance().showAffaireDetailsView();
         show(affaire);
     }
-
     public void show(Affaire affaire) {
         MainService.getInstance().launch(new Task<Void>() {
             @Override
@@ -811,9 +733,7 @@ public class AffairViewController implements Initializable {
             }
         });
     }
-
     private void initializeProcedureTableView(Affaire affaire) {
-
         TableView<ProcedureForView> procedureTableView = ProcedureViewController.getInstance().getProcedureTableView();
         ObservableList<ProcedureForView> items = procedureTableView.getItems();
         TypeDemande typeDemande = affaire.getTypeDemande();
@@ -830,11 +750,8 @@ public class AffairViewController implements Initializable {
         }
         initAffaireProcedure(affaire, items);
     }
-
     public void initAffaireProcedure(Affaire affaire, ObservableList<ProcedureForView> itemList) {
-
         ObservableList<ArrayList<String>> viewArrayList = affaire.getAllProcedureChecked();
-
         itemList.forEach(procedureForView -> {
             Platform.runLater(() -> procedureForView.setChecked(false));
             procedureForView.setNumDepart(null);
@@ -842,7 +759,6 @@ public class AffairViewController implements Initializable {
             procedureForView.setNumArrive(null);
             procedureForView.setDateDepart(null);
         });
-
         if (viewArrayList.size() > 0) {
             itemList.forEach(procedureForView -> {
                 viewArrayList.forEach(item -> {
@@ -862,13 +778,10 @@ public class AffairViewController implements Initializable {
             });
         }
     }
-
     private void initializeDetailsView(Affaire affaire) {
-
         Demandeur demandeur = DaoFactory.getDemandeurDao().findDemandeurBy(affaire.getId());
         affaire.setDemandeur(demandeur);
         Terrain terrain = DaoFactory.getTerrainDao().find(affaire.getTerrain().getIdTerrain());
-
         Platform.runLater(() -> {
             // afficher le numero de l'affaire selectionner
             AffairDetailsController.getInstance().getSelectedAffaire().setText(affaire.getNumero());
@@ -918,15 +831,13 @@ public class AffairViewController implements Initializable {
             }
         });
     }
-
     private void initializeConnexeTableView(Affaire affaire){
         ObservableList<ConnexAffairForView> connexAffairForViews = affaire.getAllAffaireConnexe();
         // Binder le nombre d'affaire connexe sur l'entete avec le nombre de ligne de la listView
         SimpleStringProperty tab = new SimpleStringProperty("connexe (" + String.valueOf(connexAffairForViews.size()) + ")");
-        ConnexViewController.getInstance().getConnexeTableView().getItems().removeAll();
-        ConnexViewController.getInstance().getConnexeTableView().getItems().addAll(connexAffairForViews);
+        ConnexViewController.getInstance().getConnexeTableView().getItems().clear();
+        if(!connexAffairForViews.isEmpty()) ConnexViewController.getInstance().getConnexeTableView().getItems().setAll(connexAffairForViews);
         Platform.runLater(() -> AffairDetailsController.getInstance().getConnexeTab().textProperty().bind(tab));
-
     }
     public TableView<AffaireForView> getTableView() {
         return tableView;
@@ -934,13 +845,10 @@ public class AffairViewController implements Initializable {
     public TitledPane getTitledPane() {
         return titledPane;
     }
-
-
     public static ObservableList<ProcedureForView>[] getProcedureTab() { return procedureTab; }
     public static AffairViewController getInstance() {
         return affairViewController;
     }
-
     public static Image getRunningImg() {
         return runningImg;
     }
@@ -953,4 +861,52 @@ public class AffairViewController implements Initializable {
     public static Image getRejectImg() {
         return rejectImg;
     }
+    private static ObservableList<ProcedureForView> procedureTab[];
+    private static AffairViewController affairViewController = null;
+    private static MenuItem detailsMenuItem;
+    private static MenuItem deleteMenuItem;
+    private static ContextMenu contextMenu;
+    private static Image runningImg;
+    private static Image suspendImg;
+    private static Image finishedImg;
+    private static Image rejectImg;
+    private static Image goImg;
+    private static Image backImg;
+    private static Image noneImg;
+    private final int ACQUISITION_AND_AFFECTATION_INDEX = 0;
+    private final int PRESCRIPTION_INDEX = 1;
+    @FXML private JFXButton launchSearchBtn;
+    @FXML private JFXButton createAffBtn;
+    @FXML private JFXButton delTextfield;
+    @FXML private TextField searchInput;
+    @FXML private JFXButton detailsBtn;
+    @FXML private JFXButton deleteBtn;
+    @FXML private JFXButton printBtn;
+    @FXML private JFXButton refreshBtn;
+    // FILTER
+    @FXML private JFXButton finishBtn;
+    @FXML private JFXButton suspendBtn;
+    @FXML private JFXButton runningBtn;
+    @FXML private JFXButton allBtn;
+    @FXML private JFXButton rejectBtn;
+    // TABLEVIEW ET TABLECOLUMN
+    @FXML private TableView<AffaireForView> tableView;
+    @FXML private TableColumn<AffaireForView, String> numero;
+    @FXML private TableColumn<AffaireForView, String> demandeur;
+    @FXML private TableColumn<AffaireForView, String> nomPropriete;
+    @FXML private TableColumn<AffaireForView, String> numeroTitre;
+    @FXML private TableColumn<AffaireForView, String> superficie;
+    @FXML private TableColumn<AffaireForView, String> redactor;
+    @FXML private TableColumn<AffaireForView, Label> situation;
+    @FXML private TableColumn<AffaireForView, String> type;
+    @FXML private TableColumn<AffaireForView, ImageView> status;
+    @FXML private AnchorPane searchPanel;
+    @FXML private HBox actionPanel;
+    @FXML private TitledPane titledPane;
+    @FXML private ComboBox<String> yearFilter;
+    @FXML private ComboBox<String> viewType;
+    @FXML private HBox buttonBox;
+    @FXML private JFXButton searchPanelBtn;
+    @FXML private JFXButton actionPanelBtn;
+    @FXML private JFXCheckBox match;
 }

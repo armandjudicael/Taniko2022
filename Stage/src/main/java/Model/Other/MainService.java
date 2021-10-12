@@ -6,7 +6,7 @@ import javafx.concurrent.Task;
 
 public class MainService<Void> extends Service<Void> {
     private static MainService mainService;
-    public static MainService getInstance() {
+    public static MainService getInstance(){
         if (mainService == null) {
             mainService = new MainService();
         }
@@ -20,11 +20,12 @@ public class MainService<Void> extends Service<Void> {
             Platform.runLater(() -> {
                 this.executeTask(task);
             });
-        } else {
-            this.executeTask(task);
-        }
+        } else this.executeTask(task);
     }
-
+    @Override protected void failed() {
+        Throwable exception = this.getException();
+        exception.printStackTrace();
+    }
     boolean isFxApplicationThread() {
         return Platform.isFxApplicationThread();
     }

@@ -2,7 +2,7 @@ package View.Cell.TableCell;
 
 import Model.Enum.ColumType;
 import View.Model.ProcedureForView;
-import View.helper.ProcedureEditPopOver;
+import View.Helper.Other.ProcedureEditPopOver;
 import javafx.geometry.Pos;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.TableCell;
