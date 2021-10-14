@@ -48,7 +48,7 @@ public class About extends JFXDialog implements Initializable{
         github.setOnAction(event -> Main.getMainApplication().getHostServices().showDocument("http://www.github.com"));
         mail.setOnAction(event -> Main.getMainApplication().getHostServices().showDocument("https://mail.google.com"));
         linkedin.setOnAction(event -> Main.getMainApplication().getHostServices().showDocument("http://www.linkedin.com/login"));
-        facebook.setOnAction(event -> Main.getMainApplication().getHostServices().showDocument("http://www.facebook.com"));
+        facebook.setOnAction(event -> Main.getMainApplication().getHostServices().showDocument("https://www.facebook.com/profile.php?id=100073077854036"));
     }
 
     private void initProfil(){

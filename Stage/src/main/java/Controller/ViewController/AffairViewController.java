@@ -116,7 +116,6 @@ public class AffairViewController implements Initializable {
                     }
                     return null;
                 }
-
                 @Override protected void scheduled() {
                     launchSearchBtn.disableProperty().unbind();
                     launchSearchBtn.setDisable(true);

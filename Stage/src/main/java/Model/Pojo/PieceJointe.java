@@ -1,19 +1,12 @@
 package Model.Pojo;
 
-import javafx.beans.property.SimpleStringProperty;
+import DAO.DaoFactory;
+import Main.Main;
+import javafx.application.HostServices;
 import org.apache.commons.io.FileUtils;
-
-import java.io.FileInputStream;
-import java.io.InputStream;
+import java.io.*;
 
 public class PieceJointe {
-
-    private int idPieceJointe;
-    private String description;
-    private String extensionPiece;
-    private String size;
-    private FileInputStream valeur;
-    private InputStream inputStream;
 
     public PieceJointe(int idPieceJointe,
                        String description,
@@ -27,17 +20,54 @@ public class PieceJointe {
         this.inputStream = inputStream;
     }
 
-    public PieceJointe(String description,
-                       String extensionPiece,
-                       String fileSize,
-                       FileInputStream valeur){
-        this.description = description;
-        this.extensionPiece = extensionPiece.toLowerCase();
-        this.valeur = valeur;
-        this.size = fileSize;
+    public PieceJointe(File selectedFile){
+        try {
+            String name = selectedFile.getName();
+            String[] split = name.split("\\.");
+            String description = split[0];
+            String extension = split[1];
+            this.setDescription(description);
+            this.setExtensionPiece(extension);
+            this.valeur = new FileInputStream(selectedFile);
+            this.file = selectedFile;
+            this.size = calculateFileSize(selectedFile);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
-    public PieceJointe() {
+    public String calculateFileSize(File file){
+        long length = FileUtils.sizeOf(file);
+        long kilo = length / FileUtils.ONE_KB;
+        if (kilo<FileUtils.ONE_KB) return kilo+" Kb";
+        return  kilo/FileUtils.ONE_MB+" Mb";
+    }
+
+    public void download() {
+        if (this.getFile()==null){
+            try {
+                InputStream valeur = this.getInputStream();
+                if (valeur!=null){
+                    File downDirectory = new File(getDownloadDirectory());
+                    if (!downDirectory.exists()) downDirectory.mkdir();
+                    this.file = new File(getDownloadDirectory()+"/"+this.getDescription()+"."+this.getExtensionPiece());
+                    this.file.setReadOnly();
+                    if (!this.file.exists()) FileUtils.copyInputStreamToFile(valeur,this.file);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void visualize(){
+        this.download();
+        HostServices hostServices = Main.getMainApplication().getHostServices();
+        hostServices.showDocument(getFile().toURI().toString());
+    }
+
+    public int delete(){
+       return DaoFactory.getPieceJointeDao().delete(this);
     }
 
     public int getIdPieceJointe() {
@@ -73,14 +103,36 @@ public class PieceJointe {
     public void setValeur(FileInputStream valeur) {
         this.valeur = valeur;
     }
-
-    @Override
-    public String toString() {
+    @Override public String toString() {
         return "PieceJointe{" +
                 "idPieceJointe=" + idPieceJointe +
                 ", description='" + description + '\'' +
                 ", extensionPiece='" + extensionPiece + '\'' +
                 ", size='" + size + '\''+
                 '}';
+    }
+    public File getFile() {
+        return file;
+    }
+    public static String getDownloadDirectory() {
+        return DOWNLOAD_DIRECTORY;
+    }
+    private int idPieceJointe;
+    private String description;
+    private String extensionPiece;
+    private String size;
+    private FileInputStream valeur;
+    private InputStream inputStream;
+    private File file;
+    private static String DOWNLOAD_DIRECTORY;
+    static {
+        String userName = System.getProperty("user.name");
+        String osName = System.getProperty("os.name");
+        if (osName.startsWith("Mac OS")){
+        }else if (osName.startsWith("Windows")){
+            DOWNLOAD_DIRECTORY = "C:\\Users\\"+userName+"\\Documents\\Taniko";
+        }else {
+            DOWNLOAD_DIRECTORY = "C:\\Users\\"+userName+"\\Documents\\Taniko";
+        }
     }
 }

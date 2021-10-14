@@ -5,7 +5,6 @@ import View.Cell.ListCell.ConnexeListCell;
 import View.Cell.ListCell.DispatchListcell;
 import View.Cell.ListCell.StatusCell;
 import View.Dialog.FormDialog.MainAffaireForm;
-import View.Dialog.Other.DialogCloserButton;
 import View.Model.ConnexAffairForView;
 import View.Helper.Other.AutoCompleteCombobox;
 import View.Helper.Other.NumeroChecker;
@@ -59,8 +58,8 @@ public class AffaireFormController  implements Initializable {
     }
 
     private void initButtonActionAndBinding(){
-        BooleanBinding rechercherRedacteur = Bindings.and(Bindings.not(redacteurBox.disableProperty()), redactorCombobox.valueProperty().isNull());
-        BooleanBinding rechercherConnexe = Bindings.and(Bindings.not(connexeBox.disableProperty()), connexeCombobox.valueProperty().isNull());
+        BooleanBinding rechercherRedacteur = Bindings.and(Bindings.not(redacteurBox.disableProperty()),redactorCombobox.valueProperty().isNull());
+        BooleanBinding rechercherConnexe = Bindings.and(Bindings.not(connexeBox.disableProperty()),connexeCombobox.valueProperty().isNull());
         BooleanBinding affaireBtnBinding = numeroAffaire.textProperty().isEqualTo("")
                 .or(dateFormulation.valueProperty().isNull())
                 .or(typeDemande.getSelectionModel().selectedItemProperty().isNull()
@@ -146,17 +145,12 @@ public class AffaireFormController  implements Initializable {
         typeDemande.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
             if (t1.equals("ACQUISITION")){
                 typeAffair.set(cigle);
-                DemandeurFormController.getInstance().getPhysiquePane().toFront();
                 DemandeurFormController.getInstance().getTypeDemandeur().setValue("Personne Physique");
             }else {
                 if (t1.equals("PRESCRIPTION_AQUISITIVE")){
-                    typeAffair.set(cigle + " / G");
-                    DemandeurFormController.getInstance().getMoralPane().toFront();
+                    typeAffair.set(cigle + "/G");
                     DemandeurFormController.getInstance().getTypeDemandeur().setValue("Personne Physique");
-                }else {
-                    DemandeurFormController.getInstance().getPhysiquePane().toFront();
-                    DemandeurFormController.getInstance().getTypeDemandeur().setValue("Personne Morale");
-                }
+                }else DemandeurFormController.getInstance().getTypeDemandeur().setValue("Personne Morale");
                 DemandeurFormController.getInstance().getTypeDemandeur().setDisable(true);
                 return;
             }

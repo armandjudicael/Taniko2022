@@ -22,6 +22,8 @@ import org.apache.commons.io.FileUtils;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.util.List;
 
 public class AttachementCreatorButton implements EventHandler<ActionEvent> {
 
@@ -30,36 +32,16 @@ public class AttachementCreatorButton implements EventHandler<ActionEvent> {
         this.attachementList = list;
         this.isOnDetailsView = isOnDetailsView;
     }
-
-    private PieceJointe createAttachementBy(File file) throws FileNotFoundException {
-        String name = file.getName();
-        String[] split = name.split("\\.");
-        String description = split[0];
-        String extension = split[1];
-        String size = calculateFileSize(file);
-        return new PieceJointe(description,extension,size,new FileInputStream(file));
-    }
-
-    public String calculateFileSize(File file){
-        long length = FileUtils.sizeOf(file);
-        long kilo = length / FileUtils.ONE_KB;
-        if (kilo<FileUtils.ONE_KB) return kilo+" Kb";
-        return  kilo/FileUtils.ONE_MB+" Mb";
-    }
-
     public static ObservableList<PieceJointe> getAttachementList() {
         return pieceJointeObservableList;
     }
     private Task<Void> saveAttachementTask(){
+
         return new Task<Void>() {
             @Override protected Void call() throws Exception{
                 pieceJointeObservableList = FXCollections.observableArrayList();
                 pieceJointeFiles.forEach(file -> {
-                    try {
-                        pieceJointeObservableList.add(createAttachementBy(file));
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }
+                    pieceJointeObservableList.add(new PieceJointe(file));
                 });
                 int[] all = DaoFactory.getPieceJointeDao().createAll(pieceJointeObservableList, AffairDetailsController.getAffaire());
                 if (all.length == pieceJointeObservableList.size()){
@@ -79,9 +61,12 @@ public class AttachementCreatorButton implements EventHandler<ActionEvent> {
                 pieceJointeObservableList.clear();
             }
         };
+
     }
     @Override public void handle(ActionEvent event){
-        pieceJointeFiles.setAll(FileChooserDialog.getInstance());
+        List<File> instance = FileChooserDialog.getInstance();
+        if(!instance.isEmpty())
+            pieceJointeFiles.setAll(instance);
         if (pieceJointeFiles != null && !pieceJointeFiles.isEmpty()){
             if (pieceJointeFiles.size()>10){
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -89,14 +74,10 @@ public class AttachementCreatorButton implements EventHandler<ActionEvent> {
                 alert.showAndWait();
                 return;
             }
-            pieceJointeFiles.forEach(file -> {
-                try {
-                    PieceJointe attachement = createAttachementBy(file);
-                    pieceJointeObservableList.add(attachement);
-                    attachementList.add(new PieceJointeForView(attachement, isOnDetailsView));
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
+            pieceJointeFiles.forEach(file ->{
+                PieceJointe attachement = new PieceJointe(file);
+                pieceJointeObservableList.add(attachement);
+                attachementList.add(new PieceJointeForView(attachement, isOnDetailsView));
             });
             if (isOnDetailsView)
                 MainService.getInstance().launch(saveAttachementTask());

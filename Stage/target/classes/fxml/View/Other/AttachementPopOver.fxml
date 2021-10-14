@@ -6,7 +6,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="95.0" prefWidth="106.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="103.0" prefWidth="106.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <JFXButton fx:id="viewbtn" prefHeight="36.0" prefWidth="120.0" text="Visualiser">
          <graphic>
@@ -29,7 +29,7 @@
             </ImageView>
          </graphic>
          <cursor>
-            <Cursor fx:constant="HAND"/>
+            <Cursor fx:constant="HAND" />
          </cursor>
       </JFXButton>
       <JFXButton fx:id="delAttachement" layoutX="10.0" layoutY="46.0" prefHeight="36.0" prefWidth="120.0" text="Supprimer">

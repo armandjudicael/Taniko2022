@@ -1,11 +1,10 @@
 #pieceJointe{
     -fx-background-color: white;
-    -fx-background-radius: 5px;
+    -fx-background-radius: 4px;
 }
-/*#pieceJointe:hover{*/
-/*    -fx-background-color: whitesmoke;*/
-/*    -fx-border-color: #1aa848 #1aa848;*/
-/*    -fx-border-width: 1.2px 1.2px 1.2px 1.2px;*/
-/*    -fx-border-radius: 4px 4px;*/
-/*    -fx-border-style: solid;*/
-/*}*/
+#pieceJointe:hover{
+    -fx-border-color: #1aa848 #1aa848;
+    -fx-border-width: 1.5px 1.5px 1.5px 1.5px;
+    -fx-border-radius: 4px 4px;
+    -fx-border-style: solid;
+}
