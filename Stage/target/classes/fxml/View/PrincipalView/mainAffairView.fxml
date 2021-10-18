@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXProgressBar?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Accordion?>
@@ -202,7 +202,7 @@
                                         </JFXButton>
                                         <JFXButton fx:id="printBtn" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="0.0" prefHeight="51.0" prefWidth="78.0" stylesheets="@../../../css/navigationButton.css" text="Imprimer" textFill="#4d4d4d">
                                             <font>
-                                                <Font name="Microsoft JhengHei" size="12.0" />
+                                                <Font name="Microsoft JhengHei" size="12.0"/>
                                             </font>
                                             <graphic>
                                                 <ImageView fitHeight="26.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
@@ -295,26 +295,31 @@
             </panes>
         </Accordion>
     </top>
-    <center>
-        <TableView fx:id="tableView" editable="true" prefHeight="400.0" prefWidth="1190.0" style="-fx-background-color: #F0FFF0;" stylesheets="@../../../css/tableView.css" tableMenuButtonVisible="true" BorderPane.alignment="CENTER">
-            <columns>
-                <TableColumn fx:id="numero" maxWidth="130.0" prefWidth="129.0" resizable="false" text="Numero" />
-                <TableColumn fx:id="demandeur" maxWidth="338.0" prefWidth="325.0" resizable="false" text="Demandeur" />
-                <TableColumn fx:id="type" maxWidth="140.0" prefWidth="135.0" resizable="false" text="Type" />
-                <TableColumn maxWidth="1.7976931348623157E308" prefWidth="429.0" resizable="false" text="Terrain">
-                    <columns>
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <TableView fx:id="tableView" editable="true" prefHeight="400.0" prefWidth="1190.0" style="-fx-background-color: #F0FFF0;" stylesheets="@../../../css/tableView.css" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+               <columns>
+                  <TableColumn fx:id="numero" maxWidth="130.0" prefWidth="129.0" resizable="false" text="Numero" />
+                  <TableColumn fx:id="demandeur" maxWidth="338.0" prefWidth="325.0" resizable="false" text="Demandeur" />
+                  <TableColumn fx:id="type" maxWidth="140.0" prefWidth="135.0" resizable="false" text="Type" />
+                  <TableColumn maxWidth="1.7976931348623157E308" prefWidth="429.0" resizable="false" text="Terrain">
+                     <columns>
                         <TableColumn fx:id="nomPropriete" maxWidth="1.7976931348623157E308" minWidth="0.0" prefWidth="223.0" resizable="false" text="Propriété" />
                         <TableColumn fx:id="numeroTitre" maxWidth="1.7976931348623157E308" minWidth="0.0" prefWidth="131.0" resizable="false" text="Numero" />
                         <TableColumn fx:id="superficie" maxWidth="1.7976931348623157E308" minWidth="0.0" prefWidth="150.0" resizable="false" text="Superficie" />
-                    </columns>
-                </TableColumn>
-                <TableColumn fx:id="status" maxWidth="369.0" minWidth="0.0" prefWidth="59.0" resizable="false" text="status" />
-                <TableColumn fx:id="redactor" maxWidth="1.7976931348623157E308" minWidth="0.0" prefWidth="150.0" resizable="false" text="redactor" />
-                <TableColumn fx:id="situation" maxWidth="1.7976931348623157E308" minWidth="0.0" prefWidth="600.0" resizable="false" text="Procedure Actuelle" />
-            </columns>
-            <columnResizePolicy>
-                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-            </columnResizePolicy>
-        </TableView>
-    </center>
+                     </columns>
+                  </TableColumn>
+                  <TableColumn fx:id="status" maxWidth="369.0" minWidth="0.0" prefWidth="59.0" resizable="false" text="status" />
+                  <TableColumn fx:id="redactor" maxWidth="1.7976931348623157E308" minWidth="0.0" prefWidth="150.0" resizable="false" text="redactor" />
+                  <TableColumn fx:id="situation" maxWidth="1.7976931348623157E308" minWidth="0.0" prefWidth="600.0" resizable="false" text="Procedure Actuelle" />
+               </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+            <JFXProgressBar fx:id="mainProgress" prefWidth="1202.0" progress="0.41" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+         </children>
+      </AnchorPane>
+   </center>
 </BorderPane>

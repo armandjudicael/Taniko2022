@@ -89,14 +89,12 @@ public class AffairViewController implements Initializable {
         };
         MainService.getInstance().launch(attachementTask);
     }
-
     private void initImage() {
         runningImg = new Image(Objects.requireNonNull(AffairViewController.class.getResourceAsStream("/img/play1_20px.png")));
         suspendImg = new Image(Objects.requireNonNull(AffairViewController.class.getResourceAsStream("/img/pause_20px.png")));
         finishedImg = new Image(Objects.requireNonNull(AffairViewController.class.getResourceAsStream("/img/ok_20px.png")));
         rejectImg = new Image(Objects.requireNonNull(AffairViewController.class.getResourceAsStream("/img/cancel_20px.png")));
     }
-
     @Override public void initialize(URL location, ResourceBundle resources) {
         new CheckboxTooltip("rechercher dans la liste courante ou global",match);
         affairViewController = this;
@@ -109,12 +107,10 @@ public class AffairViewController implements Initializable {
         initializeContextMenu();
         titledPane.setExpanded(true);
     }
-
     private void initSearch() {
         delTextfield.visibleProperty().bind(searchInput.textProperty().isNotEqualTo("").or(searchInput.textProperty().isNotEmpty()));
         delTextfield.setOnAction(event -> searchInput.setText(""));
     }
-
     private void initButton(){
         launchSearchBtn.setOnAction(event -> {
             MainService.getInstance().launch(new Task<Void>() {
@@ -135,6 +131,10 @@ public class AffairViewController implements Initializable {
                 @Override protected void scheduled() {
                     launchSearchBtn.disableProperty().unbind();
                     launchSearchBtn.setDisable(true);
+                    mainProgress.progressProperty().unbind();
+                    mainProgress.visibleProperty().unbind();
+                    mainProgress.visibleProperty().bind(this.runningProperty());
+                    mainProgress.progressProperty().bind(this.progressProperty());
                 }
                 @Override protected void succeeded() {
                     launchSearchBtn.disableProperty().unbind();
@@ -184,8 +184,14 @@ public class AffairViewController implements Initializable {
         detailsBtn.disableProperty().bind(tableView.getSelectionModel().selectedItemProperty().isNull());
         detailsBtn.setOnAction(this::getAllAction);
     }
-    @FXML void statusFilterAction(ActionEvent event) {
+    @FXML void statusFilterAction(ActionEvent event){
         Task<Void> task = new Task<Void>() {
+            @Override protected void scheduled() {
+                mainProgress.progressProperty().unbind();
+                mainProgress.visibleProperty().unbind();
+                mainProgress.visibleProperty().bind(this.runningProperty());
+                mainProgress.progressProperty().bind(this.progressProperty());
+            }
             @Override
             protected Void call() throws Exception {
                 ObservableList<AffaireForView> affairForViews = FXCollections.observableArrayList();
@@ -286,6 +292,10 @@ public class AffairViewController implements Initializable {
                     return null;
                 }
                 @Override protected void scheduled() {
+                    mainProgress.progressProperty().unbind();
+                    mainProgress.visibleProperty().unbind();
+                    mainProgress.visibleProperty().bind(this.runningProperty());
+                    mainProgress.progressProperty().bind(this.progressProperty());
                     viewType.setDisable(true);
                 }
                 @Override protected void succeeded() {
@@ -294,6 +304,7 @@ public class AffairViewController implements Initializable {
             });
         });
     }
+
     private void initializeNavigationBar() {
         actionPanelBtn.setOnAction(event -> {
             if (!titledPane.isExpanded())
@@ -311,6 +322,7 @@ public class AffairViewController implements Initializable {
         });
         buttonBox.setTranslateX(-25);
     }
+
     private void initializeSearchTextField(){
         searchInput.textProperty().addListener((observable, oldValue, newValue) -> {
             if(match.isSelected()){
@@ -339,7 +351,6 @@ public class AffairViewController implements Initializable {
     }
     private void initializeYearFilter(){
         MainService.getInstance().launch(new Task<Void> () {
-
             @Override protected Void call() throws Exception {
                 ObservableList<String> observableList = DaoFactory.getAffaireDao().groupeAffaireByDate();
                 yearFilter.getItems().setAll(observableList);
@@ -347,7 +358,10 @@ public class AffairViewController implements Initializable {
                     yearFilter.setValue(observableList.get(0));
                 return null;
             }
-
+            @Override protected void scheduled() {
+                mainProgress.visibleProperty().bind(this.runningProperty());
+                mainProgress.progressProperty().bind(this.progressProperty());
+            }
         });
         yearFilter.getSelectionModel().selectedItemProperty().addListener(this::yearFilterChanged);
     }
@@ -629,7 +643,6 @@ public class AffairViewController implements Initializable {
             }
         });
     }
-
     public ImageView getStatusIcon(AffaireStatus status) {
         switch (status) {
             case SUCCEED:{
@@ -659,6 +672,8 @@ public class AffairViewController implements Initializable {
                     return null;
                 }
                 @Override protected void scheduled() {
+                    mainProgress.visibleProperty().bind(this.runningProperty());
+                    mainProgress.progressProperty().bind(this.progressProperty());
                     yearFilter.setDisable(true);
                 }
                 @Override protected void succeeded() {
@@ -730,7 +745,6 @@ public class AffairViewController implements Initializable {
         };
         MainService.getInstance().launch(procedureTask);
     }
-
     public void initAffaireProcedure(Affaire affaire, ObservableList<ProcedureForView> itemList) {
         ObservableList<ArrayList<String>> viewArrayList = affaire.getAllProcedureChecked();
         itemList.forEach(procedureForView -> {
@@ -828,12 +842,11 @@ public class AffairViewController implements Initializable {
                 Platform.runLater(() -> AffairDetailsController.getInstance().getConnexeTab().textProperty().bind(tab));
                 return null;
             }
-            @Override protected void scheduled() {
-
-            }
+            @Override protected void scheduled() {}
         };
         MainService.getInstance().launch(connexTask);
     }
+
     public TableView<AffaireForView> getTableView() {
         return tableView;
     }
@@ -901,4 +914,5 @@ public class AffairViewController implements Initializable {
     @FXML private JFXButton searchPanelBtn;
     @FXML private JFXButton actionPanelBtn;
     @FXML private JFXCheckBox match;
+    @FXML private JFXProgressBar mainProgress;
 }

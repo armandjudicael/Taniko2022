@@ -34,19 +34,13 @@ public class ProcedureDialog extends JFXDialog implements Initializable {
     private static ProcedureViewController.StatusCheckBox checkBoxPrcd;
     private static Pattern pattern = Pattern.compile("^[0-9]{1,3}$");
     private static ProcedureDialog procedureDialog;
-    @FXML
-    private JFXTextField numProcedure;
-    @FXML
-    private JFXDatePicker dateProcedure;
-    @FXML
-    private JFXButton closeBtn1;
-    @FXML
-    private JFXButton closeBtn;
-    @FXML
-    private JFXButton saveBtn;
+    @FXML private JFXTextField numProcedure;
+    @FXML private JFXDatePicker dateProcedure;
+    @FXML private JFXButton closeBtn1;
+    @FXML private JFXButton closeBtn;
+    @FXML private JFXButton saveBtn;
 
     private ProcedureDialog() {
-
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Form/Other/procedureNumForm.fxml"));
             loader.setController(this);
@@ -88,9 +82,7 @@ public class ProcedureDialog extends JFXDialog implements Initializable {
                 }
             });
         });
-
         dateProcedure.setValue(LocalDate.now());
-
         numProcedure.textProperty().addListener((observableValue, s, t1) -> {
             if (!t1.isEmpty()) {
                 if (!pattern.matcher(t1).matches())
@@ -101,14 +93,11 @@ public class ProcedureDialog extends JFXDialog implements Initializable {
     }
 
     public void saveProcedure() {
-
         TableCell cell = (TableCell) checkBoxPrcd.getParent();
         TableRow tableRow = (TableRow) cell.getParent();
         int index = tableRow.getIndex();
-
         ProcedureForView procedureForView = ProcedureViewController.getInstance().getProcedureTableView().getItems().get(index);
         AffaireForView affair = AffairViewController.getInstance().getTableView().getSelectionModel().getSelectedItem();
-
         int idProcedure = procedureForView.getIdProcedure();
 
         LocalDate date = dateProcedure.getValue();
@@ -146,7 +135,6 @@ public class ProcedureDialog extends JFXDialog implements Initializable {
     public JFXTextField getNumProcedure() {
         return numProcedure;
     }
-
     public JFXDatePicker getDateProcedure() {
         return dateProcedure;
     }

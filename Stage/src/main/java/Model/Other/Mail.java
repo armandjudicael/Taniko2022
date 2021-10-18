@@ -29,7 +29,7 @@ public class Mail {
         sendEmail();
     }
 
-    public void sendEmail() throws MessagingException {
+    public void sendEmail() throws MessagingException{
         String fromUser = "cirdomaToamasinaI@gmail.com";  //Enter sender email id
         String fromUserPassword = "Aj!30071999";  //Enter sender gmail password , this will be authenticated by gmail smtp server
         String emailHost = "smtp.gmail.com";
@@ -76,20 +76,12 @@ public class Mail {
         this.emailBody = emailBodyNouveau;
     }
 
-    public static void send(){
-        Demandeur demandeur = AffairDetailsController.getAffaire().getDemandeur();
-        String nom = demandeur.getNom();
-        String prenom = demandeur.getPrenom();
-        User redacteur = AffairDetailsController.getAffaire().getRedacteur();
-        String nomR = redacteur.getNom();
-        String prenomR = redacteur.getPrenom();
+    public static void send(String emailBody,Demandeur demandeur){
         String[] emailReceipients = {demandeur.getEmail()};  //Enter list of email recepients
-        String emailBody = "Salama tompoko ,Mampahafantarana anao izahay ato amin'ny sampan-draharahan'ny fananan-tany fa i "+nomR+" "+prenomR+" no"+
-                " mpiasa tompon-andraikitra amin'ny atontan-taratasinao manomboka izao . misaotra tompoko !";
         String emailSubject = "";
         try {
             new Mail(emailReceipients,emailSubject,emailBody);
-            String m = " Email envoyé avec succès à "+nom+" "+prenom;
+            String m = " Email envoyé avec succès à "+demandeur.getFullName();
             Notification.getInstance(m, NotifType.SUCCESS).showNotif();
         } catch (MessagingException |IOException e) { e.printStackTrace(); }
     }

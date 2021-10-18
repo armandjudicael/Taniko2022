@@ -5,6 +5,7 @@ import Main.Main;
 import javafx.application.HostServices;
 import org.apache.commons.io.FileUtils;
 import java.io.*;
+import java.text.DecimalFormat;
 
 public class PieceJointe {
 
@@ -39,10 +40,18 @@ public class PieceJointe {
     }
 
     public String calculateFileSize(File file) {
-        long length = FileUtils.sizeOf(file);
-        long kilo = length / FileUtils.ONE_KB;
-        if (kilo<FileUtils.ONE_KB) return kilo+" Kb";
-        return  kilo/FileUtils.ONE_MB+" Mb";
+        double length = FileUtils.sizeOf(file);
+        double kilo = length / FileUtils.ONE_KB;
+        double mega = length / FileUtils.ONE_MB;
+        if (kilo<FileUtils.ONE_KB){
+            DecimalFormat df = new DecimalFormat("0.00");
+            return df.format(kilo)+" Kb";
+        }
+        if(mega<FileUtils.ONE_MB){
+            DecimalFormat df = new DecimalFormat("0.00");
+            return df.format(mega)+" Mb";
+        }
+        return  "";
     }
 
     public void download() {

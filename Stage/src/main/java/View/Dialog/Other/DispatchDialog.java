@@ -8,6 +8,7 @@ import Model.Enum.Type;
 import Model.Enum.NotifType;
 import Model.Other.Mail;
 import Model.Pojo.Affaire;
+import Model.Pojo.Demandeur;
 import Model.Pojo.User;
 import Model.Other.MainService;
 import View.Cell.ListCell.DispatchListcell;
@@ -74,6 +75,7 @@ public class DispatchDialog extends JFXDialog implements Initializable {
     }
 
     private Task insertTask() {
+
         return new Task() {
             @Override protected void succeeded() {
                 combobox.setValue(null);
@@ -89,16 +91,22 @@ public class DispatchDialog extends JFXDialog implements Initializable {
                 Affaire affaire = AffairDetailsController.getAffaire();
                 // insertion dans la table des dispatch
                 if (DbOperation.insertOnDispatchTable(user,affaire) == 1) {
-                    if (checkBoxNouvDispatch.isSelected()) Mail.send();
+                    if (checkBoxNouvDispatch.isSelected()){
+                        String nomR = user.getNom();
+                        String prenomR = user.getPrenom();
+                        Demandeur demandeur = affaire.getDemandeur();
+                        String emailBody = "Salama tompoko ,Mampahafantarana anao izahay ato amin'ny sampan-draharahan'ny fananan-tany fa i "+nomR+" "+prenomR+" no"+
+                                " mpiasa tompon-andraikitra amin'ny atontan-taratasinao manomboka izao . misaotra tompoko !";
+                        Mail.send(emailBody,demandeur);
+                    }
                     String message = user.getPrenom() + " est le nouveau rédacteur de cette affaire ";
-                    Platform.runLater(() -> {
-                        Notification.getInstance(message, NotifType.SUCCESS).showNotif();
-                    });
+                    Notification.getInstance(message, NotifType.SUCCESS).showNotif();
                 }
                 return null;
             }
         };
     }
+
     private static DispatchDialog dispatchDialog;
     @FXML private JFXComboBox<User> combobox;
     @FXML private JFXButton closeBtn;

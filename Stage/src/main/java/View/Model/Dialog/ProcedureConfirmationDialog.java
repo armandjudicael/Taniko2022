@@ -55,14 +55,15 @@ public class ProcedureConfirmationDialog extends JFXDialog implements Initializa
        notOkBtn.setOnAction(event -> this.close());
     }
 
+    public static ProcedureConfirmationDialog getProcedureConfirmationDialog() {
+        return procedureConfirmationDialog;
+    }
     public JFXCheckBox getSmsAndEmailCheckBox() {
         return smsAndEmailCheckBox;
     }
-
     public JFXButton getOkBtn() {
         return okBtn;
     }
-
     private static ProcedureConfirmationDialog procedureConfirmationDialog;
     @FXML private JFXButton closeBtn;
     @FXML private ImageView imageView;

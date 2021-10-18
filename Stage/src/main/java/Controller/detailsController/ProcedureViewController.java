@@ -5,6 +5,7 @@ import DAO.DbOperation;
 import Model.Enum.NotifType;
 import Model.Enum.Origin;
 import Model.Enum.TypeDemande;
+import Model.Other.Mail;
 import Model.Pojo.Affaire;
 import Model.Other.MainService;
 import View.Cell.TableCell.DateProcedureCell;
@@ -287,58 +288,73 @@ public class ProcedureViewController implements Initializable{
             }
         });
     }
+
     public static class StatusCheckBox extends JFXCheckBox{
+
         public StatusCheckBox() {
-            statusCheckBox = this;
         }
-        private static StatusCheckBox statusCheckBox;
-        private void resetProcedure(ProcedureForView procedureForView) {
+
+        private void resetProcedure(ProcedureForView procedureForView){
             setSelected(false);
             procedureForView.setNumDepart(null);
             procedureForView.setDateArrive(null);
             procedureForView.setNumArrive(null);
             procedureForView.setDateArrive(null);
-            statusCheckBox = this;
         }
-        @Override public void fire(){
-            ProcedureConfirmationDialog.getInstance(this, new EventHandler<ActionEvent>() {
-                @Override public void handle(ActionEvent event){
 
-                    Affaire affair = AffairDetailsController.getAffaire();
-                    TableCell cell = (TableCell) statusCheckBox.getParent();
-                    TableRow tableRow = (TableRow) cell.getParent();
-                    int index = tableRow.getIndex();
-                    
-                    ProcedureForView procedureForView = ProcedureViewController.getInstance().getProcedureTableView().getItems().get(index);
-                    if (!isSelected()){
-                        statusCheckBox.setSelected(true);
-                        LocalDateTime localDateTime = LocalDateTime.of(LocalDate.now(), LocalTime.now());
-                        procedureForView.setDateDepart(localDateTime.toString());
-                        MainService.getInstance().launch(new Task<Void>() {
-                            @Override
-                            protected Void call() throws Exception {
-                                int status = DbOperation.insertOnAffAndPrcdTable(procedureForView.getIdProcedure(),
-                                        affair.getId(),
-                                        Timestamp.valueOf(localDateTime));
-                                if (status != 0) Notification.getInstance(" Procedure enregistrer avec succès ", NotifType.SUCCESS).showNotif();
-                                else Notification.getInstance(" Echec de la mis à jour ",NotifType.WARNING).showNotif();
-                                return null;
-                            }
-                        });
-                    }else{
-                        resetProcedure(procedureForView);
-                        MainService.getInstance().launch(new Task<Void>() {
-                            @Override
-                            protected Void call() throws Exception {
-                                int status = DbOperation.launchQuery(" DELETE FROM  procedure_concerner_affaire WHERE (procedureId = " + procedureForView.getIdProcedure() + " AND affaireId = " + affair.getId() + ");");
-                                if (status !=0) Notification.getInstance(" Mis à jour enregistrer avec succès ",NotifType.SUCCESS).showNotif();
-                                else Notification.getInstance(" Echec de la mis à jour ",NotifType.WARNING).showNotif();
-                                return null;
-                            }
-                        });
+        private void onProcedureChecked(){
+            // FERMER LE DIALOG
+            ProcedureConfirmationDialog.getProcedureConfirmationDialog().close();
+            // RECUPERER L'AFFAIRE SELECTIONNER
+            Affaire affair = AffairDetailsController.getAffaire();
+            TableCell cell = (TableCell)this.getParent();
+            TableRow tableRow = (TableRow) cell.getParent();
+            int index = tableRow.getIndex();
+            ProcedureForView procedureForView = ProcedureViewController.getInstance().getProcedureTableView().getItems().get(index);
+            if (!isSelected()){
+                // update the checkbox
+                setSelected(true);
+                LocalDateTime localDateTime = LocalDateTime.of(LocalDate.now(),LocalTime.now());
+                procedureForView.setDateDepart(localDateTime.toString());
+                MainService.getInstance().launch(new Task<Void>() {
+                    @Override
+                    protected Void call() throws Exception {
+                        int status = DbOperation.insertOnAffAndPrcdTable(procedureForView.getIdProcedure(),
+                                affair.getId(),
+                                Timestamp.valueOf(localDateTime));
+                        if (status != 0) Notification.getInstance(" Procedure enregistrer avec succès ", NotifType.SUCCESS).showNotif();
+                        else Notification.getInstance(" Echec de la mis à jour ",NotifType.WARNING).showNotif();
+                        return null;
                     }
+                });
+
+                JFXCheckBox smsAndEmailCheckBox = ProcedureConfirmationDialog.getProcedureConfirmationDialog().getSmsAndEmailCheckBox();
+                if (smsAndEmailCheckBox.isSelected()){
+                    // SEND E-MAIL AND SMS TO THE APPLICANT
+                    String message = " La situation actuelle de votre affair est "+procedureForView.getProcedureName();
+                    Mail.send(message,affair.getDemandeur());
+                    smsAndEmailCheckBox.setSelected(false);
                 }
-            }).show(); }
+
+            }else{
+
+                resetProcedure(procedureForView);
+                MainService.getInstance().launch(new Task<Void>() {
+                    @Override
+                    protected Void call() throws Exception {
+                        int status = DbOperation.launchQuery(" DELETE FROM  procedure_concerner_affaire WHERE (procedureId = " + procedureForView.getIdProcedure() + " AND affaireId = " + affair.getId() + ");");
+                        if (status !=0) Notification.getInstance(" Mis à jour enregistrer avec succès ",NotifType.SUCCESS).showNotif();
+                        else Notification.getInstance(" Echec de la mis à jour ",NotifType.WARNING).showNotif();
+                        return null;
+                    }
+                });
+            }
+        }
+
+        @Override public void fire(){
+            ProcedureConfirmationDialog.getInstance(this,event -> onProcedureChecked()).show();
+        }
+
     }
     public static ProcedureViewController getInstance() {
         return procedureViewController;
