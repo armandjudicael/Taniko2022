@@ -8,8 +8,8 @@ import Model.Enum.NotifType;
 import Model.Pojo.User;
 import Model.Other.MainService;
 import View.Dialog.Other.Notification;
-import View.Model.PasswordView;
-import View.Model.UserForView;
+import View.Model.ViewObject.PasswordView;
+import View.Model.ViewObject.UserForView;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXProgressBar;
@@ -199,7 +199,7 @@ public class UserFrom extends JFXDialog implements Initializable {
         TilePane tilePane = UserViewController.getInstance().getUserTilePane();
         if (DaoFactory.getUserDao().create(user) == 1) {
             Platform.runLater(() -> {
-                Notification.getInstance("Agent enregistré avec succès ! ", NotifType.SUCCESS).show();
+                Notification.getInstance("Agent enregistré avec succès ! ", NotifType.SUCCESS).showNotif();
                 try {
                     if (file != null)
                         user.setPhoto(new Image(file.toURI().toURL().toString()));

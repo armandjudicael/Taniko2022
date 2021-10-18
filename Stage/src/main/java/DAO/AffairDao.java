@@ -3,9 +3,9 @@ package DAO;
 import Model.Enum.AffaireStatus;
 import Model.Enum.ProcedureStatus;
 import Model.Pojo.*;
-import Model.Other.ProcedureForTableview;
-import View.Model.AffaireForView;
-import View.Model.ConnexAffairForView;
+import View.Model.ViewObject.ProcedureForTableview;
+import View.Model.ViewObject.AffaireForView;
+import View.Model.ViewObject.ConnexAffairForView;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -63,12 +63,10 @@ public class AffairDao extends DAO<Affaire> {
                             SUPERFICIE;
 
     public ObservableList<AffaireForView> getAllAffair(){
-
         ObservableList<AffaireForView> list = FXCollections.observableArrayList();
         String query="SELECT " +
                 FULL_INFORMATION +
                 "FROM affaire AS AFF ";
-
         try (PreparedStatement ps = this.connection.prepareStatement(query)) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -163,7 +161,6 @@ public class AffairDao extends DAO<Affaire> {
     }
 
     @Deprecated private ProcedureForTableview initSituation(String lastProcedure){
-
         String situation = "Auccune procedure";
         ProcedureForTableview procedureForTableview = new ProcedureForTableview(ProcedureStatus.NONE, new SimpleStringProperty());
         if (lastProcedure != null){
@@ -194,13 +191,9 @@ public class AffairDao extends DAO<Affaire> {
                 procedureForTableview.setDescription(situation);
             }
         } else {
-
             procedureForTableview.setDescription(situation);
-
             procedureForTableview.setStatus(ProcedureStatus.NONE);
-
         }
-
         return procedureForTableview;
     }
 
@@ -256,8 +249,7 @@ public class AffairDao extends DAO<Affaire> {
         return id;
     }
 
-    public User getActualEditor(Affaire affaire) {
-
+    public User getActualEditor(Affaire affaire){
         String query = "SELECT utilisateur.prenom,utilisateur.mot_de_passe,utilisateur.photo" +
                 "               FROM utilisateur inner join dispatch d on utilisateur.idUtilisateur = d.utilisateurId" +
                 "               WHERE d.affaireId = ? " +
@@ -378,7 +370,6 @@ public class AffairDao extends DAO<Affaire> {
             ResultSet rs = ps.executeQuery();
             while (rs.next())
                 affairForView = createAffaireView(rs);
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -386,15 +377,11 @@ public class AffairDao extends DAO<Affaire> {
     }
 
     public ObservableList<ConnexAffairForView> checkConnexAffaireBy(String num){
-
         num = num.toLowerCase();
-
         ObservableList<ConnexAffairForView> list = FXCollections.observableArrayList();
-
         /**
          *   SELECTIONNER LES AFFAIRES QUI NE SONT PAS  DE TYPE ' PRESCRIPTION OU  AFFECTATION ' ET QUI NE SONT PAS ENCORE TITRE
          */
-
         String query = " SELECT "+
                 " a.terrainId"+
                 " ,a.numAffaire"+
@@ -404,9 +391,7 @@ public class AffairDao extends DAO<Affaire> {
                 " WHERE ( LOWER(a.numAffaire) = ? or LOWER(TRIM(d.nomDmd))LIKE CONCAT(?,'%') or LOWER(TRIM(d.prenomDmd)) LIKE CONCAT(?,'%') ) " +
                        "AND STRCMP(a.typeAffaire,'PRESCRIPTION_ACQUISITIVE')<> 0 " +
                 " AND a.terrainId NOT IN (SELECT tat.terrainId FROM terrain_aboutir_titre tat);";
-
         try {
-
             PreparedStatement ps = this.connection.prepareStatement(query);
             ps.setString(1, num);
             ps.setString(2,num);
@@ -416,14 +401,11 @@ public class AffairDao extends DAO<Affaire> {
                 String nomDemandeur = rs.getString("NOM_DEMANDEUR");
                 String numero = rs.getString("numAffaire");
                 int idTerrain = rs.getInt("terrainId");
-                list.add(new ConnexAffairForView(numero, nomDemandeur,idTerrain));
-            }
+                list.add(new ConnexAffairForView(numero, nomDemandeur,idTerrain)); }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return list;
-
     }
 
     public String getEditorPassWordBy(int idAffair) {
@@ -498,11 +480,8 @@ public class AffairDao extends DAO<Affaire> {
     }
 
     public AffaireForView getAffairByDemandeurNameOrNum(String type) {
-
         AffaireForView affairForView = null;
-
         type = type.toLowerCase();
-
         String query = " SELECT " +
                   FULL_INFORMATION +
                 " FROM demandeur as d , affaire as AFF " +
@@ -523,28 +502,21 @@ public class AffairDao extends DAO<Affaire> {
     }
 
     public ObservableList<AffaireForView> getAllAffairWhereStatusIs(AffaireStatus status) {
-
         ObservableList<AffaireForView> list = FXCollections.observableArrayList();
-
         String query = "SELECT " +
                 FULL_INFORMATION +
                 " FROM affaire AS AFF" +
                 " WHERE AFF.situation = ?";
         try (PreparedStatement ps = this.connection.prepareStatement(query)) {
-
             ps.setString(1,Affaire.affaireStatus2String(status));
             ResultSet rs = ps.executeQuery();
-
             while (rs.next()) {
                 list.add(createAffaireView(rs));
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return list;
-
     }
 
     public ObservableList<AffaireForView> getAffairWhereActualEditorIs(User editor) {
@@ -560,7 +532,6 @@ public class AffairDao extends DAO<Affaire> {
                 " inner JOIN dispatch as d ON us.idUtilisateur = d.utilisateurId"+
                 " WHERE d.affaireId = AFF.idAffaire " +
                 " ORDER BY d.dateDispatch desc limit 1) = ? ORDER BY AFF.idAffaire ;";
-
         try (PreparedStatement ps = this.connection.prepareStatement(query)) {
             ps.setInt(1, editor.getId());
             ResultSet rs = ps.executeQuery();
@@ -590,16 +561,15 @@ public class AffairDao extends DAO<Affaire> {
 
     public ObservableList<ArrayList<String>> getAllProcedureAndDateConcernedByThis(int idAffaire) {
         ObservableList<ArrayList<String>> a = FXCollections.observableArrayList();
-        String query = "SELECT a.procedureId," +
-                " a.dateDepart," +
-                " DATE_FORMAT(a.dateDepart," + "'%d-%m-%Y %H:%i:%s') dateDepart," +
-                " a.numArrive, +" +
+        String query = "SELECT a.procedureId,"+
+                " a.dateDepart,"+
+                " DATE_FORMAT(a.dateDepart,"+"'%d-%m-%Y %H:%i:%s') dateDepart," +
+                " a.numArrive, +"+
                 " DATE_FORMAT(a.dateArrive," + "'%d-%m-%Y %H:%i:%s') dateArrive," +
                  "a.numDepart"+
-                " FROM _procedure inner" +
+                " FROM _procedure inner"+
                 " join procedure_concerner_affaire a on `_procedure`.idProcedure = a.procedureId" +
                 " WHERE a.affaireId= ? ORDER BY _procedure.idProcedure  DESC ;";
-
         try {
             PreparedStatement ps = this.connection.prepareStatement(query);
             ps.setInt(1, idAffaire);
@@ -618,20 +588,15 @@ public class AffairDao extends DAO<Affaire> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return a;
-
     }
 
     public ObservableList<ConnexAffairForView> getAllAffaireConnexeWith(Affaire affaire) {
         ObservableList<ConnexAffairForView> a = FXCollections.observableArrayList();
-        String query =" SELECT a.idAffaire AS id," +
-                " a.numAffaire AS num , " +
-                "CONCAT(d.nomDmd,'   ',d.prenomDmd) as demandeur," +
-                " a.situation as situation "+
-                "FROM affaire a inner join demandeur as d on a.demandeurId = d.idDmd " +
-                " where a.terrainId = ?  and a.idAffaire <> ? ; ";
-
+        String query =" SELECT AFF.idAffaire AS id,AFF.numAffaire AS num , " +
+                " CONCAT(d.nomDmd,'   ',d.prenomDmd) as demandeur,AFF.situation as situation ,"+LAST_PROCEDURE+
+                " FROM affaire AFF inner join demandeur as d on AFF.demandeurId = d.idDmd " +
+                "WHERE AFF.terrainId = ?  and AFF.idAffaire <> ? ; ";
         try (PreparedStatement ps = this.connection.prepareStatement(query)){
             ps.setInt(1,affaire.getTerrain().getIdTerrain());
             ps.setInt(2,affaire.getId());
@@ -641,6 +606,7 @@ public class AffairDao extends DAO<Affaire> {
                         rs.getInt("id"),
                         rs.getString("num"),
                         rs.getString("demandeur"),
+                        initSituation(rs.getString("LAST_PROCEDURE")),
                         Affaire.string2AffaireStatus(rs.getString("situation"))));
             }
         } catch (SQLException e) {
@@ -655,11 +621,8 @@ public class AffairDao extends DAO<Affaire> {
         String query ="SELECT distinct year(dateFormulation) AS date_creation," +
                 " ( SELECT count(typeAffaire) from affaire where  typeAffaire = 'ACQUISITION' AND YEAR(dateFormulation) = date_creation ) AS acquisition ," +
                 " ( SELECT COUNT(typeAffaire) from affaire where typeAffaire = 'PRESCRIPTION_ACQUISITIVE' AND YEAR(dateFormulation) = date_creation ) AS prescription FROM affaire GROUP BY date_creation ORDER BY date_creation desc ;";
-
         try (PreparedStatement ps = this.connection.prepareStatement(query)) {
-
             ResultSet rs = ps.executeQuery();
-
             XYChart.Series<String, Number> acquisition = new XYChart.Series<String, Number>();
             acquisition.setName(" Demande d'acquisition");
             XYChart.Series<String, Number> prescrition = new XYChart.Series<String, Number>();
@@ -742,19 +705,14 @@ public class AffairDao extends DAO<Affaire> {
     }
 
     public ArrayList<Integer> getDataForDashboard(String year) {
-
         ArrayList<Integer> integerArrayList = new ArrayList<>();
-
         String query = "SELECT (SELECT COUNT(*) FROM affaire as aff1 WHERE year(AFF.dateFormulation) = year(aff1.dateFormulation) ) as fullTotal , " +
                 "(SELECT COUNT(aff2.idAffaire) FROM affaire as aff2 WHERE aff2.typeAffaire ='ACQUISITION' AND year(aff2.dateFormulation) = year(AFF.dateFormulation)) as aquisitionTotal ," +
-
                 "(SELECT COUNT(idTitre) from titre  where year(titre.dateCreation) = year(AFF.dateFormulation)  AND " +
                 "                          (SELECT a.numAffaire from terrain_aboutir_titre as tat " +
                 "                           inner join terrain t on tat.terrainId = t.idTerrain " +
                 "                           inner join affaire a on t.idTerrain = a.terrainId where (tat.titreId = titre.idTitre AND strcmp(a.situation,'REJETER') <> 0 )) is not null ) as totalTitle " +
-
                 "FROM affaire as AFF where year(AFF.dateFormulation)= ? limit 1;";
-
         try (PreparedStatement ps = this.connection.prepareStatement(query)) {
             ps.setString(1, year);
             ResultSet rs = ps.executeQuery();
@@ -782,5 +740,4 @@ public class AffairDao extends DAO<Affaire> {
         }
         return nb;
     }
-
 }

@@ -1,6 +1,6 @@
 package View.Cell.TableCell;
 
-import View.Model.EditorForView;
+import View.Model.ViewObject.EditorForView;
 import javafx.geometry.Pos;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.TableCell;

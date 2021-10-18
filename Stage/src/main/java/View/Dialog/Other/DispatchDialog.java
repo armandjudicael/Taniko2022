@@ -6,13 +6,15 @@ import Controller.ViewController.MainController;
 import DAO.DbOperation;
 import Model.Enum.Type;
 import Model.Enum.NotifType;
+import Model.Other.Mail;
 import Model.Pojo.Affaire;
 import Model.Pojo.User;
 import Model.Other.MainService;
 import View.Cell.ListCell.DispatchListcell;
-import View.Model.EditorForView;
+import View.Model.ViewObject.EditorForView;
 import View.Helper.Other.AutoCompleteCombobox;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDialog;
 import javafx.application.Platform;
@@ -30,12 +32,6 @@ import java.util.ResourceBundle;
 import java.util.function.Predicate;
 
 public class DispatchDialog extends JFXDialog implements Initializable {
-
-    private static DispatchDialog dispatchDialog;
-    @FXML private JFXComboBox<User> combobox;
-    @FXML private JFXButton closeBtn;
-    @FXML private JFXButton closeBtn1;
-    @FXML private JFXButton addBtn;
 
     private DispatchDialog() {
         try {
@@ -59,18 +55,13 @@ public class DispatchDialog extends JFXDialog implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
-
         closeBtn.setOnAction(event -> this.close());
-
         closeBtn1.setOnAction(event -> this.close());
-
         addBtn.disableProperty().bind(combobox.valueProperty().isNull());
-
         addBtn.setOnAction(event -> {
             this.close();
             MainService.getInstance().launch(insertTask());
         });
-
         combobox.setCellFactory(userListView -> new DispatchListcell());
         new AutoCompleteCombobox<User>(combobox, new Predicate<User>(){
             @Override public boolean test(User user){
@@ -79,30 +70,39 @@ public class DispatchDialog extends JFXDialog implements Initializable {
                     return true;
                 else return false;
             }
-        }, Type.USER);
-
+        },Type.USER);
     }
 
     private Task insertTask() {
         return new Task() {
-            @Override
-            protected Void call() throws Exception {
+            @Override protected void succeeded() {
+                combobox.setValue(null);
+                checkBoxNouvDispatch.setSelected(false);
+            }
+            @Override protected Void call() throws Exception {
                 User user = combobox.getValue();
                 // ajout nouveau redacteur dans la liste
-                EditorViewController.getInstance().getEditorTableView().getItems().add(new EditorForView(Timestamp.valueOf(LocalDateTime.now()), user.getFullName(), user.getPhoto(), user.getId()));
+                EditorViewController.getInstance().getEditorTableView().getItems().add(new EditorForView(Timestamp.valueOf(LocalDateTime.now()),
+                        user.getFullName(),
+                        user.getPhoto(),
+                        user.getId()));
                 Affaire affaire = AffairDetailsController.getAffaire();
-                // recuperation de l'identifiant de l'utilisateur
-                int userId = user.getId();
                 // insertion dans la table des dispatch
                 if (DbOperation.insertOnDispatchTable(user,affaire) == 1) {
+                    if (checkBoxNouvDispatch.isSelected()) Mail.send();
                     String message = user.getPrenom() + " est le nouveau rédacteur de cette affaire ";
                     Platform.runLater(() -> {
-                        Notification.getInstance(message, NotifType.SUCCESS).show();
+                        Notification.getInstance(message, NotifType.SUCCESS).showNotif();
                     });
                 }
-                combobox.setPromptText("");
                 return null;
             }
         };
     }
+    private static DispatchDialog dispatchDialog;
+    @FXML private JFXComboBox<User> combobox;
+    @FXML private JFXButton closeBtn;
+    @FXML private JFXButton closeBtn1;
+    @FXML private JFXButton addBtn;
+    @FXML private JFXCheckBox checkBoxNouvDispatch;
 }

@@ -16,6 +16,7 @@
             <TableColumn fx:id="numAffairConnex" prefWidth="92.0" text="Numero" />
             <TableColumn fx:id="demandeurAffairConnex" prefWidth="256.0" text="Nom du demandeur" />
             <TableColumn fx:id="statusColumn" prefWidth="119.0" text="status" />
+            <TableColumn fx:id="procedureColumn" prefWidth="119.0" text="Procedure Actuel" />
          </columns>
          <opaqueInsets>
             <Insets />

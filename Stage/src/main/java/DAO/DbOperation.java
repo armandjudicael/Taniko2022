@@ -9,8 +9,8 @@ import Model.Pojo.Terrain;
 import Model.Pojo.User;
 import Model.Other.MainService;
 import View.Dialog.Other.Notification;
-import View.Model.ConnexAffairForView;
-import View.Model.ProcedureForView;
+import View.Model.ViewObject.ConnexAffairForView;
+import View.Model.ViewObject.ProcedureForView;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -44,15 +44,11 @@ public class DbOperation {
                    int status = statement.executeUpdate(query);
                    connection.commit();
                    if (status!=0){
-                       Platform.runLater(() -> {
-                           String message = " Mis à jour efféctué avec succès ";
-                           Notification.getInstance(message, NotifType.SUCCESS).show();
-                       });
+                       String message = " Mis à jour efféctué avec succès ";
+                       Notification.getInstance(message, NotifType.SUCCESS).showNotif();
                    }else {
-                       Platform.runLater(() -> {
-                           String message = " échec de la  mis à jour  ";
-                           Notification.getInstance(message, NotifType.WARNING).show();
-                       });
+                       String message = " échec de la  mis à jour  ";
+                       Notification.getInstance(message, NotifType.WARNING).showNotif();
                    }
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();

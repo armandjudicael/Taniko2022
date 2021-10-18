@@ -4,9 +4,9 @@ import DAO.DaoFactory;
 import Model.Enum.AffaireStatus;
 import Model.Enum.Observation;
 import Model.Enum.TypeDemande;
-import View.Model.ConnexAffairForView;
-import View.Model.EditorForView;
-import View.Model.PieceJointeForView;
+import View.Model.ViewObject.ConnexAffairForView;
+import View.Model.ViewObject.EditorForView;
+import View.Model.ViewObject.PieceJointeForView;
 import javafx.collections.ObservableList;
 
 import java.sql.Timestamp;

@@ -7,7 +7,7 @@ import Main.Main;
 import Model.Pojo.User;
 import Model.Other.MainService;
 import View.Helper.Other.DragableStage;
-import View.Model.PasswordView;
+import View.Model.ViewObject.PasswordView;
 import com.jfoenix.controls.JFXButton;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
@@ -39,66 +39,6 @@ import java.sql.Connection;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
-    static LoginController loginController;
-    private static Stage mainStage = null;
-    @FXML private AnchorPane parent;
-    @FXML private AnchorPane adminPane;
-    @FXML private AnchorPane settingPane;
-    @FXML private AnchorPane deconnectedPane;
-    @FXML private AnchorPane loginPane;
-    // HBOX
-    @FXML private HBox passwordBox;
-    @FXML private HBox usernameBox;
-    @FXML private HBox adminPasswordBox;
-    // JFXBUTTON
-    @FXML private JFXButton connectButton;
-    @FXML private JFXButton go2LoginBtn;
-    @FXML private JFXButton configBtn;
-    @FXML private JFXButton exitBtn;
-    @FXML private JFXButton validateAdminBtn;
-    @FXML private JFXButton testConnectionBtn;
-    // TEXTFIELD
-    @FXML private TextField username;
-    @FXML private PasswordField password;
-    @FXML private TextField ip;
-    @FXML private TextField port;
-    @FXML private TextField databaseName;
-    @FXML private TextField dbUser;
-    @FXML private PasswordField adminPassword;
-    @FXML private PasswordField dbPassword;
-    // LABEL
-    @FXML
-    private Label notificationLabel;
-    @FXML
-    private Label userNameLabel;
-    @FXML
-    private Label passwordLabel;
-    @FXML
-    private Label adminPasswordLabel;
-    @FXML
-    private Label connexionNotifLabel;
-    // CHECKBOX
-    @FXML
-    private CheckBox remember;
-    // IMAGEVIEW
-    @FXML
-    private ImageView adminEye;
-    @FXML
-    private ImageView eye;
-    // pane
-    @FXML private ProgressBar progressBar;
-    @FXML private JFXButton sttBtn;
-    @FXML private JFXButton backToLoginBtn;
-
-    private double xoffset = 0;
-    private double yoffset = 0;
-    private static User connectedUser = null;
-    private static Boolean isReacheable = false;
-    private static Connection connection = null;
-
-    final Image finishedImg = new Image(AffairViewController.class.getResourceAsStream("/img/ok_20px.png"));
-    final Image rejectImg = new Image(AffairViewController.class.getResourceAsStream("/img/cancel_20px.png"));
-
     private void checkUser() {
         User userChecked = DaoFactory.getUserDao().findByUserNameAndPassword(username.getText(), password.getText());
         if (userChecked != null) {
@@ -388,4 +328,55 @@ public class LoginController implements Initializable {
     public static Stage getMainStage() {
         return mainStage;
     }
+    static LoginController loginController;
+    private static Stage mainStage = null;
+    @FXML private AnchorPane parent;
+    @FXML private AnchorPane adminPane;
+    @FXML private AnchorPane settingPane;
+    @FXML private AnchorPane deconnectedPane;
+    @FXML private AnchorPane loginPane;
+    // HBOX
+    @FXML private HBox passwordBox;
+    @FXML private HBox usernameBox;
+    @FXML private HBox adminPasswordBox;
+    // JFXBUTTON
+    @FXML private JFXButton connectButton;
+    @FXML private JFXButton go2LoginBtn;
+    @FXML private JFXButton configBtn;
+    @FXML private JFXButton exitBtn;
+    @FXML private JFXButton validateAdminBtn;
+    @FXML private JFXButton testConnectionBtn;
+    // TEXTFIELD
+    @FXML private TextField username;
+    @FXML private PasswordField password;
+    @FXML private TextField ip;
+    @FXML private TextField port;
+    @FXML private TextField databaseName;
+    @FXML private TextField dbUser;
+    @FXML private PasswordField adminPassword;
+    @FXML private PasswordField dbPassword;
+    // LABEL
+    @FXML private Label notificationLabel;
+    @FXML private Label userNameLabel;
+    @FXML private Label passwordLabel;
+    @FXML private Label adminPasswordLabel;
+    @FXML private Label connexionNotifLabel;
+    // CHECKBOX
+    @FXML private CheckBox remember;
+    // IMAGEVIEW
+    @FXML private ImageView adminEye;
+    @FXML private ImageView eye;
+    // pane
+    @FXML private ProgressBar progressBar;
+    @FXML private JFXButton sttBtn;
+    @FXML private JFXButton backToLoginBtn;
+
+    private double xoffset = 0;
+    private double yoffset = 0;
+    private static User connectedUser = null;
+    private static Boolean isReacheable = false;
+    private static Connection connection = null;
+    final Image finishedImg = new Image(AffairViewController.class.getResourceAsStream("/img/ok_20px.png"));
+    final Image rejectImg = new Image(AffairViewController.class.getResourceAsStream("/img/cancel_20px.png"));
+
 }

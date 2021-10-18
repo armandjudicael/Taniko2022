@@ -4,7 +4,7 @@ import DAO.DaoFactory;
 import Main.InitializeApp;
 import Model.Other.MainService;
 import View.Dialog.FormDialog.UserFrom;
-import View.Model.UserForView;
+import View.Model.ViewObject.UserForView;
 import com.jfoenix.controls.JFXButton;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;

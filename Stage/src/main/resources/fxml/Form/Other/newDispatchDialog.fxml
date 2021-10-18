@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
@@ -34,7 +35,7 @@
             <Font name="Century Gothic" size="14.0" />
          </font>
       </JFXButton>
-      <HBox alignment="CENTER_RIGHT" layoutX="22.0" layoutY="80.0" prefHeight="43.0" prefWidth="440.0" styleClass="box" stylesheets="@../../../css/box.css">
+      <HBox alignment="CENTER_RIGHT" layoutX="22.0" layoutY="59.0" prefHeight="43.0" prefWidth="440.0" styleClass="box" stylesheets="@../../../css/box.css">
          <padding>
             <Insets left="2.0" />
          </padding>
@@ -63,5 +64,10 @@
             <Font name="Arial Unicode MS" size="15.0" />
          </font>
       </Label>
+      <JFXCheckBox fx:id="checkBoxNouvDispatch" layoutX="22.0" layoutY="120.0" prefHeight="19.0" prefWidth="440.0" text="Avertir le demandeur par email et SMS" textFill="#464141">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </JFXCheckBox>
    </children>
 </AnchorPane>

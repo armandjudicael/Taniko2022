@@ -10,7 +10,10 @@ import Model.Other.MainService;
 import View.Cell.TableCell.IconCell;
 import View.Dialog.Other.Notification;
 import View.Dialog.SecurityDialog.AdminSecurity;
-import View.Model.ConnexAffairForView;
+import View.Helper.TableColumn.ProcedureColumnFactory;
+import View.Model.ViewObject.AffaireForView;
+import View.Model.ViewObject.ConnexAffairForView;
+import View.Model.ViewObject.ProcedureForTableview;
 import com.jfoenix.controls.JFXButton;
 import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
@@ -21,11 +24,13 @@ import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.Callback;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -43,27 +48,22 @@ public class ConnexViewController implements Initializable {
     @FXML private TableColumn<ConnexAffairForView, String> demandeurAffairConnex;
     @FXML private TableColumn<ConnexAffairForView, String> numAffairConnex;
     @FXML private TableColumn<ConnexAffairForView, ImageView> statusColumn;
-
+    @FXML private TableColumn<ConnexAffairForView, Label> procedureColumn;
 
     private void initializeConnexeTableview() {
         demandeurAffairConnex.setCellValueFactory(features -> new ObservableValue<String>() {
             @Override
             public void addListener(ChangeListener<? super String> changeListener) {
             }
-
             @Override
             public void removeListener(ChangeListener<? super String> changeListener) {
 
             }
-
             @Override public String getValue() {
                 return features.getValue().getNomDemandeur();
             }
-
             @Override public void addListener(InvalidationListener invalidationListener) {
-
             }
-
             @Override
             public void removeListener(InvalidationListener invalidationListener) {
 
@@ -118,6 +118,7 @@ public class ConnexViewController implements Initializable {
 
             }
         });
+        procedureColumn.setCellValueFactory(param -> ProcedureColumnFactory.createLabel(param.getValue().getProcedureForTableview()));
     }
 
     @Override public void initialize(URL location, ResourceBundle resources) {
@@ -148,9 +149,7 @@ public class ConnexViewController implements Initializable {
                 items.forEach(connexAffairForView -> connexAffairForView.setStatus(AffaireStatus.REJECTED));
                 int[] ints = DbOperation.executeBatchRequest(items);
                 if (ints.length == items.size()){
-                    Platform.runLater(() -> {
-                        Notification.getInstance(" Mis a jour effectuer avec succès ",NotifType.SUCCESS).show();
-                    });
+                    Notification.getInstance(" Mis a jour effectuer avec succès ",NotifType.SUCCESS).showNotif();
                 }
                 return null;
             }

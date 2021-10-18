@@ -24,7 +24,6 @@ public class FileChooserDialog {
     public static List<File> getInstance(){
         if (fileChooserDialog==null)
             fileChooserDialog = new FileChooserDialog();
-
         return fileChooser.showOpenMultipleDialog(null);
     }
 

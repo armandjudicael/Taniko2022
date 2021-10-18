@@ -8,6 +8,8 @@ import java.io.*;
 
 public class PieceJointe {
 
+    public PieceJointe() {}
+
     public PieceJointe(int idPieceJointe,
                        String description,
                        String extensionPiece,
@@ -25,18 +27,18 @@ public class PieceJointe {
             String name = selectedFile.getName();
             String[] split = name.split("\\.");
             String description = split[0];
-            String extension = split[1];
+            String extension = split[1].toLowerCase();
             this.setDescription(description);
             this.setExtensionPiece(extension);
             this.valeur = new FileInputStream(selectedFile);
             this.file = selectedFile;
             this.size = calculateFileSize(selectedFile);
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e){
             e.printStackTrace();
         }
     }
 
-    public String calculateFileSize(File file){
+    public String calculateFileSize(File file) {
         long length = FileUtils.sizeOf(file);
         long kilo = length / FileUtils.ONE_KB;
         if (kilo<FileUtils.ONE_KB) return kilo+" Kb";
@@ -44,32 +46,38 @@ public class PieceJointe {
     }
 
     public void download() {
-        if (this.getFile()==null){
-            try {
-                InputStream valeur = this.getInputStream();
-                if (valeur!=null){
-                    File downDirectory = new File(getDownloadDirectory());
-                    if (!downDirectory.exists()) downDirectory.mkdir();
-                    this.file = new File(getDownloadDirectory()+"/"+this.getDescription()+"."+this.getExtensionPiece());
-                    this.file.setReadOnly();
-                    if (!this.file.exists()) FileUtils.copyInputStreamToFile(valeur,this.file);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        try {
+            this.file = new File(getDownloadDirectory()+"/"+this.getDescription()+"."+this.getExtensionPiece());
+            if (!file.exists()) FileUtils.copyInputStreamToFile(DaoFactory.getPieceJointeDao().getAttachementValue(this), this.file);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
     public void visualize(){
-        this.download();
+        if (getFile()==null)
+               this.download();
         HostServices hostServices = Main.getMainApplication().getHostServices();
         hostServices.showDocument(getFile().toURI().toString());
+    }
+
+    private static void initDownloadDirectory(){
+        if (downDirectory ==null){
+            String userName = System.getProperty("user.name");
+            String osName = System.getProperty("os.name");
+            if (osName.startsWith("Mac OS")){
+
+            }else if (osName.startsWith("Windows")){
+                  DOWNLOAD_DIRECTORY = "C:\\Users\\"+userName+"\\Documents\\Taniko";
+            }else DOWNLOAD_DIRECTORY = "/home/"+userName+"/Documents/Taniko";
+            downDirectory = new File(DOWNLOAD_DIRECTORY);
+        }
+        if (!downDirectory.exists()) downDirectory.mkdir();
     }
 
     public int delete(){
        return DaoFactory.getPieceJointeDao().delete(this);
     }
-
     public int getIdPieceJointe() {
         return idPieceJointe;
     }
@@ -117,6 +125,9 @@ public class PieceJointe {
     public static String getDownloadDirectory() {
         return DOWNLOAD_DIRECTORY;
     }
+    public static File getDownloadPathDirectory() {
+        return downDirectory;
+    }
     private int idPieceJointe;
     private String description;
     private String extensionPiece;
@@ -125,14 +136,8 @@ public class PieceJointe {
     private InputStream inputStream;
     private File file;
     private static String DOWNLOAD_DIRECTORY;
+    private static File downDirectory = null;
     static {
-        String userName = System.getProperty("user.name");
-        String osName = System.getProperty("os.name");
-        if (osName.startsWith("Mac OS")){
-        }else if (osName.startsWith("Windows")){
-            DOWNLOAD_DIRECTORY = "C:\\Users\\"+userName+"\\Documents\\Taniko";
-        }else {
-            DOWNLOAD_DIRECTORY = "C:\\Users\\"+userName+"\\Documents\\Taniko";
-        }
+        initDownloadDirectory();
     }
 }

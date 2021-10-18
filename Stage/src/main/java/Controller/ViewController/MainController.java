@@ -11,14 +11,14 @@ import Model.Pojo.User;
 import Model.Other.MainService;
 import View.Dialog.Other.About;
 import View.Dialog.SecurityDialog.AdminSecurity;
-import View.Model.AffaireForView;
+import View.Model.Dialog.AlertDialog;
+import View.Model.ViewObject.AffaireForView;
 import View.Helper.Other.DragableStage;
-import View.Model.UserForView;
+import View.Model.ViewObject.UserForView;
 import animatefx.animation.SlideInRight;
 import com.jfoenix.controls.JFXButton;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -49,50 +49,6 @@ import java.util.*;
 
 public class MainController implements Initializable{
 
-    private final int NAV_POSITION = -500;
-    private static PopOver popOver = null;
-    private final double duration = 200;
-
-    private final Image restoreImg = new Image(getClass().getResourceAsStream("/img/restore_down_30px.png"));
-    private final Image expandImg = new Image(getClass().getResourceAsStream("/img/expand_100px.png"));
-    private final Image deconnectImg = new Image(getClass().getResourceAsStream("/img/export_50px.png"));
-
-    @FXML private Circle navCircle;
-    @FXML private JFXButton hideBtn;
-    @FXML private TilePane navTitlePane;
-    // ICON
-    @FXML private ImageView expandIcon;
-    // STACKPANE
-    @FXML private StackPane appStackPane;
-    @FXML private StackPane mainStackPane;
-    // BORDERPANE
-    @FXML private BorderPane mainPanel;
-    @FXML private BorderPane affaireView;
-
-    @FXML private AnchorPane affaireDetailsView;
-    @FXML private AnchorPane dashboardView;
-    @FXML private VBox titleView;
-    @FXML private AnchorPane navigationView;
-    @FXML private AnchorPane userview;
-    @FXML private AnchorPane userDetailsView;
-    @FXML private AnchorPane menuNav;
-    @FXML private Label userName;
-
-    @FXML private JFXButton acceuilBtn;
-    @FXML private JFXButton affairBtn;
-    @FXML private JFXButton titleBtn;
-    @FXML private JFXButton themeBtn;
-    @FXML private JFXButton agentBtn;
-    @FXML private JFXButton aboutBtn;
-    @FXML private JFXButton settingBtn;
-    @FXML private JFXButton notificationBtn;
-    @FXML private JFXButton exitBtn;
-    @FXML private JFXButton menuBtn;
-    @FXML private JFXButton delTextField;
-    @FXML private TextField searchTextField;
-    private Circle userProfil;
-    private static MainController mainController = null;
-
     private static void showUserForm() {
         AnchorPane userForm = MainController.getInstance().getUserDetailsView();
         popOver.hide();
@@ -107,46 +63,44 @@ public class MainController implements Initializable{
     }
 
     private void initializeNavigation() {
+        initButtonAction();
+        initNavigationCircle();
+    }
 
+    private void initNavigationCircle(){
         navCircle.setSmooth(true);
         navCircle.setFocusTraversable(true);
         navCircle.setFill(new ImagePattern(new Image(getClass().getResourceAsStream("/img/tuscany(3).png"))));
 
+    }
+
+    private void initButtonAction(){
         hideBtn.setOnAction(event -> {
             navigationView.toBack();
         });
-
         menuBtn.setOnAction(event -> {
             navigationView.toFront();
         });
-
         exitBtn.setOnAction(event -> {
             quitTheProgram(event);
             navigationView.toBack();
         });
-
         acceuilBtn.setOnAction(event -> showDashboardView(event));
         affairBtn.setOnAction(event -> showAffaireView(event));
         titleBtn.setOnAction(event -> showTitleView(event));
-
         aboutBtn.setOnAction(event -> {
             navigationView.toBack();
             About.getInstance().show();
         });
-
         agentBtn.setOnAction(event -> {
-                navigationView.toBack();
+            navigationView.toBack();
             if (!isToFront("userview"))
                 AdminSecurity.show(Origin.SHOW_USER_PANEL);
         });
-
         delTextField.setOnAction(event -> searchTextField.setText(""));
-        ObservableList<Node> nodeObservableList = FXCollections.observableArrayList();
-        Collections.copy(navTitlePane.getChildren(),nodeObservableList);
     }
 
     public void animateMenuNavigation(double duration, Node node, int valueX) {
-
         TranslateTransition translateTransition = new TranslateTransition(new Duration( duration ),node);
         translateTransition.setByX(valueX);
         translateTransition.play();
@@ -186,7 +140,6 @@ public class MainController implements Initializable{
 
     private void hyperlinkHandle(ActionEvent event) {
         int userDetailsId = UserDetailsController.getUserDetailsId();
-
         if (userDetailsId == 0 || userDetailsId != LoginController.getConnectedUser().getId()) // 0 if panel haven' t info
             initializeUserDetails();
         // disable the details panel
@@ -229,7 +182,6 @@ public class MainController implements Initializable{
                 return null;
             }
         });
-
     }
 
     @Deprecated
@@ -290,7 +242,6 @@ public class MainController implements Initializable{
     }
 
     private void initializeUserDetails() {
-
         User connectedUser = LoginController.getConnectedUser();
         UserDetailsController.getInstance().getNameLabel().setText(connectedUser.getNom());
         UserDetailsController.getInstance().getFirstNameLabel().setText(connectedUser.getPrenom());
@@ -369,17 +320,11 @@ public class MainController implements Initializable{
     }
 
     public void quitTheProgram(ActionEvent actionEvent){
-
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, " Etes-vous sure de vouloir quitter l'application ? ", ButtonType.OK, ButtonType.NO);
-        Optional<ButtonType> buttonType = alert.showAndWait();
-        if (buttonType.isPresent()) {
-            ButtonType buttonType1 = buttonType.get();
-            if (buttonType1.equals(ButtonType.OK)) {
-                DbOperation.launchQuery(" UPDATE utilisateur SET userStatus = 0 WHERE utilisateur.idUtilisateur =" + LoginController.getConnectedUser().getId() + ";");
-                Platform.exit();
-            }
-        }
-
+        AlertDialog.getInstance(Alert.AlertType.CONFIRMATION," Etes-vous sure de vouloir quitter l'application ? ").showAndWait()
+                .filter(response -> response == ButtonType.OK).ifPresent(buttonType1 -> {
+            DbOperation.launchQuery(" UPDATE utilisateur SET userStatus = 0 WHERE utilisateur.idUtilisateur =" + LoginController.getConnectedUser().getId() + ";");
+            Platform.exit();
+        });
     }
 
     public AnchorPane getAffaireDetailsView() {
@@ -407,10 +352,54 @@ public class MainController implements Initializable{
         Alert alert = new Alert(Alert.AlertType.INFORMATION, " fonctionnalité indisponible ");
         alert.showAndWait();
     }
+
     public static MainController getInstance() {
         return mainController;
     }
     public StackPane getAppStackPane() {
         return appStackPane;
     }
+    private final int NAV_POSITION = -500;
+    private static PopOver popOver = null;
+    private final double duration = 200;
+
+    private final Image restoreImg = new Image(getClass().getResourceAsStream("/img/restore_down_30px.png"));
+    private final Image expandImg = new Image(getClass().getResourceAsStream("/img/expand_100px.png"));
+    private final Image deconnectImg = new Image(getClass().getResourceAsStream("/img/export_50px.png"));
+
+    @FXML private Circle navCircle;
+    @FXML private JFXButton hideBtn;
+    @FXML private TilePane navTitlePane;
+    // ICON
+    @FXML private ImageView expandIcon;
+    // STACKPANE
+    @FXML private StackPane appStackPane;
+    @FXML private StackPane mainStackPane;
+    // BORDERPANE
+    @FXML private BorderPane mainPanel;
+    @FXML private BorderPane affaireView;
+
+    @FXML private AnchorPane affaireDetailsView;
+    @FXML private AnchorPane dashboardView;
+    @FXML private VBox titleView;
+    @FXML private AnchorPane navigationView;
+    @FXML private AnchorPane userview;
+    @FXML private AnchorPane userDetailsView;
+    @FXML private AnchorPane menuNav;
+    @FXML private Label userName;
+
+    @FXML private JFXButton acceuilBtn;
+    @FXML private JFXButton affairBtn;
+    @FXML private JFXButton titleBtn;
+    @FXML private JFXButton themeBtn;
+    @FXML private JFXButton agentBtn;
+    @FXML private JFXButton aboutBtn;
+    @FXML private JFXButton settingBtn;
+    @FXML private JFXButton notificationBtn;
+    @FXML private JFXButton exitBtn;
+    @FXML private JFXButton menuBtn;
+    @FXML private JFXButton delTextField;
+    @FXML private TextField searchTextField;
+    private Circle userProfil;
+    private static MainController mainController = null;
 }

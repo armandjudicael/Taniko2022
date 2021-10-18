@@ -150,7 +150,7 @@ public class UserDetailsController implements Initializable {
         }
         if (status == 1) {
          String message = " Mis a jour effectuer avec succès";
-         Notification.getInstance(message, NotifType.SUCCESS).show();
+         Notification.getInstance(message, NotifType.SUCCESS).showNotif();
         }
     }
 

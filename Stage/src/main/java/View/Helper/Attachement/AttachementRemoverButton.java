@@ -5,9 +5,9 @@ import Model.Enum.NotifType;
 import Model.Other.MainService;
 import Model.Pojo.PieceJointe;
 import View.Dialog.Other.Notification;
-import View.Model.PieceJointeForView;
+import View.Model.Dialog.AlertDialog;
+import View.Model.ViewObject.PieceJointeForView;
 import com.jfoenix.controls.JFXButton;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -16,7 +16,6 @@ import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,52 +27,45 @@ public class AttachementRemoverButton implements EventHandler<ActionEvent>{
         button.setOnAction(this);
     }
 
-    @Override
-    public void handle(ActionEvent event){
+    @Override public void handle(ActionEvent event){
         List<Node> collect = attachementList.stream().filter(node -> {
             PieceJointeForView pieceJointeForView = (PieceJointeForView) node;
             boolean selected = pieceJointeForView.getPieceCheckbox().isSelected();
-            if (selected) {
+            if (selected){
                 if (isOnDetailsView)
                     removalAttachements.add(pieceJointeForView.getPieceJointe());
-                return true;
-            }
+                return true;}
             else return false;
         }).collect(Collectors.toList());
         if (!collect.isEmpty()){
           removeAttachement(collect);
-        }else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText(" Veuillez cochez le(s) pièce(s) jointe à supprimer ");
-            alert.showAndWait();
-        }
+        }else AlertDialog.getInstance(Alert.AlertType.ERROR, "Veuillez cochez le(s) pièce(s) jointe à supprimer ").show();
     }
 
     private void removeAttachement(List<Node> collect){
         if (!isOnDetailsView)
             attachementList.removeAll(collect);
         else{
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setContentText(" Etes-vous sur de vouloir supprimer ce(s) "+collect.size()+" piece jointe(s) ?");
-            alert.showAndWait().ifPresent(buttonType -> {
-                if (buttonType.equals(ButtonType.OK)){
-                    attachementList.removeAll(collect);
-                    MainService.getInstance().launch(new Task<Void>() {
-                        @Override protected Void call() throws Exception {
-                            int[] ints = DaoFactory.getPieceJointeDao().removeAll(removalAttachements);
-                            if (collect.size() == ints.length)
-                                Platform.runLater(() -> Notification.getInstance(collect.size()+" Pièce(s) jointe(s) supprimé(s) avec succés",NotifType.SUCCESS).show());
-                            return null;
-                        }
-                        @Override protected void scheduled() {
-                         // C'EST ICI QU'ON BIND AFFICHE LA PROGRESSBAR DE SUPPRESSION
-                        }
-                        @Override protected void succeeded() {
-                           removalAttachements.clear();
-                        }
+            String message =" Etes-vous sur de vouloir supprimer ce(s) "+collect.size()+" piece jointe(s) ?";
+            AlertDialog.getInstance(Alert.AlertType.CONFIRMATION,message).showAndWait()
+                    .filter(response -> response == ButtonType.OK)
+                    .ifPresent(response -> {
+                        attachementList.removeAll(collect);
+                        MainService.getInstance().launch(new Task<Void>() {
+                            @Override protected Void call() throws Exception {
+                                int[] ints = DaoFactory.getPieceJointeDao().removeAll(removalAttachements);
+                                if (collect.size() == ints.length)
+                                    Notification.getInstance(collect.size()+" Pièce(s) jointe(s) supprimé(s) avec succés",NotifType.SUCCESS).showNotif();
+                                return null;
+                            }
+                            @Override protected void scheduled() {
+                                // C'EST ICI QU'ON BIND AFFICHE LA PROGRESSBAR DE SUPPRESSION
+                            }
+                            @Override protected void succeeded() {
+                                removalAttachements.clear();
+                            }
+                        });
                     });
-                }
-            });
         }
     }
     private Boolean isOnDetailsView;

@@ -1,9 +1,13 @@
 package View.Helper.Attachement;
 
 import Controller.detailsController.PieceJointeViewController;
+import Model.Enum.NotifType;
 import Model.Other.MainService;
 import Model.Pojo.PieceJointe;
-import View.Model.PieceJointeForView;
+import View.Dialog.Other.Notification;
+import View.Helper.Other.TanikoProgress;
+import View.Model.Dialog.AlertDialog;
+import View.Model.ViewObject.PieceJointeForView;
 import com.jfoenix.controls.JFXButton;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
@@ -12,13 +16,12 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.TilePane;
 
 import java.awt.*;
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import java.util.Locale;
 import java.util.stream.Collectors;
 
 public class AttachementDownloaderButton implements EventHandler<ActionEvent>{
@@ -27,60 +30,70 @@ public class AttachementDownloaderButton implements EventHandler<ActionEvent>{
         button.setOnAction(this);
         this.isOnDetails = isOnDetails;
     }
+
     @Override public void handle(ActionEvent event){
-        Task<Void> task = new Task<>() {
+        Task<Void> task = new Task<Void>() {
             @Override protected Void call() throws Exception {
-                if (isOnDetails) downloadAllSelectedAttachement();
-                else downloadSelectedAttachement();
+                if (isOnDetails){
+                    downloadAllSelectedAttachement();
+                }else downloadSelectedAttachement();
                 return null;
             }
-            @Override protected void scheduled() {}
-            @Override protected void succeeded(){
-               openExplorer();
+            @Override protected void succeeded() {
+                resetStatus();
             }
         };
+        TanikoProgress.getInstance(task,"Chargement des fichiers .........");
         MainService.getInstance().launch(task);
     }
+
+    private void resetStatus(){
+        PieceJointeViewController instance = PieceJointeViewController.getInstance();
+        TilePane pjTilepane = instance.getPjTilepane();
+        ObservableList<Node> children = pjTilepane.getChildren();
+        children.forEach(node -> {
+            PieceJointeForView pieceJointeForView = (PieceJointeForView) node;
+            pieceJointeForView.getPieceCheckbox().setSelected(false);
+        });
+    }
+
     private void downloadAllSelectedAttachement(){
         PieceJointeViewController instance = PieceJointeViewController.getInstance();
         TilePane pjTilepane = instance.getPjTilepane();
         ObservableList<Node> children = pjTilepane.getChildren();
         List<Node> collect = children.stream().filter(node -> {
             PieceJointeForView pieceJointeForView = (PieceJointeForView) node;
-            PieceJointe pieceJointe = pieceJointeForView.getPieceJointe();
             if (pieceJointeForView.getPieceCheckbox().isSelected()){
-                pieceJointe.download();
+                pieceJointeForView.getPieceJointe().download();
                 return true; }
             else return false;
         }).collect(Collectors.toList());
-
         if (collect.isEmpty()){
             Platform.runLater(() -> {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setContentText(" Veuillez cochez le(s) piece(s) jointe(s) a télécharger !");
-                alert.show();
+                String message = "Veuillez cochez le(s) piece(s) jointe(s) a télécharger !";
+                AlertDialog.getInstance(Alert.AlertType.ERROR,message).showAndWait();
             });
-        }
-
+        }else openExplorer();
     }
+
     private void downloadSelectedAttachement(){
         AttachementPopup.getInstance().hide();
         PieceJointe selectedAttachement = AttachementPopup.getSelectedAttachement();
         selectedAttachement.download();
+        openExplorer();
     }
 
     private void openExplorer(){
        if (Desktop.isDesktopSupported()){
            try {
                if (desktop==null) desktop = Desktop.getDesktop();
-               desktop.open(new File(PieceJointe.getDownloadDirectory()));
+               desktop.open(PieceJointe.getDownloadPathDirectory());
            } catch (IOException e) {
                e.printStackTrace();
            }
        }
     }
 
-    private static String path = "";
     private static Desktop desktop;
     private Boolean isOnDetails;
 }

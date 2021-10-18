@@ -4,7 +4,7 @@ import Controller.detailsController.UserDetailsController;
 import Controller.ViewController.LoginController;
 import Controller.ViewController.MainController;
 import Model.Pojo.User;
-import View.Model.PasswordView;
+import View.Model.ViewObject.PasswordView;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXProgressBar;

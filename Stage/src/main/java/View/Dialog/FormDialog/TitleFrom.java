@@ -175,7 +175,7 @@ public class TitleFrom extends JFXDialog implements Initializable {
         titre.setId(id);
 
         if (DaoFactory.getTitreDao().update(titre) != 0) {
-            Platform.runLater(() -> Notification.getInstance(" Mis à jour titre avec succès ", NotifType.SUCCESS).show());
+            Platform.runLater(() -> Notification.getInstance(" Mis à jour titre avec succès ", NotifType.SUCCESS).showNotif());
         }
 
     }
@@ -192,7 +192,7 @@ public class TitleFrom extends JFXDialog implements Initializable {
                     // mis a jour de l'affichage
                     TableView<Titre> titreTableView = TitleViewController.getInstance().getTableView();
                     titreTableView.getItems().add(titre);
-                    Notification.getInstance("Le titre N° " + numeroPropriete.getText() + " est enrégistrer avec succès", NotifType.SUCCESS).show();
+                    Notification.getInstance("Le titre N° " + numeroPropriete.getText() + " est enrégistrer avec succès", NotifType.SUCCESS).showNotif();
                 });
             }
         }

@@ -32,7 +32,7 @@ public class About extends JFXDialog implements Initializable{
         }
     }
 
-    public static About getInstance() {
+    public static About getInstance(){
         if (about == null)
             about = new About();
         return about;

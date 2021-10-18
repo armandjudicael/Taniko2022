@@ -5,7 +5,7 @@ import Model.Enum.NotifType;
 import Model.Other.MainService;
 import Model.Pojo.PieceJointe;
 import View.Dialog.Other.Notification;
-import View.Model.PieceJointeForView;
+import View.Model.ViewObject.PieceJointeForView;
 import com.jfoenix.controls.JFXButton;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
@@ -22,7 +22,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class AttachementPopup extends PopOver implements Initializable {
-
     public AttachementPopup(){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/View/Other/AttachementPopOver.fxml"));
@@ -59,8 +58,7 @@ public class AttachementPopup extends PopOver implements Initializable {
     private void deleteAttachement(ActionEvent event){
         this.hide();
         MainService.getInstance().launch(new Task<Void>() {
-            @Override
-            protected Void call() throws Exception {
+            @Override protected Void call() throws Exception {
                 int deleteStatus = selectedAttachement.delete();
                 if (deleteStatus==1){
                     Platform.runLater(() -> {
@@ -68,14 +66,12 @@ public class AttachementPopup extends PopOver implements Initializable {
                         boolean remove = pjTilepane.getChildren().remove((PieceJointeForView)jfxButton.getParent());
                         if (remove){
                             String message = " Piece jointe supprimé avec suucès ";
-                            Notification.getInstance(message, NotifType.SUCCESS).show();
+                            Notification.getInstance(message, NotifType.SUCCESS).showNotif();
                         }
                     });
                 }else {
-                    Platform.runLater(() -> {
-                        String message = " Impossible de supprimer la piece jointe "+selectedAttachement.getDescription()+"."+selectedAttachement.getExtensionPiece();
-                        Notification.getInstance(message, NotifType.WARNING).show();
-                    });
+                    String message = " Impossible de supprimer la piece jointe "+selectedAttachement.getDescription()+"."+selectedAttachement.getExtensionPiece();
+                    Notification.getInstance(message, NotifType.WARNING).showNotif();
                 }
                 return null;
             }

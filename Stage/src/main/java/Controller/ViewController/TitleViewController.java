@@ -15,7 +15,7 @@ import View.Cell.TableCell.NumeroTitreCell;
 import View.Dialog.FormDialog.TitleFrom;
 import View.Dialog.Other.Notification;
 import View.Dialog.SecurityDialog.AdminSecurity;
-import View.Model.AffaireForView;
+import View.Model.ViewObject.AffaireForView;
 import View.Helper.Other.CheckboxTooltip;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
@@ -403,7 +403,7 @@ public class TitleViewController implements Initializable {
                         tableView.getItems().remove(selectedItem);
                         InitializeApp.getTitres().remove(selectedItem);
                         String message = "Le titre foncier  N° "+selectedItem.getNumero()+" a été supprimé avec succès";
-                        Notification.getInstance(message, NotifType.SUCCESS).show();
+                        Notification.getInstance(message, NotifType.SUCCESS).showNotif();
                     });
                 }
                 return null;

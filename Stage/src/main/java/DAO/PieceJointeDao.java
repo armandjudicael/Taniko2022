@@ -2,25 +2,21 @@ package DAO;
 
 import Model.Pojo.Affaire;
 import Model.Pojo.PieceJointe;
-import View.Model.PieceJointeForView;
+import View.Model.ViewObject.PieceJointeForView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.Node;
 
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 
 public class PieceJointeDao extends DAO<PieceJointe> {
 
     public PieceJointeDao(Connection connection) {
         super(connection);
     }
-
     @Override public int create(PieceJointe pieceJointe){
         return 0;
     }
@@ -122,6 +118,19 @@ public class PieceJointeDao extends DAO<PieceJointe> {
             e.printStackTrace();
         }
       return null;
+    }
+
+    public InputStream getAttachementValue(PieceJointe pieceJointe){
+        String query = "SELECT valeurPiece FROM piecejointe WHERE idPieceJointe = ? ";
+        try(PreparedStatement ps = connection.prepareStatement(query)){
+            ps.setInt(1,pieceJointe.getIdPieceJointe());
+            ResultSet rs = ps.executeQuery();
+            while (rs.next())
+                 return rs.getBinaryStream("valeurPiece");
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override public int delete(PieceJointe pieceJointe) {

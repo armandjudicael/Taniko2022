@@ -8,7 +8,7 @@ import Model.Enum.NotifType;
 import Model.Enum.TypeDemande;
 import Model.Other.MainService;
 import View.Dialog.Other.Notification;
-import View.Model.ProcedureForView;
+import View.Model.ViewObject.ProcedureForView;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import javafx.application.Platform;
@@ -26,17 +26,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class NewProcedureDialog extends JFXDialog implements Initializable {
-
-    private static NewProcedureDialog newProcedureDialog;
-    @FXML
-    private JFXButton closeBtn;
-    @FXML
-    private JFXButton closeBtn1;
-    @FXML
-    private JFXButton addBtn;
-    @FXML
-    private TextArea procedureName;
-
     private NewProcedureDialog() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Form/Other/newProcedureForm.fxml"));
@@ -56,8 +45,7 @@ public class NewProcedureDialog extends JFXDialog implements Initializable {
         return newProcedureDialog;
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    @Override public void initialize(URL url, ResourceBundle resourceBundle) {
         addBtn.disableProperty().bind(procedureName.textProperty().isEmpty());
         closeBtn.setOnAction(event -> this.close());
         closeBtn1.setOnAction(event -> this.close());
@@ -81,29 +69,31 @@ public class NewProcedureDialog extends JFXDialog implements Initializable {
                 String type = typeDemande.equals(TypeDemande.ACQUISITION) ? "A" : "P";
                 // SAVE THE PROCEDURE ON THE DATABASE
                 int status = DaoFactory.getProcedureDao().create(name,type);
-
-                if (status !=0) {
+                if (status!=0){
                     // INSERT ON THE FILE SYSTEM
                     int idprcd = DaoFactory.getProcedureDao().getLastInsertId();
-
-                    ProcedureForView view = new ProcedureForView(idprcd,
+                    ProcedureForView view = new ProcedureForView(
+                            idprcd,
                             new SimpleStringProperty(name),
                             new SimpleStringProperty(""),
                             new SimpleBooleanProperty(false),
                             new SimpleStringProperty(""),
                             new SimpleStringProperty(""),
                             new SimpleStringProperty(""));
-
                     ProcedureViewController.getInstance().getProcedureTableView().getItems().add(view);
                     Platform.runLater(() -> {
                         procedureName.setText("");
-                        Notification.getInstance("Nouveau procedure enrégistré avec succès", NotifType.SUCCESS).show();
+                        Notification.getInstance("Nouveau procedure enrégistré avec succès", NotifType.SUCCESS).
+                                showNotif();
                     });
-
                 }
                 return null;
             }
         };
     }
-
+    private static NewProcedureDialog newProcedureDialog;
+    @FXML private JFXButton closeBtn;
+    @FXML private JFXButton closeBtn1;
+    @FXML private JFXButton addBtn;
+    @FXML private TextArea procedureName;
 }

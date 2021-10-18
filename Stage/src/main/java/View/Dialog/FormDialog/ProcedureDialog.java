@@ -6,8 +6,8 @@ import Controller.ViewController.MainController;
 import Model.Enum.NotifType;
 import Model.Other.MainService;
 import View.Dialog.Other.Notification;
-import View.Model.AffaireForView;
-import View.Model.ProcedureForView;
+import View.Model.ViewObject.AffaireForView;
+import View.Model.ViewObject.ProcedureForView;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXDialog;
@@ -138,7 +138,8 @@ public class ProcedureDialog extends JFXDialog implements Initializable {
         }
         numProcedure.setText("");
         if (value == 1)
-            Platform.runLater(() -> Notification.getInstance(" Procedure enrégistré avec succès ", NotifType.SUCCESS).show());
+            Platform.runLater(() -> Notification.getInstance(" Procedure enrégistré avec succès ", NotifType.SUCCESS).
+                    showNotif());
 
     }
 

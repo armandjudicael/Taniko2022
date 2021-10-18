@@ -370,7 +370,7 @@
 package View.Helper.Other;
 
 import Model.Enum.ColumType;
-import View.Model.ProcedureForView;
+import View.Model.ViewObject.ProcedureForView;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import javafx.event.EventHandler;

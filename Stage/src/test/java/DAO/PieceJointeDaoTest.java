@@ -2,9 +2,8 @@ package DAO;
 
 import Model.Pojo.Affaire;
 import Model.Pojo.PieceJointe;
-import View.Model.PieceJointeForView;
+import View.Model.ViewObject.PieceJointeForView;
 import javafx.collections.ObservableList;
-import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

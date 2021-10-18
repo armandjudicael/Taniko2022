@@ -5,7 +5,7 @@ import View.Cell.ListCell.ConnexeListCell;
 import View.Cell.ListCell.DispatchListcell;
 import View.Cell.ListCell.StatusCell;
 import View.Dialog.FormDialog.MainAffaireForm;
-import View.Model.ConnexAffairForView;
+import View.Model.ViewObject.ConnexAffairForView;
 import View.Helper.Other.AutoCompleteCombobox;
 import View.Helper.Other.NumeroChecker;
 import com.jfoenix.controls.*;

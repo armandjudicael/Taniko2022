@@ -1,6 +1,6 @@
 package View.Cell.ListCell;
 
-import View.Model.ConnexAffairForView;
+import View.Model.ViewObject.ConnexAffairForView;
 import javafx.geometry.Pos;
 import javafx.scene.control.ListCell;
 import javafx.scene.image.Image;

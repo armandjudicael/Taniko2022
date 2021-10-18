@@ -67,5 +67,17 @@
             </ImageView>
          </graphic>
       </JFXButton>
+      <JFXButton fx:id="checkBtn" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" layoutX="106.0" layoutY="539.0" prefHeight="35.0" prefWidth="43.0" style="-fx-background-color: #389955;" text="ajouter" textFill="WHITE" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="106.0">
+         <font>
+            <Font name="Century Gothic" size="14.0" />
+         </font>
+         <graphic>
+            <ImageView fx:id="checkBtnImageView" fitHeight="23.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../img/checked_checkbox_40px.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
    </children>
 </AnchorPane>

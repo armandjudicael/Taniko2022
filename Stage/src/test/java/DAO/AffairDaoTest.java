@@ -1,16 +1,7 @@
 package DAO;
 
-import View.Model.AffaireForView;
-import View.Model.ConnexAffairForView;
-import javafx.collections.ObservableList;
-import org.assertj.core.api.AssertionErrorCollector;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
-
-import static org.junit.Assert.*;
 
 public class AffairDaoTest {
 

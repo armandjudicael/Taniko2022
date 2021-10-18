@@ -11,13 +11,12 @@ import Model.Pojo.Terrain;
 import Model.Pojo.Titre;
 import Model.Pojo.User;
 import Model.Other.MainService;
-import View.Dialog.FormDialog.MainAffaireForm;
 import View.Dialog.FormDialog.TitleFrom;
 import View.Dialog.Other.TitreMereEditDialog;
 import View.Dialog.SecurityDialog.AdminSecurity;
 import View.Dialog.SecurityDialog.EditorSecurity;
-import View.Model.AffaireForView;
-import View.Model.ConnexAffairForView;
+import View.Model.ViewObject.AffaireForView;
+import View.Model.ViewObject.ConnexAffairForView;
 import animatefx.animation.SlideInLeft;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
@@ -140,6 +139,7 @@ public class AffairDetailsController implements Initializable {
             executeQuery(query);
         }
     }
+
     private void editAdresseDemandeur(TextInputDialog dialog, Affaire affaire) {
         String adress = this.getAdresse().getText();
         ImageView imageView = new ImageView(new Image("/img/male_user_80px.png"));
@@ -153,6 +153,7 @@ public class AffairDetailsController implements Initializable {
             executeQuery(query);
         }
     }
+
     private void editParcelleDemandeur(TextInputDialog dialog, Affaire affaire) {
         String parcelle = this.getParcelleDemandeur().getText();
         ImageView imageView = new ImageView(new Image("/img/male_user_80px.png"));
@@ -166,6 +167,7 @@ public class AffairDetailsController implements Initializable {
             executeQuery(query);
         }
     }
+
     private void editLotDemandeur(TextInputDialog dialog, Affaire affaire){
         String lot = this.getLot().getText();
         ImageView imageView = new ImageView(new Image("/img/male_user_80px.png"));
@@ -179,6 +181,7 @@ public class AffairDetailsController implements Initializable {
             executeQuery(query);
         }
     }
+
     @FXML public void actionOnAffaire(ActionEvent actionEvent) {
         if (!EditorSecurity.getRemember()){
             AffaireForView selectedItem = AffairViewController.getInstance().getTableView().getSelectionModel().getSelectedItem();
@@ -203,6 +206,7 @@ public class AffairDetailsController implements Initializable {
                 editOperation(actionEvent, AffairDetailsController.affaire);
         }
     }
+
     private void editNumeroAffaire(TextInputDialog dialog, Affaire affaire) {
         String numAffaire = this.getNumeroAffaire().getText();
         ImageView imageView = new ImageView(new Image("/img/folder_50px.png"));
@@ -242,6 +246,7 @@ public class AffairDetailsController implements Initializable {
             executeQuery(query);
         }
     }
+
     private void editTypeDemande(Affaire affaire) {
         String type[] = {"ACQUISITION", "PRESCRIPTION_ACQUISITIVE","AFFECTATION"};
         ChoiceDialog<String> dialog = new ChoiceDialog<>(type[0], type);
@@ -252,6 +257,7 @@ public class AffairDetailsController implements Initializable {
             executeQuery(query);
         }
     }
+
     private void editStatus(Affaire affaire){
         String type[] = {"En cours", "Suspendu", "Terminé", "Réjété"};
         ChoiceDialog<String> dialog = new ChoiceDialog<>(type[0], type);
@@ -280,6 +286,7 @@ public class AffairDetailsController implements Initializable {
             executeQuery(query);
         }
     }
+
     private void editSuperficie(Affaire affaire){
         if (superficieDialog == null){
 
@@ -351,6 +358,7 @@ public class AffairDetailsController implements Initializable {
         }
 
     }
+
     private void editSise(TextInputDialog dialog, Affaire affaire) {
         String numAffaire = this.getSise().getText();
         dialog.setHeaderText("Entrer l'adresse du terrain ");
@@ -362,6 +370,7 @@ public class AffairDetailsController implements Initializable {
             executeQuery(query);
         }
     }
+
     private void editParcelleTerrain(TextInputDialog dialog, Affaire affaire){
         String numAffaire = this.getParcelleTerrain().getText();
         dialog.setHeaderText("Entrer le parcelle du terrain");
@@ -374,6 +383,7 @@ public class AffairDetailsController implements Initializable {
         }
 
     }
+
     private void editDistrict(TextInputDialog dialog, Affaire affaire) {
         String district = this.getDistrict().getText();
         dialog.setHeaderText("Entrer le district du terrain");
@@ -385,6 +395,7 @@ public class AffairDetailsController implements Initializable {
             executeQuery(query);
         }
     }
+
     private void editOperation(ActionEvent actionEvent, Affaire affaire) {
         TextInputDialog dialog = new TextInputDialog();
         if (actionEvent.getSource() == edtNameDmdBtn) { editNomDemandeur(dialog, affaire); }
@@ -406,6 +417,7 @@ public class AffairDetailsController implements Initializable {
             TitreMereEditDialog.getInstance().show();
         }
     }
+
     private void editCommune(TextInputDialog dialog, Affaire affaire) {
         String commune = this.getCommune().getText();
         dialog.setHeaderText("Entrer le commune ");

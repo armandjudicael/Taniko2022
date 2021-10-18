@@ -8,16 +8,17 @@ import Model.Enum.NotifType;
 import Model.Enum.Origin;
 import Model.Enum.TypeDemande;
 import Model.Pojo.*;
-import Model.Other.ProcedureForTableview;
+import View.Helper.TableColumn.ProcedureColumnFactory;
+import View.Model.ViewObject.*;
 import Model.Other.MainService;
 import View.Cell.TableCell.IconCell;
 import View.Dialog.FormDialog.MainAffaireForm;
 import View.Dialog.Other.Notification;
 import View.Dialog.SecurityDialog.AdminSecurity;
-import View.Model.*;
 import View.Helper.Other.CheckboxTooltip;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
+import com.jfoenix.controls.JFXProgressBar;
 import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.beans.binding.Bindings;
@@ -50,39 +51,52 @@ public class AffairViewController implements Initializable {
 
     public void initializeDetailsData(Affaire affaire) {
         AffairDetailsController.setAffaire(affaire);
+        // initialisation de la vue avec les données de l'affaire
+        initializeDetailsView(affaire);
         // initialisation de la liste des redacteurs
         initializeEditorTableView(affaire);
         // initialisation de la liste des affaires connexe
         if (affaire.getTypeDemande().equals(TypeDemande.ACQUISITION))
             initializeConnexeTableView(affaire);
-        // initialisation de la vue avec les données de l'affaire
-        initializeDetailsView(affaire);
         // initialisation de la liste des procedures concerné par l'affaires
         initializeProcedureTableView(affaire);
         // INITIALIZATION DE LA LISTE DES PIECES JOINTE CONCERNANT L'AFFAIRE
-        initAttachement(affaire);
+        initAttachementView(affaire);
     }
-    public void initAttachement(Affaire affaire){
-        ObservableList<PieceJointeForView> allPieceJointe = DaoFactory.getPieceJointeDao().getAllPieceJointe(affaire);
-        ObservableList<Node> children = PieceJointeViewController.getInstance().getPjTilepane().getChildren();
-        Platform.runLater(() -> {
-            children.clear();
-            if (!allPieceJointe.isEmpty()){
-                children.setAll(allPieceJointe);
-                PieceJointeViewController.getAttachementList().setAll(allPieceJointe);
+
+    public void initAttachementView(Affaire affaire){
+        JFXProgressBar attachementProgress = PieceJointeViewController.getInstance().getAttachementProgress();
+        Task<Void> attachementTask = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                ObservableList<PieceJointeForView> allPieceJointe = DaoFactory.getPieceJointeDao().getAllPieceJointe(affaire);
+                ObservableList<Node> children = PieceJointeViewController.getInstance().getPjTilepane().getChildren();
+                Platform.runLater(() -> {
+                    children.clear();
+                    if (!allPieceJointe.isEmpty()){
+                        children.setAll(allPieceJointe);
+                        PieceJointeViewController.getAttachementList().setAll(allPieceJointe);
+                    }
+                } );
+                return null;
             }
-        } );
+            @Override protected void scheduled() {
+              attachementProgress.progressProperty().unbind();
+              attachementProgress.visibleProperty().unbind();
+              attachementProgress.visibleProperty().bind(this.runningProperty());
+              attachementProgress.progressProperty().bind(this.progressProperty());
+            }
+        };
+        MainService.getInstance().launch(attachementTask);
     }
+
     private void initImage() {
         runningImg = new Image(Objects.requireNonNull(AffairViewController.class.getResourceAsStream("/img/play1_20px.png")));
         suspendImg = new Image(Objects.requireNonNull(AffairViewController.class.getResourceAsStream("/img/pause_20px.png")));
         finishedImg = new Image(Objects.requireNonNull(AffairViewController.class.getResourceAsStream("/img/ok_20px.png")));
         rejectImg = new Image(Objects.requireNonNull(AffairViewController.class.getResourceAsStream("/img/cancel_20px.png")));
-
-        goImg = new Image(Objects.requireNonNull(AffairViewController.class.getResourceAsStream("/img/go1.png")));
-        backImg = new Image(Objects.requireNonNull(AffairViewController.class.getResourceAsStream("/img/back.png")));
-        noneImg = new Image(Objects.requireNonNull(AffairViewController.class.getResourceAsStream("/img/none.png")));
     }
+
     @Override public void initialize(URL location, ResourceBundle resources) {
         new CheckboxTooltip("rechercher dans la liste courante ou global",match);
         affairViewController = this;
@@ -95,10 +109,12 @@ public class AffairViewController implements Initializable {
         initializeContextMenu();
         titledPane.setExpanded(true);
     }
+
     private void initSearch() {
         delTextfield.visibleProperty().bind(searchInput.textProperty().isNotEqualTo("").or(searchInput.textProperty().isNotEmpty()));
         delTextfield.setOnAction(event -> searchInput.setText(""));
     }
+
     private void initButton(){
         launchSearchBtn.setOnAction(event -> {
             MainService.getInstance().launch(new Task<Void>() {
@@ -234,7 +250,7 @@ public class AffairViewController implements Initializable {
                         if (selectedItem != null) {
                             if (DaoFactory.getAffaireDao().deleteById(selectedItem) == 1) {
                                 Platform.runLater(() -> {
-                                    Notification.getInstance(" L'affaire N° " + selectedItem.getNumero() + " est supprimé avec succès ", NotifType.SUCCESS).show();
+                                    Notification.getInstance(" L'affaire N° " + selectedItem.getNumero() + " est supprimé avec succès ", NotifType.SUCCESS).showNotif();
                                     tableView.getItems().remove(selectedItem);
                                 });
                             }
@@ -335,7 +351,7 @@ public class AffairViewController implements Initializable {
         });
         yearFilter.getSelectionModel().selectedItemProperty().addListener(this::yearFilterChanged);
     }
-    private void initializeTableView() {
+    private void initializeTableView(){
         tableView.getSelectionModel().selectedItemProperty().addListener((observableValue, affairForView, t1) -> {
             if (t1 != null) {
                 if (t1.getTypeDemande().equals(TypeDemande.PRESCRIPTION))
@@ -545,54 +561,7 @@ public class AffairViewController implements Initializable {
             }
         });
         // situation
-        situation.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<AffaireForView, Label>, ObservableValue<Label>>() {
-            @Override
-            public ObservableValue<Label> call(TableColumn.CellDataFeatures<AffaireForView, Label> param) {
-                return new ObservableValue<Label>() {
-                    @Override
-                    public void addListener(ChangeListener<? super Label> listener) {
-
-                    }
-
-                    @Override
-                    public void removeListener(ChangeListener<? super Label> listener) {
-
-                    }
-
-                    @Override
-                    public Label getValue() {
-
-                        ProcedureForTableview procedure = param.getValue().getProcedure();
-                        Label label = new Label(procedure.getDescription());
-                        label.setWrapText(true);
-                        label.setGraphicTextGap(10);
-                        switch (procedure.getStatus()) {
-                            case GO: {
-                                label.setGraphic(new ImageView(goImg));
-                            }
-                            break;
-                            case BACK: {
-                                label.setGraphic(new ImageView(backImg));
-                            }
-                            break;
-                            case NONE: {
-                                label.setGraphic(new ImageView(noneImg));
-                            }
-                            break;
-                        }
-                        return label;
-                    }
-
-                    @Override
-                    public void addListener(InvalidationListener listener) {
-                    }
-
-                    @Override
-                    public void removeListener(InvalidationListener listener) {
-                    }
-                };
-            }
-        });
+        situation.setCellValueFactory(param -> ProcedureColumnFactory.createLabel(param.getValue().getProcedureForTableView()));
         // type
         type.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<AffaireForView, String>, ObservableValue<String>>() {
             @Override
@@ -660,9 +629,10 @@ public class AffairViewController implements Initializable {
             }
         });
     }
+
     public ImageView getStatusIcon(AffaireStatus status) {
         switch (status) {
-            case SUCCEED: {
+            case SUCCEED:{
                 return new ImageView(AffairViewController.getFinishedImg());
             }
             case RUNNING: {
@@ -679,7 +649,7 @@ public class AffairViewController implements Initializable {
         }
     }
     private void yearFilterChanged(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-        if (newValue != null) {
+        if (newValue != null){
             MainService.getInstance().launch(new Task<Void>() {
                 @Override
                 protected Void call() throws Exception {
@@ -703,13 +673,20 @@ public class AffairViewController implements Initializable {
         initializeSearchTextField();
     }
     // ALL_AFF_DETAILS_VIEW_BTN INITIALISATION
-    private void initializeEditorTableView(Affaire affaire) {
-        ArrayList<EditorForView> arrayList = affaire.getAllEditor();
-        SimpleStringProperty tab = new SimpleStringProperty("redacteur (" + String.valueOf(arrayList.toArray().length) + ")");
-        EditorViewController.getInstance().getEditorTableView().getItems().setAll(arrayList);
-        Platform.runLater(() -> {
-            AffairDetailsController.getInstance().getRedacteurTab().textProperty().bind(tab);
-        });
+    private void initializeEditorTableView(Affaire affaire){
+        Task<Void> editorTask = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                ArrayList<EditorForView> arrayList = affaire.getAllEditor();
+                SimpleStringProperty tab = new SimpleStringProperty("redacteur (" + String.valueOf(arrayList.toArray().length) + ")");
+                EditorViewController.getInstance().getEditorTableView().getItems().setAll(arrayList);
+                Platform.runLater(() -> {
+                    AffairDetailsController.getInstance().getRedacteurTab().textProperty().bind(tab);
+                });
+                return null;
+            }
+        };
+        MainService.getInstance().launch(editorTask);
     }
     public void showDetails() {
         // afficher le panneau
@@ -718,9 +695,6 @@ public class AffairViewController implements Initializable {
         show(affaire);
     }
     public void show(Affaire affaire) {
-        MainService.getInstance().launch(new Task<Void>() {
-            @Override
-            protected Void call() throws Exception {
                 // VERIFIER SI L'AFFAIRE EST DEJA OUVERT
                 Affaire detailsAffaire = AffairDetailsController.getAffaire();
                 if (detailsAffaire == null){
@@ -728,27 +702,35 @@ public class AffairViewController implements Initializable {
                 }else if(detailsAffaire.getId()!=affaire.getId()){
                     initializeDetailsData(affaire);
                 }
+    }
+    private void initializeProcedureTableView(Affaire affaire){
+        Task<Void> procedureTask = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                TableView<ProcedureForView> procedureTableView = ProcedureViewController.getInstance().getProcedureTableView();
+                ObservableList<ProcedureForView> items = procedureTableView.getItems();
+                TypeDemande typeDemande = affaire.getTypeDemande();
+                if (procedureTab == null)
+                    procedureTab = new ObservableList[2];
+                if (typeDemande.equals(TypeDemande.ACQUISITION)) {
+                    if (procedureTab[ACQUISITION_AND_AFFECTATION_INDEX] == null)
+                        procedureTab[ACQUISITION_AND_AFFECTATION_INDEX] = DaoFactory.getProcedureDao().getAllProcedureFromBD("A");
+                    items.setAll(procedureTab[ACQUISITION_AND_AFFECTATION_INDEX]);
+                } else {
+                    if (procedureTab[PRESCRIPTION_INDEX] == null)
+                        procedureTab[PRESCRIPTION_INDEX] = DaoFactory.getProcedureDao().getAllProcedureFromBD("P");
+                    items.setAll(procedureTab[PRESCRIPTION_INDEX]);
+                }
+                initAffaireProcedure(affaire, items);
                 return null;
             }
-        });
+            @Override
+            protected void scheduled() {
+            }
+        };
+        MainService.getInstance().launch(procedureTask);
     }
-    private void initializeProcedureTableView(Affaire affaire) {
-        TableView<ProcedureForView> procedureTableView = ProcedureViewController.getInstance().getProcedureTableView();
-        ObservableList<ProcedureForView> items = procedureTableView.getItems();
-        TypeDemande typeDemande = affaire.getTypeDemande();
-        if (procedureTab == null)
-            procedureTab = new ObservableList[2];
-        if (typeDemande.equals(TypeDemande.ACQUISITION)) {
-            if (procedureTab[ACQUISITION_AND_AFFECTATION_INDEX] == null)
-                procedureTab[ACQUISITION_AND_AFFECTATION_INDEX] = DaoFactory.getProcedureDao().getAllProcedureFromBD("A");
-            items.setAll(procedureTab[ACQUISITION_AND_AFFECTATION_INDEX]);
-        } else {
-            if (procedureTab[PRESCRIPTION_INDEX] == null)
-                procedureTab[PRESCRIPTION_INDEX] = DaoFactory.getProcedureDao().getAllProcedureFromBD("P");
-            items.setAll(procedureTab[PRESCRIPTION_INDEX]);
-        }
-        initAffaireProcedure(affaire, items);
-    }
+
     public void initAffaireProcedure(Affaire affaire, ObservableList<ProcedureForView> itemList) {
         ObservableList<ArrayList<String>> viewArrayList = affaire.getAllProcedureChecked();
         itemList.forEach(procedureForView -> {
@@ -778,65 +760,79 @@ public class AffairViewController implements Initializable {
         }
     }
     private void initializeDetailsView(Affaire affaire) {
-        Demandeur demandeur = DaoFactory.getDemandeurDao().findDemandeurBy(affaire.getId());
-        affaire.setDemandeur(demandeur);
-        Terrain terrain = DaoFactory.getTerrainDao().find(affaire.getTerrain().getIdTerrain());
-        Platform.runLater(() -> {
-            // afficher le numero de l'affaire selectionner
-            AffairDetailsController.getInstance().getSelectedAffaire().setText(affaire.getNumero());
-            AffairDetailsController controller = AffairDetailsController.getInstance();
-            controller.getNumeroAffaire().setText(affaire.getNumero());
-            controller.getDateFromulation().setText(affaire.getDateDeFormulation().toString());
-            controller.getTypeDemande().setText(typeDemande2String(affaire.getTypeDemande()));
-            controller.getNom().setText(demandeur.getNom());
-            controller.getPrenom().setText(demandeur.getPrenom());
-            controller.getAdresse().setText(demandeur.getAdresse());
-            controller.getParcelleDemandeur().setText(demandeur.getParcelle());
-            controller.getLot().setText(demandeur.getLot());
-            controller.getSise().setText(terrain.getQuartier());
-            controller.getParcelleTerrain().setText(terrain.getParcelle());
-            controller.getCommune().setText(terrain.getCommune());
-            controller.getDistrict().setText(terrain.getDistrict());
-            controller.getRegion().setText(terrain.getRegion());
-            controller.getSuperficie().setText(terrain.getSuperficie());
-            Titre titreDependant = terrain.getTitreDependant();
-
-            if (titreDependant!=null){
-                controller.getNomPropriete().setText(titreDependant.toString());
-            }
-            Label statusLabel = controller.getStatusLabel();
-            System.out.println(affaire.getStatus());
-            switch (affaire.getStatus()) {
-                case SUCCEED: {
-                    statusLabel.setGraphic(new ImageView(finishedImg));
-                    statusLabel.setText(" Terminé ");
-                }
-                break;
-                case RUNNING: {
-                    statusLabel.setGraphic(new ImageView(runningImg));
-                    statusLabel.setText(" En cours");
-                }
-                break;
-                case SUSPEND: {
-                    statusLabel.setGraphic(new ImageView(suspendImg));
-                    statusLabel.setText(" Suspendu ");
-                }
-                break;
-                case REJECTED: {
-                    statusLabel.setGraphic(new ImageView(rejectImg));
-                    statusLabel.setText(" Réjété ");
-                }
-                break;
+        MainService.getInstance().launch(new Task<Void>() {
+            @Override protected Void call() throws Exception {
+                Demandeur demandeur = DaoFactory.getDemandeurDao().findDemandeurBy(affaire.getId());
+                affaire.setDemandeur(demandeur);
+                Terrain terrain = DaoFactory.getTerrainDao().find(affaire.getTerrain().getIdTerrain());
+                Platform.runLater(() -> {
+                    // afficher le numero de l'affaire selectionner
+                    AffairDetailsController.getInstance().getSelectedAffaire().setText(affaire.getNumero());
+                    AffairDetailsController controller = AffairDetailsController.getInstance();
+                    controller.getNumeroAffaire().setText(affaire.getNumero());
+                    controller.getDateFromulation().setText(affaire.getDateDeFormulation().toString());
+                    controller.getTypeDemande().setText(typeDemande2String(affaire.getTypeDemande()));
+                    controller.getNom().setText(demandeur.getNom());
+                    controller.getPrenom().setText(demandeur.getPrenom());
+                    controller.getAdresse().setText(demandeur.getAdresse());
+                    controller.getParcelleDemandeur().setText(demandeur.getParcelle());
+                    controller.getLot().setText(demandeur.getLot());
+                    controller.getSise().setText(terrain.getQuartier());
+                    controller.getParcelleTerrain().setText(terrain.getParcelle());
+                    controller.getCommune().setText(terrain.getCommune());
+                    controller.getDistrict().setText(terrain.getDistrict());
+                    controller.getRegion().setText(terrain.getRegion());
+                    controller.getSuperficie().setText(terrain.getSuperficie());
+                    Titre titreDependant = terrain.getTitreDependant();
+                    if (titreDependant!=null){
+                        controller.getNomPropriete().setText(titreDependant.toString());
+                    }
+                    Label statusLabel = controller.getStatusLabel();
+                    System.out.println(affaire.getStatus());
+                    switch (affaire.getStatus()) {
+                        case SUCCEED: {
+                            statusLabel.setGraphic(new ImageView(finishedImg));
+                            statusLabel.setText(" Terminé ");
+                        }
+                        break;
+                        case RUNNING: {
+                            statusLabel.setGraphic(new ImageView(runningImg));
+                            statusLabel.setText(" En cours");
+                        }
+                        break;
+                        case SUSPEND: {
+                            statusLabel.setGraphic(new ImageView(suspendImg));
+                            statusLabel.setText(" Suspendu ");
+                        }
+                        break;
+                        case REJECTED: {
+                            statusLabel.setGraphic(new ImageView(rejectImg));
+                            statusLabel.setText(" Réjété ");
+                        }
+                        break;
+                    }
+                });
+                return null;
             }
         });
     }
     private void initializeConnexeTableView(Affaire affaire){
-        ObservableList<ConnexAffairForView> connexAffairForViews = affaire.getAllAffaireConnexe();
-        // Binder le nombre d'affaire connexe sur l'entete avec le nombre de ligne de la listView
-        SimpleStringProperty tab = new SimpleStringProperty("connexe (" + String.valueOf(connexAffairForViews.size()) + ")");
-        ConnexViewController.getInstance().getConnexeTableView().getItems().clear();
-        if(!connexAffairForViews.isEmpty()) ConnexViewController.getInstance().getConnexeTableView().getItems().setAll(connexAffairForViews);
-        Platform.runLater(() -> AffairDetailsController.getInstance().getConnexeTab().textProperty().bind(tab));
+        Task<Void> connexTask = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                ObservableList<ConnexAffairForView> connexAffairForViews = affaire.getAllAffaireConnexe();
+                // Binder le nombre d'affaire connexe sur l'entete avec le nombre de ligne de la listView
+                SimpleStringProperty tab = new SimpleStringProperty("connexe (" + String.valueOf(connexAffairForViews.size()) + ")");
+                ConnexViewController.getInstance().getConnexeTableView().getItems().clear();
+                if(!connexAffairForViews.isEmpty()) ConnexViewController.getInstance().getConnexeTableView().getItems().setAll(connexAffairForViews);
+                Platform.runLater(() -> AffairDetailsController.getInstance().getConnexeTab().textProperty().bind(tab));
+                return null;
+            }
+            @Override protected void scheduled() {
+
+            }
+        };
+        MainService.getInstance().launch(connexTask);
     }
     public TableView<AffaireForView> getTableView() {
         return tableView;
@@ -869,9 +865,6 @@ public class AffairViewController implements Initializable {
     private static Image suspendImg;
     private static Image finishedImg;
     private static Image rejectImg;
-    private static Image goImg;
-    private static Image backImg;
-    private static Image noneImg;
     private final int ACQUISITION_AND_AFFECTATION_INDEX = 0;
     private final int PRESCRIPTION_INDEX = 1;
     @FXML private JFXButton launchSearchBtn;

@@ -1,8 +1,8 @@
 package Main;
 
 import Model.Pojo.Titre;
-import View.Model.AffaireForView;
-import View.Model.UserForView;
+import View.Model.ViewObject.AffaireForView;
+import View.Model.ViewObject.UserForView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

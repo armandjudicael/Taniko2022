@@ -105,12 +105,12 @@ public class TitreMereEditDialog extends JFXDialog  implements Initializable {
                 Platform.runLater(() -> {
                     nomPropriete.setText(newValue.toString());
                     String message = " Mis à jour enregistré avec succès ";
-                    Notification.getInstance(message, NotifType.SUCCESS).show();
+                    Notification.getInstance(message, NotifType.SUCCESS).showNotif();
                 });
             }else {
                 Platform.runLater(() -> {
                     String message = " Echec de la mise a jour de la titre mère ";
-                    Notification.getInstance(message, NotifType.WARNING).show();
+                    Notification.getInstance(message, NotifType.WARNING).showNotif();
                 });
             }
     }

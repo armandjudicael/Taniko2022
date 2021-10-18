@@ -5,6 +5,7 @@ import Model.Enum.*;
 import com.jfoenix.controls.*;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Dialog;
 import javafx.scene.layout.*;
 
 import java.io.IOException;

@@ -11,7 +11,7 @@ import View.Cell.TableCell.PhotoColumnCell;
 import View.Dialog.Other.Notification;
 import View.Dialog.SecurityDialog.AdminSecurity;
 import View.Dialog.SecurityDialog.EditorSecurity;
-import View.Model.EditorForView;
+import View.Model.ViewObject.EditorForView;
 import com.jfoenix.controls.JFXButton;
 import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
@@ -194,29 +194,23 @@ public class EditorViewController implements Initializable {
         return new Task() {
 
             @Override protected Void call() throws Exception {
-
                 int idUser = editorTableView
                         .getSelectionModel()
                         .getSelectedItem().getId();
-
                 Affaire affaire = AffairViewController.getInstance().getTableView().getSelectionModel().getSelectedItem();
-
                 if (DbOperation.deleteOnAffaireUtilisateurTable(idUser,affaire.getId()) == 1) {
-
                     Platform.runLater(() -> {
                         editorTableView.getItems().remove(
                                 editorTableView.
                                         getSelectionModel().getSelectedItem());
-                        String message = "Suppression effectué avec succes";
-                        Notification.getInstance(message,NotifType.SUCCESS).show();
                     });
-
+                    String message = "Suppression effectué avec succes";
+                    Notification.getInstance(message,NotifType.SUCCESS).showNotif();
                 }
                 return null;
             }
 
         };
-
     }
 
     public static EditorViewController getInstance() {

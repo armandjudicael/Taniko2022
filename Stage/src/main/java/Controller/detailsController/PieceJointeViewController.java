@@ -3,16 +3,14 @@ package Controller.detailsController;
 import Controller.ViewController.AffairViewController;
 import Model.Other.MainService;
 import Model.Pojo.PieceJointe;
-import View.Model.PieceJointeForView;
-import View.Helper.Attachement.AttachementCreatorButton;
-import View.Helper.Attachement.AttachementDownloaderButton;
-import View.Helper.Attachement.AttachementRemoverButton;
+import View.Helper.Attachement.*;
+import View.Model.ViewObject.PieceJointeForView;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXProgressBar;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -21,38 +19,39 @@ import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.TilePane;
+
+import java.io.Serializable;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
-public class PieceJointeViewController implements Initializable {
-
-    @Override public void initialize(URL location,ResourceBundle resources){
+public class PieceJointeViewController implements Initializable, Serializable{
+    public PieceJointeViewController(){
+    }
+    @Override public void initialize(URL location, ResourceBundle resources){
       pieceJointeViewController = this;
       initButtonAction();
       initPieceJointeSearchTexfield();
     }
-
     private void initButtonAction(){
         ObservableList<Node> children = pjTilepane.getChildren();
         new AttachementCreatorButton(newPieceBtn,children,true);
         new AttachementRemoverButton(delPieceBtn,children,true);
         new AttachementDownloaderButton(downBtn,true);
+        new AttachementCheckerButton(checkBtn,children);
         refreshBtn.setOnAction(this::refreshAttachementList);
         BooleanBinding emptyAttachement = Bindings.isEmpty(children);
         delPieceBtn.disableProperty().bind(emptyAttachement);
         downBtn.disableProperty().bind(emptyAttachement);
+        checkBtn.disableProperty().bind(emptyAttachement);
         initDeleteSearchBtn();
     }
-
     private void initDeleteSearchBtn(){
         deleteSearch.visibleProperty().bind(pjSearchTextField.textProperty().isNotEmpty());
         deleteSearch.setOnAction(event ->pjSearchTextField.clear());
     }
-
     private void initPieceJointeSearchTexfield(){
-
         pjSearchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             ObservableList<Node> children = pjTilepane.getChildren();
             if (newValue.isEmpty()){
@@ -74,7 +73,6 @@ public class PieceJointeViewController implements Initializable {
         });
     }
 
-    public TilePane getPjTilepane() { return pjTilepane; }
     public static PieceJointeViewController getInstance() {
         return pieceJointeViewController;
     }
@@ -82,13 +80,27 @@ public class PieceJointeViewController implements Initializable {
         MainService.getInstance().launch(new Task<Void>() {
             @Override
             protected Void call() throws Exception {
-                AffairViewController.getInstance().initAttachement(AffairDetailsController.getAffaire());
+                AffairViewController.getInstance().initAttachementView(AffairDetailsController.getAffaire());
                 return null;
+            }
+            @Override protected void scheduled() {
+                attachementProgress.progressProperty().unbind();
+                attachementProgress.visibleProperty().unbind();
+                attachementProgress.visibleProperty().bind(this.runningProperty());
+                attachementProgress.progressProperty().bind(this.progressProperty());
             }
         });
     }
-
+    public JFXButton getCheckBtn() {
+        return checkBtn;
+    }
     private static PieceJointeViewController pieceJointeViewController;
+    public TilePane getPjTilepane() { return pjTilepane; }
+    public static  ObservableList<Node> getAttachementList() {
+        return attachementList;
+    }
+    private static ObservableList<Node> attachementList = FXCollections.observableArrayList();
+    public JFXProgressBar getAttachementProgress() { return attachementProgress; }
     @FXML private AnchorPane pieceJointePanel;
     @FXML private TilePane pjTilepane;
     @FXML private JFXButton newPieceBtn;
@@ -98,8 +110,6 @@ public class PieceJointeViewController implements Initializable {
     @FXML private JFXButton deleteSearch;
     @FXML private JFXButton downBtn;
     @FXML private JFXButton refreshBtn;
-    public static  ObservableList<Node> getAttachementList() {
-        return attachementList;
-    }
-    private static ObservableList<Node> attachementList = FXCollections.observableArrayList();
+    @FXML private JFXButton checkBtn;
+    @FXML private JFXProgressBar attachementProgress;
 }

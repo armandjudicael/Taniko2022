@@ -1,30 +1,25 @@
 package Controller.FormController;
 
 import DAO.DaoFactory;
+import Model.Enum.NotifType;
 import Model.Other.MainService;
 import Model.Pojo.*;
+import View.Dialog.Other.Notification;
+import View.Helper.Attachement.AttachementCheckerButton;
 import View.Helper.Attachement.AttachementCreatorButton;
 import View.Helper.Attachement.AttachementRemoverButton;
 import com.jfoenix.controls.JFXButton;
-import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
 import javafx.scene.layout.TilePane;
-
-import java.io.File;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class PieceJointeFormController implements Initializable{
-
-    private static List<File> pieceJointeFiles;
-
     @Override public void initialize(URL url, ResourceBundle resourceBundle) {
         initBtnAction();
     }
@@ -32,7 +27,9 @@ public class PieceJointeFormController implements Initializable{
         ObservableList<Node> children = pjTilepane.getChildren();
         new AttachementCreatorButton(newPieceBtn,children,false);
         new AttachementRemoverButton(delPieceBtn,children,false);
+        new AttachementCheckerButton(checkBtn,children);
         delPieceBtn.disableProperty().bind(Bindings.isEmpty(children));
+        checkBtn.disableProperty().bind(Bindings.isEmpty(children));
         pjPrevBtn.setOnAction(event -> MainAffaireFormController.updateLabelAndShowPane(pjPrevBtn));
         saveBtn.setOnAction(event -> {
             MainService.getInstance().launch(new Task<Void>() {
@@ -41,15 +38,11 @@ public class PieceJointeFormController implements Initializable{
                     affaire.setId(16);
                     int[] all = DaoFactory.getPieceJointeDao().createAll(AttachementCreatorButton.getAttachementList(),affaire);
                     if (children.size() == all.length){
-                        Platform.runLater(() -> {
-                            Alert alert = new Alert(Alert.AlertType.CONFIRMATION," Piece jointe enregistré avdec succès ");
-                            alert.showAndWait();
-                        });
+                            String message = " Piece jointe enregistré avdec succès ";
+                            Notification.getInstance(message, NotifType.SUCCESS).showNotif();
                     }else {
-                        Platform.runLater(() -> {
-                            Alert alert = new Alert(Alert.AlertType.ERROR," Echec de l'enregistrement des pieces jointes ");
-                            alert.showAndWait();
-                        });
+                        String message = " Echec de l'enregistrement des pieces jointes ";
+                        Notification.getInstance(message,NotifType.WARNING).showNotif();
                     }
                     return null;
                 }
@@ -178,6 +171,7 @@ public class PieceJointeFormController implements Initializable{
 //        return null;
 //    }
 
+    @FXML private JFXButton checkBtn;
     @FXML private TilePane pjTilepane;
     @FXML private JFXButton newPieceBtn;
     @FXML private JFXButton delPieceBtn;
