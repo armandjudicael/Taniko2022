@@ -17,9 +17,10 @@
       <TableView fx:id="tableview" layoutX="25.0" layoutY="28.0" prefHeight="376.0" prefWidth="1120.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0">
          <columns>
             <TableColumn fx:id="numero" prefWidth="176.0" text="Numero" />
-            <TableColumn fx:id="applicantName" prefWidth="650.0" text="Nom du demandeur" />
+            <TableColumn fx:id="applicantName" prefWidth="650.0" text="Nom du demandeurPhysique" />
             <TableColumn fx:id="statusColumn" prefWidth="74.0" text="status" />
             <TableColumn fx:id="dateDispatch" maxWidth="250.0" prefWidth="250.0" text="date dispatch" />
+            <TableColumn fx:id="dateDispatch1" maxWidth="250.0" prefWidth="250.0" text="situation actuelle" />
          </columns>
       </TableView>
       <AnchorPane layoutX="40.0" layoutY="238.0" prefHeight="60.0" prefWidth="200.0" AnchorPane.bottomAnchor="402.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="238.0">
@@ -73,10 +74,16 @@
             </HBox>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="14.0" layoutY="44.0" prefHeight="182.0" prefWidth="1200.0" stylesheets="@../../../css/carousel.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="44.0">
-         <children>
-            <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" layoutY="40.0" prefHeight="108.0" prefWidth="50.0" text="Button" AnchorPane.bottomAnchor="34.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="40.0" />
-         </children>
-      </AnchorPane>
+      <JFXButton fx:id="refreshBtn1" buttonType="RAISED" layoutX="40.0" layoutY="8.0" prefHeight="33.0" prefWidth="69.0" style="-fx-background-color: #3CB371;" text="next" textFill="WHITE">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="refreshBtn11" buttonType="RAISED" layoutX="120.0" layoutY="8.0" prefHeight="33.0" prefWidth="69.0" style="-fx-background-color: #3CB371;" text="prev" textFill="WHITE">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </JFXButton>
+      <HBox layoutX="40.0" layoutY="57.0" prefHeight="168.0" prefWidth="1120.0" />
    </children>
 </AnchorPane>

@@ -1,9 +1,9 @@
 package View.Dialog.SecurityDialog;
 
-import Controller.detailsController.*;
-import Controller.ViewController.LoginController;
-import Controller.ViewController.AffairViewController;
-import Controller.ViewController.MainController;
+import controller.detailsController.*;
+import controller.viewController.LoginController;
+import controller.viewController.AffairViewController;
+import controller.viewController.MainController;
 import Main.InitializeApp;
 import Model.Enum.Origin;
 import Model.Pojo.Affaire;
@@ -135,10 +135,10 @@ public class EditorSecurity extends JFXDialog implements Initializable {
         password.setText("");
         switch (origin) {
             case EDITOR_VIEW_BTN: {
-                EditorViewController.getInstance().launchAction(actionEvent);
+                RedacteurInfoController.getInstance().launchAction(actionEvent);
             }break;
             case PROCEDURE_VIEW_BTN: {
-                ProcedureViewController.getInstance().launchAction(actionEvent);
+                ProcedureInfoController.getInstance().launchAction(actionEvent);
             }break;
             case USER_DETAILS_LOCK_BTN: {
                 UserDetailsController.getInstance().unlock();

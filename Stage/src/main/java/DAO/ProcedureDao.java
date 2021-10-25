@@ -14,7 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class ProcedureDao extends DAO<Procedure> {
+public class ProcedureDao extends Dao implements DaoHelper<Procedure> {
 
     public ProcedureDao(Connection connection) {
         super(connection);

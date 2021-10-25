@@ -1,8 +1,8 @@
 package View.Dialog.FormDialog;
 
-import Controller.detailsController.ProcedureViewController;
-import Controller.ViewController.AffairViewController;
-import Controller.ViewController.MainController;
+import controller.detailsController.ProcedureInfoController;
+import controller.viewController.AffairViewController;
+import controller.viewController.MainController;
 import DAO.DaoFactory;
 import Model.Enum.NotifType;
 import Model.Enum.TypeDemande;
@@ -80,7 +80,7 @@ public class NewProcedureDialog extends JFXDialog implements Initializable {
                             new SimpleStringProperty(""),
                             new SimpleStringProperty(""),
                             new SimpleStringProperty(""));
-                    ProcedureViewController.getInstance().getProcedureTableView().getItems().add(view);
+                    ProcedureInfoController.getInstance().getProcedureTableView().getItems().add(view);
                     Platform.runLater(() -> {
                         procedureName.setText("");
                         Notification.getInstance("Nouveau procedure enrégistré avec succès", NotifType.SUCCESS).

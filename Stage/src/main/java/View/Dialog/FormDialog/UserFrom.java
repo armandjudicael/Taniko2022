@@ -1,12 +1,14 @@
 package View.Dialog.FormDialog;
 
-import Controller.ViewController.MainController;
-import Controller.ViewController.UserViewController;
+import controller.viewController.MainController;
+import controller.viewController.UserViewController;
 import DAO.DaoFactory;
 import Main.InitializeApp;
+import Model.Enum.FileChooserType;
 import Model.Enum.NotifType;
 import Model.Pojo.User;
 import Model.Other.MainService;
+import View.Dialog.Other.FileChooserDialog;
 import View.Dialog.Other.Notification;
 import View.Model.ViewObject.PasswordView;
 import View.Model.ViewObject.UserForView;
@@ -16,7 +18,6 @@ import com.jfoenix.controls.JFXProgressBar;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ObservableValue;
-import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -31,7 +32,6 @@ import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
-import javafx.stage.FileChooser;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -39,52 +39,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
-public class UserFrom extends JFXDialog implements Initializable {
-    private static UserFrom userFrom;
-    private static File file = null;
-    private static Pattern lowercase = Pattern.compile("[a-z]"); // Au moins 1 caractere minuscule
-    private static Pattern uppercase = Pattern.compile("[A-Z]"); // Au moins 1 Caractere majuscule
-    private static Pattern number = Pattern.compile("[0-9]"); // Au moins 1 chiffre
-    private static Pattern specialCharacter = Pattern.compile("[!@#%^&*()\\-,;ù^$:_+.]"); // Au moins caractere special
-    private final Image profilImg = new Image(getClass().getResourceAsStream("/img/camera_10px.png"));
-    @FXML private Circle photo;
-    @FXML private TextField name;
-    @FXML private TextArea fonction;
-    @FXML private HBox passIcon;
-    @FXML private PasswordField passworld;
-    @FXML private ImageView eye;
-    @FXML private PasswordField passworld1;
-    @FXML private ImageView eye1;
-    @FXML private Label passworldLabel;
-    @FXML private TextField firstName;
-    @FXML private JFXProgressBar progressBar;
-    @FXML private Label passwordStrengh;
-    @FXML private TextField userName;
-    @FXML private JFXButton saveBtn;
-    @FXML private ComboBox<String> type;
-    @FXML
-    private JFXButton closeBtn;
-    @FXML
-    private JFXButton closeStage;
-    @FXML
-    private JFXButton addPhoto;
-
-    private Service<Void> saveUserService = new Service<Void>() {
-        @Override
-        protected Task<Void> createTask() {
-            return new Task<Void>() {
-                @Override
-                protected Void call() throws Exception {
-                    enregistrer();
-                    return null;
-                }
-            };
-        }
-    };
-
+public class UserFrom extends JFXDialog implements Initializable{
     public UserFrom() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Form/Other/UserForm.fxml"));
@@ -122,7 +81,7 @@ public class UserFrom extends JFXDialog implements Initializable {
         userFrom = this;
         initializeType();
         initializePassworldField();
-        photo.setOnMouseClicked(this::photoClicked);
+        photo.setOnMouseClicked(this::photoButtonClicked);
         saveBtn.setOnAction(event -> {
             this.close();
             MainService.getInstance().launch(new Task<Void>() {
@@ -135,7 +94,7 @@ public class UserFrom extends JFXDialog implements Initializable {
         });
         closeStage.setOnAction(event -> this.close());
         closeBtn.setOnAction(event -> this.close());
-        addPhoto.setOnAction(event -> photoClicked(null));
+        addPhoto.setOnAction(event -> photoButtonClicked(null));
         initializeButtonBinding();
         // initialiser l'image
         photo.setFill(new ImagePattern(profilImg));
@@ -146,29 +105,21 @@ public class UserFrom extends JFXDialog implements Initializable {
         progressBar.visibleProperty().bind(Bindings.not(passworld.textProperty().isEmpty().or(passworld.textProperty().isEqualTo(""))));
     }
 
-    void photoClicked(MouseEvent event) {
-
-        FileChooser fileChooser = new FileChooser();
-        // Add Extension Filters
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("JPG", "*.jpg"),
-                new FileChooser.ExtensionFilter("PNG", "*.png"));
-        file = fileChooser.showOpenDialog(null);
+    void photoButtonClicked(MouseEvent event) {
+        List<File> fileList = FileChooserDialog.getInstance(FileChooserType.SINGLE);
+        file = fileList.get(0);
         if (file != null) {
             Platform.runLater(
                     () -> {
                         try {
-                            photo.setFill(new ImagePattern(new Image(file.toURI().toURL().toString())));
+                            photo.setFill(new ImagePattern(new Image(UserFrom.file.toURI().toURL().toString())));
                         } catch (MalformedURLException e) {
                             e.printStackTrace();
                         }
                     });
         }
-
     }
-
     public void enregistrer(){
-
         MainService.getInstance().launch(new Task<Void>() {
             @Override
             protected Void call() throws Exception {
@@ -280,4 +231,29 @@ public class UserFrom extends JFXDialog implements Initializable {
         fonction.setText("");
         photo.setFill(new ImagePattern(profilImg));
     }
+    private static UserFrom userFrom;
+    private static File file = null;
+    private static Pattern lowercase = Pattern.compile("[a-z]"); // Au moins 1 caractere minuscule
+    private static Pattern uppercase = Pattern.compile("[A-Z]"); // Au moins 1 Caractere majuscule
+    private static Pattern number = Pattern.compile("[0-9]"); // Au moins 1 chiffre
+    private static Pattern specialCharacter = Pattern.compile("[!@#%^&*()\\-,;ù^$:_+.]"); // Au moins caractere special
+    private final Image profilImg = new Image(getClass().getResourceAsStream("/img/camera_10px.png"));
+    @FXML private Circle photo;
+    @FXML private TextField name;
+    @FXML private TextArea fonction;
+    @FXML private HBox passIcon;
+    @FXML private PasswordField passworld;
+    @FXML private ImageView eye;
+    @FXML private PasswordField passworld1;
+    @FXML private ImageView eye1;
+    @FXML private Label passworldLabel;
+    @FXML private TextField firstName;
+    @FXML private JFXProgressBar progressBar;
+    @FXML private Label passwordStrengh;
+    @FXML private TextField userName;
+    @FXML private JFXButton saveBtn;
+    @FXML private ComboBox<String> type;
+    @FXML private JFXButton closeBtn;
+    @FXML private JFXButton closeStage;
+    @FXML private JFXButton addPhoto;
 }

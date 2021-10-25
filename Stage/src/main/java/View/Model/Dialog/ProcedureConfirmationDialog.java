@@ -1,6 +1,6 @@
 package View.Model.Dialog;
-import Controller.ViewController.MainController;
-import Controller.detailsController.ProcedureViewController;
+import controller.viewController.MainController;
+import controller.detailsController.ProcedureInfoController;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXDialog;
@@ -31,14 +31,14 @@ public class ProcedureConfirmationDialog extends JFXDialog implements Initializa
         }
     }
 
-    public static ProcedureConfirmationDialog getInstance(ProcedureViewController.StatusCheckBox checkBox, EventHandler<ActionEvent> handler){
+    public static ProcedureConfirmationDialog getInstance(ProcedureInfoController.StatusCheckBox checkBox, EventHandler<ActionEvent> handler){
         if (procedureConfirmationDialog == null) procedureConfirmationDialog = new ProcedureConfirmationDialog();
         if (handler!=null) procedureConfirmationDialog.getOkBtn().setOnAction(handler);
         procedureConfirmationDialog.initTextAndSmsCheckbox(checkBox);
         return procedureConfirmationDialog;
     }
 
-    private void initTextAndSmsCheckbox(ProcedureViewController.StatusCheckBox checkBox){
+    private void initTextAndSmsCheckbox(ProcedureInfoController.StatusCheckBox checkBox){
         if (checkBox!=null){
             if (checkBox.isSelected()){ notifMessage.setText("Voulez-vous decoché cette procedure de cette affaire ?"); }
             else notifMessage.setText(" Voulez-vous coché cette procedure ? ");

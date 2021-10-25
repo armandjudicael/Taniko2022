@@ -20,15 +20,12 @@ import java.util.ArrayList;
 import static DAO.UserDao.getImageFromBuffer;
 import static Model.Pojo.Affaire.*;
 
-public class AffairDao extends DAO<Affaire> {
-
-    private final String APPLICANT_FULLNAME = "( SELECT CONCAT(DMD.nomDmd,'@',DMD.prenomDmd) FROM demandeur AS DMD WHERE DMD.idDmd = AFF.demandeurId ) AS APPLICANT_FULLNAME ";
-
+public class AffairDao extends Dao implements DaoHelper<Affaire>{
+    private final String APPLICANT_FULLNAME = "( SELECT DMD.nomDmd FROM demandeur_morale AS DMD WHERE DMD.idDmd = AFF.demandeurId ) AS APPLICANT_FULLNAME ";
     private final String LAST_REDACTOR = "(SELECT CONCAT(u.nom,'@',u.prenom,'@',u.idUtilisateur)"+
             " FROM utilisateur AS u INNER JOIN dispatch d on u.idUtilisateur = d.utilisateurId"+
             " WHERE d.affaireId = AFF.idAffaire " +
             " ORDER BY d.dateDispatch desc limit 1) AS LAST_REDACTOR ";
-
     private final String LAST_PROCEDURE = "(SELECT CONCAT(p.nomProcedure,"+
             "'@',pca.numDepart," +
             "'@',DATE_FORMAT(pca.dateDepart,'%d-%m-%Y %H:%i:%s'),"+
@@ -36,24 +33,20 @@ public class AffairDao extends DAO<Affaire> {
             "'@',DATE_FORMAT(pca.dateArrive,'%d-%m-%Y %H:%i:%s'))"+
             "FROM _procedure as p INNER JOIN procedure_concerner_affaire AS pca ON p.idProcedure = pca.procedureId " +
             "WHERE pca.affaireId= AFF.idAffaire ORDER BY p.idProcedure desc LIMIT 1) AS LAST_PROCEDURE";
-
     private final String ALL_AFFAIRE_COLUMN =
                     "AFF.idAffaire," +
                     "AFF.numAffaire," +
                     "AFF.typeAffaire," +
                     "AFF.dateFormulation," +
                     "AFF.situation ";
-
     private final String TITRE_DEPENDANT = " (SELECT CONCAT(ti.idTitre,'@',ti.numTitre,'@',ti.nomPropriete)" +
                     " FROM  titre AS ti,terrain as te,terrain_depend_titre as tdt" +
                     " WHERE tdt.titreId = ti.idTitre " +
                     " AND tdt.terrainId = te.idTerrain " +
                     " AND AFF.terrainId = te.idTerrain) AS TITRE_DEPENDANT ";
-
     private final String SUPERFICIE = " ( SELECT CONCAT(te.idTerrain,'@',te.superficie)"+
                                       " FROM terrain AS te"+
                                       " WHERE  te.idTerrain = AFF.terrainId ) AS SUPERFICIE_TERRAIN ";
-
     private final String FULL_INFORMATION =
                             ALL_AFFAIRE_COLUMN+"," +
                             APPLICANT_FULLNAME+"," +
@@ -61,7 +54,6 @@ public class AffairDao extends DAO<Affaire> {
                             LAST_PROCEDURE +","+
                             TITRE_DEPENDANT+","+
                             SUPERFICIE;
-
     public ObservableList<AffaireForView> getAllAffair(){
         ObservableList<AffaireForView> list = FXCollections.observableArrayList();
         String query="SELECT " +
@@ -79,13 +71,11 @@ public class AffairDao extends DAO<Affaire> {
     }
 
     private AffaireForView createAffaireView(ResultSet rs) throws SQLException {
-
         String applicantName = rs.getString("APPLICANT_FULLNAME");
         String redactor = rs.getString("LAST_REDACTOR");
         String lastProcedure = rs.getString("LAST_PROCEDURE");
         String titreDependant = rs.getString("TITRE_DEPENDANT");
         String superficieTerrain = rs.getString("SUPERFICIE_TERRAIN");
-
         return new AffaireForView(
                 rs.getInt("idAffaire"),
                 rs.getString("numAffaire"),
@@ -113,18 +103,16 @@ public class AffairDao extends DAO<Affaire> {
         return null;
     }
 
-    private Demandeur createDemandeur(String applicantName) {
-        Demandeur demandeur = new Demandeur();
+    private PersonneMorale createDemandeur(String applicantName) {
+       PersonneMorale demandeurPhysique = new PersonneMorale();
         if (applicantName != null && !applicantName.isEmpty()){
             String[] tab = applicantName.split("@", 2);
-            demandeur.setNom(tab[0]);
-            demandeur.setPrenom(tab[1]);
+            demandeurPhysique.setNom(tab[0]);
         }
-        return demandeur;
+        return demandeurPhysique;
     }
 
     private Titre initTitre(String nomTitreDependant){
-
         if (nomTitreDependant!=null && !nomTitreDependant.isBlank()){
             String nomPropriete = "";
             String numeroPropriete = "";
@@ -171,19 +159,14 @@ public class AffairDao extends DAO<Affaire> {
                 String dateDepart = situationTab[2];
                 String numeroArrive = situationTab[3];
                 String dateArrive = situationTab[4];
-
                 if (!dateArrive.equals("30-07-1999 00:00:00")){
                     procedureForTableview.setStatus(ProcedureStatus.BACK);
-                    if (!numeroArrive.isEmpty())
-                        situation = nomProcedure + " N° " + numeroArrive + " du " + dateArrive;
+                    if (!numeroArrive.isEmpty()) situation = nomProcedure + " N° " + numeroArrive + " du " + dateArrive;
                     else situation = nomProcedure + " du " + dateArrive;
                 } else if (!dateDepart.equals("30-07-1999 00:00:00")) {
                     procedureForTableview.setStatus(ProcedureStatus.GO);
-                    if (!numeroDepart.isEmpty()) {
-                        situation = nomProcedure + " N° " + numeroDepart + " du " + dateDepart;
-                    } else {
-                        situation = nomProcedure + " du " + dateDepart;
-                    }
+                    if (!numeroDepart.isEmpty()) situation = nomProcedure + " N° " + numeroDepart + " du " + dateDepart;
+                    else situation = nomProcedure + " du " + dateDepart;
                 } else {
                     procedureForTableview.setStatus(ProcedureStatus.NONE);
                     situation = "Auccune procedure";
@@ -196,11 +179,9 @@ public class AffairDao extends DAO<Affaire> {
         }
         return procedureForTableview;
     }
-
     public AffairDao(Connection connection) {
         super(connection);
     }
-
     @Override public int delete(Affaire affaire) {
         int status = 0;
         String query = " DELETE FROM affaire WHERE numAffaire = ? ;";
@@ -230,11 +211,9 @@ public class AffairDao extends DAO<Affaire> {
     @Override public int update(Affaire affaire) {
         return 0;
     }
-
     @Override public Affaire findById(int id) {
         return null;
     }
-
     public int getIdByNum(String num) {
         int id = 0;
         String query = " SELECT aff.idAffaire FROM affaire as aff WHERE numAffaire = ? ; ";
@@ -272,7 +251,6 @@ public class AffairDao extends DAO<Affaire> {
     @Override public Affaire finByNum(int num) {
         return null;
     }
-
     public ObservableList<String> groupeAffaireByDate() {
         ObservableList<String> list = FXCollections.observableArrayList();
         String query = "SELECT distinct year(dateFormulation) as anne FROM affaire order by dateFormulation desc ;";
@@ -317,7 +295,7 @@ public class AffairDao extends DAO<Affaire> {
             ps.setString(2, typeDemande2String(affaire.getTypeDemande()));
             ps.setTimestamp(3, affaire.getDateDeFormulation());
             ps.setString(4,affaireStatus2String(affaire.getStatus()));
-            ps.setInt(5, affaire.getDemandeur().getId());
+          //  ps.setInt(5, affaire.getDemandeur().getId());
             ps.setInt(6,affaire.getTerrain().getIdTerrain());
             status = ps.executeUpdate();
             connection.commit();

@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
 public class NumeroChecker {
     private static Pattern pattern = Pattern.compile("^[0-9]{1,5}$");
     private static String cigleTitre = "-BA";
+
     public NumeroChecker(TextField textField, Label label, Type type){
         textField.textProperty().addListener((observableValue, oldValue, newValue) -> {
             boolean matches = pattern.matcher(textField.getText()).matches();

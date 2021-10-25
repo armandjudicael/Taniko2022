@@ -20,11 +20,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-public class UserDao extends  DAO<User> {
+public class UserDao extends Dao implements DaoHelper<User> {
 
     public UserDao(Connection connection) {
         super(connection);
     }
+
     public static Image getImageFromBuffer(ResultSet rs) {
         Image image = null;
         try {

@@ -8,7 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class TitleDao extends DAO<Titre> {
+public class TitleDao extends Dao implements DaoHelper<Titre> {
 
 //    private static final String ALL_TITLE_COLUMN = "T.idTitre," +
 //            "T.numTitre," +

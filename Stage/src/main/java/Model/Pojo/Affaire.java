@@ -8,24 +8,12 @@ import View.Model.ViewObject.ConnexAffairForView;
 import View.Model.ViewObject.EditorForView;
 import View.Model.ViewObject.PieceJointeForView;
 import javafx.collections.ObservableList;
-
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class Affaire {
 
-    private  int id;
-    private String numero;
-    private Timestamp dateDeFormulation;
-    private TypeDemande typeDemande;
-    private User redacteur;
-    private AffaireStatus status;
-    private Demandeur demandeur;
-
-    private Terrain terrain;
-
     public Affaire() {
-
     }
 
     public Affaire(int id,
@@ -34,7 +22,7 @@ public class Affaire {
                    TypeDemande typeDemande,
                    User redacteur,
                    AffaireStatus status,
-                   Demandeur demandeur,
+                   PersonnePhysique demandeurPhysique,
                    Terrain terrain){
         this.id = id;
         this.numero = numero;
@@ -42,7 +30,7 @@ public class Affaire {
         this.typeDemande = typeDemande;
         this.redacteur = redacteur;
         this.status = status;
-        this.demandeur = demandeur;
+        this.demandeurPhysique = demandeurPhysique;
         this.terrain = terrain;
     }
 
@@ -51,14 +39,48 @@ public class Affaire {
                    TypeDemande typeDemande,
                    User redacteur,
                    AffaireStatus status,
-                   Demandeur demandeur,
+                   PersonnePhysique demandeurPhysique,
                    Terrain terrain){
         this.numero = numero;
         this.dateDeFormulation = dateDeFormulation;
         this.typeDemande = typeDemande;
         this.redacteur = redacteur;
         this.status = status;
-        this.demandeur = demandeur;
+        this.demandeurPhysique = demandeurPhysique;
+        this.terrain = terrain;
+    }
+
+    public Affaire(int id,
+                   String numero,
+                   Timestamp dateDeFormulation,
+                   TypeDemande typeDemande,
+                   User redacteur,
+                   AffaireStatus status,
+                   PersonneMorale demandeurMorale,
+                   Terrain terrain){
+        this.id = id;
+        this.numero = numero;
+        this.dateDeFormulation = dateDeFormulation;
+        this.typeDemande = typeDemande;
+        this.redacteur = redacteur;
+        this.status = status;
+        this.demandeurMorale = demandeurMorale;
+        this.terrain = terrain;
+    }
+
+    public Affaire(String numero,
+                   Timestamp dateDeFormulation,
+                   TypeDemande typeDemande,
+                   User redacteur,
+                   AffaireStatus status,
+                   PersonneMorale demandeurMorale,
+                   Terrain terrain){
+        this.numero = numero;
+        this.dateDeFormulation = dateDeFormulation;
+        this.typeDemande = typeDemande;
+        this.redacteur = redacteur;
+        this.status = status;
+        this.demandeurMorale = demandeurMorale;
         this.terrain = terrain;
     }
 
@@ -77,7 +99,6 @@ public class Affaire {
         }
         return "";
     }
-
     public static String affaireStatus2String(AffaireStatus status){
         switch (status){
             case RUNNING: return "EN_COURS";
@@ -87,9 +108,7 @@ public class Affaire {
         }
         return "";
     }
-
     public static AffaireStatus string2AffaireStatus(String name){
-
        switch (name){
            case "EN_COURS": return AffaireStatus.RUNNING;
            case "TERMINER": return AffaireStatus.SUCCEED;
@@ -98,8 +117,6 @@ public class Affaire {
        }
        return AffaireStatus.RUNNING;
     }
-
-
     public TypeDemande getTypeDemande() {
         return typeDemande;
     }
@@ -113,9 +130,6 @@ public class Affaire {
         return dateDeFormulation;
     }
     public static TypeDemande string2TypeDemande(String type) { return (type.equals("ACQUISITION")) ? TypeDemande.ACQUISITION : TypeDemande.PRESCRIPTION; }
-    public Demandeur getDemandeur() {
-        return demandeur;
-    }
     public static String typeDemande2String(TypeDemande typeDemande) { return (typeDemande.equals(TypeDemande.ACQUISITION)) ? "ACQUISITION" : "PRESCRIPTION_ACQUISITIVE"; }
     public User getRedacteur() {
         return redacteur;
@@ -129,7 +143,6 @@ public class Affaire {
     public void setId(int id) {
         this.id = id;
     }
-
     public static Observation string2Observation(String obs){
         switch (obs){
             case "connexe":
@@ -144,10 +157,6 @@ public class Affaire {
                 return Observation.AUTRE;
         }
         return Observation.SANS_EMPIETEMENT;
-    }
-
-    public void setDemandeur(Demandeur demandeur) {
-        this.demandeur = demandeur;
     }
     public AffaireStatus getStatus() {
         return status;
@@ -170,4 +179,31 @@ public class Affaire {
     }
     public ObservableList<ArrayList<String>> getAllProcedureChecked() { return DaoFactory.getAffaireDao().getAllProcedureAndDateConcernedByThis(this.getId()); }
     public ObservableList<PieceJointeForView> getAllPieceJointe(){return DaoFactory.getPieceJointeDao().getAllPieceJointe(this) ;}
+    public void setDateDeFormulation(Timestamp dateDeFormulation) {
+        this.dateDeFormulation = dateDeFormulation;
+    }
+    public void setTypeDemande(TypeDemande typeDemande) {
+        this.typeDemande = typeDemande;
+    }
+    public PersonnePhysique getDemandeurPhysique() {
+        return demandeurPhysique;
+    }
+    public void setDemandeurPhysique(PersonnePhysique demandeurPhysique) {
+        this.demandeurPhysique = demandeurPhysique;
+    }
+    public PersonneMorale getDemandeurMorale() {
+        return demandeurMorale;
+    }
+    public void setDemandeurMorale(PersonneMorale demandeurMorale) {
+        this.demandeurMorale = demandeurMorale; }
+
+    private  int id;
+    private String numero;
+    private Timestamp dateDeFormulation;
+    private TypeDemande typeDemande;
+    private User redacteur;
+    private AffaireStatus status;
+    private PersonnePhysique demandeurPhysique;
+    private PersonneMorale demandeurMorale;
+    private Terrain terrain;
 }

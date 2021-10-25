@@ -1,6 +1,6 @@
 package View.Model.ViewObject;
 
-import Controller.ViewController.UserViewController;
+import controller.viewController.UserViewController;
 import DAO.DaoFactory;
 import Main.InitializeApp;
 import Model.Enum.NotifType;
@@ -16,7 +16,6 @@ import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

@@ -1,12 +1,12 @@
 package View.Dialog.SecurityDialog;
 
-import Controller.detailsController.AffairDetailsController;
-import Controller.detailsController.ConnexViewController;
-import Controller.detailsController.EditorViewController;
-import Controller.detailsController.ProcedureViewController;
-import Controller.ViewController.AffairViewController;
-import Controller.ViewController.MainController;
-import Controller.ViewController.TitleViewController;
+import controller.detailsController.AffairDetailsController;
+import controller.detailsController.ConnexeInfoController;
+import controller.detailsController.RedacteurInfoController;
+import controller.detailsController.ProcedureInfoController;
+import controller.viewController.AffairViewController;
+import controller.viewController.MainController;
+import controller.viewController.TitleViewController;
 import DAO.DaoFactory;
 import Model.Enum.Origin;
 import Model.Other.MainService;
@@ -178,7 +178,7 @@ public class AdminSecurity extends JFXDialog implements Initializable {
                     AdminSecurity.getInstance().close();
                     switch (securityOrigin) {
                         case REMOVE_EDITOR_FROM_LIST_BTN: {
-                            EditorViewController.getInstance().deleteUserFromList();
+                            RedacteurInfoController.getInstance().deleteUserFromList();
                         }break;
                         case DELETE_USER: {
                             UserForView.getInstance().deleteUser();
@@ -200,7 +200,7 @@ public class AdminSecurity extends JFXDialog implements Initializable {
                             AffairViewController.getInstance().showDetails();
                         }break;
                         case DELETE_AFFAIR: {
-                            AffairViewController.getInstance().deleteAffair();
+                            AffairViewController.getInstance().deleteAffaire();
                         }break;
                         case CREATE_TITLE: {
                             AffairDetailsController.getInstance().creerTitre();
@@ -210,7 +210,7 @@ public class AdminSecurity extends JFXDialog implements Initializable {
                         }break;
 
                         case REJETER_AFFAIRE:{
-                            ConnexViewController.getInstance().rejeterAffaireConnexe();
+                            ConnexeInfoController.getInstance().rejeterAffaireConnexe();
                         }break;
 
                         case DELETE_TITLE:{
@@ -218,7 +218,7 @@ public class AdminSecurity extends JFXDialog implements Initializable {
                         }break;
 
                         case PROCEDURE_VIEW_BTN:{
-                            ProcedureViewController.getInstance().launchAction(actionEvent);
+                            ProcedureInfoController.getInstance().launchAction(actionEvent);
                         }break;
 
                         case SHOW_AFFAIRE_DETAILS_FROM_EX_AFFAIRE:{

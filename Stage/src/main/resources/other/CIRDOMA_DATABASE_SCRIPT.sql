@@ -2,17 +2,38 @@ drop database if exists TANIKO_1_1;
 create database TANIKO_1_1;
 use TANIKO_1_1;
 
-create table demandeur (
-  idDmd       int auto_increment primary key,
-  nomDmd      varchar(255) not null,
-  prenomDmd   varchar(255) default '',
-  adresseDmd  varchar(255) default null,
+create table demandeur_morale(
+    idDmd int auto_increment NOT NULL primary key,
+    numTelDmd varchar(255) default null,
+    emailDmd varchar(255) default null,
+    adresseDmd text default null,
+    nomDmd text NOT NULL,
+    typeDmd enum('morale','physique') default 'physique',
+    nationalite  VARCHAR(255) not null
+);
+
+create table demandeur_physique(
+  idDmdPhysique int auto_increment primary key,
+  prenomDmd   varchar(255) default null,
   lotDmd      varchar(50)  default null,
   parcelleDmd varchar(50)  default null,
-  telDmd varchar(50)  default null,
-  emailDmd varchar(255)  default null,
-  typeDmd enum('MORALE','PHYSIQUE') default 'PHYSIQUE',
-  nomInstitution text default null
+  lieuDeNaissanceDmd varchar(255) default null,
+  dateDeNaissanceDmd timestamp default null,
+  pere varchar(255) default null,
+  mere varchar(255) default null,
+  sexe enum('Masculin','Féminin') default 'Masculin',
+  situationDeFamille enum('célibataire','Marié','Veuve') default 'Célibataire',
+  CONSTRAINT fk_demandeur_physique foreign key (idDmdPhysique) references demandeur_physique(idDmdPhysique) ON DELETE CASCADE
+);
+
+create table mariage(
+  idHomme int not null ,
+  idFemme int not null ,
+  dateMariage timestamp not null ,
+  lieuMariage varchar(255) not null ,
+  regime enum('séparation des biens','Droit commun'),
+  CONSTRAINT fk_homme_mariage foreign key (idHomme) references demandeur_physique(idDmdPhysique) ON DELETE CASCADE,
+  CONSTRAINT fk_femme_mariage foreign key (idFemme) references demandeur_physique(idDmdPhysique) ON DELETE CASCADE
 );
 
 create table utilisateur(
@@ -62,7 +83,7 @@ create table terrain_depend_titre(
 create table `_procedure` (
   idProcedure int not null auto_increment primary key,
   nomProcedure longtext not null,
-  typeProcedure enum('A','P','AF') not null
+  typeProcedure enum('A','P') not null
 );
 
 create table affaire(
@@ -76,8 +97,32 @@ create table affaire(
   demandeurId         int  not null,
   terrainId int not null,
   constraint numero_affaire unique (numAffaire),
-  constraint fk_affaire_et_demandeur foreign key (demandeurId) references demandeur(idDmd) on DELETE CASCADE,
+  constraint fk_affaire_et_demandeur foreign key (demandeurId) references demandeur_morale(idDmd),
   constraint fk_affaire_et_terrain foreign key (terrainId) references terrain(idTerrain) on DELETE CASCADE
+);
+
+create table ordonnance(
+    idOrdonnance int not null auto_increment primary key,
+    numOrdonnance varchar(100) not null ,
+    dateOdronnance timestamp not null ,
+    affaireId int not null ,
+    constraint fk_ordonnance_affaire foreign key (affaireId) references affaire(idAffaire)
+);
+
+create table reperage(
+    idReperage int not null  auto_increment primary key ,
+    numReperage varchar(100) not null ,
+    dateReperage timestamp not null ,
+    affaireId int not null ,
+    constraint fk_reperage_affaire foreign key (affaireId) references affaire(idAffaire)
+);
+
+create table journal_de_tresorerie(
+    idJtr int not null auto_increment primary key,
+    numJtr varchar(100) not null ,
+    dateJtr timestamp not null ,
+    affaireId int not null ,
+    constraint fk_journal_de_tresorerie foreign key (affaireId) references affaire(idAffaire)
 );
 
 create table procedure_concerner_affaire(

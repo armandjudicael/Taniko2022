@@ -1,11 +1,7 @@
 package Model.Other;
 
-import Controller.detailsController.AffairDetailsController;
 import Model.Enum.NotifType;
-import Model.Pojo.Demandeur;
-import Model.Pojo.User;
 import View.Dialog.Other.Notification;
-import javafx.application.Platform;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -76,13 +72,13 @@ public class Mail {
         this.emailBody = emailBodyNouveau;
     }
 
-    public static void send(String emailBody,Demandeur demandeur){
-        String[] emailReceipients = {demandeur.getEmail()};  //Enter list of email recepients
+    public static void send(String emailBody){
+        String[] emailReceipients = {};  //Enter list of email recepients
         String emailSubject = "";
         try {
             new Mail(emailReceipients,emailSubject,emailBody);
-            String m = " Email envoyé avec succès à "+demandeur.getFullName();
-            Notification.getInstance(m, NotifType.SUCCESS).showNotif();
+//            String m = " Email envoyé avec succès à "+ demandeurPhysique.getFullName();
+            Notification.getInstance("", NotifType.SUCCESS).showNotif();
         } catch (MessagingException |IOException e) { e.printStackTrace(); }
     }
 

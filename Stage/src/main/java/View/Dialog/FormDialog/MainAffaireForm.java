@@ -1,11 +1,10 @@
 package View.Dialog.FormDialog;
 
-import Controller.ViewController.MainController;
+import controller.viewController.MainController;
 import Model.Enum.*;
 import com.jfoenix.controls.*;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Dialog;
 import javafx.scene.layout.*;
 
 import java.io.IOException;

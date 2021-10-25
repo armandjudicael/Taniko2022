@@ -1,14 +1,13 @@
 package View.Dialog.Other;
 
-import Controller.detailsController.AffairDetailsController;
-import Controller.detailsController.EditorViewController;
-import Controller.ViewController.MainController;
+import controller.detailsController.AffairDetailsController;
+import controller.detailsController.RedacteurInfoController;
+import controller.viewController.MainController;
 import DAO.DbOperation;
 import Model.Enum.Type;
 import Model.Enum.NotifType;
 import Model.Other.Mail;
 import Model.Pojo.Affaire;
-import Model.Pojo.Demandeur;
 import Model.Pojo.User;
 import Model.Other.MainService;
 import View.Cell.ListCell.DispatchListcell;
@@ -18,7 +17,6 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDialog;
-import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -84,7 +82,7 @@ public class DispatchDialog extends JFXDialog implements Initializable {
             @Override protected Void call() throws Exception {
                 User user = combobox.getValue();
                 // ajout nouveau redacteur dans la liste
-                EditorViewController.getInstance().getEditorTableView().getItems().add(new EditorForView(Timestamp.valueOf(LocalDateTime.now()),
+                RedacteurInfoController.getInstance().getEditorTableView().getItems().add(new EditorForView(Timestamp.valueOf(LocalDateTime.now()),
                         user.getFullName(),
                         user.getPhoto(),
                         user.getId()));
@@ -94,10 +92,10 @@ public class DispatchDialog extends JFXDialog implements Initializable {
                     if (checkBoxNouvDispatch.isSelected()){
                         String nomR = user.getNom();
                         String prenomR = user.getPrenom();
-                        Demandeur demandeur = affaire.getDemandeur();
+                 //       DemandeurPhysique demandeurPhysique = affaire.getDemandeur();
                         String emailBody = "Salama tompoko ,Mampahafantarana anao izahay ato amin'ny sampan-draharahan'ny fananan-tany fa i "+nomR+" "+prenomR+" no"+
                                 " mpiasa tompon-andraikitra amin'ny atontan-taratasinao manomboka izao . misaotra tompoko !";
-                        Mail.send(emailBody,demandeur);
+                    //    Mail.send(emailBody, demandeurPhysique);
                     }
                     String message = user.getPrenom() + " est le nouveau rédacteur de cette affaire ";
                     Notification.getInstance(message, NotifType.SUCCESS).showNotif();

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.formController.demandeurController.MainDemandeurFormController">
+   <children>
+      <JFXTabPane layoutY="44.0" prefHeight="468.0" prefWidth="750.0" stylesheets="@../../../../css/tabpane.css" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="44.0">
+         <tabs>
+            <Tab fx:id="searchTab" text="rechercher">
+                <content>
+                   <fx:include source="rechercherDemandeur.fxml" />
+                </content>
+               <graphic>
+                  <ImageView fitHeight="26.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../img/filter_30px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Tab>
+            <Tab fx:id="newTab" text="Nouveau">
+               <content>
+                  <fx:include source="nouveauDemandeur.fxml" />
+               </content>
+               <graphic>
+                  <ImageView fitHeight="26.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../img/Plus_26px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Tab>
+         </tabs>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXTabPane>
+      <JFXButton fx:id="dmdPrevBtn" buttonType="RAISED" layoutX="487.0" layoutY="498.0" prefHeight="0.0" prefWidth="108.0" style="-fx-background-color: #3CB371;" text="revenir" textFill="WHITE" AnchorPane.bottomAnchor="4.0" AnchorPane.rightAnchor="125.0">
+         <font>
+            <Font name="Arial Unicode MS" size="15.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../img/back_32px.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="dmdNextBtn" buttonType="RAISED" contentDisplay="RIGHT" layoutX="603.0" layoutY="498.0" prefHeight="0.0" prefWidth="108.0" style="-fx-background-color: #3CB371;" text="suivant" textFill="WHITE" AnchorPane.bottomAnchor="4.0" AnchorPane.rightAnchor="10.0">
+         <font>
+            <Font name="Arial Unicode MS" size="15.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="23.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../img/more_than_32px.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <HBox alignment="CENTER" layoutX="220.0" layoutY="5.0" spacing="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
+         <children>
+            <ToggleButton fx:id="personnePhysique" maxWidth="155.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="155.0" selected="true" stylesheets="@../../../../css/tooglebutton.css" text="Personne Physique" textAlignment="CENTER">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <font>
+                  <Font size="13.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="22.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../img/user_40px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <toggleGroup>
+                  <ToggleGroup fx:id="typeDemandeur" />
+               </toggleGroup>
+            </ToggleButton>
+            <ToggleButton fx:id="personneMorale" maxWidth="155.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="155.0" stylesheets="@../../../../css/tooglebutton.css" text="Personne Morale" toggleGroup="$typeDemandeur">
+               <graphic>
+                  <ImageView fitHeight="27.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../img/people_40px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </ToggleButton>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

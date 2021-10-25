@@ -12,15 +12,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class PieceJointeDao extends DAO<PieceJointe> {
-
+public class PieceJointeDao extends Dao implements DaoHelper<PieceJointe> {
     public PieceJointeDao(Connection connection) {
         super(connection);
     }
     @Override public int create(PieceJointe pieceJointe){
         return 0;
     }
-
     public  int[] removeAll(ObservableList<PieceJointe> list){
         if (!list.isEmpty()){
             String query = " DELETE FROM piecejointe WHERE idPieceJointe = ? ";

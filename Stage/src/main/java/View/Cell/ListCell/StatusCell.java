@@ -1,5 +1,5 @@
 package View.Cell.ListCell;
-import Controller.ViewController.AffairViewController;
+import controller.viewController.AffairViewController;
 import javafx.scene.control.ListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

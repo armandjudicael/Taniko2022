@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pieceJointePanel" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" style="-fx-background-color: whitesmoke;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.FormController.PieceJointeFormController">
+<AnchorPane fx:id="pieceJointePanel" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" style="-fx-background-color: whitesmoke;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.formController.PieceJointeFormController">
    <children>
       <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" pannable="true" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <content>

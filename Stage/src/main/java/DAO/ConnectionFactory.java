@@ -9,16 +9,14 @@ import java.sql.SQLException;
 public class ConnectionFactory{
 
     private static Connection connection=null;
-
     final String localhost = "localhost";
     final String localPort = "4040";
     final String localPassword = "Aj30071999";
 
-
     final String user = "root";
     final String finalhost = "192.168.1.50";
     final String finalPort = "3306";
-    final String finalDb = "cirdoma";
+    final String finalDb = "taniko_1_1";
 
     final String finalPassword = "Aj!30071999";
     final String localUrl = "jdbc:mysql://" + localhost + ":" + localPort + "/" + finalDb + "?useLegacyDatetimeCode=false&serverTimezone=UTC";

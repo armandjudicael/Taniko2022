@@ -1,7 +1,8 @@
 package View.Helper.Attachement;
 
-import Controller.detailsController.AffairDetailsController;
+import controller.detailsController.AffairDetailsController;
 import DAO.DaoFactory;
+import Model.Enum.FileChooserType;
 import Model.Enum.NotifType;
 import Model.Other.MainService;
 import Model.Pojo.PieceJointe;
@@ -20,7 +21,6 @@ import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import java.io.File;
-import java.util.List;
 
 public class AttachementCreatorButton implements EventHandler<ActionEvent>{
 
@@ -31,7 +31,7 @@ public class AttachementCreatorButton implements EventHandler<ActionEvent>{
     }
 
     @Override public void handle(ActionEvent event){
-        pieceJointeFiles.setAll(FileChooserDialog.getInstance());
+        pieceJointeFiles.setAll(FileChooserDialog.getInstance(FileChooserType.ATTACHEMENT));
         Task<Void> task = new Task<Void>() {
             @Override
             protected Void call() throws Exception {
@@ -41,7 +41,8 @@ public class AttachementCreatorButton implements EventHandler<ActionEvent>{
                 pieceJointeFiles.clear();
             }
         };
-        TanikoProgress.getInstance(task,"Enregistrement des fichiers ........");
+        if(isOnDetailsView)
+            TanikoProgress.getInstance(task,"Enregistrement des fichiers ........");
         MainService.getInstance().launch(task);
     }
 
@@ -70,7 +71,6 @@ public class AttachementCreatorButton implements EventHandler<ActionEvent>{
                 "Echec de l'enregistrement de(s) piece(s) jointe(s) ",
                 NotifType.WARNING).showNotif();
     }
-
     public static ObservableList<PieceJointe> getAttachementList() {
         return pieceJointeObservableList;
     }

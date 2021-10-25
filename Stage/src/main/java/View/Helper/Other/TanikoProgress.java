@@ -1,6 +1,6 @@
 package View.Helper.Other;
 
-import Controller.ViewController.MainController;
+import controller.viewController.MainController;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXProgressBar;
@@ -8,18 +8,15 @@ import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
-import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class TanikoProgress extends JFXDialog implements Initializable {
     private static Task<Void> runningTask;
-
     public static TanikoProgress getInstance(Task<Void> task,String text){
         if (tanikoProgress == null) tanikoProgress = new TanikoProgress();
         runningTask = task;

@@ -26,16 +26,17 @@ import java.time.LocalTime;
 public class DbOperation {
 
     private static Connection connection = new ConnectionFactory().getConnection();
+
     public static Connection getConnection() {
         return connection;
     }
+
     private static final String TERRAIN_DEPEND_TITRE = "terrain_depend_titre";
+
     private static final String TERRAIN_ABOUTIR_TITRE = "terrain_aboutir_titre";
 
     public DbOperation() {
-
     }
-
     public static void executeQuery(String query) {
 
         MainService.getInstance().launch(new Task<Void>() {
@@ -43,13 +44,8 @@ public class DbOperation {
                 try (Statement statement = connection.createStatement()){
                    int status = statement.executeUpdate(query);
                    connection.commit();
-                   if (status!=0){
-                       String message = " Mis à jour efféctué avec succès ";
-                       Notification.getInstance(message, NotifType.SUCCESS).showNotif();
-                   }else {
-                       String message = " échec de la  mis à jour  ";
-                       Notification.getInstance(message, NotifType.WARNING).showNotif();
-                   }
+                   if (status!=0) Notification.getInstance(" Mis à jour efféctué avec succès ", NotifType.SUCCESS).showNotif();
+                   else Notification.getInstance(" échec de la  mis à jour  ", NotifType.WARNING).showNotif();
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }

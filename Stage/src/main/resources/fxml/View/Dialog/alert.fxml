@@ -43,7 +43,7 @@
             <Font name="Century Gothic" size="14.0" />
          </font>
       </JFXButton>
-      <JFXCheckBox fx:id="smsAndEmailCheckBox" layoutX="24.0" layoutY="108.0" prefHeight="18.0" prefWidth="352.0" text="Notifier le demandeur par e-mail et SMS" textFill="#3c3838">
+      <JFXCheckBox fx:id="smsAndEmailCheckBox" layoutX="24.0" layoutY="108.0" prefHeight="18.0" prefWidth="352.0" text="Notifier le demandeurPhysique par e-mail et SMS" textFill="#3c3838">
          <font>
             <Font size="15.0" />
          </font>

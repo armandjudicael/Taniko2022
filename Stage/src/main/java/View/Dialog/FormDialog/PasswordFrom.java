@@ -1,8 +1,8 @@
 package View.Dialog.FormDialog;
 
-import Controller.detailsController.UserDetailsController;
-import Controller.ViewController.LoginController;
-import Controller.ViewController.MainController;
+import controller.detailsController.UserDetailsController;
+import controller.viewController.LoginController;
+import controller.viewController.MainController;
 import Model.Pojo.User;
 import View.Model.ViewObject.PasswordView;
 import com.jfoenix.controls.JFXButton;

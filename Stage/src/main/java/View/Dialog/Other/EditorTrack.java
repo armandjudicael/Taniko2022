@@ -1,7 +1,7 @@
 package View.Dialog.Other;
 
-import Controller.ViewController.AffairViewController;
-import Controller.ViewController.MainController;
+import controller.viewController.AffairViewController;
+import controller.viewController.MainController;
 import Model.Enum.AffaireStatus;
 import Model.Pojo.User;
 import Model.Other.RedactorAffair;

@@ -15,17 +15,18 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="appStackPane" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ViewController.MainController">
+<StackPane fx:id="appStackPane" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.viewController.MainController">
     <children>
         <BorderPane fx:id="mainPanel" prefHeight="700.0" prefWidth="1200.0">
             <center>
                 <StackPane fx:id="mainStackPane">
                     <children>
+<!--                        <fx:include fx:id="menuView" source="menuView.fxml" />-->
                         <fx:include fx:id="userview" source="UserView.fxml" />
-                        <fx:include fx:id="userDetailsView" source="../DetailsView/UserDetails.fxml" />
+                        <fx:include fx:id="userDetailsView" source="UserDetails.fxml" />
                         <fx:include fx:id="affaireDetailsView" source="AffairDetails.fxml" />
                         <fx:include fx:id="titleView" source="TitleView.fxml" />
-                        <fx:include fx:id="affaireView" source="mainAffairView1.fxml" />
+                        <fx:include fx:id="affaireView" source="mainAffairView.fxml" />
                         <fx:include fx:id="dashboardView" source="DashboardView.fxml" />
                     </children>
                 </StackPane>

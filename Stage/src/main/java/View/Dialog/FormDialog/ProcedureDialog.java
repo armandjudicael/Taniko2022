@@ -1,8 +1,8 @@
 package View.Dialog.FormDialog;
 
-import Controller.detailsController.ProcedureViewController;
-import Controller.ViewController.AffairViewController;
-import Controller.ViewController.MainController;
+import controller.detailsController.ProcedureInfoController;
+import controller.viewController.AffairViewController;
+import controller.viewController.MainController;
 import Model.Enum.NotifType;
 import Model.Other.MainService;
 import View.Dialog.Other.Notification;
@@ -31,7 +31,7 @@ import java.util.regex.Pattern;
 
 public class ProcedureDialog extends JFXDialog implements Initializable {
 
-    private static ProcedureViewController.StatusCheckBox checkBoxPrcd;
+    private static ProcedureInfoController.StatusCheckBox checkBoxPrcd;
     private static Pattern pattern = Pattern.compile("^[0-9]{1,3}$");
     private static ProcedureDialog procedureDialog;
     @FXML private JFXTextField numProcedure;
@@ -54,14 +54,14 @@ public class ProcedureDialog extends JFXDialog implements Initializable {
 
     }
 
-    public static ProcedureDialog getInstance(ProcedureViewController.StatusCheckBox checkBox) {
+    public static ProcedureDialog getInstance(ProcedureInfoController.StatusCheckBox checkBox) {
         if (procedureDialog == null)
             procedureDialog = new ProcedureDialog();
         setCheckBoxPrcd(checkBox);
         return procedureDialog;
     }
 
-    public static void setCheckBoxPrcd(ProcedureViewController.StatusCheckBox checkBoxPrcd) {
+    public static void setCheckBoxPrcd(ProcedureInfoController.StatusCheckBox checkBoxPrcd) {
         ProcedureDialog.checkBoxPrcd = checkBoxPrcd;
     }
 
@@ -96,7 +96,7 @@ public class ProcedureDialog extends JFXDialog implements Initializable {
         TableCell cell = (TableCell) checkBoxPrcd.getParent();
         TableRow tableRow = (TableRow) cell.getParent();
         int index = tableRow.getIndex();
-        ProcedureForView procedureForView = ProcedureViewController.getInstance().getProcedureTableView().getItems().get(index);
+        ProcedureForView procedureForView = ProcedureInfoController.getInstance().getProcedureTableView().getItems().get(index);
         AffaireForView affair = AffairViewController.getInstance().getTableView().getSelectionModel().getSelectedItem();
         int idProcedure = procedureForView.getIdProcedure();
 

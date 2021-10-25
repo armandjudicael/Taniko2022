@@ -1,6 +1,5 @@
 package DAO;
 
-import Model.Pojo.Superficie;
 import Model.Pojo.Terrain;
 import Model.Pojo.Titre;
 
@@ -9,7 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class TerrainDao extends DAO<Terrain> {
+public class TerrainDao extends Dao implements DaoHelper<Terrain> {
     public TerrainDao(Connection connection) {
         super(connection);
     }

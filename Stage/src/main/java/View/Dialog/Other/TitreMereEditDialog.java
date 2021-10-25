@@ -1,7 +1,7 @@
 package View.Dialog.Other;
 
-import Controller.detailsController.AffairDetailsController;
-import Controller.ViewController.MainController;
+import controller.detailsController.AffairDetailsController;
+import controller.viewController.MainController;
 import DAO.DbOperation;
 import Model.Enum.Type;
 import Model.Enum.NotifType;

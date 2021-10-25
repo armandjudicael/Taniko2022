@@ -1,6 +1,6 @@
 package View.Dialog.Other;
 
-import Controller.ViewController.MainController;
+import controller.viewController.MainController;
 import Main.Main;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;

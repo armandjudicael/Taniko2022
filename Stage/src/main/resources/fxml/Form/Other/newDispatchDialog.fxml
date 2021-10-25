@@ -64,7 +64,7 @@
             <Font name="Arial Unicode MS" size="15.0" />
          </font>
       </Label>
-      <JFXCheckBox fx:id="checkBoxNouvDispatch" layoutX="22.0" layoutY="120.0" prefHeight="19.0" prefWidth="440.0" text="Avertir le demandeur par email et SMS" textFill="#464141">
+      <JFXCheckBox fx:id="checkBoxNouvDispatch" layoutX="22.0" layoutY="120.0" prefHeight="19.0" prefWidth="440.0" text="Avertir le demandeurPhysique par email et SMS" textFill="#464141">
          <font>
             <Font size="13.0" />
          </font>

@@ -1,6 +1,6 @@
 package View.Helper.Attachement;
 
-import Controller.detailsController.PieceJointeViewController;
+import controller.detailsController.PieceJointeInfoController;
 import Model.Enum.NotifType;
 import Model.Other.MainService;
 import Model.Pojo.PieceJointe;
@@ -62,7 +62,7 @@ public class AttachementPopup extends PopOver implements Initializable {
                 int deleteStatus = selectedAttachement.delete();
                 if (deleteStatus==1){
                     Platform.runLater(() -> {
-                        TilePane pjTilepane = PieceJointeViewController.getInstance().getPjTilepane();
+                        TilePane pjTilepane = PieceJointeInfoController.getInstance().getPjTilepane();
                         boolean remove = pjTilepane.getChildren().remove((PieceJointeForView)jfxButton.getParent());
                         if (remove){
                             String message = " Piece jointe supprimé avec suucès ";

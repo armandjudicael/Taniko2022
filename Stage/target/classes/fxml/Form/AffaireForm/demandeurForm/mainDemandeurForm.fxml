@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXRadioButton?>
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <JFXTabPane layoutY="44.0" prefHeight="462.0" prefWidth="750.0" stylesheets="@../../../../css/tabpane.css" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+         <tabs>
+            <Tab fx:id="searchTab" text="rechercher">
+                <content>
+                   <fx:include source="rechercherDemandeur.fxml" />
+                </content>
+               <graphic>
+                  <ImageView fitHeight="26.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../img/filter_30px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Tab>
+            <Tab fx:id="newTab" text="Nouveau">
+               <content>
+                  <fx:include source="nouveauDemandeur.fxml" />
+               </content>
+               <graphic>
+                  <ImageView fitHeight="26.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../img/Plus_26px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Tab>
+         </tabs>
+      </JFXTabPane>
+      <JFXRadioButton fx:id="moralRadio" layoutX="483.0" layoutY="11.0" prefHeight="17.0" prefWidth="157.0" text="personne morale" textFill="#3c3838" AnchorPane.rightAnchor="110.0">
+         <toggleGroup>
+            <ToggleGroup fx:id="typeDemandeur" />
+         </toggleGroup>
+         <graphic>
+            <ImageView fitHeight="24.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../img/people_40px.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <font>
+            <Font size="15.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></JFXRadioButton>
+      <JFXRadioButton fx:id="physiqueRadio" layoutX="121.0" layoutY="11.0" prefHeight="25.0" prefWidth="199.0" selected="true" text="personne physique" textFill="#3c3838" toggleGroup="$typeDemandeur" AnchorPane.leftAnchor="121.0" AnchorPane.rightAnchor="430.0">
+         <graphic>
+            <ImageView fitHeight="25.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../img/account_40px.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <font>
+            <Font size="15.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></JFXRadioButton>
+      <JFXButton fx:id="dmdPrevBtn" buttonType="RAISED" layoutX="487.0" layoutY="498.0" prefHeight="0.0" prefWidth="108.0" style="-fx-background-color: #3CB371;" text="revenir" textFill="WHITE" AnchorPane.bottomAnchor="4.0" AnchorPane.rightAnchor="125.0">
+         <font>
+            <Font name="Arial Unicode MS" size="15.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../img/back_32px.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="dmdNextBtn" buttonType="RAISED" contentDisplay="RIGHT" layoutX="603.0" layoutY="498.0" prefHeight="0.0" prefWidth="108.0" style="-fx-background-color: #3CB371;" text="suivant" textFill="WHITE" AnchorPane.bottomAnchor="4.0" AnchorPane.rightAnchor="10.0">
+         <font>
+            <Font name="Arial Unicode MS" size="15.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="23.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../img/more_than_32px.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+   </children>
+</AnchorPane>

@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXProgressBar?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Separator?>
@@ -15,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="600.0" prefWidth="1200.0" spacing="5.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ViewController.TitleViewController">
+<VBox prefHeight="600.0" prefWidth="1200.0" spacing="5.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.viewController.TitleViewController">
     <children>
         <AnchorPane prefHeight="63.0" prefWidth="1200.0">
             <children>
@@ -60,20 +61,25 @@
                 </HBox>
             </children>
         </AnchorPane>
-        <TableView fx:id="tableView" prefHeight="496.0" prefWidth="1200.0" stylesheets="@../../../css/tableView.css" tableMenuButtonVisible="true" VBox.vgrow="ALWAYS">
-            <columns>
-                <TableColumn fx:id="numero" maxWidth="175.0" minWidth="50.0" prefWidth="175.0" text="N° Titre foncier" />
-                <TableColumn fx:id="titulaire" maxWidth="261.0" minWidth="154.0" prefWidth="236.0" text="Proprietaire" />
-                <TableColumn fx:id="nomPropriete" maxWidth="209.0" minWidth="92.0" prefWidth="198.0" text="Nom du propriété" />
-                <TableColumn fx:id="morcelement" maxWidth="194.0" minWidth="23.0" prefWidth="135.0" text="N° morcelement" />
-                <TableColumn fx:id="numImmat" maxWidth="201.0" minWidth="23.0" prefWidth="157.0" text="N° titre mére" />
-                <TableColumn fx:id="dateDeCreation" maxWidth="200.0" minWidth="0.0" prefWidth="173.0" text="date de creation" />
-                <TableColumn fx:id="numExAffaire" maxWidth="160.0" minWidth="7.0" prefWidth="105.0" text="Ex-Affaire" />
-            </columns>
-         <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-         </columnResizePolicy>
-        </TableView>
+      <AnchorPane VBox.vgrow="ALWAYS">
+         <children>
+              <TableView fx:id="tableView" prefHeight="496.0" prefWidth="1200.0" stylesheets="@../../../css/tableView.css" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <columns>
+                      <TableColumn fx:id="numero" maxWidth="175.0" minWidth="50.0" prefWidth="175.0" text="N° Titre foncier" />
+                      <TableColumn fx:id="titulaire" maxWidth="261.0" minWidth="154.0" prefWidth="236.0" text="Proprietaire" />
+                      <TableColumn fx:id="nomPropriete" maxWidth="209.0" minWidth="92.0" prefWidth="198.0" text="Nom du propriété" />
+                      <TableColumn fx:id="morcelement" maxWidth="194.0" minWidth="23.0" prefWidth="135.0" text="N° morcelement" />
+                      <TableColumn fx:id="numImmat" maxWidth="201.0" minWidth="23.0" prefWidth="157.0" text="N° titre mére" />
+                      <TableColumn fx:id="dateDeCreation" maxWidth="200.0" minWidth="0.0" prefWidth="173.0" text="date de creation" />
+                      <TableColumn fx:id="numExAffaire" maxWidth="160.0" minWidth="7.0" prefWidth="105.0" text="Ex-Affaire" />
+                  </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+              </TableView>
+            <JFXProgressBar fx:id="titleProgress" progress="0.71" visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+         </children>
+      </AnchorPane>
       <HBox alignment="CENTER_LEFT" prefHeight="49.0" prefWidth="1190.0" spacing="10.0">
          <children>
             <JFXButton fx:id="refreshBtn" alignment="CENTER" buttonType="RAISED" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #1ca242;" text="Actualiser" textFill="WHITE">

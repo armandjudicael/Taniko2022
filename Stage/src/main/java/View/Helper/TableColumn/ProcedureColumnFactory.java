@@ -1,6 +1,6 @@
 package View.Helper.TableColumn;
 
-import Controller.ViewController.AffairViewController;
+import controller.viewController.AffairViewController;
 import View.Model.ViewObject.ProcedureForTableview;
 import javafx.beans.InvalidationListener;
 import javafx.beans.value.ChangeListener;

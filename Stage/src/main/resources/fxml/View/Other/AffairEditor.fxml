@@ -20,7 +20,7 @@
       <TableView fx:id="tableview" layoutX="15.0" layoutY="18.0" prefHeight="429.0" prefWidth="874.0" stylesheets="@../../../css/tableView.css" AnchorPane.bottomAnchor="39.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
         <columns>
           <TableColumn fx:id="numero" prefWidth="176.0" text="Numero" />
-          <TableColumn fx:id="applicantName" prefWidth="403.0" text="Nom du demandeur" />
+          <TableColumn fx:id="applicantName" prefWidth="403.0" text="Nom du demandeurPhysique" />
             <TableColumn fx:id="statusColumn" prefWidth="74.0" text="status" />
             <TableColumn fx:id="dateDispatch" maxWidth="222.0" prefWidth="220.0" text="date dispatch" />
         </columns>

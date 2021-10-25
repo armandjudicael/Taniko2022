@@ -1,6 +1,6 @@
 package Model.Enum;
 
-public enum Origin {
+public enum Origin{
     CONNEXE_VIEW_BTN,
     PROCEDURE_VIEW_BTN,
     EDITOR_VIEW_BTN,
@@ -18,5 +18,6 @@ public enum Origin {
     REJETER_AFFAIRE,
     DELETE_TITLE,
     EDIT_TITLE,
-    NEW_PROCEDURE,SHOW_AFFAIRE_DETAILS_FROM_EX_AFFAIRE
+    NEW_PROCEDURE,
+    SHOW_AFFAIRE_DETAILS_FROM_EX_AFFAIRE
 }

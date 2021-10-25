@@ -1,10 +1,8 @@
 package View.Helper.Attachement;
 
-import Controller.detailsController.PieceJointeViewController;
-import Model.Enum.NotifType;
+import controller.detailsController.PieceJointeInfoController;
 import Model.Other.MainService;
 import Model.Pojo.PieceJointe;
-import View.Dialog.Other.Notification;
 import View.Helper.Other.TanikoProgress;
 import View.Model.Dialog.AlertDialog;
 import View.Model.ViewObject.PieceJointeForView;
@@ -16,7 +14,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.TilePane;
 
 import java.awt.*;
@@ -48,7 +45,7 @@ public class AttachementDownloaderButton implements EventHandler<ActionEvent>{
     }
 
     private void resetStatus(){
-        PieceJointeViewController instance = PieceJointeViewController.getInstance();
+        PieceJointeInfoController instance = PieceJointeInfoController.getInstance();
         TilePane pjTilepane = instance.getPjTilepane();
         ObservableList<Node> children = pjTilepane.getChildren();
         children.forEach(node -> {
@@ -58,7 +55,7 @@ public class AttachementDownloaderButton implements EventHandler<ActionEvent>{
     }
 
     private void downloadAllSelectedAttachement(){
-        PieceJointeViewController instance = PieceJointeViewController.getInstance();
+        PieceJointeInfoController instance = PieceJointeInfoController.getInstance();
         TilePane pjTilepane = instance.getPjTilepane();
         ObservableList<Node> children = pjTilepane.getChildren();
         List<Node> collect = children.stream().filter(node -> {

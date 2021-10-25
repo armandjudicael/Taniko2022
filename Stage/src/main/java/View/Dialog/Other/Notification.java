@@ -1,6 +1,6 @@
 package View.Dialog.Other;
 
-import Controller.ViewController.MainController;
+import controller.viewController.MainController;
 import Model.Enum.NotifType;
 import javafx.application.Platform;
 import javafx.scene.image.Image;

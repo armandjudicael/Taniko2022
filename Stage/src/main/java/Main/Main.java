@@ -84,7 +84,6 @@ public class Main extends Application {
                 };
             }
         };
-
         scheduledService.stateProperty().addListener((observableValue, state, t1) -> {
             switch (t1) {
                 case SCHEDULED:{
