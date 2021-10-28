@@ -1,6 +1,6 @@
 package View.Helper.Attachement;
 
-import DAO.DaoFactory;
+import dao.DaoFactory;
 import Model.Enum.NotifType;
 import Model.Other.MainService;
 import Model.Pojo.PieceJointe;

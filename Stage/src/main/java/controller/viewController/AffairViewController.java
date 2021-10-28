@@ -1,7 +1,7 @@
 package controller.viewController;
 
 import controller.detailsController.*;
-import DAO.DaoFactory;
+import dao.DaoFactory;
 import Main.InitializeApp;
 import Model.Enum.AffaireStatus;
 import Model.Enum.NotifType;

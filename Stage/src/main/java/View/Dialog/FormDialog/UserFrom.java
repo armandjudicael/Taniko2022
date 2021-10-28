@@ -2,7 +2,7 @@ package View.Dialog.FormDialog;
 
 import controller.viewController.MainController;
 import controller.viewController.UserViewController;
-import DAO.DaoFactory;
+import dao.DaoFactory;
 import Main.InitializeApp;
 import Model.Enum.FileChooserType;
 import Model.Enum.NotifType;

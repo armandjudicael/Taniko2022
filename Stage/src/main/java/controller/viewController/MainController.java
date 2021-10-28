@@ -1,8 +1,8 @@
 package controller.viewController;
 
 import controller.detailsController.UserDetailsController;
-import DAO.DaoFactory;
-import DAO.DbOperation;
+import dao.DaoFactory;
+import dao.DbOperation;
 import Main.InitializeApp;
 import Main.Main;
 import Model.Enum.Origin;

@@ -1,6 +1,6 @@
 package controller.viewController;
 
-import DAO.DaoFactory;
+import dao.DaoFactory;
 import Main.InitializeApp;
 import Model.Enum.NotifType;
 import Model.Enum.Origin;

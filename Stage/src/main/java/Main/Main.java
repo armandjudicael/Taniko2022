@@ -1,6 +1,6 @@
 package Main;
 
-import DAO.ConnectionFactory;
+import dao.ConnectionFactory;
 import Model.Other.MainService;
 import javafx.application.Application;
 import javafx.application.Platform;

@@ -1,6 +1,6 @@
 package View.Helper.Other;
 
-import DAO.DaoFactory;
+import dao.DaoFactory;
 import Model.Enum.Type;
 import Model.Other.MainService;
 import javafx.application.Platform;

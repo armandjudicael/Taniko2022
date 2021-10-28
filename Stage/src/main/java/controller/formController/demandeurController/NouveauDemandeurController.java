@@ -1,23 +1,29 @@
 package controller.formController.demandeurController;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXRadioButton;
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class NouveauDemandeurController implements Initializable {
+
     @Override public void initialize(URL location, ResourceBundle resources) {
         nouveauDemandeurController = this;
         initRegimeMatrimoniale();
         physiquePane.toFront();
+        mariagePane.disableProperty().bind(Bindings.not(marie.selectedProperty()));
     }
+
     private void initRegimeMatrimoniale(){
        String[] regimeType = {"Droit commun","Séparation des biens"};
        regimeMatrimoniale.getItems().addAll(regimeType);
        regimeMatrimoniale.setValue(regimeType[0]);
     }
+
     public ScrollPane getMoralPane() {
         return moralPane;
     }
@@ -93,7 +99,7 @@ public class NouveauDemandeurController implements Initializable {
     public JFXDatePicker getDateNaissanceConjoint() {
         return dateNaissanceConjoint;
     }
-    public ComboBox<?> getRegimeMatrimoniale() {
+    public ComboBox<String> getRegimeMatrimoniale() {
         return regimeMatrimoniale;
     }
     public JFXDatePicker getDateMariage() {
@@ -129,9 +135,16 @@ public class NouveauDemandeurController implements Initializable {
     public JFXDatePicker getDateDeNaissanceDmd() {
         return dateDeNaissanceDmd;
     }
+    public TextField getNomPere() {
+        return nomPere;
+    }
+    public TextField getNomMere() {
+        return nomMere;
+    }
     public static NouveauDemandeurController getInstance() {
         return nouveauDemandeurController;
     }
+
     @FXML private TextField lieuDeNaissanceConjoint;
     @FXML private TextField lieuMariage;
     @FXML private TextField nomConjoint;
@@ -169,5 +182,8 @@ public class NouveauDemandeurController implements Initializable {
     @FXML private TextField email;
     @FXML private TextField proffession;
     @FXML private TextField prenomConjoint;
+    @FXML private TextField nomPere;
+    @FXML private TextField nomMere;
+    @FXML private AnchorPane mariagePane;
     private static NouveauDemandeurController nouveauDemandeurController;
 }

@@ -1,11 +1,10 @@
 package controller.detailsController;
 
 import controller.viewController.AffairViewController;
-import DAO.DbOperation;
+import dao.DbOperation;
 import Model.Enum.NotifType;
 import Model.Enum.Origin;
 import Model.Enum.TypeDemande;
-import Model.Other.Mail;
 import Model.Pojo.Affaire;
 import Model.Other.MainService;
 import View.Cell.TableCell.DateProcedureCell;

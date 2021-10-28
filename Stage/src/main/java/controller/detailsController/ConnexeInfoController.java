@@ -1,7 +1,7 @@
 package controller.detailsController;
 
 import controller.viewController.AffairViewController;
-import DAO.DbOperation;
+import dao.DbOperation;
 import Model.Enum.AffaireStatus;
 import Model.Enum.NotifType;
 import Model.Enum.Origin;

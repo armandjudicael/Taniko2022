@@ -1,6 +1,6 @@
 package controller.viewController;
 
-import DAO.DaoFactory;
+import dao.DaoFactory;
 import Main.InitializeApp;
 import Model.Other.MainService;
 import View.Dialog.FormDialog.UserFrom;

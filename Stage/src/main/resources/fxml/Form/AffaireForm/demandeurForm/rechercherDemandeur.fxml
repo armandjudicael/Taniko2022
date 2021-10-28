@@ -14,7 +14,7 @@
 
 <AnchorPane minHeight="0.0" minWidth="0.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.formController.demandeurController.RechercherDemandeurController">
    <children>
-      <JFXComboBox fx:id="redactorCombobox" editable="true" focusColor="WHITE" layoutX="24.0" layoutY="14.0" prefHeight="34.0" prefWidth="702.0" styleClass="box" stylesheets="@../../../../css/box.css" unFocusColor="WHITE" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0" />
+      <JFXComboBox fx:id="demandeurCombobox" editable="true" focusColor="WHITE" layoutX="24.0" layoutY="14.0" prefHeight="34.0" prefWidth="702.0" styleClass="box" stylesheets="@../../../../css/box.css" unFocusColor="WHITE" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0" />
       <StackPane fx:id="stackpane" layoutX="14.0" layoutY="69.0" prefHeight="385.0" prefWidth="750.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="69.0">
          <children>
             <AnchorPane fx:id="physiqueInfo" prefHeight="338.0" prefWidth="750.0" style="-fx-background-color: white;">

@@ -1,6 +1,6 @@
 package controller.viewController;
 
-import DAO.DaoFactory;
+import dao.DaoFactory;
 import Model.Other.MainService;
 import animatefx.animation.SlideInLeft;
 import animatefx.animation.SlideInRight;

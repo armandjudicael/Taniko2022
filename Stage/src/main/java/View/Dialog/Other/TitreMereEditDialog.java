@@ -2,7 +2,7 @@ package View.Dialog.Other;
 
 import controller.detailsController.AffairDetailsController;
 import controller.viewController.MainController;
-import DAO.DbOperation;
+import dao.DbOperation;
 import Model.Enum.Type;
 import Model.Enum.NotifType;
 import Model.Pojo.Affaire;

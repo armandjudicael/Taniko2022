@@ -1,7 +1,6 @@
 package controller.formController.demandeurController;
 import com.jfoenix.controls.JFXButton;
-import controller.formController.MainAffaireFormController;
-import io.github.palexdev.materialfx.filter.IFilterable;
+import controller.formController.other.MainAffaireFormController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Tab;
@@ -63,5 +62,4 @@ public class MainDemandeurFormController implements Initializable {
     @FXML private ToggleButton personnePhysique;
     @FXML private ToggleGroup typeDemandeur;
     @FXML private ToggleButton personneMorale;
-
 }

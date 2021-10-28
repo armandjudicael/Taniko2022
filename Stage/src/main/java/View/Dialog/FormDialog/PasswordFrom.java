@@ -27,7 +27,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
-import static DAO.DbOperation.executeQuery;
+import static dao.DbOperation.executeQuery;
 
 public class PasswordFrom extends JFXDialog implements Initializable {
 

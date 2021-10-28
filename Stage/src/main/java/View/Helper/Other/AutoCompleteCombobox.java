@@ -1,6 +1,6 @@
 package View.Helper.Other;
 
-import DAO.DaoFactory;
+import dao.DaoFactory;
 import Model.Enum.Type;
 import com.jfoenix.controls.JFXComboBox;
 import javafx.beans.binding.Bindings;
@@ -16,7 +16,6 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 public class AutoCompleteCombobox<T> implements EventHandler<KeyEvent>{
-
     private JFXComboBox<T> comboBox;
     private ObservableList<T> comboboxItemsCopy = FXCollections.observableArrayList();
     private Predicate<T> comboboxPredicate;
@@ -31,9 +30,7 @@ public class AutoCompleteCombobox<T> implements EventHandler<KeyEvent>{
     }
 
     private void doAutoCompleteBox(){
-
         this.comboBox.setEditable(true);
-
         this.comboBox.setConverter(new StringConverter<T>(){
             @Override
             public String toString(T object) {
@@ -86,7 +83,6 @@ public class AutoCompleteCombobox<T> implements EventHandler<KeyEvent>{
                 || event.getCode() == KeyCode.END || event.getCode() == KeyCode.TAB){
             return;
         }
-
         if(event.getCode() == KeyCode.BACK_SPACE){
             String str = this.comboBox.getEditor().getText();
             if (str != null && str.length() > 0) {
@@ -98,7 +94,6 @@ public class AutoCompleteCombobox<T> implements EventHandler<KeyEvent>{
             }
             this.comboBox.getSelectionModel().clearSelection();
         }
-
         if(event.getCode() == KeyCode.ENTER ){
             this.comboBox.hide();
             return;
@@ -109,7 +104,6 @@ public class AutoCompleteCombobox<T> implements EventHandler<KeyEvent>{
                 launchDataSearch(items,comboboxItemsCopy,text);
             }
         }
-
     }
 
      void launchDataSearch(ObservableList<T> items, ObservableList<T> copyItems, String numOrName){
@@ -151,7 +145,6 @@ public class AutoCompleteCombobox<T> implements EventHandler<KeyEvent>{
     private void moveCaret(int textLength) {
         this.comboBox.getEditor().positionCaret(textLength);
     }
-
     /**
      * Invoked when a specific event of the type for which this handler is
      * registered happens.

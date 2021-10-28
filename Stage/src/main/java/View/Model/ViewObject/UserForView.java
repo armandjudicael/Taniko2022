@@ -1,7 +1,7 @@
 package View.Model.ViewObject;
 
 import controller.viewController.UserViewController;
-import DAO.DaoFactory;
+import dao.DaoFactory;
 import Main.InitializeApp;
 import Model.Enum.NotifType;
 import Model.Enum.Origin;

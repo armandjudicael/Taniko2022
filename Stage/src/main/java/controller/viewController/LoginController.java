@@ -1,8 +1,8 @@
 package controller.viewController;
 
-import DAO.ConnectionFactory;
-import DAO.DaoFactory;
-import DAO.DbOperation;
+import dao.ConnectionFactory;
+import dao.DaoFactory;
+import dao.DbOperation;
 import Main.Main;
 import Model.Pojo.User;
 import Model.Other.MainService;

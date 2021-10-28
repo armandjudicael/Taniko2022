@@ -1,6 +1,6 @@
 package Model.Pojo;
 
-import DAO.DaoFactory;
+import dao.DaoFactory;
 import Main.Main;
 import javafx.application.HostServices;
 import org.apache.commons.io.FileUtils;
@@ -8,9 +8,7 @@ import java.io.*;
 import java.text.DecimalFormat;
 
 public class PieceJointe {
-
     public PieceJointe() {}
-
     public PieceJointe(int idPieceJointe,
                        String description,
                        String extensionPiece,
@@ -22,7 +20,6 @@ public class PieceJointe {
         this.size = size;
         this.inputStream = inputStream;
     }
-
     public PieceJointe(File selectedFile){
         try {
             String name = selectedFile.getName();

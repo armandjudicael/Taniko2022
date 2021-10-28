@@ -1,7 +1,7 @@
 package View.Helper.Attachement;
 
 import controller.detailsController.AffairDetailsController;
-import DAO.DaoFactory;
+import dao.DaoFactory;
 import Model.Enum.FileChooserType;
 import Model.Enum.NotifType;
 import Model.Other.MainService;

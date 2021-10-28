@@ -7,7 +7,7 @@ import controller.detailsController.ProcedureInfoController;
 import controller.viewController.AffairViewController;
 import controller.viewController.MainController;
 import controller.viewController.TitleViewController;
-import DAO.DaoFactory;
+import dao.DaoFactory;
 import Model.Enum.Origin;
 import Model.Other.MainService;
 import View.Dialog.Other.DispatchDialog;

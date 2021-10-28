@@ -3,7 +3,7 @@ package View.Dialog.FormDialog;
 import controller.detailsController.ProcedureInfoController;
 import controller.viewController.AffairViewController;
 import controller.viewController.MainController;
-import DAO.DaoFactory;
+import dao.DaoFactory;
 import Model.Enum.NotifType;
 import Model.Enum.TypeDemande;
 import Model.Other.MainService;

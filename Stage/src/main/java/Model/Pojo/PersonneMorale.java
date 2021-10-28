@@ -3,11 +3,7 @@ package Model.Pojo;
 import Model.Enum.TypeDemandeur;
 
 public class PersonneMorale {
-
-    public PersonneMorale(){
-
-    }
-
+    public PersonneMorale(){}
     public PersonneMorale(int id,
                           String adresse,
                           String numTel,
@@ -23,7 +19,6 @@ public class PersonneMorale {
         this.type = type;
         this.nationalite = nationalite;
     }
-
     public PersonneMorale(String adresse,
                           String numTel,
                           String email,

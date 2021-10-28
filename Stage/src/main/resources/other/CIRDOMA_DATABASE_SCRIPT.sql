@@ -4,12 +4,12 @@ use TANIKO_1_1;
 
 create table demandeur_morale(
     idDmd int auto_increment NOT NULL primary key,
-    numTelDmd varchar(255) default null,
-    emailDmd varchar(255) default null,
+    numTelDmd varchar(255) unique default null,
+    emailDmd varchar(255) unique default null,
     adresseDmd text default null,
     nomDmd text NOT NULL,
     typeDmd enum('morale','physique') default 'physique',
-    nationalite  VARCHAR(255) not null
+    nationalite  VARCHAR(255) default null
 );
 
 create table demandeur_physique(
@@ -27,13 +27,13 @@ create table demandeur_physique(
 );
 
 create table mariage(
-  idHomme int not null ,
-  idFemme int not null ,
+  idDemandeur int not null ,
+  idConjoint int not null ,
   dateMariage timestamp not null ,
   lieuMariage varchar(255) not null ,
   regime enum('séparation des biens','Droit commun'),
-  CONSTRAINT fk_homme_mariage foreign key (idHomme) references demandeur_physique(idDmdPhysique) ON DELETE CASCADE,
-  CONSTRAINT fk_femme_mariage foreign key (idFemme) references demandeur_physique(idDmdPhysique) ON DELETE CASCADE
+  CONSTRAINT fk_demandeur_mariage foreign key (idDemandeur) references demandeur_physique(idDmdPhysique) ON DELETE CASCADE,
+  CONSTRAINT fk_conjoint_mariage foreign key (idConjoint) references demandeur_physique(idDmdPhysique) ON DELETE CASCADE
 );
 
 create table utilisateur(
@@ -99,6 +99,14 @@ create table affaire(
   constraint numero_affaire unique (numAffaire),
   constraint fk_affaire_et_demandeur foreign key (demandeurId) references demandeur_morale(idDmd),
   constraint fk_affaire_et_terrain foreign key (terrainId) references terrain(idTerrain) on DELETE CASCADE
+);
+
+create table representant(
+                             idPersonneMorale int not null,
+                             idPersonnePhysique int not null ,
+                             dateRepresentantion timestamp not null ,
+                             constraint fk_representant_morale foreign key (idPersonneMorale) references demandeur_morale(idDmd) on delete cascade ,
+                             constraint fk_representant_physique foreign key (idPersonnePhysique) references demandeur_physique(idDmdPhysique) on delete cascade
 );
 
 create table ordonnance(

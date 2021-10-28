@@ -2,7 +2,7 @@ package controller.detailsController;
 
 import controller.viewController.LoginController;
 import controller.viewController.MainController;
-import DAO.DbOperation;
+import dao.DbOperation;
 import Model.Enum.FileChooserType;
 import Model.Enum.NotifType;
 import Model.Enum.Origin;
@@ -34,7 +34,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import static DAO.DbOperation.executeQuery;
+import static dao.DbOperation.executeQuery;
 
 public class UserDetailsController implements Initializable {
 

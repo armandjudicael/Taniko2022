@@ -2,8 +2,8 @@ package View.Dialog.FormDialog;
 
 import controller.viewController.MainController;
 import controller.viewController.TitleViewController;
-import DAO.DaoFactory;
-import DAO.DbOperation;
+import dao.DaoFactory;
+import dao.DbOperation;
 import Model.Enum.NotifType;
 import Model.Enum.TableName;
 import Model.Enum.TitleOperation;

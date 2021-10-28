@@ -12,6 +12,7 @@ import javafx.scene.image.ImageView;
 import java.util.Objects;
 
 public class ProcedureColumnFactory{
+
     private final static Image goImg = new Image(Objects.requireNonNull(AffairViewController.class.getResourceAsStream("/img/go1.png")));
     private final static Image backImg = new Image(Objects.requireNonNull(AffairViewController.class.getResourceAsStream("/img/back.png")));
     private final static Image noneImg = new Image(Objects.requireNonNull(AffairViewController.class.getResourceAsStream("/img/none.png")));

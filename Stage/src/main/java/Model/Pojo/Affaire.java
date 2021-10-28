@@ -1,6 +1,6 @@
 package Model.Pojo;
 
-import DAO.DaoFactory;
+import dao.DaoFactory;
 import Model.Enum.AffaireStatus;
 import Model.Enum.Observation;
 import Model.Enum.TypeDemande;
@@ -13,8 +13,7 @@ import java.util.ArrayList;
 
 public class Affaire {
 
-    public Affaire() {
-    }
+    public Affaire() {}
 
     public Affaire(int id,
                    String numero,
@@ -22,7 +21,7 @@ public class Affaire {
                    TypeDemande typeDemande,
                    User redacteur,
                    AffaireStatus status,
-                   PersonnePhysique demandeurPhysique,
+                   PersonneMorale demandeur,
                    Terrain terrain){
         this.id = id;
         this.numero = numero;
@@ -30,7 +29,7 @@ public class Affaire {
         this.typeDemande = typeDemande;
         this.redacteur = redacteur;
         this.status = status;
-        this.demandeurPhysique = demandeurPhysique;
+        this.demandeur = demandeur;
         this.terrain = terrain;
     }
 
@@ -39,48 +38,14 @@ public class Affaire {
                    TypeDemande typeDemande,
                    User redacteur,
                    AffaireStatus status,
-                   PersonnePhysique demandeurPhysique,
+                   PersonneMorale demandeur,
                    Terrain terrain){
         this.numero = numero;
         this.dateDeFormulation = dateDeFormulation;
         this.typeDemande = typeDemande;
         this.redacteur = redacteur;
         this.status = status;
-        this.demandeurPhysique = demandeurPhysique;
-        this.terrain = terrain;
-    }
-
-    public Affaire(int id,
-                   String numero,
-                   Timestamp dateDeFormulation,
-                   TypeDemande typeDemande,
-                   User redacteur,
-                   AffaireStatus status,
-                   PersonneMorale demandeurMorale,
-                   Terrain terrain){
-        this.id = id;
-        this.numero = numero;
-        this.dateDeFormulation = dateDeFormulation;
-        this.typeDemande = typeDemande;
-        this.redacteur = redacteur;
-        this.status = status;
-        this.demandeurMorale = demandeurMorale;
-        this.terrain = terrain;
-    }
-
-    public Affaire(String numero,
-                   Timestamp dateDeFormulation,
-                   TypeDemande typeDemande,
-                   User redacteur,
-                   AffaireStatus status,
-                   PersonneMorale demandeurMorale,
-                   Terrain terrain){
-        this.numero = numero;
-        this.dateDeFormulation = dateDeFormulation;
-        this.typeDemande = typeDemande;
-        this.redacteur = redacteur;
-        this.status = status;
-        this.demandeurMorale = demandeurMorale;
+        this.demandeur = demandeur;
         this.terrain = terrain;
     }
 
@@ -158,6 +123,7 @@ public class Affaire {
         }
         return Observation.SANS_EMPIETEMENT;
     }
+
     public AffaireStatus getStatus() {
         return status;
     }
@@ -185,17 +151,11 @@ public class Affaire {
     public void setTypeDemande(TypeDemande typeDemande) {
         this.typeDemande = typeDemande;
     }
-    public PersonnePhysique getDemandeurPhysique() {
-        return demandeurPhysique;
+    public PersonneMorale getDemandeur() {
+        return demandeur;
     }
-    public void setDemandeurPhysique(PersonnePhysique demandeurPhysique) {
-        this.demandeurPhysique = demandeurPhysique;
-    }
-    public PersonneMorale getDemandeurMorale() {
-        return demandeurMorale;
-    }
-    public void setDemandeurMorale(PersonneMorale demandeurMorale) {
-        this.demandeurMorale = demandeurMorale; }
+    public void setDemandeur(PersonneMorale demandeur) {
+        this.demandeur = demandeur; }
 
     private  int id;
     private String numero;
@@ -203,7 +163,6 @@ public class Affaire {
     private TypeDemande typeDemande;
     private User redacteur;
     private AffaireStatus status;
-    private PersonnePhysique demandeurPhysique;
-    private PersonneMorale demandeurMorale;
+    private PersonneMorale demandeur;
     private Terrain terrain;
 }

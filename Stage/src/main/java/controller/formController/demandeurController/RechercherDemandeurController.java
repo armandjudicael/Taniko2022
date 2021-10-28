@@ -1,5 +1,6 @@
 package controller.formController.demandeurController;
 
+import Model.Pojo.PersonneMorale;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTreeTableView;
@@ -26,8 +27,8 @@ public class RechercherDemandeurController implements Initializable {
     public Label getNationalite() {
         return nationalite;
     }
-    public JFXComboBox getRedactorCombobox() {
-        return redactorCombobox;
+    public JFXComboBox<PersonneMorale> getDemandeurCombobox() {
+        return demandeurCombobox;
     }
     public JFXTreeTableView<?> getRepresentantTreeTableView() {
         return representantTreeTableView;
@@ -80,7 +81,7 @@ public class RechercherDemandeurController implements Initializable {
     }
     private static RechercherDemandeurController rechercherDemandeurController;
 
-    @FXML private JFXComboBox<String> redactorCombobox;
+    @FXML private JFXComboBox<PersonneMorale> demandeurCombobox;
     @FXML private StackPane stackpane;
     @FXML private JFXTreeTableView<?> representantTreeTableView;
     @FXML private TreeTableColumn<?, ?> nomRepresentantTreeTbColum;

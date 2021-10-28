@@ -2,7 +2,7 @@ package controller.detailsController;
 
 import controller.viewController.AffairViewController;
 import controller.viewController.MainController;
-import DAO.DaoFactory;
+import dao.DaoFactory;
 import Model.Enum.AffaireStatus;
 import Model.Enum.Origin;
 import Model.Enum.TitleOperation;
@@ -40,7 +40,7 @@ import java.time.LocalTime;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import static DAO.DbOperation.executeQuery;
+import static dao.DbOperation.executeQuery;
 
 public class AffairDetailsController implements Initializable {
 
