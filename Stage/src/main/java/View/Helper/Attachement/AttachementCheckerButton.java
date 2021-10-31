@@ -37,8 +37,10 @@ public class AttachementCheckerButton implements EventHandler<ActionEvent> {
 
     private void changeAttachementViewStatusTo(Boolean isChecked){
         attachementList.forEach(node -> {
-            PieceJointeForView pieceJointeForView = (PieceJointeForView) node;
-            pieceJointeForView.getPieceCheckbox().setSelected(isChecked);
+            if (!(node instanceof JFXButton)){
+                PieceJointeForView pieceJointeForView = (PieceJointeForView) node;
+                pieceJointeForView.getPieceCheckbox().setSelected(isChecked);
+            }
         });
     }
 

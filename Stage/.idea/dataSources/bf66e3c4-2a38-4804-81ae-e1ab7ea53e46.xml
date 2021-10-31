@@ -1390,6 +1390,7 @@ dateDispatch</ColNames>
       <Position>1</Position>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
+      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="387" parent="297" name="descriptionPiece">
       <Position>2</Position>
@@ -1411,325 +1412,330 @@ dateDispatch</ColNames>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="391" parent="297" name="fk_affaire_piece_jointe">
+    <column id="391" parent="297" name="taillePiece">
+      <Position>6</Position>
+      <DataType>varchar(50)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="392" parent="297" name="fk_affaire_piece_jointe">
       <ColNames>affaireId</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="392" parent="297" name="PRIMARY">
+    <key id="393" parent="297" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>idPieceJointe</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="393" parent="297" name="fk_affaire_piece_jointe">
+    <foreign-key id="394" parent="297" name="fk_affaire_piece_jointe">
       <ColNames>affaireId</ColNames>
       <RefTableName>affaire</RefTableName>
       <RefColNames>idAffaire</RefColNames>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="394" parent="298" name="procedureId">
+    <column id="395" parent="298" name="procedureId">
       <Position>1</Position>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="395" parent="298" name="affaireId">
+    <column id="396" parent="298" name="affaireId">
       <Position>2</Position>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="396" parent="298" name="dateDepart">
+    <column id="397" parent="298" name="dateDepart">
       <Position>3</Position>
       <DataType>timestamp|0s</DataType>
       <DefaultExpression>&apos;1999-07-30 00:00:00&apos;</DefaultExpression>
     </column>
-    <column id="397" parent="298" name="dateArrive">
+    <column id="398" parent="298" name="dateArrive">
       <Position>4</Position>
       <DataType>timestamp|0s</DataType>
       <DefaultExpression>&apos;1999-07-30 00:00:00&apos;</DefaultExpression>
     </column>
-    <column id="398" parent="298" name="numArrive">
+    <column id="399" parent="298" name="numArrive">
       <Position>5</Position>
       <DataType>varchar(10)|0s</DataType>
       <DefaultExpression>&apos;&apos;</DefaultExpression>
     </column>
-    <column id="399" parent="298" name="numDepart">
+    <column id="400" parent="298" name="numDepart">
       <Position>6</Position>
       <DataType>varchar(10)|0s</DataType>
       <DefaultExpression>&apos;&apos;</DefaultExpression>
     </column>
-    <index id="400" parent="298" name="affaireId">
+    <index id="401" parent="298" name="affaireId">
       <ColNames>affaireId</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="401" parent="298" name="PRIMARY">
+    <key id="402" parent="298" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>procedureId
 affaireId</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="402" parent="298" name="procedure_concerner_affaire_ibfk_1">
+    <foreign-key id="403" parent="298" name="procedure_concerner_affaire_ibfk_1">
       <ColNames>procedureId</ColNames>
       <RefTableName>_procedure</RefTableName>
       <RefColNames>idProcedure</RefColNames>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <foreign-key id="403" parent="298" name="procedure_concerner_affaire_ibfk_2">
+    <foreign-key id="404" parent="298" name="procedure_concerner_affaire_ibfk_2">
       <ColNames>affaireId</ColNames>
       <RefTableName>affaire</RefTableName>
       <RefColNames>idAffaire</RefColNames>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="404" parent="299" name="idReperage">
+    <column id="405" parent="299" name="idReperage">
       <Position>1</Position>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="405" parent="299" name="numReperage">
+    <column id="406" parent="299" name="numReperage">
       <Position>2</Position>
       <DataType>varchar(100)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="406" parent="299" name="dateReperage">
+    <column id="407" parent="299" name="dateReperage">
       <Position>3</Position>
       <DataType>timestamp|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="407" parent="299" name="affaireId">
+    <column id="408" parent="299" name="affaireId">
       <Position>4</Position>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="408" parent="299" name="fk_reperage_affaire">
+    <index id="409" parent="299" name="fk_reperage_affaire">
       <ColNames>affaireId</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="409" parent="299" name="PRIMARY">
+    <key id="410" parent="299" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>idReperage</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="410" parent="299" name="fk_reperage_affaire">
+    <foreign-key id="411" parent="299" name="fk_reperage_affaire">
       <ColNames>affaireId</ColNames>
       <RefTableName>affaire</RefTableName>
       <RefColNames>idAffaire</RefColNames>
     </foreign-key>
-    <column id="411" parent="300" name="idPersonneMorale">
+    <column id="412" parent="300" name="idPersonneMorale">
       <Position>1</Position>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="412" parent="300" name="idPersonnePhysique">
+    <column id="413" parent="300" name="idPersonnePhysique">
       <Position>2</Position>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="413" parent="300" name="dateRepresentantion">
+    <column id="414" parent="300" name="dateRepresentantion">
       <Position>3</Position>
       <DataType>timestamp|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="414" parent="300" name="fk_representant_morale">
+    <index id="415" parent="300" name="fk_representant_morale">
       <ColNames>idPersonneMorale</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="415" parent="300" name="fk_representant_physique">
+    <index id="416" parent="300" name="fk_representant_physique">
       <ColNames>idPersonnePhysique</ColNames>
       <Type>btree</Type>
     </index>
-    <foreign-key id="416" parent="300" name="fk_representant_morale">
+    <foreign-key id="417" parent="300" name="fk_representant_morale">
       <ColNames>idPersonneMorale</ColNames>
       <RefTableName>demandeur_morale</RefTableName>
       <RefColNames>idDmd</RefColNames>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <foreign-key id="417" parent="300" name="fk_representant_physique">
+    <foreign-key id="418" parent="300" name="fk_representant_physique">
       <ColNames>idPersonnePhysique</ColNames>
       <RefTableName>demandeur_physique</RefTableName>
       <RefColNames>idDmdPhysique</RefColNames>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="418" parent="301" name="idTerrain">
+    <column id="419" parent="301" name="idTerrain">
       <Position>1</Position>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="419" parent="301" name="region">
+    <column id="420" parent="301" name="region">
       <Position>2</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="420" parent="301" name="district">
+    <column id="421" parent="301" name="district">
       <Position>3</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="421" parent="301" name="commune">
+    <column id="422" parent="301" name="commune">
       <Position>4</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="422" parent="301" name="quartier">
+    <column id="423" parent="301" name="quartier">
       <Position>5</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="423" parent="301" name="parcelle">
+    <column id="424" parent="301" name="parcelle">
       <Position>6</Position>
       <DataType>varchar(50)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="424" parent="301" name="superficie">
+    <column id="425" parent="301" name="superficie">
       <Position>7</Position>
       <DataType>text|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <key id="425" parent="301" name="PRIMARY">
+    <key id="426" parent="301" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>idTerrain</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="426" parent="302" name="titreId">
+    <column id="427" parent="302" name="titreId">
       <Position>1</Position>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="427" parent="302" name="terrainId">
+    <column id="428" parent="302" name="terrainId">
       <Position>2</Position>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="428" parent="302" name="fk_titre_aboutir_terrain">
+    <index id="429" parent="302" name="fk_titre_aboutir_terrain">
       <ColNames>titreId</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="429" parent="302" name="fk_terrain_aboutir_titre">
+    <index id="430" parent="302" name="fk_terrain_aboutir_titre">
       <ColNames>terrainId</ColNames>
       <Type>btree</Type>
     </index>
-    <foreign-key id="430" parent="302" name="fk_titre_aboutir_terrain">
+    <foreign-key id="431" parent="302" name="fk_titre_aboutir_terrain">
       <ColNames>titreId</ColNames>
       <RefTableName>titre</RefTableName>
       <RefColNames>idTitre</RefColNames>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <foreign-key id="431" parent="302" name="fk_terrain_aboutir_titre">
+    <foreign-key id="432" parent="302" name="fk_terrain_aboutir_titre">
       <ColNames>terrainId</ColNames>
       <RefTableName>terrain</RefTableName>
       <RefColNames>idTerrain</RefColNames>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="432" parent="303" name="titreId">
+    <column id="433" parent="303" name="titreId">
       <Position>1</Position>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="433" parent="303" name="terrainId">
+    <column id="434" parent="303" name="terrainId">
       <Position>2</Position>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="434" parent="303" name="fk_titre_depend_terrain">
+    <index id="435" parent="303" name="fk_titre_depend_terrain">
       <ColNames>titreId</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="435" parent="303" name="fk_terrain_depend_titre">
+    <index id="436" parent="303" name="fk_terrain_depend_titre">
       <ColNames>terrainId</ColNames>
       <Type>btree</Type>
     </index>
-    <foreign-key id="436" parent="303" name="fk_titre_depend_terrain">
+    <foreign-key id="437" parent="303" name="fk_titre_depend_terrain">
       <ColNames>titreId</ColNames>
       <RefTableName>titre</RefTableName>
       <RefColNames>idTitre</RefColNames>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <foreign-key id="437" parent="303" name="fk_terrain_depend_titre">
+    <foreign-key id="438" parent="303" name="fk_terrain_depend_titre">
       <ColNames>terrainId</ColNames>
       <RefTableName>terrain</RefTableName>
       <RefColNames>idTerrain</RefColNames>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="438" parent="304" name="idTitre">
+    <column id="439" parent="304" name="idTitre">
       <Position>1</Position>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="439" parent="304" name="numTitre">
+    <column id="440" parent="304" name="numTitre">
       <Position>2</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="440" parent="304" name="dateCreation">
+    <column id="441" parent="304" name="dateCreation">
       <Position>3</Position>
       <DataType>timestamp|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="441" parent="304" name="numMorcelement">
+    <column id="442" parent="304" name="numMorcelement">
       <Position>4</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <key id="442" parent="304" name="PRIMARY">
+    <key id="443" parent="304" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>idTitre</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="443" parent="305" name="idUtilisateur">
+    <column id="444" parent="305" name="idUtilisateur">
       <Position>1</Position>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="444" parent="305" name="nom_utilisateur">
+    <column id="445" parent="305" name="nom_utilisateur">
       <Position>2</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="445" parent="305" name="mot_de_passe">
+    <column id="446" parent="305" name="mot_de_passe">
       <Position>3</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="446" parent="305" name="nom">
+    <column id="447" parent="305" name="nom">
       <Position>4</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="447" parent="305" name="prenom">
+    <column id="448" parent="305" name="prenom">
       <Position>5</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="448" parent="305" name="photo">
+    <column id="449" parent="305" name="photo">
       <Position>6</Position>
       <DataType>longblob|0s</DataType>
     </column>
-    <column id="449" parent="305" name="type">
+    <column id="450" parent="305" name="type">
       <Position>7</Position>
       <DataType>enum(&apos;administrateur&apos;, &apos;standard&apos;)|0e</DataType>
       <DefaultExpression>&apos;standard&apos;</DefaultExpression>
     </column>
-    <column id="450" parent="305" name="fonction">
+    <column id="451" parent="305" name="fonction">
       <Position>8</Position>
       <DataType>text|0s</DataType>
     </column>
-    <column id="451" parent="305" name="userStatus">
+    <column id="452" parent="305" name="userStatus">
       <Position>9</Position>
       <DataType>int|0s</DataType>
       <DefaultExpression>0</DefaultExpression>
     </column>
-    <index id="452" parent="305" name="nom_utilisateur">
+    <index id="453" parent="305" name="nom_utilisateur">
       <ColNames>nom_utilisateur</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <key id="453" parent="305" name="PRIMARY">
+    <key id="454" parent="305" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>idUtilisateur</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="454" parent="305" name="nom_utilisateur">
+    <key id="455" parent="305" name="nom_utilisateur">
       <ColNames>nom_utilisateur</ColNames>
       <UnderlyingIndexName>nom_utilisateur</UnderlyingIndexName>
     </key>

@@ -1,7 +1,7 @@
 package dao;
 
-import Model.Pojo.Affaire;
-import Model.Pojo.PieceJointe;
+import Model.Pojo.business.Affaire;
+import Model.Pojo.business.PieceJointe;
 import View.Model.ViewObject.PieceJointeForView;
 import javafx.collections.ObservableList;
 import org.junit.Test;

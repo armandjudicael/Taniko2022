@@ -1,9 +1,7 @@
 package View.Helper.Attachement;
 
-import Model.Pojo.PieceJointe;
+import Model.Pojo.business.PieceJointe;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 public class AttachementCreatorButtonTest {
 

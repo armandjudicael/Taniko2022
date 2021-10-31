@@ -5,7 +5,7 @@ import dao.DaoFactory;
 import Main.InitializeApp;
 import Model.Enum.NotifType;
 import Model.Enum.Origin;
-import Model.Pojo.User;
+import Model.Pojo.business.User;
 import Model.Other.MainService;
 import View.Dialog.Other.EditorTrack;
 import View.Dialog.Other.Notification;

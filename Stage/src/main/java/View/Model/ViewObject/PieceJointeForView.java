@@ -1,6 +1,6 @@
 package View.Model.ViewObject;
 
-import Model.Pojo.PieceJointe;
+import Model.Pojo.business.PieceJointe;
 import View.Helper.Attachement.AttachementPopup;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;

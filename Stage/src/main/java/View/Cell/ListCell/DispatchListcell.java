@@ -1,16 +1,9 @@
 package View.Cell.ListCell;
 
-import Model.Pojo.User;
-import javafx.event.EventHandler;
-import javafx.scene.Cursor;
-import javafx.scene.Parent;
-import javafx.scene.control.Label;
+import Model.Pojo.business.User;
 import javafx.scene.control.ListCell;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.StrokeType;
 
 public class DispatchListcell extends ListCell<User> {
 

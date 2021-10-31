@@ -1,10 +1,10 @@
-#pieceJointe{
+#pieceJointe,.jfx-button{
     -fx-background-color: white;
     -fx-background-radius: 4px;
     -fx-border-width: 1.8px 1.8px 1.8px 1.8px;
     -fx-border-color: transparent;
 }
-#pieceJointe:hover{
+.jfx-button:hover,#pieceJointe:hover{
     -fx-border-color: #1aa848 #1aa848;
     -fx-border-radius: 4px 4px;
     -fx-border-style: solid;

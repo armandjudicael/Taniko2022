@@ -1,5 +1,9 @@
 package controller.viewController;
 
+import Model.Pojo.business.Affaire;
+import Model.Pojo.business.Terrain;
+import Model.Pojo.business.Titre;
+import Model.Pojo.business.User;
 import controller.detailsController.*;
 import dao.DaoFactory;
 import Main.InitializeApp;
@@ -7,7 +11,6 @@ import Model.Enum.AffaireStatus;
 import Model.Enum.NotifType;
 import Model.Enum.Origin;
 import Model.Enum.TypeDemande;
-import Model.Pojo.*;
 import View.Helper.TableColumn.ProcedureColumnFactory;
 import View.Model.ViewObject.*;
 import Model.Other.MainService;

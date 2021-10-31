@@ -1,7 +1,7 @@
 package dao;
 
-import Model.Pojo.Affaire;
-import Model.Pojo.PieceJointe;
+import Model.Pojo.business.Affaire;
+import Model.Pojo.business.PieceJointe;
 import View.Model.ViewObject.PieceJointeForView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,7 +15,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class PieceJointeDao extends Dao implements DaoHelper<PieceJointe> {
-
     public PieceJointeDao(Connection connection) {
         super(connection);
     }
@@ -43,7 +42,6 @@ public class PieceJointeDao extends Dao implements DaoHelper<PieceJointe> {
         }
         return null;
     }
-
     public int[] createAll(ObservableList<PieceJointe> list, Affaire affaire){
         if(!list.isEmpty()){
             String query ="INSERT INTO piecejointe(descriptionPiece,valeurPiece,extensionPiece,taillePiece,affaireId) VALUES(?,?,?,?,?);";
@@ -69,7 +67,6 @@ public class PieceJointeDao extends Dao implements DaoHelper<PieceJointe> {
         }
         return null;
     }
-
     public ObservableList<PieceJointeForView> getAllPieceJointe(Affaire affaire){
         ObservableList<PieceJointeForView> pieceJointeObservableList = FXCollections.observableArrayList();
         if (affaire!=null){
@@ -87,7 +84,6 @@ public class PieceJointeDao extends Dao implements DaoHelper<PieceJointe> {
         }
         return pieceJointeObservableList;
     }
-
     public ObservableList<PieceJointe> getAllAttachement(Affaire affaire){
         ObservableList<PieceJointe> pieceJointeObservableList = FXCollections.observableArrayList();
         if (affaire!=null){
@@ -105,8 +101,6 @@ public class PieceJointeDao extends Dao implements DaoHelper<PieceJointe> {
         }
         return pieceJointeObservableList;
     }
-
-
     private PieceJointe createPieceJointe(ResultSet rs){
         try {
             String description = rs.getString("descriptionPiece");
@@ -120,7 +114,6 @@ public class PieceJointeDao extends Dao implements DaoHelper<PieceJointe> {
         }
       return null;
     }
-
     public InputStream getAttachementValue(PieceJointe pieceJointe){
         String query = "SELECT valeurPiece FROM piecejointe WHERE idPieceJointe = ? ";
         try(PreparedStatement ps = connection.prepareStatement(query)){
@@ -133,7 +126,6 @@ public class PieceJointeDao extends Dao implements DaoHelper<PieceJointe> {
         }
         return null;
     }
-
     @Override public int delete(PieceJointe pieceJointe) {
         String query = " DELETE FROM piecejointe WHERE idPieceJointe = ? ";
         try(PreparedStatement ps = connection.prepareStatement(query)){

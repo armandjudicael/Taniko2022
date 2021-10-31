@@ -1,7 +1,7 @@
 package controller.formController.other;
 
 import Model.Enum.Type;
-import Model.Pojo.Titre;
+import Model.Pojo.business.Titre;
 import View.Cell.ListCell.TitleCell;
 import View.Helper.Other.AutoCompleteCombobox;
 import View.Helper.Other.NumeroChecker;
@@ -21,6 +21,8 @@ import java.util.*;
 import java.util.function.Predicate;
 
 public class TerrainFromController implements Initializable{
+
+
 
     @Override public void initialize(URL url, ResourceBundle resourceBundle){
        terrainFromController = this;
@@ -233,11 +235,15 @@ public class TerrainFromController implements Initializable{
     public JFXDatePicker getDateCreation() {
         return dateCreation;
     }
+    public ScrollPane getTerrainScrollPane() { return terrainScrollPane; }
     private static TerrainFromController terrainFromController;
     private static String _region = "ATSINANANA";
     private static String _district = "TOAMASINA-I";
     private static String _commune = " Urbaine de Toamasina ";
 
+
+    // SCROLLPANE
+    @FXML private  ScrollPane terrainScrollPane;
     // DATEPICKER
     @FXML private JFXDatePicker dateCreation;
     // ANCHORPANE

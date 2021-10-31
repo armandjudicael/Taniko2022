@@ -2,12 +2,11 @@ package View.Model.ViewObject;
 
 import Model.Enum.AffaireStatus;
 import Model.Enum.TypeDemande;
-import Model.Pojo.*;
+import Model.Pojo.business.*;
 
 import java.sql.Timestamp;
 
-public class AffaireForView extends Affaire{
-
+public class AffaireForView extends Affaire {
     public AffaireForView(ProcedureForTableview procedure) {
         this.procedure = procedure;
     }
@@ -23,7 +22,6 @@ public class AffaireForView extends Affaire{
         super(id,numero,dateDeFormulation,typeDemande,redacteur,status,demandeurPhysique, terrain);
         this.procedure = procedure;
     }
-
     public AffaireForView(String numero,
                           Timestamp dateDeFormulation,
                           TypeDemande typeDemande,
@@ -35,7 +33,6 @@ public class AffaireForView extends Affaire{
         super(numero, dateDeFormulation, typeDemande, redacteur, status, demandeurPhysique, terrain);
         this.procedure = procedure;
     }
-
     public AffaireForView(int id,
                           String numero,
                           Timestamp dateDeFormulation,

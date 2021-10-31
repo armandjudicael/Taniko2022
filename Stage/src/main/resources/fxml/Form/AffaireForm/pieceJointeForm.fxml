@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -16,7 +17,21 @@
             <TilePane fx:id="pjTilepane" alignment="CENTER" hgap="20.0" prefWidth="737.0" style="-fx-background-color: white;" vgap="20.0">
                <padding>
                   <Insets bottom="10.0" top="10.0" />
-               </padding></TilePane>
+               </padding>
+               <children>
+                  <JFXButton fx:id="addAttachInBtn" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" prefHeight="150.0" prefWidth="150.0" stylesheets="@../../../css/Card.css">
+                     <graphic>
+                        <ImageView fitHeight="81.0" fitWidth="85.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../img/push_pin_100px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+               </children></TilePane>
          </content>
       </ScrollPane>
       <JFXButton fx:id="saveBtn" buttonType="RAISED" layoutX="608.0" layoutY="508.0" prefHeight="35.0" prefWidth="119.0" style="-fx-background-color: #389955;" text="enregistrer" textFill="WHITE" AnchorPane.bottomAnchor="6.0" AnchorPane.rightAnchor="10.0">
@@ -43,7 +58,7 @@
             </ImageView>
          </graphic>
       </JFXButton>
-      <JFXButton fx:id="newPieceBtn" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" layoutX="14.0" layoutY="505.0" prefHeight="35.0" prefWidth="43.0" style="-fx-background-color: #389955;" text="ajouter" textFill="WHITE" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="5.0">
+      <JFXButton fx:id="addAttachOutBtn" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" layoutX="14.0" layoutY="505.0" prefHeight="35.0" prefWidth="43.0" style="-fx-background-color: #389955;" text="ajouter" textFill="WHITE" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="5.0">
          <font>
             <Font name="Century Gothic" size="14.0" />
          </font>

@@ -1,4 +1,4 @@
-package Model.Pojo;
+package Model.Pojo.business;
 import Model.Enum.TypeDemandeur;
 import java.sql.Timestamp;
 
@@ -32,26 +32,6 @@ public class PersonnePhysique extends PersonneMorale{
         this.situationMatrimoniale = situationMatrimoniale;
         this.pere = pere;
         this.mere = mere;
-    }
-
-    public PersonnePhysique(int id,
-                            String adresse,
-                            String numTel,
-                            String email,
-                            String nom,
-                            TypeDemandeur type,
-                            String nationalite,
-                            String parcelle,
-                            String lot,
-                            Timestamp dateDeNaissance,
-                            String lieuDeNaissance,
-                            String sexe){
-        super(id,adresse,numTel,email,nom,type,nationalite);
-        this.parcelle = parcelle;
-        this.lot = lot;
-        this.dateDeNaissance = dateDeNaissance;
-        this.lieuDeNaissance = lieuDeNaissance;
-        this.sexe = sexe;
     }
 
     public PersonnePhysique(String nom,
@@ -122,23 +102,31 @@ public class PersonnePhysique extends PersonneMorale{
     public void setProfession(String profession) {
         this.profession = profession;
     }
-
     public String getPere() {
         return pere;
     }
-
     public void setPere(String pere) {
         this.pere = pere;
     }
-
     public String getMere() {
         return mere;
     }
-
     public void setMere(String mere) {
         this.mere = mere;
     }
-
+    @Override public String toString() {
+        return "PersonnePhysique{" +
+                "parcelle='" + parcelle + '\'' +
+                ", lot='" + lot + '\'' +
+                ", dateDeNaissance=" + dateDeNaissance +
+                ", lieuDeNaissance='" + lieuDeNaissance + '\'' +
+                ", sexe='" + sexe + '\'' +
+                ", profession='" + profession + '\'' +
+                ", situationMatrimoniale='" + situationMatrimoniale + '\'' +
+                ", pere='" + pere + '\'' +
+                ", mere='" + mere + '\'' +
+                '}';
+    }
     private String parcelle;
     private String lot;
     private Timestamp dateDeNaissance;

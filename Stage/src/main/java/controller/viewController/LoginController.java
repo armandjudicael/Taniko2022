@@ -4,7 +4,7 @@ import dao.ConnectionFactory;
 import dao.DaoFactory;
 import dao.DbOperation;
 import Main.Main;
-import Model.Pojo.User;
+import Model.Pojo.business.User;
 import Model.Other.MainService;
 import View.Helper.Other.DragableStage;
 import View.Model.ViewObject.PasswordView;

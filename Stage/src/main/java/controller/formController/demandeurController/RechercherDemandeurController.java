@@ -1,6 +1,6 @@
 package controller.formController.demandeurController;
 
-import Model.Pojo.PersonneMorale;
+import Model.Pojo.business.PersonneMorale;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTreeTableView;

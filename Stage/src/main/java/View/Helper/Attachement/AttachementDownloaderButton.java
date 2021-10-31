@@ -2,7 +2,7 @@ package View.Helper.Attachement;
 
 import controller.detailsController.PieceJointeInfoController;
 import Model.Other.MainService;
-import Model.Pojo.PieceJointe;
+import Model.Pojo.business.PieceJointe;
 import View.Helper.Other.TanikoProgress;
 import View.Model.Dialog.AlertDialog;
 import View.Model.ViewObject.PieceJointeForView;
@@ -59,11 +59,13 @@ public class AttachementDownloaderButton implements EventHandler<ActionEvent>{
         TilePane pjTilepane = instance.getPjTilepane();
         ObservableList<Node> children = pjTilepane.getChildren();
         List<Node> collect = children.stream().filter(node -> {
-            PieceJointeForView pieceJointeForView = (PieceJointeForView) node;
-            if (pieceJointeForView.getPieceCheckbox().isSelected()){
-                pieceJointeForView.getPieceJointe().download();
-                return true; }
-            else return false;
+            if (!(node instanceof JFXButton)){
+                PieceJointeForView pieceJointeForView = (PieceJointeForView) node;
+                if (pieceJointeForView.getPieceCheckbox().isSelected()){
+                    pieceJointeForView.getPieceJointe().download();
+                    return true; }
+            }
+            return false;
         }).collect(Collectors.toList());
         if (collect.isEmpty()){
             Platform.runLater(() -> {

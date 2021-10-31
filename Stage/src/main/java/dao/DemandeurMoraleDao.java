@@ -1,6 +1,6 @@
 package dao;
 import Model.Enum.TypeDemandeur;
-import Model.Pojo.PersonneMorale;
+import Model.Pojo.business.PersonneMorale;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -42,20 +42,24 @@ public class DemandeurMoraleDao extends Dao implements DaoHelper<PersonneMorale>
         return status;
     }
     public enum ParamerterType {EMAIL,NUMTEL,NAME}
+
     public int getDemandeurIdBy(String parameter, ParamerterType type){
+
         String columnName = type.equals(ParamerterType.NAME) ? " nomDmd " :
                 ((type.equals(ParamerterType.EMAIL) ? " emailDmd " : " numTelDmd "));
-        String query = " SELECT idDmd FROM demandeur_morale where "+columnName+" = ?";
+
+        String query = " SELECT idDmd FROM demandeur_morale WHERE TRIM("+columnName+") = ?";
+
         try (PreparedStatement ps = this.connection.prepareStatement(query)) {
             ps.setString(1,parameter);
             ResultSet rs = ps.executeQuery();
-            while (rs.next())
-                return rs.getInt("idDmd");
+            while (rs.next()) return rs.getInt("idDmd");
         }catch (SQLException e) {
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, e);
         }
         return 0;
     }
+
     @Override public int update(PersonneMorale personneMorale) {
         return 0;
     }

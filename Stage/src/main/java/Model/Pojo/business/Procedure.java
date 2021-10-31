@@ -1,4 +1,4 @@
-package Model.Pojo;
+package Model.Pojo.business;
 
 public class Procedure {
 

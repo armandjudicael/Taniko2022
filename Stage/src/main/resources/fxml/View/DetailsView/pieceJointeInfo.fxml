@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXProgressBar?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TextField?>
@@ -23,10 +24,24 @@
                      <padding>
                         <Insets bottom="20.0" top="20.0" />
                      </padding>
+                     <children>
+                        <JFXButton fx:id="addAttachInBtn" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" prefHeight="150.0" prefWidth="150.0" stylesheets="@../../../css/Card.css">
+                           <graphic>
+                              <ImageView fitHeight="81.0" fitWidth="85.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../img/push_pin_100px.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </JFXButton>
+                     </children>
                   </TilePane>
                </content>
             </ScrollPane>
-            <JFXButton fx:id="newPieceBtn" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" layoutX="14.0" layoutY="441.0" prefHeight="35.0" prefWidth="43.0" style="-fx-background-color: #389955;" text="ajouter" textFill="WHITE" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="20.0">
+            <JFXButton fx:id="addAttachOutBtn" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" layoutX="14.0" layoutY="441.0" prefHeight="35.0" prefWidth="43.0" style="-fx-background-color: #389955;" text="ajouter" textFill="WHITE" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="20.0">
                <font>
                   <Font name="Century Gothic" size="14.0" />
                </font>

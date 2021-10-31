@@ -44,7 +44,7 @@
             </ImageView>
          </graphic>
       </JFXButton>
-      <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="534.0" prefWidth="714.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <ScrollPane fx:id="terrainScrollPane" fitToWidth="true" hbarPolicy="NEVER" prefHeight="534.0" prefWidth="714.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <content>
             <AnchorPane fx:id="terrainFormPanel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="1135.0" style="-fx-background-color: white;">
                <children>

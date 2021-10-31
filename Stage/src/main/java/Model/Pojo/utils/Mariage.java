@@ -1,13 +1,29 @@
-package Model.Pojo;
+package Model.Pojo.utils;
 import Model.Enum.RegimeMatrimoniale;
+import Model.Pojo.business.PersonnePhysique;
+
 import java.sql.Timestamp;
 
 public class Mariage {
+
+    public Mariage() {
+
+    }
+
     public Mariage(Timestamp dateMariage, String lieuMariage, RegimeMatrimoniale regimeMatrimoniale) {
         this.dateMariage = dateMariage;
         this.lieuMariage = lieuMariage;
         this.regimeMatrimoniale = regimeMatrimoniale;
     }
+
+    public Mariage(Timestamp dateMariage, String lieuMariage, RegimeMatrimoniale regimeMatrimoniale, PersonnePhysique demandeur, PersonnePhysique conjoint) {
+        this.dateMariage = dateMariage;
+        this.lieuMariage = lieuMariage;
+        this.regimeMatrimoniale = regimeMatrimoniale;
+        this.demandeur = demandeur;
+        this.conjoint = conjoint;
+    }
+
     public PersonnePhysique getDemandeur() {
         return demandeur;
     }

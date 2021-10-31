@@ -5,7 +5,7 @@ import dao.DbOperation;
 import Model.Enum.AffaireStatus;
 import Model.Enum.NotifType;
 import Model.Enum.Origin;
-import Model.Pojo.Affaire;
+import Model.Pojo.business.Affaire;
 import Model.Other.MainService;
 import View.Cell.TableCell.IconCell;
 import View.Dialog.Other.Notification;

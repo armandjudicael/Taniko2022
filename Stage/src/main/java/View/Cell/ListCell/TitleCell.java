@@ -1,6 +1,6 @@
 package View.Cell.ListCell;
 
-import Model.Pojo.Titre;
+import Model.Pojo.business.Titre;
 import javafx.scene.control.ListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

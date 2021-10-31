@@ -1,11 +1,11 @@
 package dao;
 import Model.Enum.TypeDemandeur;
-import Model.Pojo.PersonnePhysique;
+import Model.Pojo.business.PersonnePhysique;
 import org.junit.Test;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Month;
+
 import static org.junit.Assert.*;
 
 public class DemandeurMoraleDaoTest {
@@ -16,22 +16,22 @@ public class DemandeurMoraleDaoTest {
     }
 
     public static PersonnePhysique createDemandeurPhysique(){
-        String name = "TOMBO";
-        String firstName = "Augustin";
+        String name = "Dias";
+        String firstName = "kaya";
         LocalDate now = LocalDate.now();
-        Timestamp dateNaissance =  Timestamp.valueOf(LocalDateTime.of(now.getYear(),now.getMonthValue(),now.getDayOfMonth(),0,0));
-        String lieuDeNaissance = " Toamasina I";
-        String sexe = "Masculin";
-        String adresse = " Ambalamanasy Carreau I Lot 68 ";
+        Timestamp dateNaissance = Timestamp.valueOf(LocalDateTime.of(now.getYear(),now.getMonthValue(),now.getDayOfMonth(),0,0));
+        String lieuDeNaissance = "Toamasina I";
+        String sexe = "féminin";
+        String adresse = "Ambalamanasy Carreau I Lot 68";
         String parcelle = "";
         String lot = "";
-        String profession = "Controleur";
-        String email = "tomboaugustin@gmail.com ";
-        String numTel = "0340588519";
-        String situationMatrimoniale = "veuve";
-        String nationalite =" Malagasy ";
+        String profession = "Guide touristique";
+        String email = "DiasKaia@gmail.com ";
+        String numTel = "03214755";
+        String situationMatrimoniale = "Marié";
+        String nationalite ="Malagasy";
         String nomDuPere = "inconnu";
-        String nomDuMere = "THERESE";
+        String nomDuMere = "inconnu";
         PersonnePhysique personnePhysique = new PersonnePhysique(name + firstName, adresse, numTel, email, TypeDemandeur.PERSONNE_PHYSIQUE, nationalite, parcelle, lot, dateNaissance, lieuDeNaissance, sexe, nomDuPere, nomDuMere, situationMatrimoniale, profession);
         return personnePhysique;
     }
@@ -43,7 +43,23 @@ public class DemandeurMoraleDaoTest {
         assertEquals(" suppression du "+physique.getNom()+" est effectué avec succés ",1,delete);
     }
 
-    @Test public void getDemandeurIdBy() {
+    @Test public void getDemandeurIdBy(){
+        PersonnePhysique demandeurPhysique = createDemandeurPhysique();
+        int demandeurIdBy = DaoFactory.getDemandeurMoraleDao().getDemandeurIdBy(demandeurPhysique.getNom(), DemandeurMoraleDao.ParamerterType.NAME);
+        assertEquals("identifiant azo tsara",10,demandeurIdBy);
+    }
+
+    @Test public void update() {
+
+    }
+
+    @Test
+    public void findById() {
+
+    }
+
+    @Test
+    public void finByNum() {
 
     }
 }

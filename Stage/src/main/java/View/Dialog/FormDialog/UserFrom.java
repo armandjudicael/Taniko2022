@@ -6,7 +6,7 @@ import dao.DaoFactory;
 import Main.InitializeApp;
 import Model.Enum.FileChooserType;
 import Model.Enum.NotifType;
-import Model.Pojo.User;
+import Model.Pojo.business.User;
 import Model.Other.MainService;
 import View.Dialog.Other.FileChooserDialog;
 import View.Dialog.Other.Notification;

@@ -3,7 +3,7 @@ package View.Dialog.Other;
 import controller.viewController.AffairViewController;
 import controller.viewController.MainController;
 import Model.Enum.AffaireStatus;
-import Model.Pojo.User;
+import Model.Pojo.business.User;
 import Model.Other.RedactorAffair;
 import Model.Other.MainService;
 import View.Cell.TableCell.IconCell;

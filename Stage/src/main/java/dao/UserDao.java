@@ -1,7 +1,7 @@
 package dao;
 
-import Model.Pojo.Affaire;
-import Model.Pojo.User;
+import Model.Pojo.business.Affaire;
+import Model.Pojo.business.User;
 import Model.Other.RedactorAffair;
 import Model.Other.UserForLogin;
 import View.Model.ViewObject.EditorForView;

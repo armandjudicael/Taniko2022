@@ -3,10 +3,10 @@ package dao;
 
 import Model.Enum.AffaireStatus;
 import Model.Enum.NotifType;
-import Model.Enum.RegimeMatrimoniale;
 import Model.Enum.TableName;
-import Model.Pojo.*;
 import Model.Other.MainService;
+import Model.Pojo.business.*;
+import Model.Pojo.utils.Mariage;
 import View.Dialog.Other.Notification;
 import View.Model.ViewObject.ConnexAffairForView;
 import View.Model.ViewObject.ProcedureForView;
@@ -24,8 +24,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DbOperation {
+
     public DbOperation() { }
+
     public static void executeQuery(String query) {
+
         MainService.getInstance().launch(new Task<Void>() {
             @Override protected Void call() throws Exception {
                 try (Statement statement = connection.createStatement()){
@@ -39,6 +42,7 @@ public class DbOperation {
                 return null;
             }
         });
+
     }
 
     public static int launchQuery(String query){
@@ -52,7 +56,7 @@ public class DbOperation {
         return status;
     }
 
-    public static int insertOnTerrrainTitre(Terrain terrain, TableName name) {
+    public static int insertOnTerrainTitre(Terrain terrain, TableName name) {
         String query = "";
         if (name.equals(TableName.ABOUTIR_TERRAIN_TITRE))
             query = "INSERT  INTO " + TERRAIN_ABOUTIR_TITRE + "(titreId,terrainId) VALUES (?,?);";
@@ -85,13 +89,58 @@ public class DbOperation {
         return nbRequest;
     }
 
-    public static int insertOnTableRepresentant(PersonnePhysique representant ,PersonneMorale personneMorale){
+    public static int insertOnTableRepresentant(PersonnePhysique representant , PersonneMorale personneMorale, Timestamp dateFormulation){
         int status = 0;
         String query = "INSERT  INTO representant (idPersonneMorale, idPersonnePhysique, dateRepresentantion) VALUES (?,?,?);";
         try (PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setInt(1, personneMorale.getId());
             ps.setInt(2, representant.getId());
-            ps.setTimestamp(3,Timestamp.valueOf(LocalDateTime.now()));
+            ps.setTimestamp(3,dateFormulation);
+            status = ps.executeUpdate();
+            connection.commit();
+        } catch (SQLException e) {
+            Logger.getLogger(DbOperation.class.getName()).log(Level.SEVERE, " There are a problem with the 'insertOnTheTableRepresentant' method ", e);
+        }
+        return status;
+    }
+
+    public static int insertOnTableOrdonnance(String numOrdonance,Timestamp dateOrd,int affaireId){
+        int status = 0;
+        String query = "INSERT  INTO ordonnance (numOrdonnance, dateOdronnance, affaireId) VALUES (?,?,?);";
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
+            ps.setString(1,numOrdonance);
+            ps.setTimestamp(2,dateOrd);
+            ps.setInt(3,affaireId);
+            status = ps.executeUpdate();
+            connection.commit();
+        } catch (SQLException e) {
+            Logger.getLogger(DbOperation.class.getName()).log(Level.SEVERE, " There are a problem with the 'insertOnTheTableRepresentant' method ", e);
+        }
+        return status;
+    }
+
+    public static int insertOnTableJtr(String numJtr,Timestamp dateJtr,int affaireId){
+        int status = 0;
+        String query = "INSERT  INTO journal_de_tresorerie (numJtr, dateJtr, affaireId) VALUES (?,?,?);";
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
+            ps.setString(1,numJtr);
+            ps.setTimestamp(2,dateJtr);
+            ps.setInt(3,affaireId);
+            status = ps.executeUpdate();
+            connection.commit();
+        } catch (SQLException e) {
+            Logger.getLogger(DbOperation.class.getName()).log(Level.SEVERE, " There are a problem with the 'insertOnTheTableRepresentant' method ", e);
+        }
+        return status;
+    }
+
+    public static int insertOnTableReperage(String numReperage,Timestamp dateReperage,int affaireId){
+        int status = 0;
+        String query = "INSERT  INTO reperage (numReperage, dateReperage, affaireId) VALUES (?,?,?);";
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
+            ps.setString(1,numReperage);
+            ps.setTimestamp(2,dateReperage);
+            ps.setInt(3,affaireId);
             status = ps.executeUpdate();
             connection.commit();
         } catch (SQLException e) {
@@ -102,7 +151,7 @@ public class DbOperation {
 
     public static int insertOnTableMariage(Mariage mariage){
         int status = 0;
-        String query = "INSERT  INTO mariage (idDemandeur, idConjoint, dateMariage, lieuMariage, regime) VALUES (?,?,?);";
+        String query = "INSERT  INTO mariage (idDemandeur, idConjoint, dateMariage, lieuMariage, regime) VALUES (?,?,?,?,?);";
         try (PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setInt(1, mariage.getDemandeur().getId());
             ps.setInt(2, mariage.getConjoint().getId());
@@ -123,7 +172,7 @@ public class DbOperation {
         try (PreparedStatement ps = connection.prepareStatement(query)) {
             for (ConnexAffairForView item : selectedItems) {
                 ps.setInt(2, item.getId());
-                ps.setString(1,Affaire.affaireStatus2String(AffaireStatus.REJECTED));
+                ps.setString(1, Affaire.affaireStatus2String(AffaireStatus.REJECTED));
                 ps.addBatch();
             }
             nbRequest = ps.executeBatch();
@@ -181,7 +230,7 @@ public class DbOperation {
         return status;
     }
 
-    public static int insertOnDispatchTable(User user,Affaire affaire){
+    public static int insertOnDispatchTable(User user, Affaire affaire){
         int status = 0;
         String query = " INSERT INTO dispatch (utilisateurId,affaireId,dateDispatch) VALUES ( ? , ? , ? ); ";
         try (PreparedStatement ps = connection.prepareStatement(query)) {

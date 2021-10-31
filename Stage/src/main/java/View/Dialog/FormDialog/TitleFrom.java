@@ -7,8 +7,8 @@ import dao.DbOperation;
 import Model.Enum.NotifType;
 import Model.Enum.TableName;
 import Model.Enum.TitleOperation;
-import Model.Pojo.Affaire;
-import Model.Pojo.Titre;
+import Model.Pojo.business.Affaire;
+import Model.Pojo.business.Titre;
 import Model.Other.MainService;
 import View.Dialog.Other.Notification;
 import com.jfoenix.controls.JFXButton;
@@ -186,7 +186,7 @@ public class TitleFrom extends JFXDialog implements Initializable {
             int idTitre = DaoFactory.getTitreDao().findByNum(titre.getNumero());
             titre.setId(idTitre);
             exAffaire.getTerrain().setTitreDependant(titre);
-            int status = DbOperation.insertOnTerrrainTitre(exAffaire.getTerrain(),TableName.ABOUTIR_TERRAIN_TITRE);
+            int status = DbOperation.insertOnTerrainTitre(exAffaire.getTerrain(),TableName.ABOUTIR_TERRAIN_TITRE);
             if (status == 1){
                 Platform.runLater(() -> {
                     // mis a jour de l'affichage

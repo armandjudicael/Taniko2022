@@ -1,6 +1,6 @@
 package Main;
 
-import Model.Pojo.Titre;
+import Model.Pojo.business.Titre;
 import View.Model.ViewObject.AffaireForView;
 import View.Model.ViewObject.UserForView;
 import javafx.collections.FXCollections;

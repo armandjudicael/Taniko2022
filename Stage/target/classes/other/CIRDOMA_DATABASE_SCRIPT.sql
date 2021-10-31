@@ -162,10 +162,11 @@ create table dispatch(
 );
 
 create table pieceJointe(
-  idPiece int not null primary key,
+  idPieceJointe int auto_increment primary key,
   descriptionPiece varchar(255) not null,
   valeurPiece longblob not null,
   extensionPiece varchar(50) not null,
+  taillePiece varchar(50) not null ,
   affaireId int not null,
   CONSTRAINT fk_affaire_piece_jointe FOREIGN KEY  (affaireId) references affaire(idAffaire) on delete cascade
 );

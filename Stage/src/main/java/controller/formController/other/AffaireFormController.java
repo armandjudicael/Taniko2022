@@ -1,6 +1,6 @@
 package controller.formController.other;
 import Model.Enum.Type;
-import Model.Pojo.User;
+import Model.Pojo.business.User;
 import View.Cell.ListCell.ConnexeListCell;
 import View.Cell.ListCell.DispatchListcell;
 import View.Cell.ListCell.StatusCell;
@@ -103,20 +103,17 @@ public class AffaireFormController  implements Initializable{
     private void initRadioButton(){
         // Si l'affaire est connexe alors on desactive le formulaire de terrain
         connexeRadio.selectedProperty().addListener((observableValue, aBoolean, t1) -> {
-            if (t1)
-               TerrainFromController.getInstance().getTerrainFormPane().setDisable(true);
+            if (t1) TerrainFromController.getInstance().getTerrainFormPane().setDisable(true);
         });
         sansEmpietementRadio.selectedProperty().addListener((observableValue, aBoolean, t1) -> {
-            if (t1)
-                connexeCombobox.setValue(null);
+            if (t1) connexeCombobox.setValue(null);
         });
     }
 
     private void initRedacteurRadio(){
         redacteurBox.disableProperty().bind(Bindings.not(rechercherRedacteurRadio.selectedProperty()));
         moiMemeRadio.selectedProperty().addListener((observableValue, aBoolean, t1) -> {
-            if (t1)
-                redactorCombobox.setValue(null);
+            if (t1) redactorCombobox.setValue(null);
         });
     }
 

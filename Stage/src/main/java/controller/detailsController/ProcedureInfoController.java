@@ -5,7 +5,7 @@ import dao.DbOperation;
 import Model.Enum.NotifType;
 import Model.Enum.Origin;
 import Model.Enum.TypeDemande;
-import Model.Pojo.Affaire;
+import Model.Pojo.business.Affaire;
 import Model.Other.MainService;
 import View.Cell.TableCell.DateProcedureCell;
 import View.Cell.TableCell.NumeroProcedureCell;
@@ -38,6 +38,7 @@ import javafx.util.Callback;
 
 import java.net.URL;
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -112,6 +113,7 @@ public class ProcedureInfoController implements Initializable{
             }
         });
     }
+
     private void initializeSearchTextField(){
         procedureSearchTextField.textProperty().addListener((observableValue, s, value) -> {
             final ObservableList<ProcedureForView> items = procedureTableView.getItems();
@@ -139,6 +141,7 @@ public class ProcedureInfoController implements Initializable{
             }
         });
     }
+
     private void initTableview() {
         procedureTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         initProcedureNameColumn();
@@ -148,26 +151,22 @@ public class ProcedureInfoController implements Initializable{
         initDateDepartColumn();
         initDateArriveColumn();
     }
+
     private void initStatusColumn() {
         statusColumn.setCellFactory(param -> new StatusTableCell());
         statusColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ProcedureForView, StatusCheckBox>, ObservableValue<StatusCheckBox>>() {
             @Override
             public ObservableValue<StatusCheckBox> call(TableColumn.CellDataFeatures<ProcedureForView, StatusCheckBox> param) {
                 return new ObservableValue<StatusCheckBox>() {
-                    @Override
-                    public void addListener(ChangeListener<? super StatusCheckBox> listener) {
+                    @Override public void addListener(ChangeListener<? super StatusCheckBox> listener) {
                     }
-
-                    @Override
-                    public void removeListener(ChangeListener<? super StatusCheckBox> listener) {
+                    @Override public void removeListener(ChangeListener<? super StatusCheckBox> listener) {
                     }
-
                     @Override public StatusCheckBox getValue() {
                         StatusCheckBox checkBox = new StatusCheckBox();
                         checkBox.selectedProperty().bindBidirectional(param.getValue().checkedProperty());
                         return checkBox;
                     }
-
                     @Override public void addListener(InvalidationListener listener) {
 
                     }
@@ -284,6 +283,7 @@ public class ProcedureInfoController implements Initializable{
             }
         });
     }
+
     public static class StatusCheckBox extends JFXCheckBox{
         public StatusCheckBox() {}
         private void resetProcedure(ProcedureForView procedureForView){
@@ -293,6 +293,7 @@ public class ProcedureInfoController implements Initializable{
             procedureForView.setNumArrive(null);
             procedureForView.setDateArrive(null);
         }
+
         private void onProcedureChecked(){
             // FERMER LE DIALOG
             ProcedureConfirmationDialog.getProcedureConfirmationDialog().close();
@@ -305,14 +306,12 @@ public class ProcedureInfoController implements Initializable{
             if (!isSelected()){
                 // update the checkbox
                 setSelected(true);
-                LocalDateTime localDateTime = LocalDateTime.of(LocalDate.now(),LocalTime.now());
-                procedureForView.setDateDepart(localDateTime.toString());
+                Timestamp from = Timestamp.from(Instant.now());
+                procedureForView.setDateDepart(from.toString());
                 MainService.getInstance().launch(new Task<Void>() {
                     @Override
                     protected Void call() throws Exception {
-                        int status = DbOperation.insertOnAffAndPrcdTable(procedureForView.getIdProcedure(),
-                                affair.getId(),
-                                Timestamp.valueOf(localDateTime));
+                        int status = DbOperation.insertOnAffAndPrcdTable(procedureForView.getIdProcedure(),affair.getId(), from);
                         if (status != 0) Notification.getInstance(" Procedure enregistrer avec succès ", NotifType.SUCCESS).showNotif();
                         else Notification.getInstance(" Echec de la mis à jour ",NotifType.WARNING).showNotif();
                         return null;
@@ -324,6 +323,7 @@ public class ProcedureInfoController implements Initializable{
                     smsAndEmailCheckBox.setSelected(false);
                     String message = " La situation actuelle de votre affair est "+procedureForView.getProcedureName();
                  //   Mail.send(message,affair.getDemandeur());
+                    // SEND SMS TO THE APPLICANT
                 }
             }else{
                 resetProcedure(procedureForView);
@@ -340,10 +340,11 @@ public class ProcedureInfoController implements Initializable{
         }
         @Override public void fire(){ ProcedureConfirmationDialog.getInstance(this,event -> onProcedureChecked()).show(); }
     }
+
     public static ProcedureInfoController getInstance() {
         return procedureInfoController;
     }
-    public class StatusTableCell extends TableCell {
+    public class StatusTableCell extends TableCell{
         @Override protected void updateItem(Object item, boolean empty) {
             if (empty || item == null) {
                 setText(null);

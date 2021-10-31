@@ -3,7 +3,7 @@ package View.Helper.Attachement;
 import controller.detailsController.PieceJointeInfoController;
 import Model.Enum.NotifType;
 import Model.Other.MainService;
-import Model.Pojo.PieceJointe;
+import Model.Pojo.business.PieceJointe;
 import View.Dialog.Other.Notification;
 import View.Model.ViewObject.PieceJointeForView;
 import com.jfoenix.controls.JFXButton;

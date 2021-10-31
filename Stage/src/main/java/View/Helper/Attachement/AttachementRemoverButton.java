@@ -3,7 +3,7 @@ package View.Helper.Attachement;
 import dao.DaoFactory;
 import Model.Enum.NotifType;
 import Model.Other.MainService;
-import Model.Pojo.PieceJointe;
+import Model.Pojo.business.PieceJointe;
 import View.Dialog.Other.Notification;
 import View.Model.Dialog.AlertDialog;
 import View.Model.ViewObject.PieceJointeForView;
@@ -29,13 +29,16 @@ public class AttachementRemoverButton implements EventHandler<ActionEvent>{
 
     @Override public void handle(ActionEvent event){
         List<Node> collect = attachementList.stream().filter(node -> {
-            PieceJointeForView pieceJointeForView = (PieceJointeForView) node;
-            boolean selected = pieceJointeForView.getPieceCheckbox().isSelected();
-            if (selected){
-                if (isOnDetailsView)
-                    removalAttachements.add(pieceJointeForView.getPieceJointe());
-                return true;}
-            else return false;
+            if ( !(node instanceof JFXButton )){
+                PieceJointeForView pieceJointeForView = (PieceJointeForView) node;
+                boolean selected = pieceJointeForView.getPieceCheckbox().isSelected();
+                if (selected){
+                    if (isOnDetailsView)
+                        removalAttachements.add(pieceJointeForView.getPieceJointe());
+                    return true;
+                }
+            }
+            return false;
         }).collect(Collectors.toList());
         if (!collect.isEmpty()){
           removeAttachement(collect);

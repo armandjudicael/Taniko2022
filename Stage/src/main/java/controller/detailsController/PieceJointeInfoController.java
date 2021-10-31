@@ -2,7 +2,7 @@ package controller.detailsController;
 
 import controller.viewController.AffairViewController;
 import Model.Other.MainService;
-import Model.Pojo.PieceJointe;
+import Model.Pojo.business.PieceJointe;
 import View.Helper.Attachement.*;
 import View.Model.ViewObject.PieceJointeForView;
 import com.jfoenix.controls.JFXButton;
@@ -28,6 +28,7 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 public class PieceJointeInfoController implements Initializable, Serializable{
+
     public PieceJointeInfoController(){ }
     @Override public void initialize(URL location, ResourceBundle resources){
       pieceJointeInfoController = this;
@@ -37,7 +38,8 @@ public class PieceJointeInfoController implements Initializable, Serializable{
 
     private void initButtonAction(){
         ObservableList<Node> children = pjTilepane.getChildren();
-        new AttachementCreatorButton(newPieceBtn,children,true);
+        new AttachementCreatorButton(addAttachOutBtn,children,true);
+        new AttachementCreatorButton(addAttachInBtn,children,true);
         new AttachementRemoverButton(delPieceBtn,children,true);
         new AttachementDownloaderButton(downBtn,true);
         new AttachementCheckerButton(checkBtn,children);
@@ -108,7 +110,6 @@ public class PieceJointeInfoController implements Initializable, Serializable{
 
     @FXML private AnchorPane pieceJointePanel;
     @FXML private TilePane pjTilepane;
-    @FXML private JFXButton newPieceBtn;
     @FXML private JFXButton delPieceBtn;
     @FXML private JFXButton searchbutton;
     @FXML private TextField pjSearchTextField;
@@ -116,6 +117,8 @@ public class PieceJointeInfoController implements Initializable, Serializable{
     @FXML private JFXButton downBtn;
     @FXML private JFXButton refreshBtn;
     @FXML private JFXButton checkBtn;
+    @FXML private JFXButton addAttachInBtn;
+    @FXML private JFXButton addAttachOutBtn;
     @FXML private JFXProgressBar attachementProgress;
     @FXML private Tab pieceJointeTab;
 }

@@ -1,6 +1,6 @@
 package View.Model.ViewObject;
 
-import Model.Pojo.Titre;
+import Model.Pojo.business.Titre;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.control.Label;

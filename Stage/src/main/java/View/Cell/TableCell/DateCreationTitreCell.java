@@ -1,6 +1,5 @@
 package View.Cell.TableCell;
 
-import Model.Pojo.Titre;
 import javafx.geometry.Pos;
 import javafx.scene.control.TableCell;
 

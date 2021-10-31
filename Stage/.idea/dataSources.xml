@@ -8,12 +8,5 @@
       <jdbc-url>jdbc:mysql://localhost:4040/taniko_1_1</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="CIRDOMA_OLD" uuid="665baf36-8bdb-47da-857d-5e35adf9a58f">
-      <driver-ref>mysql.8</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:4040/cirdoma</jdbc-url>
-      <working-dir>$ProjectFileDir$</working-dir>
-    </data-source>
   </component>
 </project>

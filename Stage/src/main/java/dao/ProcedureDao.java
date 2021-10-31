@@ -1,7 +1,6 @@
 package dao;
 
-import Model.Pojo.Affaire;
-import Model.Pojo.Procedure;
+import Model.Pojo.business.Procedure;
 import View.Model.ViewObject.ProcedureForView;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -12,7 +11,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

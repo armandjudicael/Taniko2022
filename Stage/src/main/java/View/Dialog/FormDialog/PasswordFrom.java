@@ -3,7 +3,7 @@ package View.Dialog.FormDialog;
 import controller.detailsController.UserDetailsController;
 import controller.viewController.LoginController;
 import controller.viewController.MainController;
-import Model.Pojo.User;
+import Model.Pojo.business.User;
 import View.Model.ViewObject.PasswordView;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
