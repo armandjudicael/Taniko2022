@@ -1,17 +1,24 @@
 package View.Helper.Other;
 
+import Model.Enum.TypeDemandeur;
+import Model.Other.MainService;
+import Model.Pojo.business.PersonneMorale;
+import View.Model.ViewObject.RepresentantForView;
+import controller.formController.demandeurController.MainDemandeurFormController;
+import controller.formController.demandeurController.RechercherDemandeurController;
 import dao.DaoFactory;
-import Model.Enum.Type;
 import com.jfoenix.controls.JFXComboBox;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.concurrent.Task;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.util.StringConverter;
+
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -19,18 +26,15 @@ public class AutoCompleteCombobox<T> implements EventHandler<KeyEvent>{
     private JFXComboBox<T> comboBox;
     private ObservableList<T> comboboxItemsCopy = FXCollections.observableArrayList();
     private Predicate<T> comboboxPredicate;
-    private Type TYPE;
 
-    public AutoCompleteCombobox(JFXComboBox<T> tComboBox, Predicate<T> predicate, Type type){
-        this.TYPE = type;
+    public AutoCompleteCombobox(JFXComboBox<T> tComboBox, Predicate<T> predicate){
         this.comboBox = tComboBox;
         this.comboboxPredicate = predicate;
         this.comboBox.visibleRowCountProperty().bind(Bindings.size(this.comboBox.getItems()).multiply(20));
         this.doAutoCompleteBox();
     }
 
-    private void doAutoCompleteBox(){
-        this.comboBox.setEditable(true);
+    private void initComboboxConverter(){
         this.comboBox.setConverter(new StringConverter<T>(){
             @Override
             public String toString(T object) {
@@ -42,14 +46,44 @@ public class AutoCompleteCombobox<T> implements EventHandler<KeyEvent>{
                 return first.orElse(null);
             }
         });
-
+    }
+    private void initComboboxEditorFocusedProperty(){
         this.comboBox.getEditor().focusedProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue){
-                 //mean on focus
-                 this.comboBox.show();
+                //mean on focus
+                this.comboBox.show();
             }
         });
+    }
 
+    private void doAutoCompleteBox(){
+        this.comboBox.setEditable(true);
+        initComboboxConverter();
+        initComboboxEditorFocusedProperty();
+        initComboboxValueProperty();
+        initComboboxShowingProperty();
+        initComboboxMouseClicked();
+        this.comboBox.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
+            moveCaret(this.comboBox.getEditor().getText().length());
+        });
+        initComboboxKeyEvent();
+    }
+
+    private void initComboboxKeyEvent() {
+        this.comboBox.setOnKeyPressed(t -> comboBox.hide());
+        this.comboBox.setOnKeyReleased(AutoCompleteCombobox.this);
+    }
+
+    private void initComboboxMouseClicked() {
+        this.comboBox.getEditor().setOnMouseClicked(event ->{
+            if(event.getButton().equals(MouseButton.PRIMARY)){
+                if(event.getClickCount() == 2) return;
+            }
+            this.comboBox.show();
+        });
+    }
+
+    private void initComboboxShowingProperty() {
         this.comboBox.showingProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue){
                 String text = comboBox.getEditor().getText();
@@ -59,24 +93,55 @@ public class AutoCompleteCombobox<T> implements EventHandler<KeyEvent>{
                 }
             }
         });
+    }
 
-        this.comboBox.getEditor().setOnMouseClicked(event ->{
-            if(event.getButton().equals(MouseButton.PRIMARY)){
-                if(event.getClickCount() == 2){
-                    return;
+    private void initComboboxValueProperty() {
+        this.comboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (comboBox.getId().equals("demandeurCombobox") && newValue!=null ){
+                MainDemandeurFormController instance = MainDemandeurFormController.getInstance();
+                PersonneMorale newValue1 = (PersonneMorale) newValue;
+                if (instance.getPersonneMorale().isSelected()) showMoraleValueDetails(newValue1);
+                else showPhysiqueValueDetails(newValue1);
+            }
+        });
+    }
+
+    private void showPhysiqueValueDetails(PersonneMorale pm){
+        RechercherDemandeurController instance = RechercherDemandeurController.getInstance();
+        instance.getNationalite().setText(pm.getNationalite());
+        instance.getNomDemandeurPhysique().setText(pm.getNom());
+        instance.getTelPhysique().setText(pm.getNumTel());
+        instance.getEmailPhysique().setText(pm.getEmail());
+        instance.getAdressePhysique().setText(pm.getAdresse());
+    }
+
+    private void showMoraleValueDetails(PersonneMorale pm){
+        RechercherDemandeurController instance = RechercherDemandeurController.getInstance();
+        instance.getEmailMorale().setText(pm.getEmail());
+        instance.getNomMorale().setText(pm.getNom());
+        instance.getTelMorale().setText(pm.getNumTel());
+        instance.getSiegeMorale().setText(pm.getAdresse());
+        // LANCEMENT DE LA RECHERCHE DES REPRESENTANTS
+        MainService.getInstance().launch(new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                initAllRepresentant(pm);
+                return null;
+            }
+        });
+    }
+
+    private void initAllRepresentant(PersonneMorale personneMorale) {
+            if (personneMorale.getType().equals(TypeDemandeur.PERSONNE_MORALE)){
+                ObservableList<RepresentantForView> allRepresentant = personneMorale.getAllRepresentant();
+                if (!allRepresentant.isEmpty()){
+                   // UPDATE THE TABLEVIEW
+
                 }
             }
-            this.comboBox.show();
-        });
-        this.comboBox.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-            moveCaret(this.comboBox.getEditor().getText().length());
-        });
-        this.comboBox.setOnKeyPressed(t -> comboBox.hide());
-        this.comboBox.setOnKeyReleased(AutoCompleteCombobox.this);
     }
 
     @Override public void handle(KeyEvent event) {
-
         if ( event.getCode() == KeyCode.UP || event.getCode() == KeyCode.DOWN
                 || event.getCode() == KeyCode.RIGHT || event.getCode() == KeyCode.LEFT
                 || event.getCode() == KeyCode.HOME
@@ -107,39 +172,38 @@ public class AutoCompleteCombobox<T> implements EventHandler<KeyEvent>{
     }
 
      void launchDataSearch(ObservableList<T> items, ObservableList<T> copyItems, String numOrName){
-        if (items.isEmpty()){
+        if(items.isEmpty()){
             getDataFromDB(items,copyItems,numOrName);
         }else{
             FilteredList<T> filteredComboboxItem = copyItems.filtered(comboboxPredicate);
             if( filteredComboboxItem.size()>0){
                 items.setAll(filteredComboboxItem);
                 comboBox.show();
-            }else{
-                getDataFromDB(items,copyItems,numOrName);
-            }
+            }else getDataFromDB(items,copyItems,numOrName);
         }
     }
 
     private void getDataFromDB(ObservableList items, ObservableList copyItems, String numOrName){
-        ObservableList observableList = FXCollections.observableArrayList();
-        switch (TYPE){
-            case USER:{
-                observableList.setAll(DaoFactory.getUserDao().filterUser(numOrName,items));
-            }break;
-            case TITRE:{
-                observableList.setAll(DaoFactory.getTitreDao().findByNumOrName(numOrName));
-            }break;
-            case CONNEXE:{
-                observableList.setAll(DaoFactory.getAffaireDao().checkConnexAffaireBy(numOrName));
-            }break;
-        }
+        ObservableList observableList = fetchData(items,numOrName);
         if(observableList.size()>0){
             items.setAll(observableList);
             this.comboBox.show();
             copyItems.addAll(observableList);
-        }else {
-            this.comboBox.hide();
+        }else this.comboBox.hide();
+    }
+
+     private ObservableList fetchData(ObservableList items, String numOrName) {
+        switch (comboBox.getId()){
+            case "redactorCombobox": return DaoFactory.getUserDao().filterUser(numOrName, items);
+            case "titleCombobox": return DaoFactory.getTitreDao().findByNumOrName(numOrName);
+            case "connexeCombobox": return DaoFactory.getAffaireDao().checkConnexAffaireBy(numOrName);
+            case "demandeurCombobox":{
+                MainDemandeurFormController instance = MainDemandeurFormController.getInstance();
+                if (instance.getPersonnePhysique().isSelected()) return DaoFactory.getDemandeurMoraleDao().findbyName(numOrName,TypeDemandeur.PERSONNE_PHYSIQUE);
+                else if (instance.getPersonneMorale().isSelected()) return DaoFactory.getDemandeurMoraleDao().findbyName(numOrName,TypeDemandeur.PERSONNE_MORALE);
+            }break;
         }
+        return null;
     }
 
     private void moveCaret(int textLength) {

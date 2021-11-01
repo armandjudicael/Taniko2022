@@ -28,7 +28,6 @@ import java.util.ResourceBundle;
 import java.util.function.Predicate;
 
 public class TitreMereEditDialog extends JFXDialog  implements Initializable {
-
     private static TitreMereEditDialog titreMereEditDialog;
     @FXML private JFXButton closeBtn;
     @FXML private JFXButton closeBtn1;
@@ -56,17 +55,31 @@ public class TitreMereEditDialog extends JFXDialog  implements Initializable {
     }
 
     @Override public void initialize(URL url, ResourceBundle resourceBundle){
-
         titreMereEditDialog = this;
-
         closeBtn.setOnAction(event -> this.close());
-
         closeBtn1.setOnAction(event -> this.close());
-
         addBtn.disableProperty().bind(titleCombobox.valueProperty().isNull());
+        initTitleCombobox();
+        addBtn.setOnAction(event -> addTitreSelected());
+    }
 
+    private void addTitreSelected() {
+        this.close();
+        MainService.getInstance().launch(new Task<Void>() {
+            @Override
+            protected void succeeded() {
+                titleCombobox.setValue(null);
+            }
+            @Override
+            protected Void call() throws Exception {
+                upadteTitreMere();
+                return null;
+            }
+        });
+    }
+
+    private void initTitleCombobox() {
         titleCombobox.setCellFactory(titreListView -> new TitleCell());
-
         new AutoCompleteCombobox<Titre>(titleCombobox, new Predicate<Titre>() {
             @Override
             public boolean test(Titre titre) {
@@ -75,27 +88,10 @@ public class TitreMereEditDialog extends JFXDialog  implements Initializable {
                     return true;
                 else return false;
             }
-        }, Type.TITRE);
-
-        addBtn.setOnAction(event -> {
-            this.close();
-            MainService.getInstance().launch(new Task<Void>() {
-                @Override
-                protected void succeeded() {
-                    titleCombobox.setValue(null);
-                }
-
-                @Override
-                protected Void call() throws Exception {
-                    upadteTitreMere();
-                    return null;
-                }
-            });
         });
     }
 
     private void upadteTitreMere(){
-
             Titre newValue = titleCombobox.getValue();
             Affaire affaire = AffairDetailsController.getAffaire();
             Terrain terrain = affaire.getTerrain();

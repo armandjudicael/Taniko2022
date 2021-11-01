@@ -69,9 +69,7 @@ public class TerrainFromController implements Initializable{
 
     private void initClearSupericieBtn(){
         clearSuperficie.disableProperty().bind(superficieLabel.textProperty().isEmpty());
-        clearSuperficie.setOnAction(event -> {
-            superficieLabel.setText("");
-        });
+        clearSuperficie.setOnAction(event -> superficieLabel.setText(""));
     }
 
 
@@ -142,7 +140,7 @@ public class TerrainFromController implements Initializable{
                     return true;
                 else return false;
             }
-        },Type.TITRE);
+        });
     }
 
     public static TerrainFromController getInstance(){

@@ -1,9 +1,18 @@
 package Model.Pojo.business;
 
 import Model.Enum.TypeDemandeur;
+import View.Model.ViewObject.AffaireForView;
+import View.Model.ViewObject.RepresentantForView;
+import dao.DaoFactory;
+import javafx.collections.ObservableList;
 
-public class PersonneMorale {
+public class PersonneMorale{
+    @Override public String toString() {
+        return nom;
+    }
+
     public PersonneMorale(){}
+
     public PersonneMorale(int id,
                           String adresse,
                           String numTel,
@@ -19,6 +28,7 @@ public class PersonneMorale {
         this.type = type;
         this.nationalite = nationalite;
     }
+
     public PersonneMorale(String adresse,
                           String numTel,
                           String email,
@@ -75,7 +85,15 @@ public class PersonneMorale {
     public void setNationalite(String nationalite) {
         this.nationalite = nationalite;
     }
-
+    public ObservableList<RepresentantForView> getAllRepresentant(){
+        return DaoFactory.getDemandeurMoraleDao().getAllRepresentant(this);
+    }
+    public RepresentantForView getActualRepresentant(){
+        return DaoFactory.getDemandeurMoraleDao().getActualRepresentant(this);
+    }
+    public ObservableList<AffaireForView> getAllAffaires(){
+        return null;
+    }
     private int id;
     private String adresse;
     private String numTel;

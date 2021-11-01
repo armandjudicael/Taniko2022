@@ -141,7 +141,7 @@ private static final String ALL_TITLE_COLUMN = "T.idTitre AS IDENTIFIANT ," +
         try (PreparedStatement ps = this.connection.prepareStatement(query)) {
             ps.setString(1, titre.getNumero());
             ps.setString(2, titre.getNomPropriete());
-            ps.setTimestamp(3, titre.getDate());
+            ps.setDate(3, titre.getDate());
             ps.setString(4, titre.getNumMorcelement());
             int status = ps.executeUpdate();
             this.connection.commit();
@@ -198,7 +198,7 @@ private static final String ALL_TITLE_COLUMN = "T.idTitre AS IDENTIFIANT ," +
             ps.setString(1,titre.getNumero());
             ps.setString(2,titre.getNomPropriete());
             ps.setString(3,titre.getNumMorcelement());
-            ps.setTimestamp(4,titre.getDate());
+            ps.setDate(4,titre.getDate());
             ps.setInt(5,titre.getId());
             status = ps.executeUpdate();
             this.connection.commit();

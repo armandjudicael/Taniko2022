@@ -1,5 +1,6 @@
 package Model.Pojo.business;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 public class Titre {
@@ -9,7 +10,7 @@ public class Titre {
     private String numMorcelement;
     private String dateCreation;
     private String numExAffaire;
-    private Timestamp date;
+    private Date date;
     private String numero;
     private String nomPropriete;
     private String titulaire;
@@ -107,7 +108,7 @@ public class Titre {
                  String nomPropriete,
                  String numTitreMere,
                  String numMorcelement,
-                 Timestamp dateCreation) {
+                 Date dateCreation) {
 
         this.numero = numero;
         this.nomPropriete = nomPropriete;
@@ -164,10 +165,10 @@ public class Titre {
     public void setNumExAffaire(String numExAffaire) {
         this.numExAffaire = numExAffaire;
     }
-    public Timestamp getDate() {
+    public Date getDate() {
         return date;
     }
-    public void setDate(Timestamp date) {
+    public void setDate(Date date) {
         this.date = date;
     }
     @Override

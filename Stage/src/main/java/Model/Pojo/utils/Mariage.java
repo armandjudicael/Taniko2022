@@ -2,7 +2,7 @@ package Model.Pojo.utils;
 import Model.Enum.RegimeMatrimoniale;
 import Model.Pojo.business.PersonnePhysique;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 
 public class Mariage {
 
@@ -10,13 +10,13 @@ public class Mariage {
 
     }
 
-    public Mariage(Timestamp dateMariage, String lieuMariage, RegimeMatrimoniale regimeMatrimoniale) {
+    public Mariage(Date dateMariage, String lieuMariage, RegimeMatrimoniale regimeMatrimoniale) {
         this.dateMariage = dateMariage;
         this.lieuMariage = lieuMariage;
         this.regimeMatrimoniale = regimeMatrimoniale;
     }
 
-    public Mariage(Timestamp dateMariage, String lieuMariage, RegimeMatrimoniale regimeMatrimoniale, PersonnePhysique demandeur, PersonnePhysique conjoint) {
+    public Mariage(Date dateMariage, String lieuMariage, RegimeMatrimoniale regimeMatrimoniale, PersonnePhysique demandeur, PersonnePhysique conjoint) {
         this.dateMariage = dateMariage;
         this.lieuMariage = lieuMariage;
         this.regimeMatrimoniale = regimeMatrimoniale;
@@ -36,10 +36,10 @@ public class Mariage {
     public void setConjoint(PersonnePhysique conjoint) {
         this.conjoint = conjoint;
     }
-    public Timestamp getDateMariage() {
+    public Date getDateMariage() {
         return dateMariage;
     }
-    public void setDateMariage(Timestamp dateMariage) {
+    public void setDateMariage(Date dateMariage) {
         this.dateMariage = dateMariage;
     }
     public String getLieuMariage() {
@@ -62,7 +62,7 @@ public class Mariage {
         if (regime.equals("Droit commun")) return RegimeMatrimoniale.DROIT_COMMUN;
         else return RegimeMatrimoniale.SEPARATION_DES_BIENS;
     }
-    private Timestamp dateMariage;
+    private Date dateMariage;
     private String lieuMariage;
     private RegimeMatrimoniale regimeMatrimoniale;
     private PersonnePhysique demandeur,conjoint;

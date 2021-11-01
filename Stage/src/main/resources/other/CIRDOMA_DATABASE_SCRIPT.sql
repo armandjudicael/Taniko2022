@@ -18,7 +18,7 @@ create table demandeur_physique(
   lotDmd      varchar(50)  default null,
   parcelleDmd varchar(50)  default null,
   lieuDeNaissanceDmd varchar(255) default null,
-  dateDeNaissanceDmd timestamp default null,
+  dateDeNaissanceDmd DATE default null,
   pere varchar(255) default null,
   mere varchar(255) default null,
   sexe enum('Masculin','Féminin') default 'Masculin',
@@ -29,7 +29,7 @@ create table demandeur_physique(
 create table mariage(
   idDemandeur int not null ,
   idConjoint int not null ,
-  dateMariage timestamp not null ,
+  dateMariage DATE not null ,
   lieuMariage varchar(255) not null ,
   regime enum('séparation des biens','Droit commun'),
   CONSTRAINT fk_demandeur_mariage foreign key (idDemandeur) references demandeur_physique(idDmdPhysique) ON DELETE CASCADE,
@@ -62,7 +62,7 @@ superficie text not null
 create table titre(
   idTitre int not null auto_increment primary key,
   numTitre varchar(255) not null,
-  dateCreation timestamp not null ,
+  dateCreation DATE not null ,
   numMorcelement varchar(255) not null
 );
 
@@ -104,7 +104,7 @@ create table affaire(
 create table representant(
                              idPersonneMorale int not null,
                              idPersonnePhysique int not null ,
-                             dateRepresentantion timestamp not null ,
+                             dateRepresentantion DATE not null ,
                              constraint fk_representant_morale foreign key (idPersonneMorale) references demandeur_morale(idDmd) on delete cascade ,
                              constraint fk_representant_physique foreign key (idPersonnePhysique) references demandeur_physique(idDmdPhysique) on delete cascade
 );
@@ -112,7 +112,7 @@ create table representant(
 create table ordonnance(
     idOrdonnance int not null auto_increment primary key,
     numOrdonnance varchar(100) not null ,
-    dateOdronnance timestamp not null ,
+    dateOdronnance DATE not null ,
     affaireId int not null ,
     constraint fk_ordonnance_affaire foreign key (affaireId) references affaire(idAffaire)
 );
@@ -120,7 +120,7 @@ create table ordonnance(
 create table reperage(
     idReperage int not null  auto_increment primary key ,
     numReperage varchar(100) not null ,
-    dateReperage timestamp not null ,
+    dateReperage DATE not null ,
     affaireId int not null ,
     constraint fk_reperage_affaire foreign key (affaireId) references affaire(idAffaire)
 );
@@ -128,7 +128,7 @@ create table reperage(
 create table journal_de_tresorerie(
     idJtr int not null auto_increment primary key,
     numJtr varchar(100) not null ,
-    dateJtr timestamp not null ,
+    dateJtr DATE not null ,
     affaireId int not null ,
     constraint fk_journal_de_tresorerie foreign key (affaireId) references affaire(idAffaire)
 );
@@ -136,8 +136,8 @@ create table journal_de_tresorerie(
 create table procedure_concerner_affaire(
   procedureId int not null,
   affaireId int not null,
-  dateDepart timestamp default '1999-07-30',
-  dateArrive timestamp default '1999-07-30',
+  dateDepart DATETIME default '1999-07-30',
+  dateArrive DATETIME default '1999-07-30',
   numArrive varchar(10) default '',
   numDepart varchar(10) default '',
   CONSTRAINT primary key (procedureId,affaireId),
@@ -155,7 +155,7 @@ create table affaire_procedure(
 create table dispatch(
   utilisateurId int  not null,
   affaireId     int  not null,
-  dateDispatch timestamp not null,
+  dateDispatch DATETIME not null,
   CONSTRAINT primary key (utilisateurId,affaireId,dateDispatch),
   CONSTRAINT foreign key (utilisateurId) references utilisateur (idUtilisateur) on DELETE CASCADE,
   CONSTRAINT foreign key (affaireId) references affaire(idAffaire) on DELETE CASCADE

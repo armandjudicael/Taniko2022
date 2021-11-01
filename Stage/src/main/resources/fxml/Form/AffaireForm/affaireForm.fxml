@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXDatePicker?>
@@ -18,7 +19,7 @@
 
 <AnchorPane fx:id="affaireFormPanel" prefHeight="580.0" style="-fx-background-color: whitesmoke;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.formController.other.AffaireFormController">
    <children>
-      <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="552.0" prefWidth="714.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <ScrollPane fx:id="affaireScrollpane" fitToWidth="true" hbarPolicy="NEVER" prefHeight="552.0" prefWidth="714.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <content>
             <AnchorPane prefHeight="1333.0" style="-fx-background-color: white;">
                <children>

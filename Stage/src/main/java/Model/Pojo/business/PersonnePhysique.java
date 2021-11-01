@@ -1,6 +1,6 @@
 package Model.Pojo.business;
 import Model.Enum.TypeDemandeur;
-import java.sql.Timestamp;
+import java.sql.Date;
 
 public class PersonnePhysique extends PersonneMorale{
 
@@ -15,7 +15,7 @@ public class PersonnePhysique extends PersonneMorale{
                             String nationalite,
                             String parcelle,
                             String lot,
-                            Timestamp dateDeNaissance,
+                            Date dateDeNaissance,
                             String lieuDeNaissance,
                             String sexe,
                             String profession,
@@ -42,7 +42,7 @@ public class PersonnePhysique extends PersonneMorale{
                             String nationalite,
                             String parcelle,
                             String lot,
-                            Timestamp dateDeNaissance,
+                            Date dateDeNaissance,
                             String lieuDeNaissance,
                             String sexe,
                             String pere,
@@ -72,10 +72,10 @@ public class PersonnePhysique extends PersonneMorale{
     public void setLot(String lot) {
         this.lot = lot;
     }
-    public Timestamp getDateDeNaissance() {
+    public Date getDateDeNaissance() {
         return dateDeNaissance;
     }
-    public void setDateDeNaissance(Timestamp dateDeNaissance) {
+    public void setDateDeNaissance(Date dateDeNaissance) {
         this.dateDeNaissance = dateDeNaissance;
     }
     public String getLieuDeNaissance() {
@@ -129,7 +129,7 @@ public class PersonnePhysique extends PersonneMorale{
     }
     private String parcelle;
     private String lot;
-    private Timestamp dateDeNaissance;
+    private Date dateDeNaissance;
     private String lieuDeNaissance;
     private String sexe;
     private String profession;

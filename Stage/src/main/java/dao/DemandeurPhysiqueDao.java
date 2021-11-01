@@ -30,7 +30,7 @@ public class DemandeurPhysiqueDao extends Dao implements DaoHelper<PersonnePhysi
             ps.setString(2,dp.getLot());
             ps.setString(3,dp.getParcelle());
             ps.setString(4,dp.getLieuDeNaissance());
-            ps.setTimestamp(5,dp.getDateDeNaissance());
+            ps.setDate(5,dp.getDateDeNaissance());
             ps.setString(6,dp.getPere());
             ps.setString(7,dp.getMere());
             ps.setString(8,dp.getProfession());
@@ -69,7 +69,7 @@ public class DemandeurPhysiqueDao extends Dao implements DaoHelper<PersonnePhysi
             dp.setLot(rs.getString("lotDmd"));
             dp.setParcelle(rs.getString("parcelleDmd"));
             dp.setLieuDeNaissance(rs.getString("lieuDeNaissanceDmd"));
-            dp.setDateDeNaissance(rs.getTimestamp("dateDeNaissanceDmd"));
+            dp.setDateDeNaissance(rs.getDate("dateDeNaissanceDmd"));
             dp.setSituationMatrimoniale(rs.getString("SituationMatrimoniale"));
             dp.setProfession(rs.getString("profession"));
             dp.setSexe(rs.getString("sexe"));

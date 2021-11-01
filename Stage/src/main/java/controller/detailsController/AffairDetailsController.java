@@ -229,7 +229,7 @@ public class AffairDetailsController implements Initializable {
         JFXDatePicker datePicker = new JFXDatePicker();
         datePicker.setPrefHeight(100);
         datePicker.setPrefWidth(200);
-        datePicker.setValue(affaire.getDateDeFormulation().toLocalDateTime().toLocalDate());
+        datePicker.setValue(affaire.getDateDeFormulation().toLocalDate());
         dialog.getDialogPane().setContent(datePicker);
         dialog.getDialogPane().getButtonTypes().add(new ButtonType("valider", ButtonBar.ButtonData.OK_DONE));
         dialog.getDialogPane().getButtonTypes().add(new ButtonType("annuler", ButtonBar.ButtonData.CANCEL_CLOSE));

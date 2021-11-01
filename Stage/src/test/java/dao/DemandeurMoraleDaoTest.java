@@ -1,7 +1,12 @@
 package dao;
 import Model.Enum.TypeDemandeur;
+import Model.Pojo.business.PersonneMorale;
 import Model.Pojo.business.PersonnePhysique;
+import javafx.collections.ObservableList;
 import org.junit.Test;
+
+import java.sql.Date;
+import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -19,8 +24,8 @@ public class DemandeurMoraleDaoTest {
         String name = "Dias";
         String firstName = "kaya";
         LocalDate now = LocalDate.now();
-        Timestamp dateNaissance = Timestamp.valueOf(LocalDateTime.of(now.getYear(),now.getMonthValue(),now.getDayOfMonth(),0,0));
-        String lieuDeNaissance = "Toamasina I";
+        Date dateNaissance = Date.valueOf(now);
+                String lieuDeNaissance = "Toamasina I";
         String sexe = "féminin";
         String adresse = "Ambalamanasy Carreau I Lot 68";
         String parcelle = "";
@@ -61,5 +66,12 @@ public class DemandeurMoraleDaoTest {
     @Test
     public void finByNum() {
 
+    }
+
+    @Test
+    public void findbyName() {
+        ObservableList<PersonneMorale> observableList = DaoFactory.getDemandeurMoraleDao().findbyName("min", TypeDemandeur.PERSONNE_MORALE);
+        assertTrue(!observableList.isEmpty());
+        observableList.forEach(System.out::println);
     }
 }

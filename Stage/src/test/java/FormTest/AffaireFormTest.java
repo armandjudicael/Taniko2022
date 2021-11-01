@@ -5,10 +5,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.testfx.framework.junit.ApplicationTest;
 
 import java.util.Objects;
 
-public class AffaireFormTest extends Application {
+public class AffaireFormTest extends Application{
 
     public static void main(String []args){
         launch(args);

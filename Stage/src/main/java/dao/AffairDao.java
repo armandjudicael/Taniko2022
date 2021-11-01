@@ -24,7 +24,7 @@ import static Model.Pojo.business.Affaire.*;
 
 public class AffairDao extends Dao implements DaoHelper<Affaire>{
 
-    private final String APPLICANT_FULLNAME = "( SELECT DMD.nomDmd FROM demandeur_morale AS DMD WHERE DMD.idDmd = AFF.demandeurId ) AS APPLICANT_FULLNAME ";
+    private final String APPLICANT_FULLNAME = "( SELECT DMD.nomDmd , DMD.typeDmd  FROM demandeur_morale AS DMD WHERE DMD.idDmd = AFF.demandeurId ) AS APPLICANT_FULLNAME ";
 
     private final String LAST_REDACTOR = "(SELECT CONCAT(u.nom,'@',u.prenom,'@',u.idUtilisateur)"+
             " FROM utilisateur AS u INNER JOIN dispatch d on u.idUtilisateur = d.utilisateurId"+
@@ -64,6 +64,13 @@ public class AffairDao extends Dao implements DaoHelper<Affaire>{
                             TITRE_DEPENDANT+","+
                             SUPERFICIE;
 
+    private final String FULL_INFORMATION_WITHOUT_APPLICANT =
+            ALL_AFFAIRE_COLUMN+","+
+            LAST_REDACTOR +"," +
+            LAST_PROCEDURE +","+
+            TITRE_DEPENDANT+","+
+            SUPERFICIE;
+
     public ObservableList<AffaireForView> getAllAffair(){
         ObservableList<AffaireForView> list = FXCollections.observableArrayList();
         String query="SELECT " +
@@ -89,7 +96,7 @@ public class AffairDao extends Dao implements DaoHelper<Affaire>{
         return new AffaireForView(
                 rs.getInt("idAffaire"),
                 rs.getString("numAffaire"),
-                rs.getTimestamp("dateFormulation"),
+                rs.getDate("dateFormulation"),
                 string2TypeDemande(rs.getString("typeAffaire")),
                 createRedactor(redactor),
                 string2AffaireStatus(rs.getString("situation")),
@@ -303,7 +310,7 @@ public class AffairDao extends Dao implements DaoHelper<Affaire>{
         try (PreparedStatement ps = this.connection.prepareStatement(query)) {
             ps.setString(1, affaire.getNumero());
             ps.setString(2, typeDemande2String(affaire.getTypeDemande()));
-            ps.setTimestamp(3, affaire.getDateDeFormulation());
+            ps.setDate(3, affaire.getDateDeFormulation());
             ps.setString(4,affaireStatus2String(affaire.getStatus()));
             ps.setInt(5, affaire.getDemandeur().getId());
             ps.setInt(6,affaire.getTerrain().getIdTerrain());

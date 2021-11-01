@@ -28,6 +28,7 @@ import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -151,7 +152,7 @@ public class TitleFrom extends JFXDialog implements Initializable {
                         numMorcelemment
                         ,numeroTitreMere);
             else titre = new Titre(numeroTitre, nomPPT, fullName, dateCreation, "", "");
-            titre.setDate(Timestamp.valueOf(LocalDateTime.of(dateAttribution.getValue(), LocalTime.now())));
+            titre.setDate(Date.valueOf(dateAttribution.getValue()));
             switch (operation){
                 case CREATE_OPERATION:{
                     titre.setNumExAffaire(exAffaire.getNumero());

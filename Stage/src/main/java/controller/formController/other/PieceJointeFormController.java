@@ -1,5 +1,4 @@
 package controller.formController.other;
-
 import Model.Enum.*;
 import Model.Pojo.business.*;
 import Model.Pojo.utils.Mariage;
@@ -27,15 +26,13 @@ import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.TilePane;
 import java.net.URL;
-import java.sql.Timestamp;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.sql.Date;
 import java.util.ResourceBundle;
 import static Model.Pojo.business.Affaire.string2TypeDemande;
 import static dao.DemandeurMoraleDao.*;
@@ -61,6 +58,11 @@ public class PieceJointeFormController implements Initializable{
                 saveAffaire();
                 return null;
             }
+            @Override protected void failed() {
+                super.failed();
+                Throwable exception = this.getException();
+                exception.printStackTrace();
+            }
         }));
     }
     private void saveAllAttachement(Affaire affaire){
@@ -78,9 +80,9 @@ public class PieceJointeFormController implements Initializable{
     }
 
     private void saveAffaire(){
-            PersonneMorale personneMorale = initDemandeur();
             LocalDate localDate = AffaireFormController.getInstance().getDateFormulation().getValue();
-            dateFormulation = Timestamp.valueOf(LocalDateTime.of(localDate.getYear(),localDate.getMonthValue(),localDate.getDayOfMonth(),0,0));
+            dateFormulation = createJavaSqlDateBy(localDate);
+            PersonneMorale personneMorale = initDemandeur();
             String numeroAffaire = AffaireFormController.getInstance().getNumeroAffaire().getText()+AffaireFormController.getInstance().getNumAndDateAffLabel().getText();
             User redacteur = initRedateur();
             Terrain terrain = initTerrain();
@@ -92,11 +94,15 @@ public class PieceJointeFormController implements Initializable{
                 saveReperageAndOrdonanceAndDispatchAndJtrAndAttachements(redacteur,affairForView);
             }
     }
+
     private void updateViewAndNotifyUser(String numeroAffaire, AffaireForView affairForView) {
         Notification.getInstance(" L'affaire N° "+ numeroAffaire +" est enregistrer avec succès ", NotifType.SUCCESS).showNotif();
         // MIS A JOUR DE L'AFFICHAGE
+
+        // Eto mandefa email am chef jiaby !
         Platform.runLater(() -> AffairViewController.getInstance().getTableView().getItems().add(affairForView));
     }
+
     private void saveReperageAndOrdonanceAndDispatchAndJtrAndAttachements(User redacteur, AffaireForView affairForView) {
         // INSERTION DANS LA TABLE JOURNAL DE TRESORERIE
         saveJournalTresorerieRecette(affairForView.getId());
@@ -109,24 +115,22 @@ public class PieceJointeFormController implements Initializable{
         // ENREGISTREMENT DES PIECES JOINTES
         if (pjTilepane.getChildren().size() > 1) saveAllAttachement(affairForView);
     }
+
     private int saveOrdonnance(int idAffaire){
         AffaireFormController instance = AffaireFormController.getInstance();
         String ord = instance.getNumOrdonance().getText();
         LocalDate value = instance.getDateOrdonance().getValue();
-        if (ord!=null && !ord.isEmpty() && value!=null){
-            Timestamp dateRep = createTimestampBy(value);
-            return DbOperation.insertOnTableOrdonnance(ord,dateRep,idAffaire);
-        }
+        if (ord!=null && !ord.isEmpty() && value!=null)
+            return DbOperation.insertOnTableOrdonnance(ord,createJavaSqlDateBy(value),idAffaire);
         return 0;
     }
+
     private int saveReperage(int idAffaire){
         AffaireFormController instance = AffaireFormController.getInstance();
         String rep = instance.getNumeroReperage().getText();
         LocalDate value = instance.getDateReperage().getValue();
-        if (rep!=null && !rep.isEmpty() && value!=null){
-            Timestamp dateRep = createTimestampBy(value);
-            return DbOperation.insertOnTableReperage(rep,dateRep,idAffaire);
-        }
+        if (rep!=null && !rep.isEmpty() && value!=null)
+            return DbOperation.insertOnTableReperage(rep,createJavaSqlDateBy(value),idAffaire);
         return 0;
     }
 
@@ -134,12 +138,11 @@ public class PieceJointeFormController implements Initializable{
         AffaireFormController instance = AffaireFormController.getInstance();
         String numJtr = instance.getNumeroJtr().getText();
         LocalDate value = instance.getDateJtr().getValue();
-        if (numJtr!=null && !numJtr.isEmpty() && value!=null){
-            Timestamp dateJtr = createTimestampBy(value);
-           return DbOperation.insertOnTableJtr(numJtr,dateJtr,idAffaire);
-        }
+        if (numJtr!=null && !numJtr.isEmpty() && value!=null)
+           return DbOperation.insertOnTableJtr(numJtr,createJavaSqlDateBy(value),idAffaire);
         return 0;
     }
+
     private PersonneMorale initDemandeur(){
         Tab searchTab = MainDemandeurFormController.getInstance().getSearchTab();
         Tab newTab = MainDemandeurFormController.getInstance().getNewTab();
@@ -162,14 +165,18 @@ public class PieceJointeFormController implements Initializable{
             if (DaoFactory.getDemandeurMoraleDao().create(rep) == 1){
                 // RECUPERATION DE L'IDENTIFIANT DU REPRESENTANT
                 rep.setId(getLasInsertId(rep));
-                // INSERTION DANS LA TABLE REPRESENTANT
-                if (DbOperation.insertOnTableRepresentant(rep,dm,dateFormulation)==1){
-                   return dm;
+                // INSERTION DANS LA PERSONNE PHYSIQUE
+                if (DaoFactory.getDemandeurPhysiqueDao().create(rep)==1){
+                    // INSERTION DANS LA TABLE REPRESENTANT
+                    if (DbOperation.insertOnTableRepresentant(rep,dm,dateFormulation)==1){
+                        return dm;
+                    }
                 }
             }
         }
         return dm;
     }
+
     private PersonnePhysique initDemandeurPhysique(){
         PersonnePhysique ph = createDemandeurPhysique();
         /*
@@ -203,21 +210,23 @@ public class PieceJointeFormController implements Initializable{
         }
         return ph;
     }
+
     private int getLasInsertId(PersonneMorale dp){
-        if (!dp.getNumTel().isBlank() && !dp.getNumTel().isEmpty() && dp.getNumTel()!=null) return DaoFactory.getDemandeurMoraleDao().getDemandeurIdBy(dp.getNumTel(),ParamerterType.NUMTEL);
-        else if (!dp.getEmail().isBlank() && !dp.getEmail().isEmpty() && dp.getEmail()!=null) return DaoFactory.getDemandeurMoraleDao().getDemandeurIdBy(dp.getEmail(),ParamerterType.EMAIL);;
+        if ( dp.getNumTel()!=null && !dp.getNumTel().isEmpty()) return DaoFactory.getDemandeurMoraleDao().getDemandeurIdBy(dp.getNumTel(),ParamerterType.NUMTEL);
+        else if ( dp.getEmail()!=null && !dp.getEmail().isEmpty()) return DaoFactory.getDemandeurMoraleDao().getDemandeurIdBy(dp.getEmail(),ParamerterType.EMAIL);;
         return DaoFactory.getDemandeurMoraleDao().getDemandeurIdBy(dp.getNom(),ParamerterType.NAME);
     }
+
     private PersonnePhysique createDemandeurPhysique(){
         NouveauDemandeurController instance = NouveauDemandeurController.getInstance();
         PersonnePhysique ph = new PersonnePhysique();
-        ph.setNom(instance.getNomDmd().getText() +" "+instance.getPrenomDmd().getText()!=null ? instance.getPrenomDmd().getText() : "");
+        ph.setNom(instance.getNomDmd().getText() +" "+(instance.getPrenomDmd().getText()!=null ? instance.getPrenomDmd().getText() : ""));
         ph.setAdresse(instance.getAdresse().getText());
         String numero = instance.getTelephone().getText();
         ph.setNumTel((numero!=null && !numero.isEmpty() ? numero : null));
         String email = instance.getEmail().getText();
         ph.setEmail((email!=null && !email.isEmpty()) ? email : null);
-        ph.setDateDeNaissance(createTimestampBy(instance.getDateDeNaissanceDmd().getValue()));
+        ph.setDateDeNaissance(createJavaSqlDateBy(instance.getDateDeNaissanceDmd().getValue()));
         ph.setLieuDeNaissance(instance.getLieuDeNaissanceDmd().getText());
         ph.setSexe(initSex(true).trim());
         String parcelle = instance.getDemandeurParcelle1().getText()+"/"+instance.getDemandeurParcelle2().getText();
@@ -232,8 +241,8 @@ public class PieceJointeFormController implements Initializable{
         return ph;
     }
 
-    private Timestamp createTimestampBy(LocalDate date){
-        return Timestamp.valueOf(LocalDateTime.of(date.getYear(),date.getMonthValue(),date.getDayOfMonth(),0,0));
+    private Date createJavaSqlDateBy(LocalDate date){
+       return java.sql.Date.valueOf(date);
     }
 
     private String initSex(Boolean isApplicant){
@@ -264,15 +273,10 @@ public class PieceJointeFormController implements Initializable{
         PersonnePhysique conjoint = new PersonnePhysique();
         conjoint.setNom(nomConjoint+" "+prenomConjoint);
         conjoint.setLieuDeNaissance(lieuDeNaissanceConjoint);
-        conjoint.setDateDeNaissance(createTimestampBy(value));
+        conjoint.setDateDeNaissance(createJavaSqlDateBy(value));
         conjoint.setSexe(initSex(false));
         conjoint.setType(TypeDemandeur.PERSONNE_PHYSIQUE);
         conjoint.setSituationMatrimoniale("Marié");
-        conjoint.setAdresse("");
-        conjoint.setMere("");
-        conjoint.setPere("");
-        conjoint.setNationalite("");
-        conjoint.setLieuDeNaissance("");
         return conjoint;
     }
 
@@ -281,7 +285,7 @@ public class PieceJointeFormController implements Initializable{
         // MARIAGE
         String lieuMariage = instance.getLieuMariage().getText();
         LocalDate value1 = instance.getDateMariage().getValue();
-        Timestamp dateMariage = createTimestampBy(value1);
+        Date dateMariage = createJavaSqlDateBy(value1);
         String regimeMatrimoniale = instance.getRegimeMatrimoniale().getValue();
         return new Mariage(dateMariage,lieuMariage,Mariage.String2RegimeMatrimoniale(regimeMatrimoniale));
     }
@@ -293,7 +297,14 @@ public class PieceJointeFormController implements Initializable{
         String telephone = instance.getTelPersonneMorale().getText();
         String email = instance.getEmailPersonneMorale().getText();
         String nationalite = instance.getNationnalitéMorale().getText();
-        return new PersonneMorale(siegeSocial,telephone,email,raisonSocial,TypeDemandeur.PERSONNE_MORALE,nationalite);
+        PersonneMorale pm = new PersonneMorale();
+        pm.setNumTel(telephone);
+        pm.setEmail(email);
+        pm.setNationalite(nationalite);
+        pm.setAdresse(siegeSocial);
+        pm.setNom(raisonSocial);
+        pm.setType(TypeDemandeur.PERSONNE_MORALE);
+        return pm;
     }
 
     private PersonnePhysique createRepresentant(){
@@ -303,6 +314,7 @@ public class PieceJointeFormController implements Initializable{
         String professionRepresentant = instance.getFonctionRepresentant().getText();
         String adresseRepresentant = instance.getAdresseRepresentant().getText();
         PersonnePhysique ps = new PersonnePhysique();
+        ps.setType(TypeDemandeur.PERSONNE_PHYSIQUE);
         ps.setNom(nomRepresentant+" "+prenomRepresentant);
         ps.setProfession(professionRepresentant);
         ps.setAdresse(adresseRepresentant);
@@ -340,9 +352,9 @@ public class PieceJointeFormController implements Initializable{
         instance.getParcelleTerrain().clear();
         instance.getParcelleTerrain1().clear();
         instance.getSise().clear();
-        instance.getDistrict().clear();
-        instance.getCommune().clear();
-        instance.getRegion().clear();
+//        instance.getDistrict().clear();
+//        instance.getCommune().clear();
+//        instance.getRegion().clear();
         if (instance.getInsererPropriete().isSelected()){
             instance.getNomPropriete().clear();
             instance.getNumeroTitre().clear();
@@ -359,6 +371,8 @@ public class PieceJointeFormController implements Initializable{
         resetOrdonnance();
         // RESET NAVIGATION
         MainAffaireFormController.updateLabelAndShowPane(null);
+        // RESET COMBOBOX
+        RechercherDemandeurController.getInstance().getDemandeurCombobox().setValue(null);
     }
 
     private void resetReperageAndAffaire(){
@@ -398,6 +412,9 @@ public class PieceJointeFormController implements Initializable{
         // TERRAIN
         TerrainFromController instance1 = TerrainFromController.getInstance();
         instance1.getTerrainScrollPane().setVvalue(0.0);
+        // AFFAIREFORM
+        AffaireFormController instance2 = AffaireFormController.getInstance();
+        instance2.getAffaireScrollpane().setVvalue(0.0);
     }
 
     private void resetMariage(){
@@ -450,6 +467,7 @@ public class PieceJointeFormController implements Initializable{
         instance.getNomPere().clear();
         instance.getNomMere().clear();
     }
+
     private Titre initTitre(){
         TerrainFromController instance = TerrainFromController.getInstance();
         if (instance.getRadioDependant().isSelected()){
@@ -461,7 +479,7 @@ public class PieceJointeFormController implements Initializable{
                 titre.setNomPropriete(instance.getNomPropriete().getText());
                 titre.setNumero(instance.getNumeroTitre()+"-BA");
                 titre.setNumMorcelement(instance.getNumeroMorcellement().getText());
-                titre.setDate(createTimestampBy(instance.getDateCreation().getValue()));
+                titre.setDate(createJavaSqlDateBy(instance.getDateCreation().getValue()));
                 if (DaoFactory.getTitreDao().create(titre) != 0) {
                     int id = DaoFactory.getTitreDao().findByNum(titre.getNumero());
                     titre.setId(id);
@@ -491,6 +509,7 @@ public class PieceJointeFormController implements Initializable{
         }
         return null;
     }
+
     private Terrain createTerrain(){
        TerrainFromController instance = TerrainFromController.getInstance();
         String superficie = instance.getSuperficieLabel().getText();
@@ -509,5 +528,5 @@ public class PieceJointeFormController implements Initializable{
     @FXML private JFXButton delPieceBtn;
     @FXML private JFXButton saveBtn;
     @FXML private JFXButton pjPrevBtn;
-    private static Timestamp dateFormulation;
+    private static Date dateFormulation;
 }

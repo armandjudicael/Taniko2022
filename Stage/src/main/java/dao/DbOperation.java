@@ -89,13 +89,13 @@ public class DbOperation {
         return nbRequest;
     }
 
-    public static int insertOnTableRepresentant(PersonnePhysique representant , PersonneMorale personneMorale, Timestamp dateFormulation){
+    public static int insertOnTableRepresentant(PersonnePhysique representant , PersonneMorale personneMorale, Date dateFormulation){
         int status = 0;
         String query = "INSERT  INTO representant (idPersonneMorale, idPersonnePhysique, dateRepresentantion) VALUES (?,?,?);";
         try (PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setInt(1, personneMorale.getId());
             ps.setInt(2, representant.getId());
-            ps.setTimestamp(3,dateFormulation);
+            ps.setDate(3,dateFormulation);
             status = ps.executeUpdate();
             connection.commit();
         } catch (SQLException e) {
@@ -104,12 +104,12 @@ public class DbOperation {
         return status;
     }
 
-    public static int insertOnTableOrdonnance(String numOrdonance,Timestamp dateOrd,int affaireId){
+    public static int insertOnTableOrdonnance(String numOrdonance,Date dateOrd,int affaireId){
         int status = 0;
         String query = "INSERT  INTO ordonnance (numOrdonnance, dateOdronnance, affaireId) VALUES (?,?,?);";
         try (PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setString(1,numOrdonance);
-            ps.setTimestamp(2,dateOrd);
+            ps.setDate(2,dateOrd);
             ps.setInt(3,affaireId);
             status = ps.executeUpdate();
             connection.commit();
@@ -119,12 +119,12 @@ public class DbOperation {
         return status;
     }
 
-    public static int insertOnTableJtr(String numJtr,Timestamp dateJtr,int affaireId){
+    public static int insertOnTableJtr(String numJtr,Date dateJtr,int affaireId){
         int status = 0;
         String query = "INSERT  INTO journal_de_tresorerie (numJtr, dateJtr, affaireId) VALUES (?,?,?);";
         try (PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setString(1,numJtr);
-            ps.setTimestamp(2,dateJtr);
+            ps.setDate(2,dateJtr);
             ps.setInt(3,affaireId);
             status = ps.executeUpdate();
             connection.commit();
@@ -134,12 +134,12 @@ public class DbOperation {
         return status;
     }
 
-    public static int insertOnTableReperage(String numReperage,Timestamp dateReperage,int affaireId){
+    public static int insertOnTableReperage(String numReperage,Date dateReperage,int affaireId){
         int status = 0;
         String query = "INSERT  INTO reperage (numReperage, dateReperage, affaireId) VALUES (?,?,?);";
         try (PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setString(1,numReperage);
-            ps.setTimestamp(2,dateReperage);
+            ps.setDate(2,dateReperage);
             ps.setInt(3,affaireId);
             status = ps.executeUpdate();
             connection.commit();
@@ -155,7 +155,7 @@ public class DbOperation {
         try (PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setInt(1, mariage.getDemandeur().getId());
             ps.setInt(2, mariage.getConjoint().getId());
-            ps.setTimestamp(3,mariage.getDateMariage());
+            ps.setDate(3,mariage.getDateMariage());
             ps.setString(4,mariage.getLieuMariage());
             ps.setString(5,Mariage.regimeMatrimoniale2String(mariage.getRegimeMatrimoniale()));
             status = ps.executeUpdate();

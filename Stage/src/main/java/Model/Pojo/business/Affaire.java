@@ -8,16 +8,16 @@ import View.Model.ViewObject.ConnexAffairForView;
 import View.Model.ViewObject.EditorForView;
 import View.Model.ViewObject.PieceJointeForView;
 import javafx.collections.ObservableList;
+
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class Affaire {
-
     public Affaire() {}
-
     public Affaire(int id,
                    String numero,
-                   Timestamp dateDeFormulation,
+                   Date dateDeFormulation,
                    TypeDemande typeDemande,
                    User redacteur,
                    AffaireStatus status,
@@ -34,7 +34,7 @@ public class Affaire {
     }
 
     public Affaire(String numero,
-                   Timestamp dateDeFormulation,
+                   Date dateDeFormulation,
                    TypeDemande typeDemande,
                    User redacteur,
                    AffaireStatus status,
@@ -91,7 +91,7 @@ public class Affaire {
     public void setNumero(String numero) {
         this.numero = numero;
     }
-    public Timestamp getDateDeFormulation() {
+    public Date getDateDeFormulation() {
         return dateDeFormulation;
     }
     public static TypeDemande string2TypeDemande(String type) { return (type.equals("ACQUISITION")) ? TypeDemande.ACQUISITION : TypeDemande.PRESCRIPTION; }
@@ -145,7 +145,7 @@ public class Affaire {
     }
     public ObservableList<ArrayList<String>> getAllProcedureChecked() { return DaoFactory.getAffaireDao().getAllProcedureAndDateConcernedByThis(this.getId()); }
     public ObservableList<PieceJointeForView> getAllPieceJointe(){return DaoFactory.getPieceJointeDao().getAllPieceJointe(this) ;}
-    public void setDateDeFormulation(Timestamp dateDeFormulation) {
+    public void setDateDeFormulation(Date dateDeFormulation) {
         this.dateDeFormulation = dateDeFormulation;
     }
     public void setTypeDemande(TypeDemande typeDemande) {
@@ -159,7 +159,7 @@ public class Affaire {
 
     private  int id;
     private String numero;
-    private Timestamp dateDeFormulation;
+    private Date dateDeFormulation;
     private TypeDemande typeDemande;
     private User redacteur;
     private AffaireStatus status;

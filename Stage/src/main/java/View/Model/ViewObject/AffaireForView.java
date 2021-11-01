@@ -4,15 +4,16 @@ import Model.Enum.AffaireStatus;
 import Model.Enum.TypeDemande;
 import Model.Pojo.business.*;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
-public class AffaireForView extends Affaire {
+public class AffaireForView extends Affaire{
     public AffaireForView(ProcedureForTableview procedure) {
         this.procedure = procedure;
     }
     public AffaireForView(int id,
                           String numero,
-                          Timestamp dateDeFormulation,
+                          Date dateDeFormulation,
                           TypeDemande typeDemande,
                           User redacteur,
                           AffaireStatus status,
@@ -23,7 +24,7 @@ public class AffaireForView extends Affaire {
         this.procedure = procedure;
     }
     public AffaireForView(String numero,
-                          Timestamp dateDeFormulation,
+                          Date dateDeFormulation,
                           TypeDemande typeDemande,
                           User redacteur,
                           AffaireStatus status,
@@ -35,7 +36,7 @@ public class AffaireForView extends Affaire {
     }
     public AffaireForView(int id,
                           String numero,
-                          Timestamp dateDeFormulation,
+                          Date dateDeFormulation,
                           TypeDemande typeDemande,
                           User redacteur,
                           AffaireStatus status,
@@ -45,9 +46,8 @@ public class AffaireForView extends Affaire {
         super(id, numero, dateDeFormulation, typeDemande, redacteur, status, demandeurMorale, terrain);
         this.procedure = procedure;
     }
-
     public AffaireForView(String numero,
-                          Timestamp dateDeFormulation,
+                          Date dateDeFormulation,
                           TypeDemande typeDemande,
                           User redacteur,
                           AffaireStatus status,

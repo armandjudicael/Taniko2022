@@ -4,7 +4,6 @@ import controller.detailsController.AffairDetailsController;
 import controller.detailsController.RedacteurInfoController;
 import controller.viewController.MainController;
 import dao.DbOperation;
-import Model.Enum.Type;
 import Model.Enum.NotifType;
 import Model.Pojo.business.Affaire;
 import Model.Pojo.business.User;
@@ -55,31 +54,31 @@ public class DispatchDialog extends JFXDialog implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle){
         closeBtn.setOnAction(event -> this.close());
         closeBtn1.setOnAction(event -> this.close());
-        addBtn.disableProperty().bind(combobox.valueProperty().isNull());
+        addBtn.disableProperty().bind(redactorCombobox.valueProperty().isNull());
         addBtn.setOnAction(event -> {
             this.close();
             MainService.getInstance().launch(insertTask());
         });
-        combobox.setCellFactory(userListView -> new DispatchListcell());
-        new AutoCompleteCombobox<User>(combobox, new Predicate<User>(){
+        redactorCombobox.setCellFactory(userListView -> new DispatchListcell());
+        new AutoCompleteCombobox<User>(redactorCombobox, new Predicate<User>(){
             @Override public boolean test(User user){
-                String text = combobox.getEditor().getText();
+                String text = redactorCombobox.getEditor().getText();
                 if ( user.getNom().toLowerCase().startsWith(text) || user.getPrenom().toLowerCase().startsWith(text))
                     return true;
                 else return false;
             }
-        },Type.USER);
+        });
     }
 
     private Task insertTask() {
 
         return new Task() {
             @Override protected void succeeded() {
-                combobox.setValue(null);
+                redactorCombobox.setValue(null);
                 checkBoxNouvDispatch.setSelected(false);
             }
             @Override protected Void call() throws Exception {
-                User user = combobox.getValue();
+                User user = redactorCombobox.getValue();
                 // ajout nouveau redacteur dans la liste
                 RedacteurInfoController.getInstance().getEditorTableView().getItems().add(new EditorForView(Timestamp.valueOf(LocalDateTime.now()),
                         user.getFullName(),
@@ -105,7 +104,7 @@ public class DispatchDialog extends JFXDialog implements Initializable {
     }
 
     private static DispatchDialog dispatchDialog;
-    @FXML private JFXComboBox<User> combobox;
+    @FXML private JFXComboBox<User> redactorCombobox;
     @FXML private JFXButton closeBtn;
     @FXML private JFXButton closeBtn1;
     @FXML private JFXButton addBtn;

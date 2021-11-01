@@ -49,7 +49,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXComboBox fx:id="combobox" editable="true" focusColor="WHITE" prefHeight="35.0" prefWidth="394.0" unFocusColor="WHITE" />
+            <JFXComboBox fx:id="redactorCombobox" editable="true" focusColor="WHITE" prefHeight="35.0" prefWidth="394.0" unFocusColor="WHITE" />
          </children>
       </HBox>
       <Label prefHeight="36.0" prefWidth="194.0" text="Nouvelle Dispatch" textFill="#3c3939">

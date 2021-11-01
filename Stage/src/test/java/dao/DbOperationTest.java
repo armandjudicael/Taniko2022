@@ -7,8 +7,10 @@ import Model.Pojo.utils.Mariage;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.time.LocalDate;
 
 public class DbOperationTest {
 
@@ -81,7 +83,7 @@ public class DbOperationTest {
         demandeurPhysique.setId(10);
         PersonneMorale personneMorale = new PersonneMorale();
         personneMorale.setId(9);
-        int i = DbOperation.insertOnTableRepresentant(demandeurPhysique, personneMorale, Timestamp.from(Instant.now()));
+        int i = DbOperation.insertOnTableRepresentant(demandeurPhysique, personneMorale, Date.valueOf(LocalDate.now()));
         Assert.assertEquals(1,i);
     }
 
@@ -104,7 +106,7 @@ public class DbOperationTest {
         mariage.setConjoint(conjoint);
         mariage.setDemandeur(demandeur);
         mariage.setLieuMariage("TOAMASINA I");
-        mariage.setDateMariage(Timestamp.from(Instant.now()));
+        mariage.setDateMariage(Date.valueOf(LocalDate.now()));
         mariage.setRegimeMatrimoniale(RegimeMatrimoniale.SEPARATION_DES_BIENS);
         int i = DbOperation.insertOnTableMariage(mariage);
         Assert.assertEquals(1,i);

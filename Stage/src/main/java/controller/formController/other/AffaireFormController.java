@@ -20,6 +20,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
@@ -126,7 +127,7 @@ public class AffaireFormController  implements Initializable{
                     return true;
                 else return false;
             }
-        },Type.USER);
+        });
     }
 
     private void initNumChecker(){
@@ -157,7 +158,7 @@ public class AffaireFormController  implements Initializable{
                     return true;
                 else return false;
             }
-        },Type.CONNEXE);
+        });
     }
     public void initStatusCombobox(){
         ObservableList<String> strings = FXCollections.observableArrayList("En cours","Suspendu","Terminer","réjété");
@@ -300,6 +301,11 @@ public class AffaireFormController  implements Initializable{
     private static StringProperty yearAffairCigle = new SimpleStringProperty(String.valueOf(LocalDate.now().getYear()));
     private static AffaireFormController affaireFormController;
 
+    public ScrollPane getAffaireScrollpane() {
+        return affaireScrollpane;
+    }
+
+    @FXML private ScrollPane affaireScrollpane;
     @FXML private AnchorPane affaireFormPanel;
     // JFXCOMBOBOX
     @FXML private JFXComboBox<String> typeDemande;

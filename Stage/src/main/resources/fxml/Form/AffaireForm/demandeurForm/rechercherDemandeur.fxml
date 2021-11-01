@@ -17,20 +17,6 @@
       <JFXComboBox fx:id="demandeurCombobox" editable="true" focusColor="WHITE" layoutX="24.0" layoutY="14.0" prefHeight="34.0" prefWidth="702.0" styleClass="box" stylesheets="@../../../../css/box.css" unFocusColor="WHITE" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0" />
       <StackPane fx:id="stackpane" layoutX="14.0" layoutY="69.0" prefHeight="385.0" prefWidth="750.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="69.0">
          <children>
-            <AnchorPane fx:id="physiqueInfo" prefHeight="338.0" prefWidth="750.0" style="-fx-background-color: white;">
-               <children>
-                  <Label fx:id="nomDemandeurPhysique" layoutX="170.0" layoutY="27.0" prefHeight="17.0" prefWidth="262.0" text="RANDRIANARISON VOAHANGINIRINA Noeline" />
-                  <Label fx:id="adressePhysique" layoutX="170.0" layoutY="61.0" prefHeight="17.0" prefWidth="180.0" text="Ambalamanasy Carreau I Lot 68" />
-                  <Label fx:id="emailPhysique" layoutX="156.0" layoutY="105.0" prefHeight="17.0" prefWidth="145.0" text="voangy@gmail.com" />
-                  <Label fx:id="telPhysique" layoutX="161.0" layoutY="149.0" prefHeight="17.0" prefWidth="99.0" text="0340588519" />
-                  <Label layoutX="30.0" layoutY="27.0" prefHeight="17.0" prefWidth="37.0" text="Nom :" />
-                  <Label layoutX="30.0" layoutY="61.0" prefHeight="17.0" prefWidth="54.0" text="Adresse :" />
-                  <Label layoutX="30.0" layoutY="105.0" prefHeight="17.0" prefWidth="37.0" text="email :" />
-                  <Label layoutX="32.0" layoutY="149.0" prefHeight="17.0" prefWidth="70.0" text="Telephone :" />
-                  <Label layoutX="32.0" layoutY="184.0" prefHeight="17.0" prefWidth="70.0" text="Nationalité :" />
-                  <Label fx:id="nationalite" layoutX="161.0" layoutY="184.0" prefHeight="17.0" prefWidth="99.0" text="Malagasy" />
-               </children>
-            </AnchorPane>
             <ScrollPane fx:id="moralInfo" fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="ALWAYS">
                <content>
                   <AnchorPane prefHeight="544.0" prefWidth="668.0" style="-fx-background-color: white;">
@@ -39,7 +25,7 @@
                            <columns>
                               <TreeTableColumn fx:id="nomRepresentantTreeTbColum" prefWidth="302.0" text="representant" />
                               <TreeTableColumn fx:id="numAffTreeTbColumn" prefWidth="134.0" text="Affaire" />
-                              <TreeTableColumn fx:id="dateTreeTbColumn" prefWidth="142.0" text="date de formulation" />
+                              <TreeTableColumn fx:id="dateTreeTbColumn" prefWidth="228.0" text="date de formulation" />
                            </columns>
                         </JFXTreeTableView>
                         <JFXButton fx:id="newPieceBtn" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" layoutX="615.0" layoutY="202.0" prefHeight="35.0" prefWidth="43.0" style="-fx-background-color: #389955;" text="ajouter" textFill="WHITE" AnchorPane.rightAnchor="10.0">
@@ -78,6 +64,20 @@
                   </AnchorPane>
                </content>
             </ScrollPane>
+            <AnchorPane fx:id="physiqueInfo" prefHeight="338.0" prefWidth="750.0" style="-fx-background-color: white;">
+               <children>
+                  <Label fx:id="nomDemandeurPhysique" layoutX="170.0" layoutY="27.0" prefHeight="17.0" prefWidth="371.0" text="RANDRIANARISON VOAHANGINIRINA Noeline" />
+                  <Label fx:id="adressePhysique" layoutX="170.0" layoutY="61.0" prefHeight="17.0" prefWidth="371.0" text="Ambalamanasy Carreau I Lot 68" />
+                  <Label fx:id="emailPhysique" layoutX="156.0" layoutY="105.0" prefHeight="17.0" prefWidth="408.0" text="voangy@gmail.com" />
+                  <Label fx:id="telPhysique" layoutX="161.0" layoutY="149.0" prefHeight="17.0" prefWidth="99.0" text="0340588519" />
+                  <Label layoutX="30.0" layoutY="27.0" prefHeight="17.0" prefWidth="37.0" text="Nom :" />
+                  <Label layoutX="30.0" layoutY="61.0" prefHeight="17.0" prefWidth="54.0" text="Adresse :" />
+                  <Label layoutX="30.0" layoutY="105.0" prefHeight="17.0" prefWidth="37.0" text="email :" />
+                  <Label layoutX="32.0" layoutY="149.0" prefHeight="17.0" prefWidth="70.0" text="Telephone :" />
+                  <Label layoutX="32.0" layoutY="184.0" prefHeight="17.0" prefWidth="70.0" text="Nationalité :" />
+                  <Label fx:id="nationalite" layoutX="161.0" layoutY="184.0" prefHeight="17.0" prefWidth="99.0" text="Malagasy" />
+               </children>
+            </AnchorPane>
          </children>
       </StackPane>
    </children>
