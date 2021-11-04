@@ -14,7 +14,7 @@
 
 <AnchorPane minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.formController.demandeurController.MainDemandeurFormController">
    <children>
-      <JFXTabPane layoutY="44.0" prefHeight="468.0" prefWidth="750.0" stylesheets="@../../../../css/tabpane.css" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="44.0">
+      <JFXTabPane fx:id="applicantTabPane" layoutY="44.0" prefHeight="468.0" prefWidth="750.0" stylesheets="@../../../../css/tabpane.css" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="44.0">
          <tabs>
             <Tab fx:id="searchTab" text="rechercher">
                 <content>

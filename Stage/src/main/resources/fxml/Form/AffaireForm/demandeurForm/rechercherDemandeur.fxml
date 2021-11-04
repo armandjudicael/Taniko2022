@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXProgressBar?>
 <?import com.jfoenix.controls.JFXTreeTableView?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -17,53 +18,6 @@
       <JFXComboBox fx:id="demandeurCombobox" editable="true" focusColor="WHITE" layoutX="24.0" layoutY="14.0" prefHeight="34.0" prefWidth="702.0" styleClass="box" stylesheets="@../../../../css/box.css" unFocusColor="WHITE" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0" />
       <StackPane fx:id="stackpane" layoutX="14.0" layoutY="69.0" prefHeight="385.0" prefWidth="750.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="69.0">
          <children>
-            <ScrollPane fx:id="moralInfo" fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="ALWAYS">
-               <content>
-                  <AnchorPane prefHeight="544.0" prefWidth="668.0" style="-fx-background-color: white;">
-                     <children>
-                        <JFXTreeTableView fx:id="representantTreeTableView" layoutX="5.0" layoutY="170.0" prefHeight="332.0" prefWidth="598.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="65.0">
-                           <columns>
-                              <TreeTableColumn fx:id="nomRepresentantTreeTbColum" prefWidth="302.0" text="representant" />
-                              <TreeTableColumn fx:id="numAffTreeTbColumn" prefWidth="134.0" text="Affaire" />
-                              <TreeTableColumn fx:id="dateTreeTbColumn" prefWidth="228.0" text="date de formulation" />
-                           </columns>
-                        </JFXTreeTableView>
-                        <JFXButton fx:id="newPieceBtn" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" layoutX="615.0" layoutY="202.0" prefHeight="35.0" prefWidth="43.0" style="-fx-background-color: #389955;" text="ajouter" textFill="WHITE" AnchorPane.rightAnchor="10.0">
-                           <font>
-                              <Font name="Century Gothic" size="14.0" />
-                           </font>
-                           <graphic>
-                              <ImageView fitHeight="23.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../../img/plus_50px.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </JFXButton>
-                        <JFXButton fx:id="delPieceBtn" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" layoutX="615.0" layoutY="247.0" prefHeight="35.0" prefWidth="43.0" style="-fx-background-color: #f14858;" text="annuler" textFill="WHITE" AnchorPane.rightAnchor="10.0">
-                           <font>
-                              <Font name="Century Gothic" size="14.0" />
-                           </font>
-                           <graphic>
-                              <ImageView fitHeight="23.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../../img/broom_20px.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </JFXButton>
-                        <Label layoutX="14.0" layoutY="14.0" text="Raison Social :" />
-                        <Label fx:id="nomMorale" layoutX="138.0" layoutY="14.0" text="MINISTERE DE L'EDUCATION NATIONALE" />
-                        <Label layoutX="14.0" layoutY="47.0" text="Siege Sociale:" />
-                        <Label fx:id="siegeMorale" layoutX="138.0" layoutY="47.0" text="ANOSY , ANTANANARIVO" />
-                        <Label layoutX="16.0" layoutY="78.0" text="Email :" />
-                        <Label fx:id="emailMorale" layoutX="139.0" layoutY="78.0" text="MinEduMada@gmail.com" />
-                        <Label layoutX="16.0" layoutY="113.0" text="Telephone:" />
-                        <Label fx:id="telMorale" layoutX="139.0" layoutY="113.0" text="0340588519" />
-                     </children>
-                  </AnchorPane>
-               </content>
-            </ScrollPane>
             <AnchorPane fx:id="physiqueInfo" prefHeight="338.0" prefWidth="750.0" style="-fx-background-color: white;">
                <children>
                   <Label fx:id="nomDemandeurPhysique" layoutX="170.0" layoutY="27.0" prefHeight="17.0" prefWidth="371.0" text="RANDRIANARISON VOAHANGINIRINA Noeline" />
@@ -78,6 +32,42 @@
                   <Label fx:id="nationalite" layoutX="161.0" layoutY="184.0" prefHeight="17.0" prefWidth="99.0" text="Malagasy" />
                </children>
             </AnchorPane>
+            <ScrollPane fx:id="moralInfo" fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="ALWAYS">
+               <content>
+                  <AnchorPane prefHeight="544.0" prefWidth="668.0" style="-fx-background-color: white;">
+                     <children>
+                        <JFXTreeTableView fx:id="representantTreeTableView" layoutX="5.0" layoutY="170.0" prefHeight="332.0" prefWidth="598.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="65.0">
+                           <columns>
+                              <TreeTableColumn fx:id="nomRepresentantTreeTbColum" prefWidth="302.0" text="representant" />
+                              <TreeTableColumn fx:id="numAffTreeTbColumn" prefWidth="134.0" text="Affaire" />
+                              <TreeTableColumn fx:id="dateTreeTbColumn" prefWidth="228.0" text="date de formulation" />
+                           </columns>
+                        </JFXTreeTableView>
+                        <JFXButton fx:id="newRepresentantBtn" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" layoutX="615.0" layoutY="202.0" prefHeight="35.0" prefWidth="43.0" style="-fx-background-color: #389955;" text="ajouter" textFill="WHITE" AnchorPane.rightAnchor="10.0">
+                           <font>
+                              <Font name="Century Gothic" size="14.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="23.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../img/plus_50px.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <Label layoutX="14.0" layoutY="14.0" text="Raison Social :" />
+                        <Label fx:id="nomMorale" layoutX="138.0" layoutY="14.0" text="MINISTERE DE L'EDUCATION NATIONALE" />
+                        <Label layoutX="14.0" layoutY="47.0" text="Siege Sociale:" />
+                        <Label fx:id="siegeMorale" layoutX="138.0" layoutY="47.0" text="ANOSY , ANTANANARIVO" />
+                        <Label layoutX="16.0" layoutY="78.0" text="Email :" />
+                        <Label fx:id="emailMorale" layoutX="139.0" layoutY="78.0" text="MinEduMada@gmail.com" />
+                        <Label layoutX="16.0" layoutY="113.0" text="Telephone:" />
+                        <Label fx:id="telMorale" layoutX="139.0" layoutY="113.0" text="0340588519" />
+                        <JFXProgressBar fx:id="representantProgress" layoutX="5.0" layoutY="201.0" prefHeight="3.0" prefWidth="598.0" progress="0.2" visible="false" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="65.0" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </ScrollPane>
          </children>
       </StackPane>
    </children>

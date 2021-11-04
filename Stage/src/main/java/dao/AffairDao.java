@@ -1,11 +1,11 @@
 package dao;
 
-import Model.Enum.AffaireStatus;
-import Model.Enum.ProcedureStatus;
-import Model.Pojo.business.*;
-import View.Model.ViewObject.ProcedureForTableview;
-import View.Model.ViewObject.AffaireForView;
-import View.Model.ViewObject.ConnexAffairForView;
+import model.Enum.AffaireStatus;
+import model.Enum.ProcedureStatus;
+import model.pojo.business.*;
+import view.Model.ViewObject.ProcedureForTableview;
+import view.Model.ViewObject.AffaireForView;
+import view.Model.ViewObject.ConnexAffairForView;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,7 +20,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static dao.UserDao.getImageFromBuffer;
-import static Model.Pojo.business.Affaire.*;
+import static model.pojo.business.Affaire.*;
 
 public class AffairDao extends Dao implements DaoHelper<Affaire>{
 

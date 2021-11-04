@@ -1,18 +1,20 @@
 package controller.formController.other;
-import Model.Enum.*;
-import Model.Pojo.business.*;
-import Model.Pojo.utils.Mariage;
-import View.Model.ViewObject.AffaireForView;
-import View.Model.ViewObject.ProcedureForTableview;
+import javafx.scene.control.TextInputControl;
+import model.Enum.*;
+import model.pojo.business.*;
+import model.pojo.utils.Mariage;
+import view.Model.ViewObject.AffaireForView;
+import view.Model.ViewObject.ProcedureForTableview;
+import com.jfoenix.controls.JFXComboBox;
 import controller.viewController.AffairViewController;
 import dao.DaoFactory;
 import dao.DbOperation;
-import Model.Other.MainService;
-import View.Dialog.Other.Notification;
-import View.Helper.Attachement.AttachementCheckerButton;
-import View.Helper.Attachement.AttachementCreatorButton;
-import View.Helper.Attachement.AttachementRemoverButton;
-import View.Model.ViewObject.ConnexAffairForView;
+import model.other.MainService;
+import view.Dialog.Other.Notification;
+import view.Helper.Attachement.AttachementCheckerButton;
+import view.Helper.Attachement.AttachementCreatorButton;
+import view.Helper.Attachement.AttachementRemoverButton;
+import view.Model.ViewObject.ConnexAffairForView;
 import com.jfoenix.controls.JFXButton;
 import controller.formController.demandeurController.MainDemandeurFormController;
 import controller.formController.demandeurController.NouveauDemandeurController;
@@ -34,10 +36,11 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.sql.Date;
 import java.util.ResourceBundle;
-import static Model.Pojo.business.Affaire.string2TypeDemande;
+import static model.pojo.business.Affaire.string2TypeDemande;
 import static dao.DemandeurMoraleDao.*;
 
 public class PieceJointeFormController implements Initializable{
+
     @Override public void initialize(URL url, ResourceBundle resourceBundle) {
         initBtnAction();
     }
@@ -50,11 +53,14 @@ public class PieceJointeFormController implements Initializable{
         delPieceBtn.disableProperty().bind(Bindings.isEmpty(children));
         checkBtn.disableProperty().bind(Bindings.isEmpty(children));
         pjPrevBtn.setOnAction(event -> MainAffaireFormController.updateLabelAndShowPane(pjPrevBtn));
-        saveBtn.setOnAction(event -> MainService.getInstance().launch(new Task<Void>() {
+        saveBtn.setOnAction(event -> enregistrerAffaire());
+    }
+    private void enregistrerAffaire(){
+        MainService.getInstance().launch(new Task<Void>() {
             @Override protected void succeeded() {
                 resetForm();
             }
-            @Override protected Void call() throws Exception{
+            @Override protected Void call() throws Exception {
                 saveAffaire();
                 return null;
             }
@@ -63,7 +69,7 @@ public class PieceJointeFormController implements Initializable{
                 Throwable exception = this.getException();
                 exception.printStackTrace();
             }
-        }));
+        });
     }
     private void saveAllAttachement(Affaire affaire){
         ObservableList<PieceJointe> attachementList = AttachementCreatorButton.getAttachementList();
@@ -78,15 +84,15 @@ public class PieceJointeFormController implements Initializable{
            }
         }
     }
-
     private void saveAffaire(){
-            LocalDate localDate = AffaireFormController.getInstance().getDateFormulation().getValue();
+        AffaireFormController instance = getAffFormInstance();
+        LocalDate localDate = instance.getDateFormulation().getValue();
             dateFormulation = createJavaSqlDateBy(localDate);
             PersonneMorale personneMorale = initDemandeur();
-            String numeroAffaire = AffaireFormController.getInstance().getNumeroAffaire().getText()+AffaireFormController.getInstance().getNumAndDateAffLabel().getText();
+            String numeroAffaire = instance.getNumeroAffaire().getText()+ instance.getNumAndDateAffLabel().getText();
             User redacteur = initRedateur();
             Terrain terrain = initTerrain();
-            AffaireForView affairForView = new AffaireForView(numeroAffaire,dateFormulation,string2TypeDemande(AffaireFormController.getInstance().getTypeDemande().getValue()), redacteur, AffaireStatus.RUNNING, personneMorale, terrain, new ProcedureForTableview(ProcedureStatus.NONE,new SimpleStringProperty("Auccune procedure")));
+            AffaireForView affairForView = new AffaireForView(numeroAffaire,dateFormulation,string2TypeDemande(instance.getTypeDemande().getValue()), redacteur, AffaireStatus.RUNNING, personneMorale, terrain, new ProcedureForTableview(ProcedureStatus.NONE,new SimpleStringProperty("Auccune procedure")));
             // ENREGISTRER AFFAIRE
             if (DaoFactory.getAffaireDao().create(affairForView) != 0){
                 affairForView.setId(DaoFactory.getAffaireDao().getAffaireIdByNum(affairForView.getNumero()));
@@ -94,7 +100,6 @@ public class PieceJointeFormController implements Initializable{
                 saveReperageAndOrdonanceAndDispatchAndJtrAndAttachements(redacteur,affairForView);
             }
     }
-
     private void updateViewAndNotifyUser(String numeroAffaire, AffaireForView affairForView) {
         Notification.getInstance(" L'affaire N° "+ numeroAffaire +" est enregistrer avec succès ", NotifType.SUCCESS).showNotif();
         // MIS A JOUR DE L'AFFICHAGE
@@ -102,7 +107,6 @@ public class PieceJointeFormController implements Initializable{
         // Eto mandefa email am chef jiaby !
         Platform.runLater(() -> AffairViewController.getInstance().getTableView().getItems().add(affairForView));
     }
-
     private void saveReperageAndOrdonanceAndDispatchAndJtrAndAttachements(User redacteur, AffaireForView affairForView) {
         // INSERTION DANS LA TABLE JOURNAL DE TRESORERIE
         saveJournalTresorerieRecette(affairForView.getId());
@@ -115,68 +119,73 @@ public class PieceJointeFormController implements Initializable{
         // ENREGISTREMENT DES PIECES JOINTES
         if (pjTilepane.getChildren().size() > 1) saveAllAttachement(affairForView);
     }
-
     private int saveOrdonnance(int idAffaire){
-        AffaireFormController instance = AffaireFormController.getInstance();
+        AffaireFormController instance = getAffFormInstance();
         String ord = instance.getNumOrdonance().getText();
         LocalDate value = instance.getDateOrdonance().getValue();
         if (ord!=null && !ord.isEmpty() && value!=null)
             return DbOperation.insertOnTableOrdonnance(ord,createJavaSqlDateBy(value),idAffaire);
         return 0;
     }
-
     private int saveReperage(int idAffaire){
-        AffaireFormController instance = AffaireFormController.getInstance();
+        AffaireFormController instance = getAffFormInstance();
         String rep = instance.getNumeroReperage().getText();
         LocalDate value = instance.getDateReperage().getValue();
         if (rep!=null && !rep.isEmpty() && value!=null)
             return DbOperation.insertOnTableReperage(rep,createJavaSqlDateBy(value),idAffaire);
         return 0;
     }
-
     private int saveJournalTresorerieRecette(int idAffaire){
-        AffaireFormController instance = AffaireFormController.getInstance();
+        AffaireFormController instance = getAffFormInstance();
         String numJtr = instance.getNumeroJtr().getText();
         LocalDate value = instance.getDateJtr().getValue();
         if (numJtr!=null && !numJtr.isEmpty() && value!=null)
            return DbOperation.insertOnTableJtr(numJtr,createJavaSqlDateBy(value),idAffaire);
         return 0;
     }
-
     private PersonneMorale initDemandeur(){
-        Tab searchTab = MainDemandeurFormController.getInstance().getSearchTab();
-        Tab newTab = MainDemandeurFormController.getInstance().getNewTab();
-        ToggleButton moraleToogle = MainDemandeurFormController.getInstance().getPersonneMorale();
+        MainDemandeurFormController instance = getMainDmdFormInstance();
+        Tab searchTab = instance.getSearchTab();
+        Tab newTab = instance.getNewTab();
+        ToggleButton moraleToogle = instance.getPersonneMorale();
         if (newTab.isSelected()){
             if (moraleToogle.isSelected()) return initDemandeurMorale();
             else return initDemandeurPhysique();
-        }else if (searchTab.isSelected()) return  RechercherDemandeurController.getInstance().getDemandeurCombobox().getValue();
+        }else if (searchTab.isSelected()){
+            return  getSearchDmdFormInstance().getDemandeurCombobox().getValue();
+        }
         return null;
     }
-
-    private PersonneMorale initDemandeurMorale() {
-        PersonneMorale dm = createDemandeurMorale();
+    private PersonneMorale initDemandeurMorale(){
+        JFXComboBox<PersonneMorale> demandeurCombobox = getSearchDmdFormInstance().getDemandeurCombobox();
         PersonnePhysique rep = createRepresentant();
+        if (nouveauRepresentant()) return enregisterRepresentant(demandeurCombobox.getValue(),rep,true);
+        else return enregistrerDemandeurEtRepresenant(rep) ;
+    }
+    private PersonneMorale enregistrerDemandeurEtRepresenant(PersonnePhysique rep) {
+        PersonneMorale dm = createDemandeurMorale();
         // INSERTION DU DEMANDEUR MORALE
         if (DaoFactory.getDemandeurMoraleDao().create(dm) == 1){
             // RECUPERATION DE L'IDENTIFIANT DU PERSONNE MORALE
             dm.setId(getLasInsertId(dm));
-            // INSERTION DU REPRESENTANT
-            if (DaoFactory.getDemandeurMoraleDao().create(rep) == 1){
-                // RECUPERATION DE L'IDENTIFIANT DU REPRESENTANT
-                rep.setId(getLasInsertId(rep));
-                // INSERTION DANS LA PERSONNE PHYSIQUE
-                if (DaoFactory.getDemandeurPhysiqueDao().create(rep)==1){
-                    // INSERTION DANS LA TABLE REPRESENTANT
-                    if (DbOperation.insertOnTableRepresentant(rep,dm,dateFormulation)==1){
-                        return dm;
-                    }
-                }
-            }
+            PersonneMorale dm1 = enregisterRepresentant(dm, rep,false);
+            if (dm1 != null) return dm1;
         }
         return dm;
     }
-
+    private PersonneMorale enregisterRepresentant(PersonneMorale dm, PersonnePhysique rep,Boolean isNewRepresentant) {
+        // INSERTION DU REPRESENTANT
+        if (DaoFactory.getDemandeurMoraleDao().create(rep) == 1){
+            // RECUPERATION DE L'IDENTIFIANT DU REPRESENTANT
+            rep.setId(getLasInsertId(rep));
+            // INSERTION DANS LA PERSONNE PHYSIQUE
+            if (DaoFactory.getDemandeurPhysiqueDao().create(rep)==1){
+                // INSERTION DANS LA TABLE REPRESENTANT
+                if (DbOperation.insertOnTableRepresentant(rep, dm,isNewRepresentant ? Date.valueOf(LocalDate.now()) : dateFormulation )==1) return dm;
+            }
+        }
+        return null;
+    }
     private PersonnePhysique initDemandeurPhysique(){
         PersonnePhysique ph = createDemandeurPhysique();
         /*
@@ -210,15 +219,13 @@ public class PieceJointeFormController implements Initializable{
         }
         return ph;
     }
-
     private int getLasInsertId(PersonneMorale dp){
         if ( dp.getNumTel()!=null && !dp.getNumTel().isEmpty()) return DaoFactory.getDemandeurMoraleDao().getDemandeurIdBy(dp.getNumTel(),ParamerterType.NUMTEL);
         else if ( dp.getEmail()!=null && !dp.getEmail().isEmpty()) return DaoFactory.getDemandeurMoraleDao().getDemandeurIdBy(dp.getEmail(),ParamerterType.EMAIL);;
         return DaoFactory.getDemandeurMoraleDao().getDemandeurIdBy(dp.getNom(),ParamerterType.NAME);
     }
-
     private PersonnePhysique createDemandeurPhysique(){
-        NouveauDemandeurController instance = NouveauDemandeurController.getInstance();
+        NouveauDemandeurController instance = getNewDemandeurFormInstance();
         PersonnePhysique ph = new PersonnePhysique();
         ph.setNom(instance.getNomDmd().getText() +" "+(instance.getPrenomDmd().getText()!=null ? instance.getPrenomDmd().getText() : ""));
         ph.setAdresse(instance.getAdresse().getText());
@@ -240,14 +247,13 @@ public class PieceJointeFormController implements Initializable{
         ph.setMere(instance.getNomMere().getText());
         return ph;
     }
-
     private Date createJavaSqlDateBy(LocalDate date){
        return java.sql.Date.valueOf(date);
     }
-
     private String initSex(Boolean isApplicant){
-        Toggle selectedToggle = NouveauDemandeurController.getInstance().getSexe().getSelectedToggle();
-        boolean equals = selectedToggle.equals(NouveauDemandeurController.getInstance().getMasculin());
+        NouveauDemandeurController instance = getNewDemandeurFormInstance();
+        Toggle selectedToggle = instance.getSexe().getSelectedToggle();
+        boolean equals = selectedToggle.equals(instance.getMasculin());
         if (isApplicant){
             if (equals) return  "Masculin";
             else return  "Féminin";
@@ -256,15 +262,13 @@ public class PieceJointeFormController implements Initializable{
             else return  "Féminin";
         }
     }
-
     private String initSituationMatrimoniale(){
-        NouveauDemandeurController instance = NouveauDemandeurController.getInstance();
+        NouveauDemandeurController instance = getNewDemandeurFormInstance();
         return (instance.getMarie().isSelected() ? "Marié" :
                (instance.getCelibataire().isSelected() ? "célibataire":"veuve" ));
     }
-
     private PersonnePhysique createConjoint(){
-        NouveauDemandeurController instance = NouveauDemandeurController.getInstance();
+        NouveauDemandeurController instance = getNewDemandeurFormInstance();
         // CONJOINT
         String nomConjoint = instance.getNomConjoint().getText();
         String prenomConjoint = instance.getPrenomConjoint().getText();
@@ -279,9 +283,8 @@ public class PieceJointeFormController implements Initializable{
         conjoint.setSituationMatrimoniale("Marié");
         return conjoint;
     }
-
     private Mariage createMariage(){
-        NouveauDemandeurController instance = NouveauDemandeurController.getInstance();
+        NouveauDemandeurController instance = getNewDemandeurFormInstance();
         // MARIAGE
         String lieuMariage = instance.getLieuMariage().getText();
         LocalDate value1 = instance.getDateMariage().getValue();
@@ -289,14 +292,13 @@ public class PieceJointeFormController implements Initializable{
         String regimeMatrimoniale = instance.getRegimeMatrimoniale().getValue();
         return new Mariage(dateMariage,lieuMariage,Mariage.String2RegimeMatrimoniale(regimeMatrimoniale));
     }
-
     private PersonneMorale createDemandeurMorale(){
-        NouveauDemandeurController instance = NouveauDemandeurController.getInstance();
+        NouveauDemandeurController instance = getNewDemandeurFormInstance();
         String raisonSocial = instance.getRaisonSocial().getText();
         String siegeSocial = instance.getSiegeSocial().getText();
         String telephone = instance.getTelPersonneMorale().getText();
         String email = instance.getEmailPersonneMorale().getText();
-        String nationalite = instance.getNationnalitéMorale().getText();
+        String nationalite = instance.getNationaliteMorale().getText();
         PersonneMorale pm = new PersonneMorale();
         pm.setNumTel(telephone);
         pm.setEmail(email);
@@ -306,9 +308,8 @@ public class PieceJointeFormController implements Initializable{
         pm.setType(TypeDemandeur.PERSONNE_MORALE);
         return pm;
     }
-
     private PersonnePhysique createRepresentant(){
-        NouveauDemandeurController instance = NouveauDemandeurController.getInstance();
+        NouveauDemandeurController instance = getNewDemandeurFormInstance();
         String nomRepresentant = instance.getNomRepresentant().getText();
         String prenomRepresentant = instance.getPrenomRepresentant().getText();
         String professionRepresentant = instance.getFonctionRepresentant().getText();
@@ -320,9 +321,8 @@ public class PieceJointeFormController implements Initializable{
         ps.setAdresse(adresseRepresentant);
         return ps;
     }
-
     private User initRedateur(){
-        AffaireFormController instance = AffaireFormController.getInstance();
+        AffaireFormController instance = getAffFormInstance();
         if (instance.getMoiMemeRadio().isSelected()){
             return LoginController.getConnectedUser();
         }else if (instance.getRechercherRedacteurRadio().isSelected()){
@@ -332,7 +332,6 @@ public class PieceJointeFormController implements Initializable{
         }
         return null;
     }
-
     private void resetForm(){
         resetDemandeurForm();
         resetAffaireForm();
@@ -340,14 +339,12 @@ public class PieceJointeFormController implements Initializable{
         resetAttachement();
         resetScrollpane();
     }
-
     private void resetAttachement(){
         AttachementCreatorButton.getAttachementList().clear();
         pjTilepane.getChildren().retainAll(addAttachInBtn);
     }
-
     private void resetTerrain(){
-        TerrainFromController instance = TerrainFromController.getInstance();
+        TerrainFromController instance = getTerrainFromInstance();
         instance.getSuperficieLabel().setText("");
         instance.getParcelleTerrain().clear();
         instance.getParcelleTerrain1().clear();
@@ -373,25 +370,24 @@ public class PieceJointeFormController implements Initializable{
         MainAffaireFormController.updateLabelAndShowPane(null);
         // RESET COMBOBOX
         RechercherDemandeurController.getInstance().getDemandeurCombobox().setValue(null);
+        // RESET TREETABLEVIEW ITEM
+        RechercherDemandeurController.getInstance().getRepresentantForViews().clear();
     }
-
     private void resetReperageAndAffaire(){
-        AffaireFormController instance = AffaireFormController.getInstance();
+        AffaireFormController instance = getAffFormInstance();
         instance.getNumeroReperage().clear();
         instance.getDateReperage().setValue(LocalDate.now());
         instance.getTypeDemande().setValue("ACQUISITION");
         instance.getNumeroAffaire().clear();
         instance.getDateFormulation().setValue(LocalDate.now());
     }
-
     private void resetJtr(){
-        AffaireFormController instance = AffaireFormController.getInstance();
+        AffaireFormController instance = getAffFormInstance();
         instance.getNumeroJtr().clear();
         instance.getDateJtr().setValue(LocalDate.now());
     }
-
     private void resetOrdonnance(){
-        AffaireFormController instance = AffaireFormController.getInstance();
+        AffaireFormController instance = getAffFormInstance();
         instance.getNumOrdonance().clear();
         instance.getDateOrdonance().setValue(LocalDate.now());
     }
@@ -403,55 +399,63 @@ public class PieceJointeFormController implements Initializable{
         resetMariage();
         resetRepresentant();
     }
-
     private void resetScrollpane(){
         // DEMANDEUR
-        NouveauDemandeurController instance = NouveauDemandeurController.getInstance();
+        NouveauDemandeurController instance = getNewDemandeurFormInstance();
         instance.getMoralPane().setVvalue(0.0);
         instance.getPhysiquePane().setVvalue(0.0);
         // TERRAIN
-        TerrainFromController instance1 = TerrainFromController.getInstance();
+        TerrainFromController instance1 = getTerrainFromInstance();
         instance1.getTerrainScrollPane().setVvalue(0.0);
         // AFFAIREFORM
-        AffaireFormController instance2 = AffaireFormController.getInstance();
+        AffaireFormController instance2 = getAffFormInstance();
         instance2.getAffaireScrollpane().setVvalue(0.0);
     }
-
     private void resetMariage(){
-        NouveauDemandeurController instance = NouveauDemandeurController.getInstance();
+        NouveauDemandeurController instance = getNewDemandeurFormInstance();
         // MARIAGE
         instance.getLieuMariage().clear();
         instance.getDateMariage().setValue(LocalDate.now());
     }
-
     private void resetConjoint(){
-        NouveauDemandeurController instance = NouveauDemandeurController.getInstance();
+        NouveauDemandeurController instance = getNewDemandeurFormInstance();
         // CONJOINT
         instance.getNomConjoint().clear();
         instance.getPrenomConjoint().clear();
         instance.getLieuDeNaissanceConjoint().clear();
         instance.getDateNaissanceConjoint().setValue(null);
     }
-
     private void resetRepresentant(){
-        NouveauDemandeurController instance = NouveauDemandeurController.getInstance();
+        NouveauDemandeurController instance = getNewDemandeurFormInstance();
         instance.getNomRepresentant().clear();
         instance.getPrenomRepresentant().clear();
         instance.getFonctionRepresentant().clear();
         instance.getAdresseRepresentant().clear();
     }
-
     private void resetDemandeurMorale(){
-        NouveauDemandeurController instance = NouveauDemandeurController.getInstance();
-        instance.getRaisonSocial().clear();
-        instance.getSiegeSocial().clear();
-        instance.getTelPersonneMorale().clear();
-        instance.getEmailPersonneMorale().clear();
-        instance.getNationnalitéMorale().clear();
+        NouveauDemandeurController instance = getNewDemandeurFormInstance();
+        clearAndEnable(instance.getRaisonSocial());
+        clearAndEnable(instance.getSiegeSocial());
+        clearAndEnable(instance.getTelPersonneMorale());
+        clearAndEnable(instance.getEmailPersonneMorale());
+        clearAndEnable(instance.getNationaliteMorale());
     }
-
+    private void clearAndEnable(TextInputControl inputControl){
+        inputControl.clear();
+        inputControl.setDisable(inputControl.isDisable());
+    }
+    private boolean nouveauRepresentant(){
+        NouveauDemandeurController instance = getNewDemandeurFormInstance();
+        JFXComboBox<PersonneMorale> demandeurCombobox = getSearchDmdFormInstance().getDemandeurCombobox();
+        return instance.getRaisonSocial().isDisable() &&
+                instance.getSiegeSocial().isDisable() &&
+                instance.getTelPersonneMorale().isDisable() &&
+                instance.getEmailPersonneMorale().isDisable() &&
+                instance.getNationalite().isDisable() &&
+                demandeurCombobox.getValue()!=null;
+    }
     private void resetDemandeurPhysique(){
-        NouveauDemandeurController instance = NouveauDemandeurController.getInstance();
+        NouveauDemandeurController instance = getNewDemandeurFormInstance();
         instance.getNomDmd().clear();
         instance.getPrenomDmd().clear();
         instance.getDateDeNaissanceDmd().setValue(null);
@@ -467,9 +471,8 @@ public class PieceJointeFormController implements Initializable{
         instance.getNomPere().clear();
         instance.getNomMere().clear();
     }
-
     private Titre initTitre(){
-        TerrainFromController instance = TerrainFromController.getInstance();
+        TerrainFromController instance = getTerrainFromInstance();
         if (instance.getRadioDependant().isSelected()){
             if (instance.getRechercherPropriete().isSelected()) {
                 Titre titre = instance.getTitleCombobox().getValue();
@@ -491,7 +494,7 @@ public class PieceJointeFormController implements Initializable{
         return null;
     }
     private Terrain initTerrain(){
-        AffaireFormController instance = AffaireFormController.getInstance();
+        AffaireFormController instance = getAffFormInstance();
         if (instance.getConnexeRadio().isSelected()){
             ConnexAffairForView value = instance.getConnexeCombobox().getValue();
             Terrain terrain1 = DaoFactory.getTerrainDao().findById(value.getIdTerrain());
@@ -509,9 +512,8 @@ public class PieceJointeFormController implements Initializable{
         }
         return null;
     }
-
     private Terrain createTerrain(){
-       TerrainFromController instance = TerrainFromController.getInstance();
+       TerrainFromController instance = getTerrainFromInstance();
         String superficie = instance.getSuperficieLabel().getText();
         String parcelleTerrain = instance.getParcelleTerrain().getText()+ "/" + instance.getParcelleTerrain1().getText();
         String quartierTerrain = instance.getSise().getText();
@@ -520,7 +522,6 @@ public class PieceJointeFormController implements Initializable{
         String region = instance.getRegion().getText();
         return new Terrain(superficie,parcelleTerrain,district,commune,quartierTerrain,region,initTitre());
     }
-
     @FXML private JFXButton checkBtn;
     @FXML private TilePane pjTilepane;
     @FXML private JFXButton addAttachInBtn;
@@ -528,5 +529,30 @@ public class PieceJointeFormController implements Initializable{
     @FXML private JFXButton delPieceBtn;
     @FXML private JFXButton saveBtn;
     @FXML private JFXButton pjPrevBtn;
+    public static TerrainFromController getTerrainFromInstance() {
+        if(terrainFromInstance == null) terrainFromInstance = TerrainFromController.getInstance();
+        return terrainFromInstance;
+    }
+    public static NouveauDemandeurController getNewDemandeurFormInstance() {
+        if (newDemandeurFormInstance == null) newDemandeurFormInstance = NouveauDemandeurController.getInstance();
+        return newDemandeurFormInstance;
+    }
+    public static RechercherDemandeurController getSearchDmdFormInstance() {
+        if (searchDmdFormInstance == null) searchDmdFormInstance = RechercherDemandeurController.getInstance();
+        return searchDmdFormInstance;
+    }
+    public static AffaireFormController getAffFormInstance() {
+        if (affFormInstance ==null) affFormInstance = AffaireFormController.getInstance();
+        return affFormInstance;
+    }
+    public static MainDemandeurFormController getMainDmdFormInstance() {
+        if (mainDmdFormInstance == null) mainDmdFormInstance = MainDemandeurFormController.getInstance();
+        return mainDmdFormInstance;
+    }
+    private static TerrainFromController terrainFromInstance;
+    private static NouveauDemandeurController newDemandeurFormInstance;
+    private static RechercherDemandeurController searchDmdFormInstance;
+    private static AffaireFormController affFormInstance;
+    private static MainDemandeurFormController mainDmdFormInstance;
     private static Date dateFormulation;
 }

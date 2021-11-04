@@ -1,11 +1,11 @@
 package dao;
 
-import Model.Pojo.business.Affaire;
-import Model.Pojo.business.User;
-import Model.Other.RedactorAffair;
-import Model.Other.UserForLogin;
-import View.Model.ViewObject.EditorForView;
-import View.Model.ViewObject.UserForView;
+import model.pojo.business.Affaire;
+import model.pojo.business.User;
+import model.other.RedactorAffair;
+import model.other.UserForLogin;
+import view.Model.ViewObject.EditorForView;
+import view.Model.ViewObject.UserForView;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;

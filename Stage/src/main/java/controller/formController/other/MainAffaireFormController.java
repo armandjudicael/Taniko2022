@@ -1,6 +1,6 @@
 package controller.formController.other;
 
-import View.Dialog.FormDialog.MainAffaireForm;
+import view.Dialog.FormDialog.MainAffaireForm;
 import animatefx.animation.FadeIn;
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;

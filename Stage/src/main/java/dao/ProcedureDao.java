@@ -1,7 +1,7 @@
 package dao;
 
-import Model.Pojo.business.Procedure;
-import View.Model.ViewObject.ProcedureForView;
+import model.pojo.business.Procedure;
+import view.Model.ViewObject.ProcedureForView;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;

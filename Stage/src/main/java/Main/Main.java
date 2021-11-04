@@ -1,7 +1,7 @@
 package Main;
 
 import dao.ConnectionFactory;
-import Model.Other.MainService;
+import model.other.MainService;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.concurrent.ScheduledService;

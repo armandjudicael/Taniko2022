@@ -1,6 +1,6 @@
 package dao;
 
-import Model.Pojo.business.Titre;
+import model.pojo.business.Titre;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import java.sql.Connection;

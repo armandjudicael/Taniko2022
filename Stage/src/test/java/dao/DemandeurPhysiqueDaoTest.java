@@ -1,6 +1,6 @@
 package dao;
 
-import Model.Pojo.business.PersonnePhysique;
+import model.pojo.business.PersonnePhysique;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

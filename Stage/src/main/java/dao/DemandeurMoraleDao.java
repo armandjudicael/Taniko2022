@@ -1,26 +1,26 @@
 package dao;
-import Model.Enum.TypeDemandeur;
-import Model.Pojo.business.PersonneMorale;
-import Model.Pojo.business.PersonnePhysique;
-import View.Model.ViewObject.AffaireForView;
-import View.Model.ViewObject.RepresentantForView;
+import model.Enum.TypeDemandeur;
+import model.pojo.business.PersonneMorale;
+import view.Model.ViewObject.AffaireForView;
+import view.Model.ViewObject.RepresentantForView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 public class DemandeurMoraleDao extends Dao implements DaoHelper<PersonneMorale>{
 
     private final String REPRESENTANT_QUERY = "SELECT dm.idDmd ,dm.nomDmd,rep.dateRepresentantion,aff.numAffaire" +
             " FROM demandeur_morale as dm , representant as rep , affaire as aff " +
-            " WHERE rep.idPersonneMorale = dm.idDmd AND aff.dateFormulation = rep.dateRepresentantion AND dm.idDmd = ? ";
+            " WHERE rep.idPersonnePhysique = dm.idDmd AND aff.dateFormulation = rep.dateRepresentantion AND rep.idPersonneMorale = ? ";
 
     private final String ACTUAL_REPRESENTANT_QUERY = REPRESENTANT_QUERY+" ORDER BY dateFormulation DESC ";
 
     private final String ALL_AFFAIRE_QUERY = " ";
-
     public DemandeurMoraleDao(Connection connection) {
         super(connection);
     }
@@ -31,7 +31,6 @@ public class DemandeurMoraleDao extends Dao implements DaoHelper<PersonneMorale>
          if (pm.getEmail()==null && pm.getNumTel()!=null) return storeWithNumTelOnly(pm);
          else return storeWithoutEmailAndTel(pm);
     }
-
     private int storeWithEmailAndTel(PersonneMorale personneMorale){
         String query = "INSERT INTO demandeur_morale (numTelDmd,emailDmd,adresseDmd,nomDmd,nationalite,typeDmd) VALUES (?,?,?,?,?,?);";
         try (PreparedStatement ps = connection.prepareStatement(query)){
@@ -49,7 +48,6 @@ public class DemandeurMoraleDao extends Dao implements DaoHelper<PersonneMorale>
         }
         return 0;
     }
-
     private int storeWithoutEmailAndTel(PersonneMorale personneMorale){
         String query = "INSERT INTO demandeur_morale (adresseDmd,nomDmd,nationalite,typeDmd) VALUES (?,?,?,?);";
         try (PreparedStatement ps = connection.prepareStatement(query)){
@@ -65,7 +63,6 @@ public class DemandeurMoraleDao extends Dao implements DaoHelper<PersonneMorale>
         }
         return 0;
     }
-
     private int storeWithEmailOnly(PersonneMorale personneMorale){
         String query = "INSERT INTO demandeur_morale (adresseDmd,nomDmd,nationalite,typeDmd,emailDmd) VALUES (?,?,?,?,?);";
         try (PreparedStatement ps = connection.prepareStatement(query)){
@@ -82,7 +79,6 @@ public class DemandeurMoraleDao extends Dao implements DaoHelper<PersonneMorale>
         }
         return 0;
     }
-
     private int storeWithNumTelOnly(PersonneMorale personneMorale){
         String query = "INSERT INTO demandeur_morale (adresseDmd,nomDmd,nationalite,typeDmd,numTelDmd) VALUES (?,?,?,?,?);";
         try (PreparedStatement ps = connection.prepareStatement(query)){
@@ -127,11 +123,9 @@ public class DemandeurMoraleDao extends Dao implements DaoHelper<PersonneMorale>
         }
         return 0;
     }
-
     public ObservableList<AffaireForView> getAllAffaires(){
         return null;
     }
-
     public RepresentantForView getActualRepresentant(PersonneMorale pm){
         try(PreparedStatement ps = connection.prepareStatement(ACTUAL_REPRESENTANT_QUERY)){
             ps.setInt(1,pm.getId());
@@ -162,12 +156,15 @@ public class DemandeurMoraleDao extends Dao implements DaoHelper<PersonneMorale>
         try(PreparedStatement ps = connection.prepareStatement(REPRESENTANT_QUERY)){
             ps.setInt(1,pm.getId());
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) observableList.add(createRepresentantForView(rs));
+            while (rs.next()){
+                observableList.add(createRepresentantForView(rs));
+            }
         }catch (SQLException e){
             e.printStackTrace();
         }
         return observableList;
     }
+
 
     @Override public int update(PersonneMorale personneMorale) {
         return 0;

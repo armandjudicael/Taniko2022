@@ -1,10 +1,10 @@
 package controller.formController.other;
 
-import Model.Enum.Type;
-import Model.Pojo.business.Titre;
-import View.Cell.ListCell.TitleCell;
-import View.Helper.Other.AutoCompleteCombobox;
-import View.Helper.Other.NumeroChecker;
+import model.Enum.Type;
+import model.pojo.business.Titre;
+import view.Cell.ListCell.TitleCell;
+import view.Helper.Other.AutoCompleteCombobox;
+import view.Helper.Other.NumeroChecker;
 import com.jfoenix.controls.*;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;

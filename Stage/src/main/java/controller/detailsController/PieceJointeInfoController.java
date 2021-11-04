@@ -1,10 +1,10 @@
 package controller.detailsController;
 
 import controller.viewController.AffairViewController;
-import Model.Other.MainService;
-import Model.Pojo.business.PieceJointe;
-import View.Helper.Attachement.*;
-import View.Model.ViewObject.PieceJointeForView;
+import model.other.MainService;
+import model.pojo.business.PieceJointe;
+import view.Helper.Attachement.*;
+import view.Model.ViewObject.PieceJointeForView;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXProgressBar;
 import javafx.beans.binding.Bindings;

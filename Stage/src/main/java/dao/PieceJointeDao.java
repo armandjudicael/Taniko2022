@@ -1,8 +1,8 @@
 package dao;
 
-import Model.Pojo.business.Affaire;
-import Model.Pojo.business.PieceJointe;
-import View.Model.ViewObject.PieceJointeForView;
+import model.pojo.business.Affaire;
+import model.pojo.business.PieceJointe;
+import view.Model.ViewObject.PieceJointeForView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

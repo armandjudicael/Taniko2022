@@ -1,15 +1,15 @@
 package dao;
 
 
-import Model.Enum.AffaireStatus;
-import Model.Enum.NotifType;
-import Model.Enum.TableName;
-import Model.Other.MainService;
-import Model.Pojo.business.*;
-import Model.Pojo.utils.Mariage;
-import View.Dialog.Other.Notification;
-import View.Model.ViewObject.ConnexAffairForView;
-import View.Model.ViewObject.ProcedureForView;
+import model.Enum.AffaireStatus;
+import model.Enum.NotifType;
+import model.Enum.TableName;
+import model.other.MainService;
+import model.pojo.business.*;
+import model.pojo.utils.Mariage;
+import view.Dialog.Other.Notification;
+import view.Model.ViewObject.ConnexAffairForView;
+import view.Model.ViewObject.ProcedureForView;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 

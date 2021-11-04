@@ -1,15 +1,12 @@
 package dao;
-import Model.Enum.TypeDemandeur;
-import Model.Pojo.business.PersonneMorale;
-import Model.Pojo.business.PersonnePhysique;
+import model.Enum.TypeDemandeur;
+import model.pojo.business.PersonneMorale;
+import model.pojo.business.PersonnePhysique;
 import javafx.collections.ObservableList;
 import org.junit.Test;
 
 import java.sql.Date;
-import java.sql.ResultSet;
-import java.sql.Timestamp;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import static org.junit.Assert.*;
 

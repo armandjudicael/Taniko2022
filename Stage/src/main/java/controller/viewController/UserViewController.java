@@ -2,9 +2,9 @@ package controller.viewController;
 
 import dao.DaoFactory;
 import Main.InitializeApp;
-import Model.Other.MainService;
-import View.Dialog.FormDialog.UserFrom;
-import View.Model.ViewObject.UserForView;
+import model.other.MainService;
+import view.Dialog.FormDialog.UserFrom;
+import view.Model.ViewObject.UserForView;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXProgressBar;
 import javafx.application.Platform;

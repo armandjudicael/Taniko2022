@@ -45,8 +45,8 @@ public class NouveauDemandeurController implements Initializable {
     public TextField getAdresseRepresentant() {
         return adresseRepresentant;
     }
-    public TextField getNationnalitéMorale() {
-        return nationnalitéMorale;
+    public TextField getNationaliteMorale() {
+        return nationaliteMorale;
     }
     public TextField getEmailPersonneMorale() {
         return emailPersonneMorale;
@@ -168,7 +168,7 @@ public class NouveauDemandeurController implements Initializable {
     @FXML private TextField fonctionRepresentant;
     @FXML private TextArea siegeSocial;
     @FXML private TextField adresseRepresentant;
-    @FXML private TextField nationnalitéMorale;
+    @FXML private TextField nationaliteMorale;
     @FXML private TextField emailPersonneMorale;
     @FXML private TextField telPersonneMorale;
     @FXML private ScrollPane physiquePane;

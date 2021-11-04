@@ -1,5 +1,6 @@
 package controller.formController.demandeurController;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTabPane;
 import controller.formController.other.MainAffaireFormController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -47,6 +48,9 @@ public class MainDemandeurFormController implements Initializable {
     public Tab getNewTab() {
         return newTab;
     }
+    public JFXTabPane getApplicantTabPane() {
+        return applicantTabPane;
+    }
     public static MainDemandeurFormController getInstance() {
         return mainDemandeurFormController;
     }
@@ -55,6 +59,9 @@ public class MainDemandeurFormController implements Initializable {
         MainDemandeurFormController.mainDemandeurFormController = mainDemandeurFormController;
     }
     private static MainDemandeurFormController mainDemandeurFormController;
+
+
+    @FXML private JFXTabPane applicantTabPane;
     @FXML private JFXButton dmdPrevBtn;
     @FXML private JFXButton dmdNextBtn;
     @FXML private Tab searchTab;

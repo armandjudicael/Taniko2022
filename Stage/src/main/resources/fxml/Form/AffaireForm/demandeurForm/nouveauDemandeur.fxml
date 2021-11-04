@@ -64,7 +64,7 @@
                         <Font size="13.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="nationnalitéMorale" layoutX="149.0" layoutY="274.0" prefHeight="35.0" prefWidth="522.0" />
+                  <TextField fx:id="nationaliteMorale" layoutX="149.0" layoutY="274.0" prefHeight="35.0" prefWidth="522.0" />
                   <Label layoutX="38.0" layoutY="282.0" prefHeight="17.0" prefWidth="82.0" text="Nationalité :">
                      <font>
                         <Font size="13.0" />

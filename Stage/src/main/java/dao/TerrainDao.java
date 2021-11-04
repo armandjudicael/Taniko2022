@@ -1,7 +1,7 @@
 package dao;
 
-import Model.Pojo.business.Terrain;
-import Model.Pojo.business.Titre;
+import model.pojo.business.Terrain;
+import model.pojo.business.Titre;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

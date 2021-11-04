@@ -1,15 +1,13 @@
 package dao;
 
-import Model.Enum.RegimeMatrimoniale;
-import Model.Pojo.business.PersonneMorale;
-import Model.Pojo.business.PersonnePhysique;
-import Model.Pojo.utils.Mariage;
+import model.Enum.RegimeMatrimoniale;
+import model.pojo.business.PersonneMorale;
+import model.pojo.business.PersonnePhysique;
+import model.pojo.utils.Mariage;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.sql.Date;
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.time.LocalDate;
 
 public class DbOperationTest {
