@@ -23,11 +23,13 @@ import java.io.File;
 import java.util.List;
 
 public class AttachementCreatorButton implements EventHandler<ActionEvent>{
+
     public AttachementCreatorButton(JFXButton button, ObservableList<Node> list, Boolean isOnDetailsView){
         button.setOnAction(this);
         this.attachementList = list;
         this.isOnDetailsView = isOnDetailsView;
     }
+
     @Override public void handle(ActionEvent event){
         List<File> instance = FileChooserDialog.getInstance(FileChooserType.ATTACHEMENT);
         if (instance!=null && !instance.isEmpty()){

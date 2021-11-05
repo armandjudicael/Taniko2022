@@ -8,11 +8,8 @@ import javafx.scene.image.ImageView;
 import org.controlsfx.control.Notifications;
 
 public class Notification{
-
-    public Notification() {
-
+    public Notification(){
     }
-
     public static Notification getInstance(String message, NotifType type) {
         if (notification == null)
             notification = new Notification();

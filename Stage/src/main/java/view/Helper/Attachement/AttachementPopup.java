@@ -33,14 +33,12 @@ public class AttachementPopup extends PopOver implements Initializable {
             e.printStackTrace();
         }
     }
-
     @Override public void initialize(URL location, ResourceBundle resources){
         attachementPopup = this;
         viewbtn.setOnAction(this::viewAttachement);
         delAttachement.setOnAction(this::deleteAttachement);
         new AttachementDownloaderButton(downBtn,false);
     }
-
     public void showPopup(JFXButton button){
         jfxButton = button;
         ImageView graphic = (ImageView)button.getGraphic();
@@ -48,13 +46,11 @@ public class AttachementPopup extends PopOver implements Initializable {
         selectedAttachement = selectedAttachementForView.getPieceJointe();
         this.show(graphic);
     }
-
     public static AttachementPopup getInstance(){
         if (attachementPopup == null)
             attachementPopup = new AttachementPopup();
         return attachementPopup;
     }
-
     private void deleteAttachement(ActionEvent event){
         this.hide();
         MainService.getInstance().launch(new Task<Void>() {

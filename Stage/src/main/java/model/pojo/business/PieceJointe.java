@@ -62,7 +62,7 @@ public class PieceJointe {
 
     public void visualize(){
         if (getFile()==null)
-               this.download();
+            this.download();
         HostServices hostServices = Main.getMainApplication().getHostServices();
         hostServices.showDocument(getFile().toURI().toString());
     }

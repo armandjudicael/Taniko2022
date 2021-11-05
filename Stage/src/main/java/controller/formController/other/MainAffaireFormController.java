@@ -1,5 +1,9 @@
 package controller.formController.other;
 
+import com.jfoenix.controls.JFXProgressBar;
+import controller.formController.demandeurController.MainDemandeurFormController;
+import controller.formController.demandeurController.NouveauDemandeurController;
+import controller.formController.demandeurController.RechercherDemandeurController;
 import view.Dialog.FormDialog.MainAffaireForm;
 import animatefx.animation.FadeIn;
 import com.jfoenix.controls.JFXButton;
@@ -57,9 +61,34 @@ public class MainAffaireFormController implements Initializable{
                     ,mainAffaireFormController.affaireLabel,mainAffaireFormController.pieceJointeLabel);
         }
     }
+    public static TerrainFromController getTerrainFromInstance() {
+        if(terrainFromInstance == null) terrainFromInstance = TerrainFromController.getInstance();
+        return terrainFromInstance;
+    }
+    public static NouveauDemandeurController getNewDemandeurFormInstance() {
+        if (newDemandeurFormInstance == null) newDemandeurFormInstance = NouveauDemandeurController.getInstance();
+        return newDemandeurFormInstance;
+    }
+    public static RechercherDemandeurController getSearchDmdFormInstance() {
+        if (searchDmdFormInstance == null) searchDmdFormInstance = RechercherDemandeurController.getInstance();
+        return searchDmdFormInstance;
+    }
+    public static AffaireFormController getAffFormInstance() {
+        if (affFormInstance ==null) affFormInstance = AffaireFormController.getInstance();
+        return affFormInstance;
+    }
+    public static MainDemandeurFormController getMainDmdFormInstance() {
+        if (mainDmdFormInstance == null) mainDmdFormInstance = MainDemandeurFormController.getInstance();
+        return mainDmdFormInstance;
+    }
     public static MainAffaireFormController getInstance() {
         return mainAffaireFormController;
     }
+    private static TerrainFromController terrainFromInstance;
+    private static NouveauDemandeurController newDemandeurFormInstance;
+    private static RechercherDemandeurController searchDmdFormInstance;
+    private static AffaireFormController affFormInstance;
+    private static MainDemandeurFormController mainDmdFormInstance;
     private static MainAffaireFormController mainAffaireFormController;
     // Label
     @FXML private Label affaireLabel;
@@ -72,4 +101,5 @@ public class MainAffaireFormController implements Initializable{
     @FXML private AnchorPane demandeurFormPanel;
     @FXML private AnchorPane terrainFormPanel;
     @FXML private AnchorPane piecejointeFormPanel;
+    @FXML private JFXProgressBar checkProgressBar;
 }

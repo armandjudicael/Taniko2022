@@ -1,5 +1,4 @@
 package view.Helper.Other;
-
 import com.jfoenix.controls.JFXProgressBar;
 import controller.formController.other.PieceJointeFormController;
 import javafx.application.Platform;
@@ -21,7 +20,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.util.StringConverter;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -106,9 +104,8 @@ public class AutoCompleteCombobox<T> implements EventHandler<KeyEvent>{
     private void initComboboxValueProperty() {
         this.comboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (comboBox.getId().equals("demandeurCombobox") && newValue!=null ){
-                MainDemandeurFormController instance = MainDemandeurFormController.getInstance();
                 PersonneMorale newValue1 = (PersonneMorale) newValue;
-                if (instance.getPersonneMorale().isSelected()) showMoraleValueDetails(newValue1);
+                if(newValue1.getType().equals(TypeDemandeur.PERSONNE_MORALE)) showMoraleValueDetails(newValue1)  ;
                 else showPhysiqueValueDetails(newValue1);
             }
         });
@@ -152,7 +149,6 @@ public class AutoCompleteCombobox<T> implements EventHandler<KeyEvent>{
     }
 
     private void initAllRepresentant(PersonneMorale personneMorale){
-
             if (personneMorale.getType().equals(TypeDemandeur.PERSONNE_MORALE)){
                 ObservableList<RepresentantForView> allRepresentant = personneMorale.getAllRepresentant();
                 if (!allRepresentant.isEmpty()){

@@ -133,7 +133,6 @@ private static final String ALL_TITLE_COLUMN = "T.idTitre AS IDENTIFIANT ," +
         return list;
     }
 
-
     @Override
     public int create(Titre titre){
         String query = "";

@@ -170,6 +170,11 @@ public class DemandeurMoraleDao extends Dao implements DaoHelper<PersonneMorale>
         return 0;
     }
     @Override public PersonneMorale findById(int id) {
+        try {
+            connection.prepareCall("checkInfoDemandeurMorale");
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
         return null;
     }
     @Override public PersonneMorale finByNum(int num) {

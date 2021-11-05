@@ -92,7 +92,6 @@ public class AttachementDownloaderButton implements EventHandler<ActionEvent>{
            }
        }
     }
-
     private static Desktop desktop;
     private Boolean isOnDetails;
 }

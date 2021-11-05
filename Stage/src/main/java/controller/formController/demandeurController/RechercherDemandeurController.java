@@ -8,7 +8,6 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.util.Callback;
 import model.Enum.TypeDemandeur;
 import model.pojo.business.PersonneMorale;
 import view.Helper.Other.AutoCompleteCombobox;
@@ -105,6 +104,7 @@ public class RechercherDemandeurController implements Initializable{
             return imageView;
         }
     }
+
     public static RechercherDemandeurController getInstance() {
         return rechercherDemandeurController;
     }
@@ -166,7 +166,6 @@ public class RechercherDemandeurController implements Initializable{
     @FXML private TreeTableColumn<RepresentantForView,String> nomRepresentantTreeTbColum;
     @FXML private TreeTableColumn<RepresentantForView,String> numAffTreeTbColumn;
     @FXML private TreeTableColumn<RepresentantForView,String> dateTreeTbColumn;
-
     private void initJfxTreeTableView(){
      numAffTreeTbColumn.setCellValueFactory(param -> new ObservableValue<String>() {
          @Override
@@ -258,6 +257,7 @@ public class RechercherDemandeurController implements Initializable{
     @FXML private Label emailMorale;
     @FXML private Label telMorale;
     @FXML private ScrollPane moralInfo;
+    JFXSnackbar
     // PHYSIQUE
     @FXML private Label nomDemandeurPhysique;
     @FXML private Label adressePhysique;

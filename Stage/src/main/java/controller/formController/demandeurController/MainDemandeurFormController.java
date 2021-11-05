@@ -2,6 +2,7 @@ package controller.formController.demandeurController;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTabPane;
 import controller.formController.other.MainAffaireFormController;
+import controller.formController.other.PieceJointeFormController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Tab;
@@ -9,6 +10,8 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import static controller.formController.other.MainAffaireFormController.getNewDemandeurFormInstance;
 
 public class MainDemandeurFormController implements Initializable {
     @Override public void initialize(URL location, ResourceBundle resources) {
@@ -36,6 +39,37 @@ public class MainDemandeurFormController implements Initializable {
         });
     }
 
+    private boolean checkDemandeurForm(){
+        if (personnePhysique.isSelected()) return checkDemandeurPhysique();
+        else return checkDemandeurMorale();
+    }
+
+    private Boolean checkDemandeurPhysique(){
+        NouveauDemandeurController newDemandeurFormInstance = getNewDemandeurFormInstance();
+        String email = newDemandeurFormInstance.getEmailPersonneMorale().getText();
+        String numTel = newDemandeurFormInstance.getTelephone().getText();
+        String nomEtPrenom = newDemandeurFormInstance.getNomDmd().getText();
+        if (    email!=null && email.isEmpty() &&
+                numTel!=null && !numTel.isEmpty() &&
+                !nomEtPrenom.isEmpty() && nomEtPrenom!=null){
+
+        }
+        return false;
+    }
+
+    private boolean checkDemandeurMorale(){
+        NouveauDemandeurController instance = getNewDemandeurFormInstance();
+        String raisonSocial = instance.getRaisonSocial().getText();
+        String telephone = instance.getTelPersonneMorale().getText();
+        String email = instance.getEmailPersonneMorale().getText();
+        if ((raisonSocial!=null && !raisonSocial.isEmpty()) &&
+                (telephone!=null && !telephone.isEmpty()) &&
+                (email!=null && !email.isEmpty())){
+
+        }
+        return false;
+    }
+
     public ToggleButton getPersonnePhysique() {
         return personnePhysique;
     }
@@ -54,13 +88,10 @@ public class MainDemandeurFormController implements Initializable {
     public static MainDemandeurFormController getInstance() {
         return mainDemandeurFormController;
     }
-
     public static void setMainDemandeurFormController(MainDemandeurFormController mainDemandeurFormController) {
         MainDemandeurFormController.mainDemandeurFormController = mainDemandeurFormController;
     }
     private static MainDemandeurFormController mainDemandeurFormController;
-
-
     @FXML private JFXTabPane applicantTabPane;
     @FXML private JFXButton dmdPrevBtn;
     @FXML private JFXButton dmdNextBtn;
