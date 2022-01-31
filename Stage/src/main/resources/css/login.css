@@ -1,0 +1,46 @@
+.box {
+    -fx-background-color: transparent;
+    -fx-border-color: #9d9a9a #9d9a9a;
+    -fx-border-width: 1.3px 1.3px;
+    -fx-border-radius: 5px;
+}
+
+.boxError {
+    -fx-background-color: transparent;
+    -fx-border-color: #ec1c24 #ec1c24;
+    -fx-border-width: 1.8px 1.8px;
+    -fx-border-radius: 5px;
+}
+
+.ok {
+    -fx-background-color: transparent;
+    -fx-border-color: #1aa848 #1aa848;
+    -fx-border-width: 1.8px 1.8px;
+    -fx-border-radius: 5px;
+}
+
+.btn {
+    -fx-background-color: #f14858;
+    -fx-border-radius: 8px;
+}
+
+.searchBox {
+    -fx-border-color: #9d9a9a #9d9a9a;
+    -fx-border-width: 1.2px 1.2px;
+    -fx-border-radius: 4px;
+}
+
+/*.jfx-progress-bar > .bar {*/
+/*-fx-background-color: #f14858;*/
+/*-fx-border-width: 0.5px 0.5px;*/
+/*-fx-border-radius: 4px;*/
+/*}*/
+
+.jfx-progress-bar {
+    -fx-background-color: transparent;
+    -fx-border-color: #9d9a9a #9d9a9a;
+    -fx-border-width: 0.5px 0.5px;
+    -fx-border-radius: 4px;
+}
+
+

@@ -1,0 +1,11 @@
+2021-12-31 16:44:45,942 [INFO] in application-akka.actor.default-dispatcher-9 - Starting the server
+2021-12-31 16:52:29,086 [INFO] in application-akka.actor.default-dispatcher-9 - Starting the server
+2021-12-31 17:27:51,210 [INFO] in application-akka.actor.default-dispatcher-9 - Starting the server
+2021-12-31 17:47:09,070 [INFO] in application-akka.actor.default-dispatcher-5 - Starting the server
+2021-12-31 18:18:14,116 [INFO] in application-akka.actor.default-dispatcher-8 - Starting the server
+2021-12-31 18:22:36,325 [INFO] in Thread-20 - Closing the server -> used memory: 40 MB  -  free system memory: 384 MB
+2021-12-31 18:39:36,796 [INFO] in application-akka.actor.default-dispatcher-6 - Starting the server
+2021-12-31 18:42:33,773 [INFO] in Thread-20 - Closing the server -> used memory: 33 MB  -  free system memory: 372 MB
+2021-12-31 18:56:40,603 [INFO] in application-akka.actor.default-dispatcher-7 - Starting the server
+2021-12-31 19:06:07,231 [INFO] in application-akka.actor.default-dispatcher-6 - Starting the server
+2021-12-31 19:42:59,569 [INFO] in application-akka.actor.default-dispatcher-6 - Starting the server

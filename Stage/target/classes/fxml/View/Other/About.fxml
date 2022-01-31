@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+<?import org.controlsfx.control.HyperlinkLabel?>
+
+<AnchorPane prefHeight="499.0" prefWidth="650.0" style="-fx-background-color: white;" stylesheets="@../../../css/tabpane.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <JFXTabPane layoutY="130.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="370.0" prefWidth="650.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <tabs>
+                <Tab text="Information">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <Label layoutX="11.0" layoutY="98.0" prefHeight="94.0" prefWidth="628.0" text="Le logiciel TANIKO est un logiciel de suivi de demande d'acquisition de terrtain domaniale et prescription acquisitive pour ameliorer la qualité du service au sein de la circonscription domaniale et fonciére de Toamasina I." wrapText="true">
+                           <font>
+                              <Font name="Arial Unicode MS" size="16.0" />
+                           </font></Label>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab text="Remerciement">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                        <Label layoutX="27.0" layoutY="209.0" prefHeight="29.0" prefWidth="446.0" text="- Monsieur JAOMAMY françois , Controlleur des domaines" wrapText="true">
+                           <font>
+                              <Font name="Arial Unicode MS" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="27.0" layoutY="155.0" prefHeight="44.0" prefWidth="547.0" text="- Madame RANDRIAMAHAZOSOA Bérénice Florissante , Adjointe chef de la circonscription domaniale et foncière de Toamasina I" wrapText="true">
+                           <font>
+                              <Font name="Arial Unicode MS" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="34.0" layoutY="36.0" prefHeight="20.0" prefWidth="280.0" text="RANDRIANARISON Voahanginirina noeline">
+                           <font>
+                              <Font name="Arial Unicode MS" size="14.0" />
+                           </font>
+                        </Label>
+                        <ImageView fitHeight="29.0" fitWidth="25.0" layoutX="322.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../img/hearts_48px.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="362.0" layoutY="36.0" prefHeight="20.0" prefWidth="128.0" text="TOMBO Augustin">
+                           <font>
+                              <Font name="Arial Unicode MS" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="331.0" layoutY="14.0" text="A" />
+                        <Label layoutX="20.0" layoutY="59.0" prefHeight="104.0" prefWidth="623.0" text="Je remercie Monsieur NANDRASANA Joselito , chef de la circonscription domaniale et foncière de Toamasina de m'avoir accordé cette stage . Ainsi que mes encadreurs proffesionnels qui m'ont aidé durant  la conception et la realisation de ce dernier. " wrapText="true">
+                           <font>
+                              <Font name="Arial Unicode MS" size="16.0" />
+                           </font>
+                        </Label>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab text="Devellopeur">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label alignment="CENTER" graphicTextGap="20.0" layoutX="23.0" layoutY="223.0" prefHeight="29.0" prefWidth="263.0" text="RATOMBOTIANA armand judicael" wrapText="true">
+                           <font>
+                              <Font name="Arial Unicode MS" size="16.0" />
+                           </font></Label>
+                        <Label graphicTextGap="20.0" layoutX="325.0" layoutY="104.0" prefHeight="29.0" prefWidth="247.0" text="0340588519 / 0348829712" AnchorPane.leftAnchor="315.0">
+                           <font>
+                              <Font name="Arial Unicode MS" size="16.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fx:id="phoneIcon" fitHeight="30.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../img/phone_48px.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Label>
+                        <HyperlinkLabel layoutX="148.0" layoutY="41.0" />
+                        <Hyperlink fx:id="facebook" graphicTextGap="15.0" layoutX="316.0" layoutY="189.0" prefHeight="29.0" prefWidth="162.0" text="armand Judicael" AnchorPane.bottomAnchor="105.0" AnchorPane.leftAnchor="315.0">
+                           <graphic>
+                              <ImageView fx:id="facebookIcon" fitHeight="29.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../img/facebook_48px.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Hyperlink>
+                        <Hyperlink fx:id="linkedin" graphicTextGap="15.0" layoutX="315.0" layoutY="241.0" text="RATOMBOTIANA Armand Judicael" AnchorPane.leftAnchor="315.0">
+                           <graphic>
+                              <ImageView fx:id="linkedinIcon" fitHeight="29.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../img/linkedin_48px.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Hyperlink>
+                        <Hyperlink fx:id="mail" graphicTextGap="15.0" layoutX="314.0" layoutY="148.0" text="armandjudicaelratombotiana@gmail.com" AnchorPane.leftAnchor="315.0">
+                           <graphic>
+                              <ImageView fx:id="emailIcon" fitHeight="29.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../img/gmail_48px.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Hyperlink>
+                        <Hyperlink fx:id="github" graphicTextGap="15.0" layoutX="320.0" layoutY="284.0" text="Armand Judicael" AnchorPane.leftAnchor="315.0">
+                           <graphic>
+                              <ImageView fx:id="gitHubIcon" fitHeight="29.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../img/github_48px.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Hyperlink>
+                        <Separator layoutX="302.0" layoutY="11.0" orientation="VERTICAL" prefHeight="311.0" prefWidth="3.0" />
+                        <Label alignment="CENTER" graphicTextGap="15.0" layoutX="17.0" layoutY="259.0" prefHeight="29.0" prefWidth="263.0" text="backend java developper" wrapText="true">
+                           <font>
+                              <Font name="Arial Unicode MS" size="16.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="43.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../img/java_48px.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Label>
+                        <Circle fx:id="profil" fill="#6c8cab" layoutX="154.0" layoutY="118.0" radius="89.0" stroke="#ffebeb" strokeType="INSIDE" strokeWidth="2.0" />
+                        <Label graphicTextGap="20.0" layoutX="320.0" layoutY="15.0" prefHeight="29.0" prefWidth="247.0" text="Toamasina , Madagascar" AnchorPane.leftAnchor="315.0">
+                           <font>
+                              <Font name="Arial Unicode MS" size="16.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fx:id="cityIcon" fitHeight="30.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../img/address_48px.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Label>
+                        <Label graphicTextGap="20.0" layoutX="325.0" layoutY="62.0" prefHeight="29.0" prefWidth="298.0" text="Ambalamanasy Carreau I , Lot 78" AnchorPane.leftAnchor="315.0">
+                           <font>
+                              <Font name="Arial Unicode MS" size="16.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fx:id="adressIcon" fitHeight="30.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../img/home_48px.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Label>
+                     </children></AnchorPane>
+                    </content>
+                </Tab>
+            </tabs>
+        </JFXTabPane>
+        <ImageView fitHeight="115.0" fitWidth="127.0" layoutX="14.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../../img/tuscany(3).png" />
+            </image>
+        </ImageView>
+        <Label layoutX="146.0" layoutY="31.0" prefHeight="35.0" prefWidth="128.0" text="TANIKO 1.0" textFill="#757373">
+            <font>
+                <Font name="Arial Rounded MT Bold" size="20.0" />
+            </font>
+        </Label>
+        <Label layoutX="146.0" layoutY="77.0" prefHeight="29.0" prefWidth="359.0" text="Circonscription domaniale et fonciere de Toamasina I" textFill="#656262">
+            <font>
+                <Font name="Arial Unicode MS" size="15.0" />
+            </font>
+        </Label>
+        <JFXButton id="close" fx:id="closeBtn" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" layoutX="614.0" prefHeight="0.0" prefWidth="0.0" text="Button" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <graphic>
+                <ImageView fitHeight="29.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../../img/delete_80px.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+            <padding>
+                <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+            </padding>
+        </JFXButton>
+    </children>
+</AnchorPane>

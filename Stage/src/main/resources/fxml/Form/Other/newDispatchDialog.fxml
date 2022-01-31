@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="203.0" prefWidth="483.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <JFXButton id="close" fx:id="closeBtn" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" layoutX="490.0" layoutY="8.0" prefHeight="0.0" prefWidth="0.0" text="Button" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <graphic>
+            <ImageView fitHeight="29.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../img/delete_20px.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <padding>
+            <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+         </padding>
+      </JFXButton>
+      <JFXButton fx:id="closeBtn1" buttonType="RAISED" contentDisplay="RIGHT" layoutX="251.0" layoutY="157.0" prefHeight="32.0" prefWidth="97.0" style="-fx-background-color: #f14858;" text="annuler" textFill="WHITE">
+         <font>
+            <Font name="Century Gothic" size="14.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="addBtn" buttonType="RAISED" contentDisplay="RIGHT" layoutX="364.0" layoutY="157.0" prefHeight="32.0" prefWidth="97.0" style="-fx-background-color: #389955;" text="enregister" textFill="WHITE">
+         <font>
+            <Font name="Century Gothic" size="14.0" />
+         </font>
+      </JFXButton>
+      <HBox alignment="CENTER_RIGHT" layoutX="22.0" layoutY="59.0" prefHeight="43.0" prefWidth="440.0" styleClass="box" stylesheets="@../../../css/box.css">
+         <padding>
+            <Insets left="2.0" />
+         </padding>
+         <children>
+            <JFXButton contentDisplay="GRAPHIC_ONLY" prefHeight="34.0" prefWidth="43.0">
+               <graphic>
+                  <ImageView fitHeight="25.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../img/filter_50px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <JFXComboBox fx:id="redactorCombobox" editable="true" focusColor="WHITE" prefHeight="35.0" prefWidth="394.0" unFocusColor="WHITE" />
+         </children>
+      </HBox>
+      <Label prefHeight="36.0" prefWidth="194.0" text="Nouvelle Dispatch" textFill="#3c3939">
+         <graphic>
+            <ImageView fitHeight="35.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../img/user_shield_50px.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <font>
+            <Font name="Arial Unicode MS" size="15.0" />
+         </font>
+      </Label>
+      <JFXCheckBox fx:id="checkBoxNouvDispatch" layoutX="22.0" layoutY="120.0" prefHeight="19.0" prefWidth="440.0" text="Avertir le demandeurPhysique par email et SMS" textFill="#464141">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </JFXCheckBox>
+   </children>
+</AnchorPane>

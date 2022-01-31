@@ -1,0 +1,5 @@
+.table-view .table-cell:hover{
+    -fx-border-width: 2px;
+    -fx-border-color: #1aa848;
+    -fx-cursor: hand;
+}

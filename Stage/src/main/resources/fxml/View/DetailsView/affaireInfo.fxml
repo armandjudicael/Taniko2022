@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<Tab text="Affaire" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.detailsController.AffairDetailsController">
+   <graphic>
+      <ImageView fitHeight="28.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../img/folder_50px.png" />
+         </image>
+      </ImageView>
+   </graphic>
+   <content>
+      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="657.0" prefWidth="1020.0" style="-fx-background-color: white;">
+         <children>
+            <Label layoutX="80.0" layoutY="68.0" prefHeight="35.0" prefWidth="88.0" text="Affaire N° :" textFill="#726b6b">
+               <font>
+                  <Font name="Arial Unicode MS" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="numeroAffaire" layoutX="197.0" layoutY="64.0" prefHeight="35.0" prefWidth="615.0" textFill="#726b6b" wrapText="true">
+               <font>
+                  <Font name="Arial Unicode MS" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="80.0" layoutY="153.0" prefHeight="35.0" prefWidth="194.0" text="Date de formulation :" textFill="#726b6b">
+               <font>
+                  <Font name="Arial Unicode MS" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="75.0" layoutY="238.0" prefHeight="35.0" prefWidth="160.0" text="Type de demande :" textFill="#726b6b">
+               <font>
+                  <Font name="Arial Unicode MS" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="dateFromulation" layoutX="218.0" layoutY="150.0" prefHeight="37.0" prefWidth="597.0" textFill="#726b6b" wrapText="true">
+               <font>
+                  <Font name="Arial Unicode MS" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="typeDemande" layoutX="207.0" layoutY="239.0" prefHeight="34.0" prefWidth="611.0" textFill="#726b6b" wrapText="true">
+               <font>
+                  <Font name="Arial Unicode MS" size="14.0" />
+               </font>
+            </Label>
+            <Separator layoutX="106.0" layoutY="107.0" prefHeight="3.0" prefWidth="767.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="100.0" />
+            <JFXButton fx:id="edtNumBtn" buttonType="RAISED" layoutX="12.0" layoutY="53.0" onAction="#actionOnAffaire" prefHeight="28.0" prefWidth="88.0" style="-fx-background-color: #1ca242;" text="Editer" textFill="WHITE" AnchorPane.rightAnchor="100.0">
+               <font>
+                  <Font name="Arial Unicode MS" size="14.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../img/edit_510px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <Separator layoutX="106.0" layoutY="192.0" prefHeight="3.0" prefWidth="767.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="100.0" />
+            <JFXButton fx:id="edtDateFormBtn" buttonType="RAISED" layoutX="845.0" layoutY="150.0" onAction="#actionOnAffaire" prefHeight="28.0" prefWidth="88.0" style="-fx-background-color: #1ca242;" text="Editer" textFill="WHITE" AnchorPane.rightAnchor="100.0">
+               <font>
+                  <Font name="Arial Unicode MS" size="14.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../img/edit_510px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <Separator layoutX="106.0" layoutY="280.0" prefHeight="3.0" prefWidth="767.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="100.0" />
+            <JFXButton fx:id="edtTypeDmdBtn" buttonType="RAISED" layoutX="845.0" layoutY="238.0" onAction="#actionOnAffaire" prefHeight="28.0" prefWidth="88.0" style="-fx-background-color: #1ca242;" text="Editer" textFill="WHITE" AnchorPane.rightAnchor="100.0">
+               <font>
+                  <Font name="Arial Unicode MS" size="14.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../img/edit_510px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <Label layoutX="78.0" layoutY="307.0" prefHeight="35.0" prefWidth="55.0" text="Statut :" textFill="#726b6b">
+               <font>
+                  <Font name="Arial Unicode MS" size="14.0" />
+               </font>
+            </Label>
+            <Separator layoutX="83.0" layoutY="349.0" prefHeight="0.0" prefWidth="841.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="99.0" />
+            <JFXButton fx:id="editStatusBtn" buttonType="RAISED" layoutX="834.0" layoutY="307.0" onAction="#actionOnAffaire" prefHeight="28.0" prefWidth="88.0" style="-fx-background-color: #1ca242;" text="Editer" textFill="WHITE" AnchorPane.rightAnchor="100.0">
+               <font>
+                  <Font name="Arial Unicode MS" size="14.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../img/edit_510px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <Label fx:id="statusLabel" layoutX="343.0" layoutY="304.0" prefHeight="35.0" prefWidth="353.0" textFill="#726b6b" wrapText="true" AnchorPane.leftAnchor="343.0" AnchorPane.rightAnchor="323.0">
+               <font>
+                  <Font name="Arial Unicode MS" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="78.0" layoutY="371.0" prefHeight="35.0" prefWidth="96.0" text=" N° réprerage :" textFill="#726b6b">
+               <font>
+                  <Font name="Arial Unicode MS" size="14.0" />
+               </font>
+            </Label>
+            <Separator layoutX="80.0" layoutY="406.0" prefHeight="0.0" prefWidth="841.0" />
+            <JFXButton fx:id="edtNumReperageBtn" buttonType="RAISED" layoutX="832.0" layoutY="371.0" onAction="#actionOnAffaire" prefHeight="28.0" prefWidth="88.0" style="-fx-background-color: #1ca242;" text="Editer" textFill="WHITE">
+               <font>
+                  <Font name="Arial Unicode MS" size="14.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../img/edit_510px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <Label fx:id="numReperage" layoutX="226.0" layoutY="371.0" prefHeight="35.0" prefWidth="214.0" textFill="#726b6b">
+               <font>
+                  <Font name="Arial Unicode MS" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="79.0" layoutY="430.0" prefHeight="35.0" prefWidth="110.0" text="Date réperage :" textFill="#726b6b">
+               <font>
+                  <Font name="Arial Unicode MS" size="14.0" />
+               </font>
+            </Label>
+            <Separator layoutX="81.0" layoutY="465.0" prefHeight="0.0" prefWidth="841.0" />
+            <JFXButton fx:id="edtDateReperageBtn" buttonType="RAISED" layoutX="833.0" layoutY="430.0" onAction="#actionOnAffaire" prefHeight="28.0" prefWidth="88.0" style="-fx-background-color: #1ca242;" text="Editer" textFill="WHITE">
+               <font>
+                  <Font name="Arial Unicode MS" size="14.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../img/edit_510px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <Label fx:id="dateReperage" layoutX="227.0" layoutY="430.0" prefHeight="35.0" prefWidth="214.0" textFill="#726b6b">
+               <font>
+                  <Font name="Arial Unicode MS" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="83.0" layoutY="484.0" prefHeight="35.0" prefWidth="110.0" text=" N° ordonance :" textFill="#726b6b">
+               <font>
+                  <Font name="Arial Unicode MS" size="14.0" />
+               </font>
+            </Label>
+            <Separator layoutX="85.0" layoutY="519.0" prefHeight="0.0" prefWidth="841.0" />
+            <JFXButton fx:id="edtDateReperageBtn1" buttonType="RAISED" layoutX="837.0" layoutY="484.0" onAction="#actionOnAffaire" prefHeight="28.0" prefWidth="88.0" style="-fx-background-color: #1ca242;" text="Editer" textFill="WHITE">
+               <font>
+                  <Font name="Arial Unicode MS" size="14.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../img/edit_510px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <Label fx:id="numeroOrdonance" layoutX="231.0" layoutY="484.0" prefHeight="35.0" prefWidth="214.0" textFill="#726b6b">
+               <font>
+                  <Font name="Arial Unicode MS" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="83.0" layoutY="537.0" prefHeight="35.0" prefWidth="110.0" text=" N° JTR:" textFill="#726b6b">
+               <font>
+                  <Font name="Arial Unicode MS" size="14.0" />
+               </font>
+            </Label>
+            <Separator layoutX="85.0" layoutY="572.0" prefHeight="0.0" prefWidth="841.0" />
+            <JFXButton fx:id="edtNumJTr" buttonType="RAISED" layoutX="837.0" layoutY="537.0" onAction="#actionOnAffaire" prefHeight="28.0" prefWidth="88.0" style="-fx-background-color: #1ca242;" text="Editer" textFill="WHITE">
+               <font>
+                  <Font name="Arial Unicode MS" size="14.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../img/edit_510px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <Label fx:id="numJtr" layoutX="231.0" layoutY="537.0" prefHeight="35.0" prefWidth="214.0" textFill="#726b6b">
+               <font>
+                  <Font name="Arial Unicode MS" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="84.0" layoutY="594.0" prefHeight="35.0" prefWidth="110.0" text="date JTR :" textFill="#726b6b">
+               <font>
+                  <Font name="Arial Unicode MS" size="14.0" />
+               </font>
+            </Label>
+            <Separator layoutX="86.0" layoutY="629.0" prefHeight="0.0" prefWidth="841.0" />
+            <JFXButton fx:id="edtDateJtr" buttonType="RAISED" layoutX="838.0" layoutY="594.0" onAction="#actionOnAffaire" prefHeight="28.0" prefWidth="88.0" style="-fx-background-color: #1ca242;" text="Editer" textFill="WHITE">
+               <font>
+                  <Font name="Arial Unicode MS" size="14.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../img/edit_510px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <Label fx:id="dateJtr" layoutX="232.0" layoutY="594.0" prefHeight="35.0" prefWidth="214.0" textFill="#726b6b">
+               <font>
+                  <Font name="Arial Unicode MS" size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </content>
+</Tab>

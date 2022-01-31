@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="376.0" prefWidth="389.0" style="-fx-background-color: white;" stylesheets="@../../css/login.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <ImageView fitHeight="114.0" fitWidth="117.0" layoutX="140.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../img/male_user_100px.png" />
+            </image>
+        </ImageView>
+        <JFXButton fx:id="submitBtn" alignment="CENTER_RIGHT" buttonType="RAISED" contentDisplay="RIGHT" defaultButton="true" graphicTextGap="100.0" layoutX="24.0" layoutY="318.0" prefHeight="24.0" prefWidth="341.0" style="-fx-background-color: #3CB371;" text="Valider" textFill="#f8f6f6">
+            <font>
+                <Font size="18.0" />
+            </font>
+         <graphic>
+            <ImageView fitHeight="21.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../img/next_page_32px.png" />
+               </image>
+            </ImageView>
+         </graphic>
+        </JFXButton>
+        <HBox fx:id="wrapper" alignment="CENTER" layoutX="26.0" layoutY="247.0" pickOnBounds="false" prefHeight="30.0" prefWidth="341.0" styleClass="box">
+            <children>
+                <ImageView fitHeight="36.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../img/secure_50px.png" />
+                    </image>
+                </ImageView>
+                <PasswordField fx:id="password" pickOnBounds="false" prefHeight="44.0" prefWidth="303.0" promptText="mot de passe" style="-fx-background-color: transparent;">
+                    <font>
+                        <Font name="Arial Unicode MS" size="15.0" />
+                    </font>
+                </PasswordField>
+                <ImageView fx:id="eye" fitHeight="29.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../img/invisible_50px.png" />
+                    </image>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                </ImageView>
+            </children>
+            <padding>
+                <Insets right="4.0" />
+            </padding>
+        </HBox>
+        <JFXButton id="c" fx:id="closeBtn" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" layoutX="300.0" layoutY="6.0" prefHeight="0.0" prefWidth="0.0" text="Button" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <graphic>
+                <ImageView fitHeight="29.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../img/delete_80px.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+            <padding>
+                <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+            </padding>
+        </JFXButton>
+        <Label fx:id="label" alignment="CENTER" contentDisplay="CENTER" layoutX="-8.0" layoutY="288.0" prefHeight="30.0" prefWidth="389.0" textFill="#e14a4a" wrapText="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+        <Text fill="#4d4949" layoutX="24.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AUTHENTIFICATION RECQUISE" textAlignment="CENTER" wrappingWidth="341.0" AnchorPane.rightAnchor="24.0">
+            <font>
+                <Font name="Arial Unicode MS" size="18.0" />
+            </font>
+        </Text>
+      <Label fx:id="passwordLabel" layoutX="26.0" layoutY="221.0" prefHeight="17.0" prefWidth="101.0" text="Mot de passe">
+         <font>
+            <Font name="Arial Unicode MS" size="14.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="21.0" fitWidth="26.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../img/next_page_32px.png" />
+         </image>
+      </ImageView>
+    </children>
+</AnchorPane>

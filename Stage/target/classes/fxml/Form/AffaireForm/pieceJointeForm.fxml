@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="pieceJointePanel" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" style="-fx-background-color: whitesmoke;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.formController.otherFormController.PieceJointeFormController">
+   <children>
+      <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" pannable="true" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <content>
+            <TilePane fx:id="pjTilepane" alignment="CENTER" hgap="20.0" prefWidth="737.0" style="-fx-background-color: white;" vgap="20.0">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <children>
+                  <JFXButton fx:id="addAttachInBtn" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" prefHeight="150.0" prefWidth="150.0" stylesheets="@../../../css/Card.css">
+                     <graphic>
+                        <ImageView fitHeight="81.0" fitWidth="85.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../img/push_pin_100px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+               </children></TilePane>
+         </content>
+      </ScrollPane>
+      <JFXButton fx:id="pjPrevBtn" buttonType="RAISED" layoutX="490.0" layoutY="508.0" prefHeight="35.0" prefWidth="108.0" style="-fx-background-color: #389955;" text="revenir" textFill="WHITE" AnchorPane.bottomAnchor="6.0" AnchorPane.rightAnchor="125.0">
+         <font>
+            <Font name="Arial Unicode MS" size="14.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../img/back_32px.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="addAttachOutBtn" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" layoutX="14.0" layoutY="505.0" prefHeight="35.0" prefWidth="43.0" style="-fx-background-color: #389955;" text="ajouter" textFill="WHITE" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="5.0">
+         <font>
+            <Font name="Century Gothic" size="14.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="23.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../img/plus_50px.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="delPieceBtn" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" layoutX="65.0" layoutY="505.0" prefHeight="35.0" prefWidth="43.0" style="-fx-background-color: #f14858;" text="annuler" textFill="WHITE" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="55.0">
+         <font>
+            <Font name="Century Gothic" size="14.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="23.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../img/broom_20px.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="checkBtn" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" layoutX="106.0" layoutY="539.0" prefHeight="35.0" prefWidth="43.0" style="-fx-background-color: #389955;" text="ajouter" textFill="WHITE" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="106.0">
+         <font>
+            <Font name="Century Gothic" size="14.0" />
+         </font>
+         <graphic>
+            <ImageView fx:id="checkBtnImageView" fitHeight="23.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../img/checked_checkbox_40px.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="pjNextBtn" buttonType="RAISED" contentDisplay="RIGHT" layoutX="617.0" layoutY="539.0" prefHeight="35.0" prefWidth="108.0" style="-fx-background-color: #389955;" text="suivant" textFill="WHITE" AnchorPane.bottomAnchor="6.0" AnchorPane.rightAnchor="10.0">
+         <font>
+            <Font name="Century Gothic" size="14.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="23.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../img/more_than_32px.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+   </children>
+</AnchorPane>

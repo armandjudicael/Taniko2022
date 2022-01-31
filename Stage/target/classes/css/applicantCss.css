@@ -1,0 +1,8 @@
+#applicantForView {
+    -fx-background-color: #c3e3cc; -fx-background-radius: 10px;
+}
+#applicantForView:hover{
+    -fx-border-color: #239846;
+    -fx-border-width: 2px 2px;
+    -fx-border-radius: 10px;
+}

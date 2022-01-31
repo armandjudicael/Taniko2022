@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.chart.AreaChart?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="dashboard" prefHeight="650.0" style="-fx-background-color: #F0FFF0;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.viewController.DashboardController">
+    <children>
+        <HBox alignment="CENTER" layoutX="12.0" layoutY="23.0" prefHeight="152.0" prefWidth="1496.0" spacing="20.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+            <children>
+                  <AnchorPane prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 10px;">
+                      <effect>
+                          <DropShadow color="#b9a5a5" />
+                      </effect>
+                      <children>
+                          <ImageView fitHeight="68.0" fitWidth="74.0" layoutX="14.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                  <Image url="@../../../img/binder_120px.png" />
+                              </image>
+                          </ImageView>
+                          <Text fx:id="totalAffaire" fill="#6b5e5e" layoutX="97.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" wrappingWidth="157.99999999999994">
+                              <font>
+                                  <Font size="57.0" />
+                              </font>
+                          </Text>
+                          <Text fill="#574d4d" layoutX="128.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TOTAL" textAlignment="CENTER" wrappingWidth="96.13671875" AnchorPane.bottomAnchor="11.2353515625">
+                              <font>
+                                  <Font name="System Bold" size="15.0" />
+                              </font>
+                          </Text>
+                          <Separator layoutX="91.0" layoutY="21.0" orientation="VERTICAL" prefHeight="110.0" prefWidth="0.0" />
+                          <Text fill="#574d4d" layoutX="107.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AFFAIRE" textAlignment="CENTER" wrappingWidth="136.9999999999999">
+                              <font>
+                                  <Font name="System Bold" size="15.0" />
+                              </font>
+                          </Text>
+                      </children>
+                  </AnchorPane>
+            <AnchorPane layoutX="325.0" layoutY="10.0" prefHeight="152.0" prefWidth="248.0" style="-fx-background-color: white; -fx-background-radius: 10px;">
+               <effect>
+                  <DropShadow color="#b9a5a5" />
+               </effect>
+               <children>
+                  <Text fx:id="totalDa1" fill="#6b5e5e" layoutX="36.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" wrappingWidth="219.9999999999999">
+                     <font>
+                        <Font size="57.0" />
+                     </font>
+                  </Text>
+                  <Text fill="#574d4d" layoutX="98.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TOTAL" textAlignment="CENTER" wrappingWidth="96.13671875" AnchorPane.bottomAnchor="15.0">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Text>
+                  <Text fill="#574d4d" layoutX="10.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DEMANDE D'ACQUISITION" textAlignment="CENTER" wrappingWidth="273.13671875">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Text>
+               </children>
+            </AnchorPane>
+                  <AnchorPane prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 10px;">
+                      <effect>
+                          <DropShadow color="#b9a5a5" />
+                      </effect>
+                      <children>
+                          <Text fx:id="totalDafc" fill="#6b5e5e" layoutX="36.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" wrappingWidth="219.9999999999999">
+                              <font>
+                                  <Font size="57.0" />
+                              </font>
+                          </Text>
+                          <Text fill="#574d4d" layoutX="98.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TOTAL" textAlignment="CENTER" wrappingWidth="96.13671875" AnchorPane.bottomAnchor="15.0">
+                              <font>
+                                  <Font name="System Bold" size="15.0" />
+                              </font>
+                          </Text>
+                          <Text fill="#574d4d" layoutX="10.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DEMANDE D'AFFECTATION" textAlignment="CENTER" wrappingWidth="273.13671875">
+                              <font>
+                                  <Font name="System Bold" size="15.0" />
+                              </font>
+                          </Text>
+                      </children>
+                  </AnchorPane>
+                  <AnchorPane prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 10px;">
+                      <effect>
+                          <DropShadow color="#b9a5a5" />
+                      </effect>
+                      <children>
+                          <Text fx:id="totalPa" fill="#6b5e5e" layoutX="65.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" wrappingWidth="165.0">
+                              <font>
+                                  <Font size="57.0" />
+                              </font>
+                          </Text>
+                          <Text fill="#574d4d" layoutX="98.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TOTAL" textAlignment="CENTER" wrappingWidth="96.13671875" AnchorPane.bottomAnchor="15.0">
+                              <font>
+                                  <Font name="System Bold" size="15.0" />
+                              </font>
+                          </Text>
+                          <Text fill="#574d4d" layoutX="10.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PRESCRIPTION ACQUISITIVE" textAlignment="CENTER" wrappingWidth="273.13671875">
+                              <font>
+                                  <Font name="System Bold" size="15.0" />
+                              </font>
+                          </Text>
+                      </children>
+                  </AnchorPane>
+                  <AnchorPane prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 10px;">
+                      <effect>
+                          <DropShadow color="#b9a5a5" />
+                      </effect>
+                      <children>
+                          <ImageView fitHeight="68.0" fitWidth="89.0" layoutX="20.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                  <Image url="@../../../img/title.png" />
+                              </image>
+                          </ImageView>
+                          <Text fx:id="totalTitre" fill="#6b5e5e" layoutX="107.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" wrappingWidth="158.0">
+                              <font>
+                                  <Font size="57.0" />
+                              </font>
+                          </Text>
+                          <Text fill="#574d4d" layoutX="144.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TOTAL" textAlignment="CENTER" wrappingWidth="96.13671875" AnchorPane.bottomAnchor="11.2353515625">
+                              <font>
+                                  <Font name="System Bold" size="15.0" />
+                              </font>
+                          </Text>
+                          <Separator layoutX="107.0" layoutY="21.0" orientation="VERTICAL" prefHeight="110.0" prefWidth="0.0" />
+                          <Text fill="#574d4d" layoutX="113.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TITRE" textAlignment="CENTER" wrappingWidth="157.99999999999994">
+                              <font>
+                                  <Font name="System Bold" size="15.0" />
+                              </font>
+                          </Text>
+                      </children>
+                  </AnchorPane>
+            </children>
+        </HBox>
+      <AnchorPane layoutX="38.0" layoutY="198.0" prefHeight="454.0" prefWidth="200.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <effect>
+            <DropShadow color="#c3b8b8" />
+         </effect>
+         <children>
+            <JFXButton fx:id="next" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" prefHeight="42.0" prefWidth="21.0" text="Button" textFill="#8a5f5f" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <graphic>
+                  <ImageView fitHeight="42.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../img/prev_50px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <effect>
+                  <DropShadow color="#3c3535" height="38.79" radius="18.895" spread="0.12" width="38.79" />
+               </effect>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXButton>
+            <JFXButton fx:id="prev" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" layoutX="50.0" prefHeight="36.0" prefWidth="43.0" text="Button" textFill="#8a5f5f" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="0.0">
+               <graphic>
+                  <ImageView fitHeight="42.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../img/right_button_50px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <effect>
+                  <DropShadow color="#3c3535" height="38.79" radius="18.895" spread="0.12" width="38.79" />
+               </effect>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXButton>
+            <JFXButton fx:id="prev1" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" layoutX="426.0" layoutY="4.0" prefHeight="36.0" prefWidth="43.0" text="Button" textFill="#8a5f5f" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="4.0">
+               <effect>
+                  <DropShadow color="#3c3535" height="38.79" radius="18.895" spread="0.12" width="38.79" />
+               </effect>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXButton>
+            <StackPane fx:id="carrouselView" layoutX="-5.0" layoutY="44.0" prefHeight="406.0" prefWidth="1245.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
+               <children>
+                  <AnchorPane fx:id="chart2" prefHeight="412.0" prefWidth="1200.0" style="-fx-background-color: white;">
+                     <children>
+                        <AreaChart fx:id="areaChart" layoutX="53.0" layoutY="47.0" prefHeight="403.0" prefWidth="1240.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="47.0">
+                           <xAxis>
+                              <CategoryAxis side="BOTTOM" />
+                           </xAxis>
+                           <yAxis>
+                              <NumberAxis side="LEFT" />
+                           </yAxis>
+                        </AreaChart>
+                        <JFXComboBox fx:id="yearFilter" labelFloat="true" layoutX="37.0" layoutY="14.0" prefHeight="33.0" prefWidth="158.0" promptText="Anneé" AnchorPane.leftAnchor="37.0" AnchorPane.topAnchor="14.0" />
+                        <JFXComboBox fx:id="monthFilter" labelFloat="true" layoutX="1053.0" layoutY="14.0" prefHeight="33.0" prefWidth="158.0" promptText="Mois" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="chart1" prefHeight="372.0" prefWidth="1200.0" style="-fx-background-color: white; -fx-background-radius: 10px;">
+                     <children>
+                        <PieChart fx:id="piechart" layoutX="14.0" layoutY="10.0" prefHeight="417.0" prefWidth="555.0" title="Repartition entre Acquisition et Prescription" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="631.0" AnchorPane.topAnchor="10.0" />
+                        <BarChart fx:id="barChart" layoutX="607.0" layoutY="6.0" prefHeight="425.0" prefWidth="574.0" title="Nombre d'dossier par année" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="607.0" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="10.0">
+                           <xAxis>
+                              <CategoryAxis label="année" side="BOTTOM" tickLabelFill="#656060" />
+                           </xAxis>
+                           <yAxis>
+                              <NumberAxis label="nombre d'dossier" side="LEFT" />
+                           </yAxis>
+                        </BarChart>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </StackPane>
+         </children>
+      </AnchorPane>
+    </children>
+    <effect>
+        <DropShadow height="166.29" radius="46.3225" />
+    </effect>
+</AnchorPane>

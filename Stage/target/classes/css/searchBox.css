@@ -1,0 +1,11 @@
+#box{
+    -fx-background-color:  #F0FFF0;
+    -fx-border-color: #9d9a9a;
+    -fx-border-width: 1.2px;
+    -fx-border-radius: 3px;
+}
+
+#box:hover{
+    -fx-border-color:  #1aa848;
+    -fx-border-width: 1.5px;
+}

@@ -1,0 +1,15 @@
+/*.leftCarouselBtn {*/
+    /*-fx-background-color: #f14858;*/
+    /*!*-fx-border-color: white ;*!*/
+    /*!*-fx-border-width: 2px;*!*/
+    /*-fx-background-radius: 38px 0px 0px 38px;*/
+/*}*/
+
+/*.rightCarouselBtn {*/
+
+/*}*/
+
+.jfx-button{
+    -fx-background-radius: 0px 100px 100px 0px;
+    -fx-background-color: rgba(255, 255, 255, 0);
+}
